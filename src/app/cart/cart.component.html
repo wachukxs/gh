@@ -1,0 +1,116 @@
+<p>cart works!</p>
+
+<div class="cart">
+    <mat-slider min="1" max="100" step="1" value="67"></mat-slider>
+  
+    <mat-chip-list aria-label="Fish selection">
+      <mat-chip>One fish</mat-chip>
+      <mat-chip>Two fish</mat-chip>
+      <mat-chip color="primary" selected>Primary fish</mat-chip>
+      <mat-chip color="accent" selected>Accent fish</mat-chip>
+    </mat-chip-list>
+  
+    <form class="example-form" [formGroup]="sampleForm">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Favorite name again" (change)="editName($event)" formControlName="name">
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <textarea matInput formControlName="text" (change)="editText($event)" placeholder="Leave a comment"></textarea>
+      </mat-form-field>
+    </form>
+
+
+    <!-- two line list -->
+<mat-list>
+  <mat-list-item *ngFor="let message of [1,2]">
+    <h3 matLine> 'fsadfasfas' </h3>
+    <p matLine>
+      <span> bksygfsu agfuyads </span>
+      <span class="demo-2"> -- 89hyubhjf dsli </span>
+    </p>
+  </mat-list-item>
+</mat-list>
+
+<!-- three line list -->
+<mat-list>
+  <mat-list-item *ngFor="let message of [2,4,5]">
+    <h3 matLine> 43389yo83y83 </h3>
+    <p matLine> ilafn asiodjads89nl;fas </p>
+    <p matLine class="demo-2"> jloiuhfohwhwehy7wq </p>
+  </mat-list-item>
+</mat-list>
+
+
+
+
+  <div class="align-content-center">
+
+        <mat-card class="example-card" >
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p >
+              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+              bred for hunting.
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="example-card" >
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p  >
+              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+              bred for hunting.
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="example-card" >
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Shiba Inu</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p >
+              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+              bred for hunting.
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </mat-card>
+
+    
+    
+    
+  </div>
+  
+  </div>
+
+  

@@ -1,8 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { NavComponent } from './nav/nav.component';
+import { StatusComponent } from './status/status.component';
+import { CartComponent } from './cart/cart.component';
+import { SampleFormComponent } from './sample-form/sample-form.component';
+import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
+import { AppComponent } from './app.component';
+import { FeedComponent } from './feed/feed.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'home', component: AppComponent },
+  { path: 'status', component: StatusComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'nav', component: NavComponent },
+  { path: 'dashboard', component: AgentDashboardComponent },
+  { path: 'feed', component: FeedComponent },
+  { path: '', component: FeedComponent },
+  { path: 'form', component: SampleFormComponent },
+  { path: '**', component: AppComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

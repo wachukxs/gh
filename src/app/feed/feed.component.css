@@ -1,0 +1,16 @@
+cdk-virtual-scroll-viewport {
+    /* background-color: blue; */
+    height: 60%;
+}
+
+.fact-item {
+    margin-bottom: 6px;
+}
+
+.fact-date {
+    background-color: brown;
+}
+
+.black {
+    background-color: black;
+}

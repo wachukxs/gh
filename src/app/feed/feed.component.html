@@ -1,0 +1,41 @@
+<!-- https://alligator.io/angular/infinite-scroll/
+  In order for the component to properly size its internal scroller,
+  we need to tell the scroller how tall each item will be (in pixels).
+  This is done using the itemSize directive.
+  So, itemSize="100" means that item in the list will require 100px of height.
+ -->
+
+ <!--
+   
+    mat-card-title
+    mat-card-subtitle
+    mat-card-content
+    mat-card-actions
+    mat-card-footer
+
+ -->
+ <cdk-virtual-scroll-viewport itemSize="100">
+    <mat-list *cdkVirtualFor="let fact of dataSource">
+        <!-- Print stuff here -->
+        <mat-card *ngFor="let g of fact.states[0] || fact" class="fact-item">
+          {{ g || fact.year }}
+          <!-- <div class="fact-date">{{ g || fact.year }}</div> -->
+          <!-- <div class="fact-text">{{ g || fact.text }}</div> -->
+
+          <mat-card-content>
+            <p>
+              The Shiba Inu is the smallest of the six original
+              and distinct spitz breeds of dog from Japan.
+            </p>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>SHARE</button>
+          </mat-card-actions>
+        </mat-card>
+        <div class="black" *ngIf="!fact">
+          Loading ...
+        </div>
+    </mat-list>
+  </cdk-virtual-scroll-viewport>
