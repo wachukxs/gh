@@ -5,7 +5,7 @@
   So, itemSize="100" means that item in the list will require 100px of height.
  -->
 
- <!--
+<!--
    
     mat-card-title
     mat-card-subtitle
@@ -15,7 +15,7 @@
 
  -->
 
- <!--
+<!--
    <mat-card class="example-card">
 	<mat-card-header>
     <mat-icon>more_vert</mat-icon>
@@ -28,31 +28,25 @@
 
 
 
- <cdk-virtual-scroll-viewport itemSize="10">
+<cdk-virtual-scroll-viewport itemSize="10">
 
- <mat-card class="dashboard-card" *cdkVirtualFor="let fact of dataSource">
+  <mat-card class="dashboard-card" *cdkVirtualFor="let fact of dataSource">
 
-        <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu">
+    <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu">
 
-        <mat-card-header>
-          <mat-card-title>
-             <!--fact.states[0][0] ||-->
+    <mat-card-header>
+      <mat-card-title>
+        <!--fact.states[0][0] ||-->
 
-            {{fact.text}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>{{'Number: ' + fact.number + ', year ' + fact.year}} [Card Content Here]</div>
-        </mat-card-content>
-      </mat-card>
-  
+        {{fact.text}}
+
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="dashboard-card-content">
+      <div>{{'Number: ' + fact.number + ', year ' + fact.year}} [Card Content Here]</div>
+    </mat-card-content>
+  </mat-card>
+
 
 </cdk-virtual-scroll-viewport>
 
@@ -62,7 +56,7 @@
 
 
 
- <!-- <cdk-virtual-scroll-viewport itemSize="100">
+<!-- <cdk-virtual-scroll-viewport itemSize="100">
     <mat-list *cdkVirtualFor="let fact of dataSource">
       
         <mat-card *ngFor="let g of fact.states[0] || fact" class="fact-item">
