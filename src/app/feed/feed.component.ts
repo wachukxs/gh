@@ -3,6 +3,9 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { FactService } from '../fact.service';
 
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, shareReplay } from 'rxjs/operators';
+
 export interface Fact { // change to property
   text?: string;
   date?: string;
@@ -16,9 +19,15 @@ export class FeedComponent implements OnInit {
 
   dataSource: FactsDataSource | object;
 
-  constructor(public factService: FactService) {
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
+  constructor(public factService: FactService, private breakpointObserver: BreakpointObserver) {
     this.dataSource = new FactsDataSource(factService);
-   }
+  }
 
   ngOnInit() {
     console.log('data source:', this.dataSource);
@@ -60,6 +69,8 @@ export class FactsDataSource extends DataSource<object | Fact | undefined> {
     this.subscription.add(collectionViewer.viewChange.subscribe(range => {
       // Update the data
       const currentPage = this._getPageForIndex(range.end);
+
+      console.log('what\'s range.end:', range.end, 'what\'s range:', range);
 
       if (currentPage && range) {
         console.log('current page:', currentPage, 'last page:', this.lastPage);
