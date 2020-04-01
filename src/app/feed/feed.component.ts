@@ -16,7 +16,6 @@ export class FeedComponent implements OnInit {
 
   dataSource: FactsDataSource | object;
 
-
   constructor(public factService: FactService) {
     this.dataSource = new FactsDataSource(factService);
    }
@@ -63,7 +62,7 @@ export class FactsDataSource extends DataSource<object | Fact | undefined> {
       const currentPage = this._getPageForIndex(range.end);
 
       if (currentPage && range) {
-        console.log(currentPage, this.lastPage);
+        console.log('current page:', currentPage, 'last page:', this.lastPage);
       }
 
       if (currentPage > this.lastPage) {

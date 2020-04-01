@@ -61,3 +61,14 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+
+
+ /**
+  * C:\Users\NWACHUKWU\Documents\angular material\mat-design>ng build
+    Generating ES5 bundles for differential loading...
+    An unhandled exception occurred: [BABEL] C:\Users\NWACHUKWU\Documents\angular material\mat-design\dist\mat-design\styles-es2015.js: Could not find plugin "proposal-numeric-separator". Ensure there is an entry in ./available-plugins.js for it. (While processing: "C:\\Users\\NWACHUKWU\\Documents\\angular material\\mat-design\\node_modules\\@babel\\preset-env\\lib\\index.js")
+    See "C:\Users\NWACHU~1\AppData\Local\Temp\ng-eFCyIh\angular-errors.log" for further details.
+
+    SOLUTION: https://stackoverflow.com/a/60781705/9259701
+  */

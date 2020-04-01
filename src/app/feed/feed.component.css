@@ -1,16 +1,15 @@
 cdk-virtual-scroll-viewport {
     /* background-color: blue; */
-    height: 60%;
+    height: calc(100% - 64px);
+    /* padding: 20px; */
+
+    width: 100%;
 }
 
-.fact-item {
-    margin-bottom: 6px;
+mat-card {
+    width: 45%;
 }
 
-.fact-date {
-    background-color: brown;
-}
-
-.black {
-    background-color: black;
+.img {
+    /* width: 150px; */
 }
