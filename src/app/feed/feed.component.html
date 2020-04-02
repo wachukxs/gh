@@ -26,119 +26,137 @@
 </mat-card>
  -->
 
- <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar class="filters">Filters</mat-toolbar>
-  <div class="byside">
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'push' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar class="filters">
+      Filters
+      <span class="example-spacer"></span>
+      <button mat-raised-button>Reset All</button>
+    </mat-toolbar>
 
-    <h4>Budget</h4>
+      <mat-toolbar-row>
+        <h4>Budget</h4>
+        <span class="example-spacer"></span>
+        <mat-slide-toggle aria-label="Cancel this filter">
+          <!-- Reset -->
+        </mat-slide-toggle>
+      </mat-toolbar-row>
 
-    <mat-chip-list aria-label="Range selection">
-      <mat-chip>Two fish</mat-chip>
-      <mat-chip color="primary" selected>Primary fish</mat-chip>
-    </mat-chip-list>
+      <div class="byside">
+        <mat-chip-list aria-label="Range selection">
+          <mat-chip>Two fish</mat-chip>
+          <mat-chip color="primary" selected>Primary fish</mat-chip>
+        </mat-chip-list>
+  
+        <mat-slider min="50000" max="2000000" step="5000" value="150000"></mat-slider>
+  
+      </div>
 
-    <mat-slider min="50000" max="2000000" step="5000" value="150000"></mat-slider>
+      
+      <mat-divider class="margin-up-down"></mat-divider>
 
-    <mat-divider class="margin-up-down"></mat-divider>
+      <mat-toolbar-row>
+        <h4>House type</h4>
+        <span class="example-spacer"></span>
+        <mat-slide-toggle aria-label="Cancel this filter">
+          <!-- Reset -->
+        </mat-slide-toggle>
+      </mat-toolbar-row>
 
-    <h4>House type</h4>
+      <div class="byside">
+        <mat-chip-list aria-label="Specs selection">
+          <mat-chip>1 BHK</mat-chip>
+          <mat-chip>2 BHK</mat-chip>
+          <mat-chip color="primary" selected>1 BK</mat-chip>
+          <mat-chip color="accent" selected>2B 1K</mat-chip>
+          <mat-chip color="accent" selected>3B 1K</mat-chip>
+          <mat-chip color="accent" selected>4B 1K</mat-chip>
+        </mat-chip-list>
+      </div>
 
-    <mat-chip-list aria-label="Specs selection">
-      <mat-chip>1 BHK</mat-chip>
-      <mat-chip>2 BHK</mat-chip>
-      <mat-chip color="primary" selected>1 BK</mat-chip>
-      <mat-chip color="accent" selected>2B 1K</mat-chip>
-      <mat-chip color="accent" selected>3B 1K</mat-chip>
-      <mat-chip color="accent" selected>4B 1K</mat-chip>
-    </mat-chip-list>
+      <mat-divider class="margin-up-down"></mat-divider>
 
-    <mat-divider class="margin-up-down"></mat-divider>
+      <mat-toolbar-row>
+        <h4>How far (from you)</h4>
+        <span class="example-spacer"></span>
+        <mat-slide-toggle aria-label="Cancel this filter">
+          <!-- Reset -->
+        </mat-slide-toggle>
+      </mat-toolbar-row>
 
-    <h4>How far (from you)</h4>
+      <div class="byside">
+        <mat-slider min="1000" max="200000" step="5000" value="50000"></mat-slider>
 
-    <mat-slider min="1000" max="200000" step="5000" value="50000"></mat-slider>
+      <!-- based on the distance, filter the avaliabel places -->
 
-    <!-- based on the distance, filter the avaliabel places -->
+      <mat-form-field>
+        <mat-label>Places like:</mat-label>
+        <mat-select role="listbox" [formControl]="places" multiple>
+          <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{place}}</mat-option>
 
-    <mat-form-field>
-      <mat-label>Places like:</mat-label>
-      <mat-select role="listbox" [formControl]="places" multiple>
-        <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{place}}</mat-option>
-
-        <!-- <mat-optgroup label="5 miles" *ngFor="let place of placesList">
+          <!-- <mat-optgroup label="5 miles" *ngFor="let place of placesList">
           <mat-option *ngFor="let area of places" [value]="area">{{area}}</mat-option>
         </mat-optgroup> -->
-        
-      </mat-select>
-    </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Places like:</mat-label>
-      <mat-select [formControl]="placesControl" multiple [disabled]="true" [style.display]="false">
-        <mat-option>-- None --</mat-option>
-        <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace">
-          <mat-option *ngFor="let place of places.place" [value]="place.value">
-            {{place.viewValue}}
-          </mat-option>
-        </mat-optgroup>
-      </mat-select>
-    </mat-form-field>
-    
+        </mat-select>
+      </mat-form-field>
 
+      <mat-form-field>
+        <mat-label>Places like:</mat-label>
+        <mat-select [formControl]="placesControl" multiple [disabled]="true" [style.display]="false">
+          <mat-option>-- None --</mat-option>
+          <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace">
+            <mat-option *ngFor="let place of places.place" [value]="place.value">
+              {{place.viewValue}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+      </div>
 
-
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
-  </div>
 
   </mat-sidenav>
   <mat-sidenav-content>
 
     <mat-toolbar color="accent">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>mat-design</span>
       <!-- show number of available properties, and the filter citerias the user has choosen -->
     </mat-toolbar>
-    
+
     <!-- Add Content Here -->
-    
+
     <cdk-virtual-scroll-viewport itemSize="10">
 
-      
+
 
       <mat-card class="dashboard-card center" *cdkVirtualFor="let fact of dataSource">
-    
+
         <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu">
-    
+
         <mat-card-header>
           <mat-card-title>
             <!--fact.states[0][0] ||-->
-    
+
             {{fact.text}}
-    
+
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>{{'Number: ' + fact.number + ', year ' + fact.year}} <!-- [Card Content Here] --></div>
+          <div>{{'Number: ' + fact.number + ', year ' + fact.year}}
+            <!-- [Card Content Here] -->
+          </div>
         </mat-card-content>
       </mat-card>
 
-      <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content"></mat-spinner>   
-    
+      <!-- show only if user at bottom of page & in view-->
+      <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
+      </mat-spinner>
+
     </cdk-virtual-scroll-viewport>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -24,7 +24,8 @@ import { NavComponent } from './nav/nav.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatRippleModule } from '@angular/material/core'; 
+import { MatRippleModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -48,6 +49,7 @@ import { FeedComponent } from './feed/feed.component';
     BrowserModule,
     RouterModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
     ScrollingModule,
     AppRoutingModule,
     HttpClientModule,

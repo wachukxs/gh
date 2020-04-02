@@ -53,6 +53,10 @@ mat-sidenav-content {
 
 /* fairly Stable CSS */
 
+.example-spacer {
+    flex: 1 1 auto;
+}
+
 .byside {
     padding: 0px 16px;
 }
