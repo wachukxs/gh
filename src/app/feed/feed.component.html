@@ -75,6 +75,18 @@
         
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Places like:</mat-label>
+      <mat-select [formControl]="placesControl" multiple [disabled]="true" [style.display]="false">
+        <mat-option>-- None --</mat-option>
+        <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace">
+          <mat-option *ngFor="let place of places.place" [value]="place.value">
+            {{place.viewValue}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
     
 
 
@@ -89,7 +101,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
 
-    <mat-toolbar color="primary">
+    <mat-toolbar color="accent">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -108,7 +120,7 @@
 
       
 
-      <mat-card class="dashboard-card" *cdkVirtualFor="let fact of dataSource">
+      <mat-card class="dashboard-card center" *cdkVirtualFor="let fact of dataSource">
     
         <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu">
     
@@ -124,7 +136,8 @@
           <div>{{'Number: ' + fact.number + ', year ' + fact.year}} <!-- [Card Content Here] --></div>
         </mat-card-content>
       </mat-card>
-    
+
+      <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content"></mat-spinner>   
     
     </cdk-virtual-scroll-viewport>
   </mat-sidenav-content>

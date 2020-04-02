@@ -13,15 +13,16 @@ export interface Fact { // change to property
   date?: string;
 }
 
-interface Pokemon {
+interface Place {
   value: string;
   viewValue: string;
 }
 
-interface PokemonGroup {
+interface PlacesGroup {
+  // more relevant properties
   disabled?: boolean;
-  name: string;
-  pokemon: Pokemon[];
+  distace: number;
+  place: Place[];
 }
 
 @Component({
@@ -38,36 +39,36 @@ export class FeedComponent implements OnInit {
     'Kano', 'Kaduna', 'Port H.', 'Bende', 'Water G.', 'Ford'
   ];
 
-  pokemonControl = new FormControl();
-  pokemonGroups: PokemonGroup[] = [
+  placesControl = new FormControl();
+  placesGroup: PlacesGroup[] = [
     {
-      name: 'Grass',
-      pokemon: [
+      distace: 355.34,
+      place: [
         {value: 'bulbasaur-0', viewValue: 'Bulbasaur'},
         {value: 'oddish-1', viewValue: 'Oddish'},
         {value: 'bellsprout-2', viewValue: 'Bellsprout'}
       ]
     },
     {
-      name: 'Water',
-      pokemon: [
+      distace: 353.23,
+      place: [
         {value: 'squirtle-3', viewValue: 'Squirtle'},
         {value: 'psyduck-4', viewValue: 'Psyduck'},
         {value: 'horsea-5', viewValue: 'Horsea'}
       ]
     },
     {
-      name: 'Fire',
+      distace: 523,
       disabled: true,
-      pokemon: [
+      place: [
         {value: 'charmander-6', viewValue: 'Charmander'},
         {value: 'vulpix-7', viewValue: 'Vulpix'},
         {value: 'flareon-8', viewValue: 'Flareon'}
       ]
     },
     {
-      name: 'Psychic',
-      pokemon: [
+      distace: 3,
+      place: [
         {value: 'mew-9', viewValue: 'Mew'},
         {value: 'mewtwo-10', viewValue: 'Mewtwo'},
       ]

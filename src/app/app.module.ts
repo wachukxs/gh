@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { SampleFormComponent } from './sample-form/sample-form.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
@@ -46,6 +47,7 @@ import { FeedComponent } from './feed/feed.component';
   imports: [
     BrowserModule,
     RouterModule,
+    MatProgressSpinnerModule,
     ScrollingModule,
     AppRoutingModule,
     HttpClientModule,
