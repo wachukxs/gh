@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { CdkStep } from '@angular/cdk/stepper';
 @Component({
   selector: 'app-agent-dashboard',
   templateUrl: './agent-dashboard.component.html',
@@ -31,5 +32,12 @@ export class AgentDashboardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private formBuilder: FormBuilder) {}
+
+  firstFormGroup: FormGroup = this.formBuilder.group({
+    firstCtrl: ['', Validators.required]
+  });
+  secondFormGroup: FormGroup = this.formBuilder.group({
+    secondCtrl: ['', Validators.required]
+  });
 }

@@ -46,6 +46,7 @@
       <div class="byside">
         <mat-chip-list aria-label="Range selection">
           <mat-chip>Two fish</mat-chip>
+          <span class="example-spacer"></span>
           <mat-chip color="primary" selected>Primary fish</mat-chip>
         </mat-chip-list>
   
@@ -104,9 +105,9 @@
 
       <mat-form-field>
         <mat-label>Places like:</mat-label>
-        <mat-select [formControl]="placesControl" multiple [disabled]="true" [style.display]="false">
+        <mat-select [formControl]="placesControl" multiple>
           <mat-option>-- None --</mat-option>
-          <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace">
+          <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace + ' meters from you'">
             <mat-option *ngFor="let place of places.place" [value]="place.value">
               {{place.viewValue}}
             </mat-option>

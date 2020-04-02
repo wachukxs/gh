@@ -5,7 +5,7 @@ import { FactService } from '../fact.service';
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
-
+import { LocationService } from '../location.service';
 import { FormControl } from '@angular/forms';
 
 export interface Fact { // change to property
@@ -31,6 +31,8 @@ interface PlacesGroup {
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
+
+  location: any = undefined;
 
   places = new FormControl();
   placesList: string[] = [
@@ -83,12 +85,39 @@ export class FeedComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(public factService: FactService, private breakpointObserver: BreakpointObserver) {
+  constructor(public factService: FactService,
+              private breakpointObserver: BreakpointObserver,
+              private locationService: LocationService) {
     this.dataSource = new FactsDataSource(factService);
   }
 
   ngOnInit() {
     console.log('data source:', this.dataSource);
+  }
+
+  getPosistion() {
+    this.locationService.getPosition().then(pos => {
+      console.log(`Got Positon: lat ${pos.coords.longitude} lng ${pos.coords.latitude}`);
+    }).catch(err => {
+      console.log('An error occured', err);
+    });
+  }
+
+  watchPosistion() {
+    const location = this.locationService.watchPosition().subscribe(pos => {
+      console.log('Started watching position...');
+
+      console.log(`Positon: lat ${pos.coords.longitude} lng ${pos.coords.latitude} at time ${pos.timestamp}`);
+    }, err => {
+      console.log(`An error occured`, err);
+    }, () => {
+      console.log('We\'re done');
+    });
+
+    // stop watching after 10 sec
+    setTimeout(() => {
+      location.unsubscribe();
+    }, 10 * 1000);
   }
 
 }

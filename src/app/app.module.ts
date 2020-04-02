@@ -26,14 +26,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-import { RouterModule, Routes } from '@angular/router';
+import { CdkStepperModule } from '@angular/cdk/stepper'; // not using this yet, don't even know what it's for & MatFormFieldModule
+import { MatStepperModule } from '@angular/material/stepper';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { StatusComponent } from './status/status.component';
 import { CartComponent } from './cart/cart.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { FeedComponent } from './feed/feed.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +45,13 @@ import { FeedComponent } from './feed/feed.component';
     NavComponent,
     StatusComponent,
     CartComponent,
-    FeedComponent
+    FeedComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
+    CdkStepperModule,
+    MatStepperModule,
     RouterModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
