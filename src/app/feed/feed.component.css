@@ -18,6 +18,28 @@ mat-card {
     margin-bottom: 20px;
 }
 
+.filters {
+    margin-bottom: 15px;
+}
+
+.margin-up-down {
+    margin: 15px 0px 15px 0px;
+}
+
 mat-sidenav-content {
     /* height: calc(100% - 64px); */
+}
+
+/* fairly Stable CSS */
+
+.byside {
+    padding: 0px 16px;
+}
+
+mat-sidenav {
+    width: 25%;
+}
+
+mat-slider {
+    width: -moz-available;
 }

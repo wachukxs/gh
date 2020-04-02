@@ -31,12 +31,61 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar class="filters">Filters</mat-toolbar>
+  <div class="byside">
+
+    <h4>Budget</h4>
+
+    <mat-chip-list aria-label="Range selection">
+      <mat-chip>Two fish</mat-chip>
+      <mat-chip color="primary" selected>Primary fish</mat-chip>
+    </mat-chip-list>
+
+    <mat-slider min="50000" max="2000000" step="5000" value="150000"></mat-slider>
+
+    <mat-divider class="margin-up-down"></mat-divider>
+
+    <h4>House type</h4>
+
+    <mat-chip-list aria-label="Specs selection">
+      <mat-chip>1 BHK</mat-chip>
+      <mat-chip>2 BHK</mat-chip>
+      <mat-chip color="primary" selected>1 BK</mat-chip>
+      <mat-chip color="accent" selected>2B 1K</mat-chip>
+      <mat-chip color="accent" selected>3B 1K</mat-chip>
+      <mat-chip color="accent" selected>4B 1K</mat-chip>
+    </mat-chip-list>
+
+    <mat-divider class="margin-up-down"></mat-divider>
+
+    <h4>How far (from you)</h4>
+
+    <mat-slider min="1000" max="200000" step="5000" value="50000"></mat-slider>
+
+    <!-- based on the distance, filter the avaliabel places -->
+
+    <mat-form-field>
+      <mat-label>Places like:</mat-label>
+      <mat-select role="listbox" [formControl]="places" multiple>
+        <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{place}}</mat-option>
+
+        <!-- <mat-optgroup label="5 miles" *ngFor="let place of placesList">
+          <mat-option *ngFor="let area of places" [value]="area">{{area}}</mat-option>
+        </mat-optgroup> -->
+        
+      </mat-select>
+    </mat-form-field>
+    
+
+
+
     <mat-nav-list>
       <a mat-list-item href="#">Link 1</a>
       <a mat-list-item href="#">Link 2</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
+  </div>
+
   </mat-sidenav>
   <mat-sidenav-content>
 
@@ -50,6 +99,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>mat-design</span>
+      <!-- show number of available properties, and the filter citerias the user has choosen -->
     </mat-toolbar>
     
     <!-- Add Content Here -->

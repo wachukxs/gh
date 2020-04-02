@@ -6,16 +6,73 @@ import { FactService } from '../fact.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 
+import { FormControl } from '@angular/forms';
+
 export interface Fact { // change to property
   text?: string;
   date?: string;
 }
+
+interface Pokemon {
+  value: string;
+  viewValue: string;
+}
+
+interface PokemonGroup {
+  disabled?: boolean;
+  name: string;
+  pokemon: Pokemon[];
+}
+
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
+
+  places = new FormControl();
+  placesList: string[] = [
+    'Bodija', 'Aare', 'Lagos', 'Surelere', 'Iwo', 'Zamfara',
+    'Osun', 'Ibafo', 'Mowe', 'Mile 12', 'Jos', 'Umuahia',
+    'Kano', 'Kaduna', 'Port H.', 'Bende', 'Water G.', 'Ford'
+  ];
+
+  pokemonControl = new FormControl();
+  pokemonGroups: PokemonGroup[] = [
+    {
+      name: 'Grass',
+      pokemon: [
+        {value: 'bulbasaur-0', viewValue: 'Bulbasaur'},
+        {value: 'oddish-1', viewValue: 'Oddish'},
+        {value: 'bellsprout-2', viewValue: 'Bellsprout'}
+      ]
+    },
+    {
+      name: 'Water',
+      pokemon: [
+        {value: 'squirtle-3', viewValue: 'Squirtle'},
+        {value: 'psyduck-4', viewValue: 'Psyduck'},
+        {value: 'horsea-5', viewValue: 'Horsea'}
+      ]
+    },
+    {
+      name: 'Fire',
+      disabled: true,
+      pokemon: [
+        {value: 'charmander-6', viewValue: 'Charmander'},
+        {value: 'vulpix-7', viewValue: 'Vulpix'},
+        {value: 'flareon-8', viewValue: 'Flareon'}
+      ]
+    },
+    {
+      name: 'Psychic',
+      pokemon: [
+        {value: 'mew-9', viewValue: 'Mew'},
+        {value: 'mewtwo-10', viewValue: 'Mewtwo'},
+      ]
+    }
+  ];
 
   dataSource: FactsDataSource | object;
 
