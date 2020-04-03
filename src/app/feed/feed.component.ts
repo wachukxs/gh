@@ -6,7 +6,9 @@ import { FactService } from '../fact.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { LocationService } from '../location.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatChip } from '@angular/material/chips';
 
 export interface Fact { // change to property
   text?: string;
@@ -31,6 +33,9 @@ interface PlacesGroup {
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
+
+  hidePlacesSelect: boolean;
+  hideProximityPlacesSelect: boolean;
 
   location: any = undefined;
 
@@ -85,6 +90,42 @@ export class FeedComponent implements OnInit {
       shareReplay()
     );
 
+    /**
+     * it's important that codeRef is same with filterForm.houseType...
+     */
+
+    availableHouseTypes = [
+      {name: '1 BHK', selected: false, codeRef: 'bhk1'},
+      {name: '2 BHK', selected: false, codeRef: 'bhk2'},
+      {name: '1 BK', selected: false, codeRef: 'bk1'},
+      {name: '2B 1K', selected: false, codeRef: 'b2k1'},
+      {name: '3B 1K', selected: false, codeRef: 'b3k1'},
+      {name: '4B 1K', selected: false, codeRef: 'b4k1'}
+    ];
+
+  filterForm = new FormGroup({
+    budget: new FormGroup({
+      maxBudget: new FormControl(),
+      minBudget: new FormControl(),
+      preferredBudget: new FormControl(),
+      disableBudget: new FormControl()
+    }),
+    houseType: new FormGroup({
+      bhk1: new FormControl(),
+      bhk2: new FormControl(),
+      bk1: new FormControl(),
+      b2k1: new FormControl(),
+      b3k1: new FormControl(),
+      b4k1: new FormControl(),
+      disableHouseType: new FormControl()
+    }),
+    proximity: new FormGroup({
+      distance: new FormControl(),
+      preferredPlaces: new FormControl(),
+      disableProximity: new FormControl()
+    }),
+  });
+
   constructor(public factService: FactService,
               private breakpointObserver: BreakpointObserver,
               private locationService: LocationService) {
@@ -93,11 +134,63 @@ export class FeedComponent implements OnInit {
 
   ngOnInit() {
     console.log('data source:', this.dataSource);
+    console.log('filter form:', this.filterForm.value);
+    this.filterForm.valueChanges.subscribe(change => {
+      console.log('new filter form change:', change);
+    });
+
+  }
+
+  /**
+   * chipRef is the Angular object definition, while chip is from the UI
+   */
+
+  onChipClick(chipRef: MatChip, chip) {
+    chipRef.toggleSelected();
+    // chipRef.select();
+    // chipRef.selected = !chipRef.selected;
+    // chip.selected = !chip.selected;
+
+    console.log('chipRef', chipRef.selected);
+    this.filterForm.get(['houseType', chip.codeRef]).setValue(chipRef.selected);
+  }
+
+  budgetSliderChange(newValue: number) {
+    // console.log('new slider value', newValue);
+    this.filterForm.get('budget.preferredBudget').setValue(newValue);
+  }
+
+  budgetDisableChange(evtObject: MatSlideToggleChange) {
+    console.log('new disable value', typeof evtObject);
+    this.filterForm.get(['budget', 'disableBudget']).setValue(evtObject.checked);
+  }
+
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return `${Math.round(value / 1000)}K`; // ₦
+    }
+
+    return value;
   }
 
   getPosistion() {
     this.locationService.getPosition().then(pos => {
       console.log(`Got Positon: lat ${pos.coords.longitude} lng ${pos.coords.latitude}`);
+
+      // if we ever succesfully get a good posistion...
+      // how do we check for a good position...
+      // show the other places relative to user's proximity
+      // and hide the other select input
+
+      if (pos.coords.accuracy > 10) { // good position
+        this.hidePlacesSelect = true;
+        this.hideProximityPlacesSelect = false;
+        // how about we just replace it (DOM Element) instead... ??
+      } else {
+        // request location again... or wait till there's good enough network after 2 tries
+        // notify user if error persists and wait a bit before making another request or just wait for the user to repeat the action
+        this.getPosistion();
+      }
     }).catch(err => {
       console.log('An error occured', err);
     });
@@ -157,11 +250,11 @@ export class FactsDataSource extends DataSource<object | Fact | undefined> {
       // Update the data
       const currentPage = this._getPageForIndex(range.end);
 
-      console.log('what\'s range.end:', range.end, 'what\'s range:', range);
+      // console.log('what\'s range.end:', range.end, 'what\'s range:', range);
 
-      if (currentPage && range) {
+      /* if (currentPage && range) {
         console.log('current page:', currentPage, 'last page:', this.lastPage);
-      }
+      } */
 
       if (currentPage > this.lastPage) {
         this.lastPage = currentPage;

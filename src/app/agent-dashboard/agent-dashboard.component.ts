@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { CdkStep } from '@angular/cdk/stepper';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+
 @Component({
   selector: 'app-agent-dashboard',
   templateUrl: './agent-dashboard.component.html',
@@ -33,6 +33,32 @@ export class AgentDashboardComponent {
   );
 
   constructor(private breakpointObserver: BreakpointObserver, private formBuilder: FormBuilder) {}
+
+  propertyForm = new FormGroup({
+    specs: new FormGroup({
+      bedrooms: new FormControl(''),
+      kitchen: new FormControl(''),
+      toilet: new FormControl(''),
+      bathroom: new FormControl('')
+    }, {
+      validators: [
+        Validators.required
+      ]
+    }),
+    houseType: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required]),
+    address: new FormGroup({
+      street: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl(''),
+      no: new FormControl('')
+    }, {
+      validators: [
+        Validators.required,
+        Validators.minLength(3)
+      ]
+    })
+  });
 
   firstFormGroup: FormGroup = this.formBuilder.group({
     firstCtrl: ['', Validators.required]

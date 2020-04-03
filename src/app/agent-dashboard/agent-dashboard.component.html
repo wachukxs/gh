@@ -41,6 +41,48 @@
     </mat-vertical-stepper>
   </mat-card>
 
+  <mat-divider class="margin-up-down"></mat-divider>
+
+  <mat-card>
+    <mat-vertical-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          </mat-form-field>
+          <div>
+            <button mat-button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done. Submit?</p>
+        <div>
+          <button mat-button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button (click)="stepper.reset()">Reset</button>
+          <button mat-button mat-raised-button >Submit</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card>
+
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
