@@ -1,0 +1,46 @@
+<form class="example-form" [formGroup]="signupForm" (ngSubmit)="signUp()">
+  <mat-card>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="name@site.com">
+      <mat-hint align="start">Required</mat-hint>
+      <mat-error *ngIf="signupForm.controls['email'].hasError('email') && !signupForm.controls['email'].hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="signupForm.controls['email'].hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Telephone</mat-label>
+      <!-- <span matPrefix>+1 &nbsp;</span> -->
+      <input formControlName="phonenumber" type="tel" matInput placeholder="+234(0) 325 598 0967">
+      <mat-hint align="start">Required</mat-hint>
+      <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
+      <mat-error *ngIf="signupForm.controls['phonenumber'].hasError('pattern') && !signupForm.controls['phonenumber'].hasError('required')">
+        Please enter a valid phone number
+      </mat-error>
+      <mat-error *ngIf="signupForm.controls['phonenumber'].hasError('required')">
+        Phone number is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" placeholder="Minimum of 6 characters">
+      <mat-hint align="start">Minimum of 6 characters</mat-hint>
+      <mat-error
+        *ngIf="signupForm.controls.password.hasError('minlength') && !signupForm.controls.password.hasError('required')">
+        Please exceed 6 characters
+      </mat-error>
+      <mat-error *ngIf="signupForm.controls['password'].hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-card-actions>
+      <button [disabled]="signupForm.invalid" mat-raised-button color="primary" type="submit">Sign up</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -39,7 +39,7 @@
         <mat-toolbar-row>
           <h4>Budget</h4>
           <span class="example-spacer"></span>
-          <mat-slide-toggle (change)="budgetDisableChange($event)" aria-label="Cancel this filter">
+          <mat-slide-toggle (change)="budgetDisableChange($event)" aria-label="Cancel budget filter">
             <!-- Reset -->
           </mat-slide-toggle>
         </mat-toolbar-row>
@@ -51,7 +51,7 @@
             <mat-chip color="primary" selected>₦200,000</mat-chip>
           </mat-chip-list>
           <!--https://material.io/components/sliders/-->
-          <mat-slider (valueChange)="budgetSliderChange($event)" [displayWith]="formatLabel" formGroup="filterForm" formControlName="preferredBudget" thumbLabel="true" min="50000" tickInterval="20000" max="200000" value="100000"></mat-slider>
+          <mat-slider (valueChange)="budgetSliderChange($event)" [displayWith]="formatBudgetSliderLabel" thumbLabel="true" min="50000" tickInterval="20000" max="200000" value="100000"></mat-slider>
     
         </div>
         
@@ -60,13 +60,13 @@
         <mat-toolbar-row>
           <h4>House type</h4>
           <span class="example-spacer"></span>
-          <mat-slide-toggle aria-label="Cancel this filter">
+          <mat-slide-toggle (change)="houseTypeDisableChange($event)" aria-label="Cancel house type filter">
             <!-- Reset -->
           </mat-slide-toggle>
         </mat-toolbar-row>
   
         <div class="byside">
-          <mat-chip-list aria-label="Specs selection" selectable="true" multiple="true">
+          <mat-chip-list [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
             <!-- https://stackblitz.com/edit/angular-ynznsk?file=app%2Fchips-stacked-example.ts -->
             <mat-chip #chipRef="matChip" *ngFor="let chip of availableHouseTypes" (click)="onChipClick(chipRef, chip)" [selected]="chip.selected">
               {{ chip.name }}
@@ -80,13 +80,13 @@
         <mat-toolbar-row>
           <h4>How far (from you)</h4>
           <span class="example-spacer"></span>
-          <mat-slide-toggle aria-label="Cancel this filter">
+          <mat-slide-toggle (change)="proximityDisableChange($event)" aria-label="Cancel proximity filter">
             <!-- Reset -->
           </mat-slide-toggle>
         </mat-toolbar-row>
   
         <div class="byside">
-          <mat-slider min="1000" max="200000" step="5000" value="50000"></mat-slider>
+          <mat-slider (valueChange)="proximitySliderChange($event)" [displayWith]="formatProximitySliderLabel" thumbLabel="true" min="100" max="3000" tickInterval="500" value="1000"></mat-slider>
   
         <!-- based on the distance, filter the avaliabel places -->
   
@@ -114,9 +114,7 @@
           </mat-select>
         </mat-form-field>
         </div>
-
       </form>
-
 
   </mat-sidenav>
   <mat-sidenav-content>

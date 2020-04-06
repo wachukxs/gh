@@ -84,6 +84,10 @@ export class FeedComponent implements OnInit {
 
   dataSource: FactsDataSource | object;
 
+  budgetDisabled: boolean = false;
+  houseTypeDisabled: boolean = false;
+  proximityDisabled: boolean = false;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -105,10 +109,10 @@ export class FeedComponent implements OnInit {
 
   filterForm = new FormGroup({
     budget: new FormGroup({
-      maxBudget: new FormControl(),
-      minBudget: new FormControl(),
+      maxBudget: new FormControl(200000), // select highest value from db
+      minBudget: new FormControl(50000), // select lowest value from db
       preferredBudget: new FormControl(),
-      disableBudget: new FormControl()
+      disableBudget: new FormControl(false)
     }),
     houseType: new FormGroup({
       bhk1: new FormControl(),
@@ -117,12 +121,12 @@ export class FeedComponent implements OnInit {
       b2k1: new FormControl(),
       b3k1: new FormControl(),
       b4k1: new FormControl(),
-      disableHouseType: new FormControl()
+      disableHouseType: new FormControl(false)
     }),
     proximity: new FormGroup({
-      distance: new FormControl(),
+      preferredDistance: new FormControl(),
       preferredPlaces: new FormControl(),
-      disableProximity: new FormControl()
+      disableProximity: new FormControl(true)
     }),
   });
 
@@ -146,13 +150,19 @@ export class FeedComponent implements OnInit {
    */
 
   onChipClick(chipRef: MatChip, chip) {
-    chipRef.toggleSelected();
-    // chipRef.select();
-    // chipRef.selected = !chipRef.selected;
-    // chip.selected = !chip.selected;
+    /**
+     * if the filter is disabled, the chips shouldn't work.
+     */
+    if (!this.houseTypeDisabled) {
+      chipRef.toggleSelected();
+      // chipRef.select();
+      // chipRef.selected = !chipRef.selected;
+      // chip.selected = !chip.selected;
 
-    console.log('chipRef', chipRef.selected);
-    this.filterForm.get(['houseType', chip.codeRef]).setValue(chipRef.selected);
+      console.log('chipRef', chipRef.selected);
+      this.filterForm.get(['houseType', chip.codeRef]).setValue(chipRef.selected);
+    }
+
   }
 
   budgetSliderChange(newValue: number) {
@@ -160,12 +170,38 @@ export class FeedComponent implements OnInit {
     this.filterForm.get('budget.preferredBudget').setValue(newValue);
   }
 
-  budgetDisableChange(evtObject: MatSlideToggleChange) {
-    console.log('new disable value', typeof evtObject);
-    this.filterForm.get(['budget', 'disableBudget']).setValue(evtObject.checked);
+  proximitySliderChange(newValue: number) {
+    // console.log('new slider value', newValue);
+    this.filterForm.get('proximity.preferredDistance').setValue(newValue);
   }
 
-  formatLabel(value: number) {
+  budgetDisableChange(evtObject: MatSlideToggleChange) {
+    this.budgetDisabled = evtObject.checked; // seems we don't need this anymore
+    this.filterForm.get(['budget', 'disableBudget']).setValue(evtObject.checked);
+    if (evtObject.checked) {
+      // enable filters if true
+    }
+  }
+
+  houseTypeDisableChange(evtObject: MatSlideToggleChange) {
+    this.houseTypeDisabled = evtObject.checked; // seems we don't need this anymore
+    this.filterForm.get(['houseType', 'disableHouseType']).setValue(evtObject.checked);
+  }
+
+  proximityDisableChange(evtObject: MatSlideToggleChange) {
+    this.proximityDisabled = evtObject.checked; // seems we don't need this anymore
+    this.filterForm.get(['proximity', 'disableProximity']).setValue(evtObject.checked);
+    if (evtObject.checked) { // true
+      // enable filter controls
+    } else {
+      // do nothing when clicked
+      // unselect everything
+
+    }
+
+  }
+
+  formatBudgetSliderLabel(value: number) {
     if (value >= 1000) {
       return `${Math.round(value / 1000)}K`; // ₦
     }
@@ -173,8 +209,14 @@ export class FeedComponent implements OnInit {
     return value;
   }
 
+  formatProximitySliderLabel(value: number) {
+      return (value <= 999 ? `${Math.round(value / 100)}m` : `${(value / 1000).toFixed(1)}km`);
+  }
+
   getPosistion() {
     this.locationService.getPosition().then(pos => {
+      console.log('posistion obj', pos);
+
       console.log(`Got Positon: lat ${pos.coords.longitude} lng ${pos.coords.latitude}`);
 
       // if we ever succesfully get a good posistion...

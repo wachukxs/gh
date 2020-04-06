@@ -36,6 +36,8 @@ import { ScrollingModule} from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { FeedComponent } from './feed/feed.component';
 import { LocationComponent } from './location/location.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { LocationComponent } from './location/location.component';
     StatusComponent,
     CartComponent,
     FeedComponent,
-    LocationComponent
+    LocationComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

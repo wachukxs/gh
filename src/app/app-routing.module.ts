@@ -8,6 +8,8 @@ import { SampleFormComponent } from './sample-form/sample-form.component';
 import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
 import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   { path: 'home', component: AppComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'nav', component: NavComponent },
   { path: 'dashboard', component: AgentDashboardComponent },
   { path: 'feed', component: FeedComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: '', component: FeedComponent },
   { path: 'form', component: SampleFormComponent },
   { path: '**', component: AppComponent }

@@ -1,0 +1,17 @@
+/*
+* https://stackoverflow.com/questions/9737394/html-how-to-center-align-a-form/9737550
+* 
+* https://stackoverflow.com/a/9737550/9259701
+*/
+form {
+  margin: 0 auto;
+  width: 20%;
+
+  margin-top: 10%;
+}
+
+.example-full-width {
+    width: -moz-available;
+
+    margin-bottom: 5px;
+}
