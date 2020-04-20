@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   { path: 'home', component: AppComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: '', component: FeedComponent },
   { path: 'form', component: SampleFormComponent },
+  { path: 'test', component: TestComponent },
   { path: '**', component: AppComponent }
 ];
 

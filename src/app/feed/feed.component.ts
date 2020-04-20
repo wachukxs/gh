@@ -84,15 +84,17 @@ export class FeedComponent implements OnInit {
 
   dataSource: FactsDataSource | object;
 
-  budgetDisabled: boolean = false;
-  houseTypeDisabled: boolean = false;
-  proximityDisabled: boolean = false;
+  budgetDisabled = false;
+  houseTypeDisabled = false;
+  proximityDisabled = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+
+
 
     /**
      * it's important that codeRef is same with filterForm.houseType...
@@ -137,11 +139,12 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('data source:', this.dataSource);
-    console.log('filter form:', this.filterForm.value);
-    this.filterForm.valueChanges.subscribe(change => {
-      console.log('new filter form change:', change);
-    });
+
+    /* this.breakpointObserver.observe(Breakpoints.Handset).subscribe(result => {
+      console.log('brek pnt', result);
+    }); */
+
+    this.isHandset$.subscribe(value => console.log('is handset', value));
 
   }
 
@@ -159,7 +162,7 @@ export class FeedComponent implements OnInit {
       // chipRef.selected = !chipRef.selected;
       // chip.selected = !chip.selected;
 
-      console.log('chipRef', chipRef.selected);
+      // console.log('chipRef', chipRef.selected);
       this.filterForm.get(['houseType', chip.codeRef]).setValue(chipRef.selected);
     }
 
@@ -286,8 +289,9 @@ export class FactsDataSource extends DataSource<object | Fact | undefined> {
     return Math.floor(i / this.pageSize);
   }
 
-  // from DataSource interface
+  // implemented from DataSource interface
   connect(collectionViewer: CollectionViewer): Observable<(object | Fact | undefined)[] | ReadonlyArray<object | Fact | undefined>> {
+    console.log('got to connect');
     this.subscription.add(collectionViewer.viewChange.subscribe(range => {
       // Update the data
       const currentPage = this._getPageForIndex(range.end);
@@ -315,7 +319,7 @@ export class FactsDataSource extends DataSource<object | Fact | undefined> {
    * data source to get more data when we have reached the end of the list.
    */
 
-  // from DataSource interface
+  // implemented from DataSource interface
   disconnect(collectionViewer: CollectionViewer): void {
     this.subscription.unsubscribe();
   }

@@ -24,33 +24,21 @@ export class SignupComponent implements OnInit {
       Validators.minLength(6)
     ])
   });
-  /* emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]); */
 
   ngOnInit() {
-    this.signupForm.valueChanges.subscribe(newFormValues => {
-
-    });
   }
 
   signUp() {
     console.log(this.signupForm.value);
     if (this.signupForm.valid) {
-
       this.httpClient.post('http://localhost:8083/greenhomes/php/api/agents/create.php',
       JSON.stringify(this.signupForm.value)).subscribe(res => {
         console.log('result', res);
       }, err => {
         console.log('err', err);
-
       }, () => {
         console.log('completed the http signup');
-
       });
-
-
     }
   }
 

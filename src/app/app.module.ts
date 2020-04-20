@@ -38,6 +38,7 @@ import { FeedComponent } from './feed/feed.component';
 import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SignupComponent } from './signup/signup.component';
     FeedComponent,
     LocationComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

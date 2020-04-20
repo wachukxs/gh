@@ -1,0 +1,5 @@
+<p>test works!</p>
+
+<cdk-virtual-scroll-viewport itemSize="50" orientation="horizontal" class="example-viewport" (scrolledIndexChange)="scrollHandler($event)">
+    <div *cdkVirtualFor="let item of ds" class="example-item">{{item || 'Loading...'}}</div>
+</cdk-virtual-scroll-viewport>

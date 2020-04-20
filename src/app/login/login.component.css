@@ -1,0 +1,15 @@
+/**
+* same as sign up
+*/
+form {
+    margin: 0 auto;
+    width: 20%;
+  
+    margin-top: 10%;
+  }
+  
+  .example-full-width {
+      width: -moz-available;
+  
+      margin-bottom: 5px;
+  }

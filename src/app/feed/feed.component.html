@@ -28,7 +28,7 @@
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'push' : 'side'" [opened]="(isHandset$ | async) === false">
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar class="filters">
       Filters
       <span class="example-spacer"></span>
@@ -130,7 +130,7 @@
 
     <!-- Add Content Here -->
 
-    <cdk-virtual-scroll-viewport itemSize="10">
+    <cdk-virtual-scroll-viewport itemSize="10" [orientation]="((isHandset$ | async) ? 'horizontal' : 'vertical')">
 
 
 
@@ -141,9 +141,7 @@
         <mat-card-header>
           <mat-card-title>
             <!--fact.states[0][0] ||-->
-
-            {{fact.text}}
-
+            {{fact.text.substring(0, 15)}}
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
@@ -151,6 +149,11 @@
             <!-- [Card Content Here] -->
           </div>
         </mat-card-content>
+        <mat-card-actions>
+          <button mat-button><mat-icon>favorite_border</mat-icon></button>
+          
+          <button mat-button>Contact</button>
+        </mat-card-actions>
       </mat-card>
 
       <!-- show only if user at bottom of page & in view-->

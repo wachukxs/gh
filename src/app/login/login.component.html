@@ -1,13 +1,35 @@
-<form class="example-form">
+<form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+  <mat-card>
+    <mat-card-header style="display: block;">Agents Login</mat-card-header>
+    <!-- <mat-card-subtitle>Provide your details</mat-card-subtitle> -->
+
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
-      <input matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      <input matInput formControlName="email" placeholder="name@site.com">
+      <mat-hint align="start">Required</mat-hint>
+      <mat-error *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].hasError('required')">
         Please enter a valid email address
       </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
+      <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
         Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-  </form>
-  
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Minimum of 6 characters">
+      <mat-hint align="start">Minimum of 6 characters</mat-hint>
+      <mat-error
+        *ngIf="loginForm.controls.password.hasError('minlength') && !loginForm.controls.password.hasError('required')">
+        Please exceed 6 characters
+      </mat-error>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-card-actions>
+      <button [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit">Login</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

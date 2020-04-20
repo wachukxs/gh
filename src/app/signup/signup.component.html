@@ -1,5 +1,8 @@
 <form class="example-form" [formGroup]="signupForm" (ngSubmit)="signUp()">
   <mat-card>
+    <mat-card-header style="display: block;">Agents Signup</mat-card-header>
+    <!-- <mat-card-subtitle>Provide your details</mat-card-subtitle> -->
+
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" placeholder="name@site.com">
@@ -28,7 +31,7 @@
 
     <mat-form-field class="example-full-width">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" placeholder="Minimum of 6 characters">
+      <input matInput type="password" formControlName="password" placeholder="Minimum of 6 characters">
       <mat-hint align="start">Minimum of 6 characters</mat-hint>
       <mat-error
         *ngIf="signupForm.controls.password.hasError('minlength') && !signupForm.controls.password.hasError('required')">
