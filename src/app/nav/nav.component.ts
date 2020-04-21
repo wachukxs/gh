@@ -10,6 +10,15 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class NavComponent {
 
+  rightMeunState = false;
+
+  /**
+   * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
+   */
+  protected get toggleRightMeunState(): '_open' | '' {
+    return this.rightMeunState ? '_open' : '' ;
+  }
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),

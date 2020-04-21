@@ -1,69 +1,88 @@
 cdk-virtual-scroll-viewport {
-    /* background-color: blue; */
-    height: 526px /* calc(100% - 134px) */;
-    /* padding: 20px; */
+  /* background-color: blue; */
+  height: 526px
+    /* calc(100% - 134px) */
+  ;
+  /* padding: 20px; */
 
-    width: 100%;
+  width: 100%;
 
-    background-color: #EEF2F7;
+  background-color: #EEF2F7;
 }
 
 .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 mat-card {
-    width: 45%;
+  width: 45%;
 
-    width: 40%;
+  width: 40%;
 
-    margin-top: 20px;
-    margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
-/** https://codepen.io/chriscoyier/pen/KKwNLyL */
-    box-shadow:
-  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-  0 12.5px 10px rgba(0, 0, 0, 0.06),
-  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-  0 100px 80px rgba(0, 0, 0, 0.12)
-;
+  /** https://codepen.io/chriscoyier/pen/KKwNLyL */
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
 .filters {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .margin-up-down {
-    margin: 15px 0px 15px 0px;
+  margin: 15px 0px 15px 0px;
 }
 
 .margin-top-bottom {
-    margin-top: 20px;
-    margin-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 mat-sidenav-content {
-    /* height: calc(100% - 64px); */
+  /* height: calc(100% - 64px); */
 }
 
 /* fairly Stable CSS */
 
 .example-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .byside {
-    padding: 0px 16px;
+  padding: 0px 16px;
 }
 
 mat-sidenav {
-    width: 25%;
+  width: 25%;
 }
 
 mat-slider {
-    width: -moz-available;
+  width: -moz-available;
+  width: -webkit-fill-available;
+}
+
+/**small mobile view rules*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 425px)  { 
+    mat-sidenav {
+        width: 75%;
+    }
+}
+/**large mobile view rules*/
+@media only screen 
+  and (min-device-width: 426px) 
+  and (max-device-width: 768px)  { 
+    mat-sidenav {
+        width: 45%;
+    }
 }

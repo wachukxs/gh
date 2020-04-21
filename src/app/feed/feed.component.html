@@ -150,8 +150,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button><mat-icon>favorite_border</mat-icon></button>
-          
+          <button (click)="this.likeState = !this.likeState" [@likes]="toggleLikeState" mat-button><mat-icon>favorite{{ toggleLikeState }}</mat-icon></button>
           <button mat-button>Contact</button>
         </mat-card-actions>
       </mat-card>

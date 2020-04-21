@@ -10,6 +10,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatChip } from '@angular/material/chips';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
 export interface Fact { // change to property
   text?: string;
   date?: string;
@@ -30,7 +38,18 @@ interface PlacesGroup {
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.css']
+  styleUrls: ['./feed.component.css'],
+  animations: [
+    trigger('likes', [
+      transition('liked <=> unliked', [
+        style({
+          transform: `scale(1.5)`,
+          opacity: 0
+        }),
+        animate('.2s 0s ease-out'),
+      ])
+    ])
+  ]
 })
 export class FeedComponent implements OnInit {
 
@@ -131,6 +150,15 @@ export class FeedComponent implements OnInit {
       disableProximity: new FormControl(true)
     }),
   });
+
+  likeState = false;
+
+  /**
+   * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
+   */
+  protected get toggleLikeState(): '_border' | '' {
+    return this.likeState ? '_border' : '';
+  }
 
   constructor(public factService: FactService,
               private breakpointObserver: BreakpointObserver,

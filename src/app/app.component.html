@@ -1,28 +1,4 @@
-<mat-toolbar color="primary">
 
-  <mat-toolbar-row>
-    <span>Green Homes</span>
-    <span class="example-spacer"></span>
-
-
-    <button mat-button [routerLink]="['/login']">Login</button>
-
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/']">Home</button>
-      <button mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
-      <button mat-menu-item [routerLink]="['/form']">Form</button>
-      <button mat-menu-item [routerLink]="['/nav']">Nav</button>
-      <button mat-menu-item [routerLink]="['/cart']">Cart</button>
-      <button mat-menu-item [routerLink]="['/status']">Status</button>
-    </mat-menu>
-
-
-
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
-  </mat-toolbar-row>
-
-</mat-toolbar>
+<app-nav></app-nav>
 
 <router-outlet></router-outlet>
