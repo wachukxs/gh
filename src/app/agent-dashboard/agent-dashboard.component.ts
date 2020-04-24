@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-agent-dashboard',
@@ -32,19 +33,18 @@ export class AgentDashboardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private formBuilder: FormBuilder) {}
+  constructor(private httpClient: HttpClient, private breakpointObserver: BreakpointObserver, private formBuilder: FormBuilder) {}
 
   propertyForm = new FormGroup({
     specs: new FormGroup({
       bedrooms: new FormControl(''),
       kitchen: new FormControl(''),
       toilet: new FormControl(''),
-      bathroom: new FormControl('')
-    }, {
-      validators: [
+      bathrooms: new FormControl('')
+    }, [
         Validators.required
-      ]
-    }),
+      ]),
+    media: new FormControl('', [Validators.required]),
     houseType: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required]),
     address: new FormGroup({
@@ -52,18 +52,20 @@ export class AgentDashboardComponent {
       city: new FormControl(''),
       state: new FormControl(''),
       no: new FormControl('')
-    }, {
-      validators: [
+    }, [
         Validators.required,
         Validators.minLength(3)
-      ]
-    })
+      ])
   });
 
-  firstFormGroup: FormGroup = this.formBuilder.group({
-    firstCtrl: ['', Validators.required]
-  });
-  secondFormGroup: FormGroup = this.formBuilder.group({
-    secondCtrl: ['', Validators.required]
-  });
+  postHouse() {
+    console.log('posting');
+
+    this.httpClient.post('http://localhost:8083/greenhomes/php/api/houses/create.php', this.propertyForm.value).subscribe((res: any) => {
+      console.log('post good response', res);
+    }, (err: any) => {
+      console.log('post err response', err);
+    });
+  }
+
 }

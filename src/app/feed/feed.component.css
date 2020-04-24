@@ -19,8 +19,6 @@ cdk-virtual-scroll-viewport {
 mat-card {
   width: 45%;
 
-  width: 40%;
-
   margin-top: 20px;
   margin-bottom: 20px;
 
@@ -77,6 +75,10 @@ mat-slider {
     mat-sidenav {
         width: 75%;
     }
+
+    mat-card {
+      width: 70%;
+    }
 }
 /**large mobile view rules*/
 @media only screen 
@@ -84,5 +86,26 @@ mat-slider {
   and (max-device-width: 768px)  { 
     mat-sidenav {
         width: 45%;
+    }
+
+    mat-card {
+      width: 70%;
+    }
+}
+
+/**very large mobile (tablets) view rules*/
+@media only screen 
+  and (min-device-width: 769px) 
+  and (max-device-width: 960px)  { 
+    mat-sidenav {
+        width: 45%;
+    }
+
+    div.cdk-virtual-scroll-content-wrapper {
+      position: inherit; /**not working*/
+    }
+
+    mat-card {
+      width: 70%;
     }
 }

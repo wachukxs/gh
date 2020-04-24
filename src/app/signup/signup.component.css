@@ -15,3 +15,17 @@ form {
 
     margin-bottom: 5px;
 }
+
+/**small mobile view rules*/
+@media only screen /* and (min-device-width: 320px) */ and (max-device-width: 425px) {
+  form {
+    width: 75%;
+  }
+}
+
+/**large mobile view rules*/
+@media only screen and (min-device-width: 426px) and (max-device-width: 768px) {
+  form {
+    width: 45%;
+  }
+}

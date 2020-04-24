@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavComponent } from './nav/nav.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -81,7 +82,8 @@ import { TestComponent } from './test/test.component';
     MatSidenavModule,
     MatListModule,
     FormsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

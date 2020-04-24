@@ -88,31 +88,37 @@
         <div class="byside">
           <mat-slider (valueChange)="proximitySliderChange($event)" [displayWith]="formatProximitySliderLabel" thumbLabel="true" min="100" max="3000" tickInterval="500" value="1000"></mat-slider>
   
-        <!-- based on the distance, filter the avaliabel places -->
+        <!-- based on the distance, filter the avaliabel places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
   
-        <mat-form-field [hidden]="hidePlacesSelect">
-          <mat-label>Places like:</mat-label>
-          <mat-select role="listbox" [formControl]="places" multiple>
-            <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{place}}</mat-option>
+        <mat-toolbar-row style="padding: 0px;">
+          <mat-form-field [hidden]="hidePlacesSelect">
+            <mat-label>Places like:</mat-label>
+            <mat-select role="listbox" [formControl]="places" multiple>
+
+              <!-- <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace + ' meters from you'">
+                <mat-option *ngFor="let place of places.place" [value]="place.value">
+                  {{place.viewValue}}
+                </mat-option>
+              </mat-optgroup> -->
+
+              <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{place}}</mat-option>
+    
+            </mat-select>
+            <!-- use hint to communicate progress of getting current location-->
+            <mat-hint>Click <mat-icon>gps_fixed</mat-icon> to find places near you</mat-hint>
+          </mat-form-field>
+
+          <span class="example-spacer"></span>
+
+          <button type="button" aria-label="Toggle geolocation" mat-icon-button>
+            <!--switch between gps_fixed, gps_not_fixed and gps_off icons  when communicating geolocation status-->
+        <mat-icon matTooltip="Filter with current location" aria-label="get geolocation toggle icon">gps_fixed</mat-icon>
+      </button>
+
+        </mat-toolbar-row>
   
-            <!-- <mat-optgroup label="5 miles" *ngFor="let place of placesList">
-            <mat-option *ngFor="let area of places" [value]="area">{{area}}</mat-option>
-          </mat-optgroup> -->
-  
-          </mat-select>
-        </mat-form-field>
-  
-        <mat-form-field [hidden]="hideProximityPlacesSelect">
-          <mat-label>Places like:</mat-label>
-          <mat-select [formControl]="placesControl" multiple>
-            <mat-option>-- None --</mat-option>
-            <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace + ' meters from you'">
-              <mat-option *ngFor="let place of places.place" [value]="place.value">
-                {{place.viewValue}}
-              </mat-option>
-            </mat-optgroup>
-          </mat-select>
-        </mat-form-field>
+        
+
         </div>
       </form>
 
@@ -124,14 +130,13 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>mat-design</span>
+      <span>Browse houses</span>
       <!-- show number of available properties, and the filter citerias the user has choosen -->
     </mat-toolbar>
 
     <!-- Add Content Here -->
 
     <cdk-virtual-scroll-viewport itemSize="10" [orientation]="((isHandset$ | async) ? 'horizontal' : 'vertical')">
-
 
 
       <mat-card class="dashboard-card center" *cdkVirtualFor="let fact of dataSource">
@@ -150,8 +155,9 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button (click)="this.likeState = !this.likeState" [@likes]="toggleLikeState" mat-button><mat-icon>favorite{{ toggleLikeState }}</mat-icon></button>
-          <button mat-button>Contact</button>
+          <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
+          <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState" [@likes]="toggleLikeState" mat-button><mat-icon>favorite{{ toggleLikeState }}</mat-icon></button>
+          <button matTooltip="Chat with the house agent" mat-button>Contact</button>
         </mat-card-actions>
       </mat-card>
 
