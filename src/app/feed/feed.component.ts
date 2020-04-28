@@ -241,7 +241,7 @@ export class FeedComponent implements OnInit {
   }
 
   formatProximitySliderLabel(value: number) {
-      return (value <= 999 ? `${Math.round(value / 100)}m` : `${(value / 1000).toFixed(1)}km`);
+      return (value / 1000).toFixed(1);
   }
 
   getPosistion() {

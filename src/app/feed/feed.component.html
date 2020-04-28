@@ -26,6 +26,7 @@
 </mat-card>
  -->
 
+ <!-- Put tooltips almost everywhere -->
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
@@ -78,7 +79,7 @@
         <mat-divider class="margin-up-down"></mat-divider>
   
         <mat-toolbar-row>
-          <h4>How far (from you)</h4>
+          <h4>How far (from you, in km)</h4>
           <span class="example-spacer"></span>
           <mat-slide-toggle (change)="proximityDisableChange($event)" aria-label="Cancel proximity filter">
             <!-- Reset -->

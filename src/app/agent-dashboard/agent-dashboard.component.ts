@@ -33,6 +33,10 @@ export class AgentDashboardComponent {
     })
   );
 
+  houseTypes: Array<string> = [
+    'Duplex', 'Bongalow', 'Flat', 'Skyscrapper', 'Dungeon', 'Castle'
+  ];
+
   constructor(private httpClient: HttpClient, private breakpointObserver: BreakpointObserver, private formBuilder: FormBuilder) {}
 
   propertyForm = new FormGroup({
@@ -51,18 +55,40 @@ export class AgentDashboardComponent {
       street: new FormControl(''),
       city: new FormControl(''),
       state: new FormControl(''),
-      no: new FormControl('')
+      lga: new FormControl('')
     }, [
         Validators.required,
         Validators.minLength(3)
       ])
   });
 
+  houseFormData = new FormData();
+
+  houseMedia(event): void {
+    console.log('house media', event.target.files);
+
+    // this.houseFormData.append('media', event.target.files[0]);
+    this.propertyForm.controls.media.setValue(event.target.files[0]);
+    for (let i = 0, numFiles = event.target.files.length; i < numFiles; i++) {
+      const file = event.target.files[i];
+    }
+  }
+
   postHouse() {
     console.log('posting');
 
-    this.httpClient.post('http://localhost:8083/greenhomes/php/api/houses/create.php', this.propertyForm.value).subscribe((res: any) => {
+    // convert formControl to formData
+    Object.entries(this.propertyForm.value).forEach((value: [string, string | Blob], index, arr) => {
+      this.houseFormData.append(value[0], value[1]);
+    });
+
+
+
+    this.httpClient.post('http://localhost:8083/greenhomes/php/api/houses/create.php', this.houseFormData).subscribe((res: any) => {
       console.log('post good response', res);
+      this.houseFormData = new FormData(); // reset
+
+      // if they clicked save draft, the post form like that and reset houseFormData variable
     }, (err: any) => {
       console.log('post err response', err);
     });

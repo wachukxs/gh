@@ -7,24 +7,25 @@
         <mat-step [stepControl]="propertyForm.controls.address" formGroupName="address">
 
           <ng-template matStepLabel>Fill out the house address</ng-template>
+          <!--Intentionally did not put the exact flat because some Nigerians are dubious-->
           <mat-form-field>
-            <mat-label>Address</mat-label>
+            <mat-label>Street</mat-label>
             <input matInput placeholder="Eforo street" formControlName="street" required>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Address</mat-label>
+            <mat-label>City</mat-label>
             <input matInput placeholder="Umuahia" formControlName="city" required>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>LGA</mat-label>
-            <input matInput placeholder="Jigawa" formControlName="state" required>
+            <input matInput placeholder="Aniocha-North" formControlName="lga" required>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>State</mat-label>
-            <input matInput placeholder="No 8 / Flat 15B" formControlName="no" required>
+            <input matInput placeholder="Jigawa" formControlName="state" required>
           </mat-form-field>
 
           <div>
@@ -39,9 +40,19 @@
           <!--type, price, rooms, floor types, probably wall type?? [should this all be together in a section?]-->
 
           <mat-form-field>
+            <mat-label>Places like:</mat-label>
+            <mat-select role="listbox" [formControl]="propertyForm.controls.houseType">
+
+              <mat-option role="option" *ngFor="let houseType of houseTypes" [value]="houseType">{{houseType}}</mat-option>
+    
+            </mat-select>
+            <mat-hint>How would you best say the house is?</mat-hint>
+          </mat-form-field>
+
+          <!-- <mat-form-field>
             <mat-label>House Type</mat-label>
             <input matInput placeholder="Jigawa" [formControl]="propertyForm.controls.houseType" required>
-          </mat-form-field>
+          </mat-form-field> -->
 
           <mat-form-field>
             <mat-label>Bathrooms</mat-label>
@@ -77,7 +88,7 @@
           <!--now put up pictures or videos of the places you mentioned, let's see --- we'll fill up this places dynamically, based on what you filled in the previous step-->
 
           <mat-label>Details</mat-label>
-          <input type="file" required>
+          <input type="file" accept="image/*" multiple required (change)="houseMedia($event)">
 
           <div>
             <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
