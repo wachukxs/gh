@@ -82,8 +82,6 @@ export class AgentDashboardComponent {
       this.houseFormData.append(value[0], value[1]);
     });
 
-
-
     this.httpClient.post('http://localhost:8083/greenhomes/php/api/houses/create.php', this.houseFormData).subscribe((res: any) => {
       console.log('post good response', res);
       this.houseFormData = new FormData(); // reset

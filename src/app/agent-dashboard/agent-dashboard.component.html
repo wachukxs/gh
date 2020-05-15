@@ -87,8 +87,15 @@
           <ng-template matStepLabel>Media of the house details</ng-template>
           <!--now put up pictures or videos of the places you mentioned, let's see --- we'll fill up this places dynamically, based on what you filled in the previous step-->
 
-          <mat-label>Details</mat-label>
-          <input type="file" accept="image/*" multiple required (change)="houseMedia($event)">
+          <mat-label>Add media files</mat-label>
+          <!--
+            style input button 
+            https://stackoverflow.com/questions/572768/styling-an-input-type-file-button 
+            from https://stackoverflow.com/questions/47974175/how-do-i-style-a-file-upload-button
+          -->
+          <button type="button" mat-button mat-raised-button>
+            <input type="file" accept="image/*" multiple required (change)="houseMedia($event)">
+          </button>
 
           <div>
             <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>

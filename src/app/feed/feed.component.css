@@ -1,8 +1,7 @@
 cdk-virtual-scroll-viewport {
   /* background-color: blue; */
-  height: 526px
-    /* calc(100% - 134px) */
-  ;
+  /* height: 526px; */
+    height: calc(100vh - 130px);
   /* padding: 20px; */
 
   width: 100%;
