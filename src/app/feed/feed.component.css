@@ -108,3 +108,8 @@ mat-slider {
       width: 70%;
     }
 }
+
+/** --- */
+.mat-card-actions {
+  margin-bottom: 0px;
+}

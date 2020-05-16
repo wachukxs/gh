@@ -142,24 +142,28 @@
 
       <mat-card class="dashboard-card center" *cdkVirtualFor="let fact of dataSource">
 
-        <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu">
+        <div fxLayout>
+          <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room">
 
-        <mat-card-header>
-          <mat-card-title>
-            <!--fact.states[0][0] ||-->
-            {{fact.text.substring(0, 15)}}
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>{{'Number: ' + fact.number + ', year ' + fact.year}}
-            <!-- [Card Content Here] -->
-          </div>
-        </mat-card-content>
-        <mat-card-actions>
-          <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
-          <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState" [@likes]="toggleLikeState" mat-button><mat-icon>favorite{{ toggleLikeState }}</mat-icon></button>
-          <button matTooltip="Chat with the house agent" mat-button>Contact</button>
-        </mat-card-actions>
+        <div fxFlex="75%" fxFlexOrder="2">
+          <mat-card-header>
+            <mat-card-title>
+              <!--fact.states[0][0] || -->
+              {{fact.text.substring(0, 15)}}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <div>{{'Number: ' + fact.number + ', year ' + fact.year}}
+              <!-- [Card Content Here] -->
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
+            <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState" [@likes]="toggleLikeState" mat-button><mat-icon>favorite{{ toggleLikeState }}</mat-icon></button>
+            <button matTooltip="Chat with the house agent" mat-button>Contact</button>
+          </mat-card-actions>
+        </div>
+        </div>
       </mat-card>
 
       <!-- show only if user at bottom of page & in view-->
