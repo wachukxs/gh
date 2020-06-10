@@ -1,32 +1,9 @@
-<!-- https://alligator.io/angular/infinite-scroll/
-  In order for the component to properly size its internal scroller,
-  we need to tell the scroller how tall each item will be (in pixels).
-  This is done using the itemSize directive.
-  So, itemSize="100" means that item in the list will require 100px of height.
- -->
-
-<!--
-   
-    mat-card-title
-    mat-card-subtitle
-    mat-card-content
-    mat-card-actions
-    mat-card-footer
-
- -->
-
-<!--
-   <mat-card class="example-card">
-	<mat-card-header>
-    <mat-icon>more_vert</mat-icon>
-		<div mat-card-avatar class="example-header-image"></div>
-		<mat-card-title>MR. X</mat-card-title>
-		<mat-card-subtitle>Dog Breed</mat-card-subtitle>
-	</mat-card-header>
-</mat-card>
- -->
-
- <!-- Put tooltips almost everywhere -->
+<style>
+  .cdk-virtual-scroll-content-wrapper {
+  width: -moz-available !important;
+}
+</style>
+<!-- Put tooltips almost everywhere -->
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
@@ -36,96 +13,93 @@
       <button mat-raised-button>Reset All</button>
     </mat-toolbar>
 
-      <form [formGroup]="filterForm">
-        <mat-toolbar-row>
-          <h4>Budget</h4>
+    <form [formGroup]="filterForm">
+      <mat-toolbar-row>
+        <h4>Budget</h4>
+        <span class="example-spacer"></span>
+        <mat-slide-toggle (change)="budgetDisableChange($event)" aria-label="Cancel budget filter">
+          <!-- Reset -->
+        </mat-slide-toggle>
+      </mat-toolbar-row>
+
+      <div class="byside">
+        <mat-chip-list aria-label="Range selection">
+          <mat-chip selected>₦50,000</mat-chip>
+          <!--color="#f2f2f7"-->
           <span class="example-spacer"></span>
-          <mat-slide-toggle (change)="budgetDisableChange($event)" aria-label="Cancel budget filter">
-            <!-- Reset -->
-          </mat-slide-toggle>
-        </mat-toolbar-row>
-  
-        <div class="byside">
-          <mat-chip-list aria-label="Range selection">
-            <mat-chip selected>₦50,000</mat-chip><!--color="#f2f2f7"-->
-            <span class="example-spacer"></span>
-            <mat-chip color="primary" selected>₦200,000</mat-chip>
-          </mat-chip-list>
-          <!--https://material.io/components/sliders/-->
-          <mat-slider (valueChange)="budgetSliderChange($event)" [displayWith]="formatBudgetSliderLabel" thumbLabel="true" min="50000" tickInterval="20000" max="200000" value="100000"></mat-slider>
-    
-        </div>
-        
-        <mat-divider class="margin-up-down"></mat-divider>
-  
-        <mat-toolbar-row>
-          <h4>House type</h4>
-          <span class="example-spacer"></span>
-          <mat-slide-toggle (change)="houseTypeDisableChange($event)" aria-label="Cancel house type filter">
-            <!-- Reset -->
-          </mat-slide-toggle>
-        </mat-toolbar-row>
-  
-        <div class="byside">
-          <mat-chip-list [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
-            <!-- https://stackblitz.com/edit/angular-ynznsk?file=app%2Fchips-stacked-example.ts -->
-            <mat-chip #chipRef="matChip" *ngFor="let chip of availableHouseTypes" (click)="onChipClick(chipRef, chip)" [selected]="chip.selected">
-              {{ chip.name }}
-            </mat-chip>
-          </mat-chip-list>
-        </div>
-        <!--maybe https://stackblitz.com/edit/angular-wcfsvk?file=app%2Fchips-input-example.html-->
-  
-        <mat-divider class="margin-up-down"></mat-divider>
-  
-        <mat-toolbar-row>
-          <h4>How far (from you, in km)</h4>
-          <span class="example-spacer"></span>
-          <mat-slide-toggle (change)="proximityDisableChange($event)" aria-label="Cancel proximity filter">
-            <!-- Reset -->
-          </mat-slide-toggle>
-        </mat-toolbar-row>
-  
-        <div class="byside">
-          <mat-slider (valueChange)="proximitySliderChange($event)" [displayWith]="formatProximitySliderLabel" thumbLabel="true" min="100" max="3000" tickInterval="500" value="1000"></mat-slider>
-  
+          <mat-chip color="primary" selected>₦200,000</mat-chip>
+        </mat-chip-list>
+        <!--https://material.io/components/sliders/-->
+        <mat-slider (valueChange)="budgetSliderChange($event)" [displayWith]="formatBudgetSliderLabel" thumbLabel="true"
+          min="50000" tickInterval="20000" max="200000" value="100000"></mat-slider>
+      </div>
+
+      <mat-divider class="margin-up-down"></mat-divider>
+
+      <mat-toolbar-row>
+        <h4>House type</h4>
+        <span class="example-spacer"></span>
+        <mat-slide-toggle (change)="houseTypeDisableChange($event)" aria-label="Cancel house type filter">
+          <!-- Reset -->
+        </mat-slide-toggle>
+      </mat-toolbar-row>
+
+      <div class="byside">
+        <mat-chip-list [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
+          <!-- https://stackblitz.com/edit/angular-ynznsk?file=app%2Fchips-stacked-example.ts -->
+          <mat-chip #chipRef="matChip" *ngFor="let chip of availableHouseTypes" (click)="onChipClick(chipRef, chip)"
+            [selected]="chip.selected">
+            {{ chip.name }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+      <!--maybe https://stackblitz.com/edit/angular-wcfsvk?file=app%2Fchips-input-example.html-->
+
+      <mat-divider class="margin-up-down"></mat-divider>
+
+      <mat-toolbar-row>
+        <h4>How far (from you, in km)</h4>
+        <span class="example-spacer"></span>
+        <mat-slide-toggle (change)="proximityDisableChange($event)" aria-label="Cancel proximity filter">
+          <!-- Reset -->
+        </mat-slide-toggle>
+      </mat-toolbar-row>
+
+      <div class="byside">
+        <mat-slider (valueChange)="proximitySliderChange($event)" [displayWith]="formatProximitySliderLabel"
+          thumbLabel="true" min="100" max="3000" tickInterval="500" value="1000"></mat-slider>
+
         <!-- based on the distance, filter the avaliabel places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
-  
+
         <mat-toolbar-row style="padding: 0px;">
           <mat-form-field [hidden]="hidePlacesSelect">
             <mat-label>Places like:</mat-label>
             <mat-select role="listbox" [formControl]="places" multiple>
-
               <!-- <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace + ' meters from you'">
                 <mat-option *ngFor="let place of places.place" [value]="place.value">
                   {{place.viewValue}}
                 </mat-option>
               </mat-optgroup> -->
 
-              <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{place}}</mat-option>
-    
+              <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{ place }}</mat-option>
             </mat-select>
             <!-- use hint to communicate progress of getting current location-->
-            <mat-hint>Click <mat-icon>gps_fixed</mat-icon> to find places near you</mat-hint>
+            <mat-hint>Click <mat-icon>gps_fixed</mat-icon> to find places near
+              you</mat-hint>
           </mat-form-field>
 
           <span class="example-spacer"></span>
 
           <button type="button" aria-label="Toggle geolocation" mat-icon-button>
             <!--switch between gps_fixed, gps_not_fixed and gps_off icons  when communicating geolocation status-->
-        <mat-icon matTooltip="Filter with current location" aria-label="get geolocation toggle icon">gps_fixed</mat-icon>
-      </button>
-
+            <mat-icon matTooltip="Filter with current location" aria-label="get geolocation toggle icon">gps_fixed
+            </mat-icon>
+          </button>
         </mat-toolbar-row>
-  
-        
-
-        </div>
-      </form>
-
+      </div>
+    </form>
   </mat-sidenav>
   <mat-sidenav-content>
-
     <mat-toolbar color="accent">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
@@ -137,50 +111,114 @@
 
     <!-- Add Content Here -->
 
-    <cdk-virtual-scroll-viewport itemSize="10" [orientation]="((isHandset$ | async) ? 'horizontal' : 'vertical')">
+    <cdk-virtual-scroll-viewport itemSize="10" [orientation]="(isHandset$ | async) ? 'horizontal' : 'vertical'">
+      
+
+        <mat-grid-list gutterSize="0px" cols="3" class="center" rowHeight="70px">
+          <mat-grid-tile [colspan]="1" [rowspan]="3" [style.background]="'lightpink'">
+            <img class="house-img" src="assets/images/yes.jpg"
+              alt="Photo of the appropriate room" />
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
+            <mat-card class="mat-card-in-tile">
+              
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle id="under-mat-card-title"> Dog Breed </mat-card-subtitle>
+  
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
+            <mat-card class="mat-card-in-tile price-area">
+              <div mat-line>who posted</div>
+              <div mat-line>use date pipe</div>
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'gray'">
+            <mat-card class="mat-card-in-tile">
+              <div mat-line>
+                <mat-card-subtitle>Notes: </mat-card-subtitle> <span class="other-details"> Some other detail</span>
+              </div>
+              <div mat-line>
+                <mat-card-subtitle>Dog Breed: </mat-card-subtitle> <span class="other-details"> Some detail</span>
+              </div>
+  
+              
+            </mat-card>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'lightblue'">
+            <mat-card class="mat-card-in-tile">
+              <mat-card-actions>
+                <div class="room-deats">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+                  <span class="room-number">3 kitchen</span>
+  
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+                  <span class="room-number">4 bedrooms</span>
+  
+                  <div class="example-spacer"></div>
+  
+                  <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
+                  <div>
+                    <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
+                      [@likes]="toggleLikeState" mat-button>
+                      <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
+                    </button>
+                    <button matTooltip="Chat with the house agent" mat-stroked-button>
+                      Contact
+                    </button>
+                  </div>
+                </div>
+                <!--  -->
+  
+              </mat-card-actions>
+  
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+  
+        <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
+  
+        <mat-card class="dashboard-card center">
+          <div>
+            <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
+          </div>
+          <div>
+            <mat-card-header>
+              <mat-card-title>
+                <!--fact.states[0][0] || -->
+                Some text here, meaningful text
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+              <div>
+                Time factor here. Wow.
+                <!-- [Card Content Here] -->
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
+              <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
+                [@likes]="toggleLikeState" mat-button>
+                <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
+              </button>
+              <button matTooltip="Chat with the house agent" mat-button>
+                Contact
+              </button>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+  
+       
+  
+        <!-- show only if user at bottom of page & in view-->
+        <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
+        </mat-spinner>
 
 
-      <mat-card class="dashboard-card center" *cdkVirtualFor="let fact of dataSource">
-
-        <div fxLayout>
-          <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room">
-
-        <div fxFlex="75%" fxFlexOrder="2">
-          <mat-card-header>
-            <mat-card-title>
-              <!--fact.states[0][0] || -->
-              {{fact.text.substring(0, 15)}}
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <div>{{'Number: ' + fact.number + ', year ' + fact.year}}
-              <!-- [Card Content Here] -->
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
-            <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState" [@likes]="toggleLikeState" mat-button><mat-icon>favorite{{ toggleLikeState }}</mat-icon></button>
-            <button matTooltip="Chat with the house agent" mat-button>Contact</button>
-          </mat-card-actions>
-        </div>
-        </div>
-      </mat-card>
-
-      <!-- show only if user at bottom of page & in view-->
-      <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
-      </mat-spinner>
-
+      
     </cdk-virtual-scroll-viewport>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-
-
-
-
-
-
 
 <!-- <cdk-virtual-scroll-viewport itemSize="100">
     <mat-list *cdkVirtualFor="let fact of dataSource">

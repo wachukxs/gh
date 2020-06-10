@@ -113,3 +113,68 @@ mat-slider {
 .mat-card-actions {
   margin-bottom: 0px;
 }
+
+mat-grid-list {
+  width: 75%;
+}
+
+.mat-card-in-tile {
+  width: -moz-available;
+  height: 70%;
+  border-radius: 1px !important;
+}
+
+.room-deats {
+  display: flex;
+  align-items: center;
+
+  margin-inline: 8px;
+}
+
+.price-area {
+  text-align: end;
+}
+
+.price-area div:nth-child(1) {
+  font-size: larger;
+}
+
+.price-area div:nth-child(2) {
+  font-size: small;
+}
+
+.room-number {
+  padding-top: 5px;
+  padding-right: 10px;
+}
+
+.room-deats mat-icon {
+  padding-right: 3px;
+}
+
+.mat-card-in-tile mat-card-subtitle {
+  display: inline-block;
+}
+
+.other-details {
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+#under-mat-card-title {
+  font-size: medium;
+  margin-top: -10px;
+  display: block;
+}
+
+.house-img { /** https://stackoverflow.com/a/38810343 */
+  position: relative;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translateX(-50%);
+}
+
+:host() ::ng-deep cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper { /** https://stackoverflow.com/a/59205966 */
+  width: -moz-available !important;
+}

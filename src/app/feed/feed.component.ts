@@ -35,6 +35,13 @@ interface PlacesGroup {
   place: Place[];
 }
 
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
+
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
@@ -52,6 +59,22 @@ interface PlacesGroup {
   ]
 })
 export class FeedComponent implements OnInit {
+
+  tiles: Tile[] = [
+    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
+  ];
+
+  tilesTwo: Tile[] = [
+    {text: 'Image', cols: 1, rows: 3, color: 'lightblue'},
+    {text: 'Upper details', cols: 1, rows: 1, color: 'lightgreen'},
+    {text: 'Upper details', cols: 1, rows: 1, color: 'lightgreen'},
+    {text: 'Middle details', cols: 2, rows: 1, color: 'lightpink'},
+    {text: 'Lower details', cols: 1, rows: 1, color: '#DDBDF1'},
+    {text: 'Lower details', cols: 1, rows: 1, color: '#DDBDF1'},
+  ];
 
   hidePlacesSelect: boolean;
   hideProximityPlacesSelect: boolean;
@@ -290,7 +313,7 @@ export class FeedComponent implements OnInit {
 
 
 export class FactsDataSource extends DataSource<object | Fact | undefined> {
-  private cachedFacts = Array.from<object | Fact>({ length: 0 });
+  private cachedFacts = [{ text: "May 29th is the day in 1861 that the Hong Kong General Chamber of Commerce was founded, in Hong Kong.", year: 1861, number: 150, found: true, type: "date" }]; // Array.from<object | Fact>({ length: 0 });
   private dataStream = new BehaviorSubject<(object | Fact | undefined)[]>(this.cachedFacts);
   private subscription = new Subscription();
 
@@ -301,16 +324,17 @@ export class FactsDataSource extends DataSource<object | Fact | undefined> {
     super();
 
     // Start with some data.
-    this._fetchFactPage();
+    // this._fetchFactPage();
   }
 
   private _fetchFactPage(): void {
-    for (let i = 0; i < this.pageSize; ++i) {
+    /* for (let i = 0; i < this.pageSize; ++i) {
       this.factService.getRandomFact().subscribe(res => {
         this.cachedFacts = this.cachedFacts.concat(res);
         this.dataStream.next(this.cachedFacts);
+
       });
-    }
+    } */
   }
 
   private _getPageForIndex(i: number): number {
