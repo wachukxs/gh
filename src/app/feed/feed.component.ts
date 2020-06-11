@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
-import { FactService } from '../fact.service';
-
+import { Clipboard } from '@angular/cdk/clipboard';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
-import { LocationService } from '../location.service';
+import { LocationService } from '../services/location.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatChip } from '@angular/material/chips';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HouseDetailDialogComponent } from '../house-detail-dialog/house-detail-dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {
   trigger,
   state,
@@ -124,7 +125,6 @@ export class FeedComponent implements OnInit {
     }
   ];
 
-  dataSource: FactsDataSource | object;
 
   budgetDisabled = false;
   houseTypeDisabled = false;
@@ -183,10 +183,11 @@ export class FeedComponent implements OnInit {
     return this.likeState ? '_border' : '';
   }
 
-  constructor(public factService: FactService,
-              private breakpointObserver: BreakpointObserver,
+  constructor(private breakpointObserver: BreakpointObserver,
+              private dialog: MatDialog,
+              private clipboard: Clipboard,
+              private snackBar: MatSnackBar,
               private locationService: LocationService) {
-    this.dataSource = new FactsDataSource(factService);
   }
 
   ngOnInit() {
@@ -309,70 +310,31 @@ export class FeedComponent implements OnInit {
     }, 10 * 1000);
   }
 
-}
+  seeHouseDetails(): void {
+    const dialogRef = this.dialog.open(HouseDetailDialogComponent, {
+      width: '250px',
+      data: {}
+    });
 
-
-export class FactsDataSource extends DataSource<object | Fact | undefined> {
-  private cachedFacts = [{ text: "May 29th is the day in 1861 that the Hong Kong General Chamber of Commerce was founded, in Hong Kong.", year: 1861, number: 150, found: true, type: "date" }]; // Array.from<object | Fact>({ length: 0 });
-  private dataStream = new BehaviorSubject<(object | Fact | undefined)[]>(this.cachedFacts);
-  private subscription = new Subscription();
-
-  private pageSize = 10;
-  private lastPage = 0;
-
-  constructor(private factService: FactService) {
-    super();
-
-    // Start with some data.
-    // this._fetchFactPage();
+    /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
-  private _fetchFactPage(): void {
-    /* for (let i = 0; i < this.pageSize; ++i) {
-      this.factService.getRandomFact().subscribe(res => {
-        this.cachedFacts = this.cachedFacts.concat(res);
-        this.dataStream.next(this.cachedFacts);
-
+  copyAgentPhoneNumber(): void {
+    const copy = this.clipboard.copy('080 564 23456');
+    if (copy) {
+      this.snackBar.open('Copied phone number.', 'Good', {
+        duration: 2000,
       });
-    } */
+    } else {
+      this.snackBar.open('Copying failed. Try again?', 'Close', {
+        duration: 2000,
+      });
+    }
   }
 
-  private _getPageForIndex(i: number): number {
-    return Math.floor(i / this.pageSize);
-  }
-
-  // implemented from DataSource interface
-  connect(collectionViewer: CollectionViewer): Observable<(object | Fact | undefined)[] | ReadonlyArray<object | Fact | undefined>> {
-    console.log('got to connect');
-    this.subscription.add(collectionViewer.viewChange.subscribe(range => {
-      // Update the data
-      const currentPage = this._getPageForIndex(range.end);
-
-      // console.log('what\'s range.end:', range.end, 'what\'s range:', range);
-
-      /* if (currentPage && range) {
-        console.log('current page:', currentPage, 'last page:', this.lastPage);
-      } */
-
-      if (currentPage > this.lastPage) {
-        this.lastPage = currentPage;
-        this._fetchFactPage();
-      }
-    }));
-    return this.dataStream;
-  }
-  /**
-   *
-   * @param collectionViewer
-   * The data source is subscribed
-   * to any changes in the collection viewer
-   * (e.g. the user scrolls), and will then perform an action
-   * and return the data stream. We are going to tell the
-   * data source to get more data when we have reached the end of the list.
-   */
-
-  // implemented from DataSource interface
-  disconnect(collectionViewer: CollectionViewer): void {
-    this.subscription.unsubscribe();
-  }
 }
+
+

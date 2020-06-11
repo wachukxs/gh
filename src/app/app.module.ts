@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
 import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
@@ -32,6 +33,7 @@ import { CdkStepperModule } from '@angular/cdk/stepper'; // not using this yet, 
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import { StatusComponent } from './status/status.component';
 import { CartComponent } from './cart/cart.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
@@ -41,6 +43,8 @@ import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TestComponent } from './test/test.component';
+import { HouseDetailDialogComponent } from './house-detail-dialog/house-detail-dialog.component';
+import { ChatsComponent } from './chats/chats.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,9 @@ import { TestComponent } from './test/test.component';
     LocationComponent,
     LoginComponent,
     SignupComponent,
-    TestComponent
+    TestComponent,
+    HouseDetailDialogComponent,
+    ChatsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,11 +87,14 @@ import { TestComponent } from './test/test.component';
     MatRadioModule,
     ReactiveFormsModule,
     MatToolbarModule,
+    MatSnackBarModule,
     MatSidenavModule,
     MatListModule,
     FormsModule,
     MatRippleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

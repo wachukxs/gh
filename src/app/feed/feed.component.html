@@ -115,7 +115,7 @@
       
 
         <mat-grid-list gutterSize="0px" cols="3" class="center" rowHeight="70px">
-          <mat-grid-tile [colspan]="1" [rowspan]="3" [style.background]="'lightpink'">
+          <mat-grid-tile (click)="seeHouseDetails()" [colspan]="1" [rowspan]="3" [style.background]="'lightpink'">
             <img class="house-img" src="assets/images/yes.jpg"
               alt="Photo of the appropriate room" />
           </mat-grid-tile>
@@ -149,11 +149,14 @@
             <mat-card class="mat-card-in-tile">
               <mat-card-actions>
                 <div class="room-deats">
-                  <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-                  <span class="room-number">3 kitchen</span>
+                  <mat-icon matTooltip="Has 3 kitchen" aria-hidden="false" aria-label="Kitchen icon">kitchen</mat-icon>
+                  <span class="room-number">3 <span>kitchen</span> </span>
   
-                  <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-                  <span class="room-number">4 bedrooms</span>
+                  <mat-icon matTooltip="Has 4 bedrooms" aria-hidden="false" aria-label="Room icon">local_hotel</mat-icon>
+                  <span class="room-number">4 <span>bedrooms</span> </span>
+
+                  <mat-icon matTooltip="Has 4 bathrooms" aria-hidden="false" aria-label="Bathroom icon">hot_tub</mat-icon>
+                  <span class="room-number">4 <span>bathroom</span> </span>
   
                   <div class="example-spacer"></div>
   
@@ -163,9 +166,19 @@
                       [@likes]="toggleLikeState" mat-button>
                       <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
                     </button>
-                    <button matTooltip="Chat with the house agent" mat-stroked-button>
+                    <button [matMenuTriggerFor]="chatMenu" matTooltip="Chat with the house agent" mat-raised-button>
                       Contact
                     </button>
+                    <mat-menu #chatMenu="matMenu" yPosition="above">
+                      <button mat-menu-item (click)="copyAgentPhoneNumber()">
+                        <mat-icon>phone</mat-icon>
+                        <span>Copy phone number</span>
+                      </button>
+                      <button mat-menu-item disabled>
+                        <mat-icon>chat</mat-icon>
+                        <span>Chat agent</span>
+                      </button>
+                    </mat-menu>
                   </div>
                 </div>
                 <!--  -->

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { FormStateService } from '../form-state.service';
+import { FormStateService } from '../services/form-state.service';
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
