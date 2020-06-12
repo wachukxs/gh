@@ -5,8 +5,8 @@
 </style>
 <!-- Put tooltips almost everywhere -->
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="((isPortraitHandset$|| isTablet$) | async) ? 'dialog' : 'navigation'"
+    [mode]="((isPortraitHandset$|| isTablet$) | async) ? 'over' : 'side'" [opened]="((isPortraitHandset$|| isTablet$) | async) === false">
     <mat-toolbar class="filters">
       Filters
       <span class="example-spacer"></span>
@@ -58,7 +58,7 @@
       <mat-divider class="margin-up-down"></mat-divider>
 
       <mat-toolbar-row>
-        <h4>How far (from you, in km)</h4>
+        <h4>Proximity (in km)</h4>
         <span class="example-spacer"></span>
         <mat-slide-toggle (change)="proximityDisableChange($event)" aria-label="Cancel proximity filter">
           <!-- Reset -->
@@ -102,7 +102,7 @@
   <mat-sidenav-content>
     <mat-toolbar color="accent">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        *ngIf="(isPortraitHandset$|| isTablet$) | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Browse houses</span>
@@ -111,87 +111,92 @@
 
     <!-- Add Content Here -->
 
-    <cdk-virtual-scroll-viewport itemSize="10" [orientation]="(isHandset$ | async) ? 'horizontal' : 'vertical'">
+
+      <cdk-virtual-scroll-viewport itemSize="10" [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
       
 
-        <mat-grid-list gutterSize="0px" cols="3" class="center" rowHeight="70px">
-          <mat-grid-tile (click)="seeHouseDetails()" [colspan]="1" [rowspan]="3" [style.background]="'lightpink'">
-            <img class="house-img" src="assets/images/yes.jpg"
-              alt="Photo of the appropriate room" />
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
-            <mat-card class="mat-card-in-tile">
-              
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle id="under-mat-card-title"> Dog Breed </mat-card-subtitle>
-  
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
-            <mat-card class="mat-card-in-tile price-area">
-              <div mat-line>who posted</div>
-              <div mat-line>use date pipe</div>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'gray'">
-            <mat-card class="mat-card-in-tile">
-              <div mat-line>
-                <mat-card-subtitle>Notes: </mat-card-subtitle> <span class="other-details"> Some other detail</span>
-              </div>
-              <div mat-line>
-                <mat-card-subtitle>Dog Breed: </mat-card-subtitle> <span class="other-details"> Some detail</span>
-              </div>
-  
-              
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'lightblue'">
-            <mat-card class="mat-card-in-tile">
-              <mat-card-actions>
-                <div class="room-deats">
-                  <mat-icon matTooltip="Has 3 kitchen" aria-hidden="false" aria-label="Kitchen icon">kitchen</mat-icon>
-                  <span class="room-number">3 <span>kitchen</span> </span>
-  
-                  <mat-icon matTooltip="Has 4 bedrooms" aria-hidden="false" aria-label="Room icon">local_hotel</mat-icon>
-                  <span class="room-number">4 <span>bedrooms</span> </span>
-
-                  <mat-icon matTooltip="Has 4 bathrooms" aria-hidden="false" aria-label="Bathroom icon">hot_tub</mat-icon>
-                  <span class="room-number">4 <span>bathroom</span> </span>
-  
-                  <div class="example-spacer"></div>
-  
-                  <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
-                  <div>
-                    <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
-                      [@likes]="toggleLikeState" mat-button>
-                      <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
-                    </button>
-                    <button [matMenuTriggerFor]="chatMenu" matTooltip="Chat with the house agent" mat-raised-button>
-                      Contact
-                    </button>
-                    <mat-menu #chatMenu="matMenu" yPosition="above">
-                      <button mat-menu-item (click)="copyAgentPhoneNumber()">
-                        <mat-icon>phone</mat-icon>
-                        <span>Copy phone number</span>
-                      </button>
-                      <button mat-menu-item disabled>
-                        <mat-icon>chat</mat-icon>
-                        <span>Chat agent</span>
-                      </button>
-                    </mat-menu>
-                  </div>
+        <div *ngIf="isLandscapeTabletWeb$ | async" class="not-mobile">
+          <mat-grid-list *cdkVirtualFor="let item of placesList" gutterSize="0px" cols="3" class="center" rowHeight="70px">
+            <mat-grid-tile (click)="seeHouseDetails()" [colspan]="1" [rowspan]="3" [style.background]="'lightpink'">
+              <img class="house-img" src="assets/images/yes.jpg"
+                alt="Photo of the appropriate room" />
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
+              <mat-card class="mat-card-in-tile">
+                
+                  <mat-card-title>Shiba Inu</mat-card-title>
+                  <mat-card-subtitle id="under-mat-card-title"> Dog Breed </mat-card-subtitle>
+    
+              </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
+              <mat-card class="mat-card-in-tile price-area">
+                <div mat-line>who posted</div>
+                <div mat-line>use date pipe</div>
+              </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'gray'">
+              <mat-card class="mat-card-in-tile">
+                <div mat-line>
+                  <mat-card-subtitle>Notes: </mat-card-subtitle> <span class="other-details"> Some other detail</span>
                 </div>
-                <!--  -->
+                <div mat-line>
+                  <mat-card-subtitle>Dog Breed: </mat-card-subtitle> <span class="other-details"> Some detail</span>
+                </div>
+    
+                
+              </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'lightblue'">
+              <mat-card class="mat-card-in-tile">
+                <mat-card-actions>
+                  <div class="room-deats">
+                    <mat-icon matTooltip="Has 3 kitchen" aria-hidden="false" aria-label="Kitchen icon">kitchen</mat-icon>
+                    <span class="room-number">3 <span>kitchen</span> </span>
+    
+                    <mat-icon matTooltip="Has 4 bedrooms" aria-hidden="false" aria-label="Room icon">local_hotel</mat-icon>
+                    <span class="room-number">4 <span>bedrooms</span> </span>
   
-              </mat-card-actions>
-  
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-  
+                    <mat-icon matTooltip="Has 4 bathrooms" aria-hidden="false" aria-label="Bathroom icon">hot_tub</mat-icon>
+                    <span class="room-number">4 <span>bathroom</span> </span>
+    
+                    <div class="example-spacer"></div>
+    
+                    <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
+                    <div>
+                      <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
+                        [@likes]="toggleLikeState" mat-button>
+                        <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
+                      </button>
+                      <button [matMenuTriggerFor]="chatMenu" matTooltip="Chat with the house agent" mat-raised-button>
+                        Contact
+                      </button>
+                      <mat-menu #chatMenu="matMenu" yPosition="above">
+                        <button mat-menu-item (click)="copyAgentPhoneNumber()">
+                          <mat-icon>phone</mat-icon>
+                          <span>Copy phone number</span>
+                        </button>
+                        <button mat-menu-item disabled>
+                          <mat-icon>chat</mat-icon>
+                          <span>Chat agent</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </div>
+                  <!--  -->
+    
+                </mat-card-actions>
+    
+              </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+    
+        </div>
         <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
   
-        <mat-card class="dashboard-card center">
+          <div *ngIf="(isHandset$ | async) || (isPortraitTablet$ | async)" class="mobile">
+            
+        <mat-card *cdkVirtualFor="let item of placesList" class="dashboard-card center">
           <div>
             <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
           </div>
@@ -221,8 +226,8 @@
           </div>
         </mat-card>
   
+          </div>
        
-  
         <!-- show only if user at bottom of page & in view-->
         <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
         </mat-spinner>
@@ -230,6 +235,9 @@
 
       
     </cdk-virtual-scroll-viewport>
+
+
+
   </mat-sidenav-content>
 </mat-sidenav-container>
 

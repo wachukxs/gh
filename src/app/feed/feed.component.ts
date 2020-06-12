@@ -130,11 +130,33 @@ export class FeedComponent implements OnInit {
   houseTypeDisabled = false;
   proximityDisabled = false;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isPortraitHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+  isTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Tablet)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  isPortraitTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.TabletPortrait)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  isLandscapeTabletWeb$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Web, Breakpoints.TabletLandscape])
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
 
 
 
@@ -196,8 +218,8 @@ export class FeedComponent implements OnInit {
       console.log('brek pnt', result);
     }); */
 
-    this.isHandset$.subscribe(value => console.log('is handset', value));
-
+    this.isPortraitHandset$.subscribe(value => console.log('is portrait handset', value));
+    this.isTablet$.subscribe(value => console.log('is tablet', value));
   }
 
   /**

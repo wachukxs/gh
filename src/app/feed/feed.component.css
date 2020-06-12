@@ -81,7 +81,7 @@ mat-slider {
   and (min-device-width: 426px) 
   and (max-device-width: 768px)  { 
     mat-sidenav {
-        width: 45%;
+        width: 35%;
     }
 
     mat-card {
@@ -92,9 +92,9 @@ mat-slider {
 /**very large mobile (tablets) view rules*/
 @media only screen 
   and (min-device-width: 769px) 
-  and (max-device-width: 960px)  { 
+  and (max-device-width: 960px) { 
     mat-sidenav {
-        width: 45%;
+        width: 30%;
     }
 
     div.cdk-virtual-scroll-content-wrapper {
@@ -210,3 +210,25 @@ mat-grid-list mat-grid-tile:nth-child(5) {
 mat-grid-list:nth-child(1) {
   margin-top: 40px;
 }
+
+mat-grid-list {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/** scroll */
+/* @media only screen and (max-device-width: 960px) {
+  :host ::ng-deep .cdk-virtual-scroll-content-wrapper .mobile {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  
+  :host ::ng-deep .cdk-virtual-scroll-content-wrapper .mobile mat-card {
+    flex: 0 0 auto;
+  
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+} */
+
