@@ -64,6 +64,10 @@ mat-slider {
   width: -webkit-fill-available;
 }
 
+mat-card {
+  height: min-content;
+}
+
 /**small mobile view rules*/
 @media only screen 
   and (min-device-width: 320px) 
@@ -217,18 +221,21 @@ mat-grid-list {
 }
 
 /** scroll */
-/* @media only screen and (max-device-width: 960px) {
-  :host ::ng-deep .cdk-virtual-scroll-content-wrapper .mobile {
+@media only screen and (max-device-width: 960px) {
+  :host ::ng-deep .mobile .cdk-virtual-scroll-content-wrapper {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
   }
   
-  :host ::ng-deep .cdk-virtual-scroll-content-wrapper .mobile mat-card {
+  :host ::ng-deep .mobile .cdk-virtual-scroll-content-wrapper mat-card {
     flex: 0 0 auto;
   
     margin-left: 20px;
     margin-right: 20px;
   }
-} */
+}
 
+cdk-virtual-scroll-viewport.mobile { /** you won't come back to bite me */
+  height: 58vh;
+}
