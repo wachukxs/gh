@@ -200,7 +200,8 @@
     
   </cdk-virtual-scroll-viewport>
 
-
+  <!-- <div mat-subheader>Folders</div> -->
+  
       <cdk-virtual-scroll-viewport *ngIf="(isHandset$ | async) || (isPortraitTablet$ | async)" class="mobile" itemSize="10" [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
       
 
@@ -244,6 +245,10 @@
 
       
     </cdk-virtual-scroll-viewport>
+
+    <mat-divider></mat-divider>
+
+    <!-- <div mat-subheader>Folders</div> -->
 
     <cdk-virtual-scroll-viewport *ngIf="(isHandset$ | async) || (isPortraitTablet$ | async)" class="mobile" itemSize="10" [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
       

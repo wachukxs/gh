@@ -220,7 +220,7 @@ mat-grid-list {
   margin-bottom: 20px;
 }
 
-/** scroll */
+/** horizontal scroll => https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
 @media only screen and (max-device-width: 960px) {
   :host ::ng-deep .mobile .cdk-virtual-scroll-content-wrapper {
     display: flex;
@@ -237,5 +237,5 @@ mat-grid-list {
 }
 
 cdk-virtual-scroll-viewport.mobile { /** you won't come back to bite me */
-  height: 58vh;
+  min-height: 100%;
 }
