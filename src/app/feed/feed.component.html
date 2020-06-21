@@ -251,9 +251,19 @@
             [@likes]="toggleLikeState" mat-button>
             <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
           </button>
-          <button matTooltip="Chat with the house agent" mat-button>
+          <button [matMenuTriggerFor]="chatMenuMobile" matTooltip="Chat with the house agent" mat-button>
             Contact
           </button>
+          <mat-menu #chatMenuMobile="matMenu" yPosition="above">
+            <button mat-menu-item (click)="copyAgentPhoneNumber()">
+              <mat-icon>phone</mat-icon>
+              <span>Copy phone number</span>
+            </button>
+            <button mat-menu-item disabled>
+              <mat-icon>chat</mat-icon>
+              <span>Chat agent</span>
+            </button>
+          </mat-menu>
         </mat-card-actions>
       </div>
     </mat-card>
