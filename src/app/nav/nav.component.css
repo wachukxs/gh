@@ -29,3 +29,12 @@ mat-toolbar {
 app-feed {
   background-color: white;
 }
+
+@media only screen and (max-device-width: 960px) {
+  :host {
+    position: absolute;
+    bottom: 0;
+    width: -moz-available;
+    width: -webkit-fill-available
+  }
+}

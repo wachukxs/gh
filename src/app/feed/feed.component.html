@@ -111,7 +111,11 @@
 
     <!-- Add Content Here -->
 
-    <cdk-virtual-scroll-viewport *ngIf="isLandscapeTabletWeb$ | async" class="not-mobile" itemSize="10" [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
+    <cdk-virtual-scroll-viewport 
+    *ngIf="isLandscapeTabletWeb$ | async" 
+    class="not-mobile" 
+    itemSize="10" 
+    [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
       
 
         <mat-grid-list *cdkVirtualFor="let item of placesList" gutterSize="0px" cols="3" class="center" rowHeight="70px">
@@ -201,100 +205,70 @@
   </cdk-virtual-scroll-viewport>
 
   <!-- <div mat-subheader>Folders</div> -->
+
   
-      <cdk-virtual-scroll-viewport *ngIf="(isHandset$ | async) || (isPortraitTablet$ | async)" class="mobile" itemSize="10" [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
+  
+
+  <cdk-virtual-scroll-viewport 
+  *ngIf="(isHandset$ | async) || (isPortraitTablet$ | async)" 
+  class="mobile" 
+  itemSize="10" 
+  [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
       
 
-        <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
-  
-        <mat-card *cdkVirtualFor="let item of placesList" class="dashboard-card center">
+    <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
+
+    <mat-grid-list *cdkVirtualFor="let item of placesList" cols="1" rowHeight="150px">
+      <mat-grid-tile [style.background]="'lightblue'">
+        <mat-grid-tile-header>
+          this is a header
+        </mat-grid-tile-header>
+        4
+        <mat-grid-tile-footer>
+          this is a footer
+        </mat-grid-tile-footer>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- <mat-card *cdkVirtualFor="let item of placesList" class="dashboard-card center">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <div>
+        <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
+      </div>
+      <div>
+        <mat-card-content class="dashboard-card-content">
           <div>
-            <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
+            Time factor here. Wow.
           </div>
-          <div>
-            <mat-card-header>
-              <mat-card-title>
-                <!--fact.states[0][0] || -->
-                Some text here, meaningful text
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="dashboard-card-content">
-              <div>
-                Time factor here. Wow.
-                <!-- [Card Content Here] -->
-              </div>
-            </mat-card-content>
-            <mat-card-actions>
-              <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
-              <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
-                [@likes]="toggleLikeState" mat-button>
-                <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
-              </button>
-              <button matTooltip="Chat with the house agent" mat-button>
-                Contact
-              </button>
-            </mat-card-actions>
-          </div>
-        </mat-card>
-  
+        </mat-card-content>
+        <mat-card-actions>
        
-        <!-- show only if user at bottom of page & in view-->
-        <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
-        </mat-spinner>
+          <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
+            [@likes]="toggleLikeState" mat-button>
+            <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
+          </button>
+          <button matTooltip="Chat with the house agent" mat-button>
+            Contact
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card> -->
+
+   
+    <!-- show only if user at bottom of page & in view-->
+    <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
+    </mat-spinner>
 
 
-      
-    </cdk-virtual-scroll-viewport>
-
-    <mat-divider></mat-divider>
-
-    <!-- <div mat-subheader>Folders</div> -->
-
-    <cdk-virtual-scroll-viewport *ngIf="(isHandset$ | async) || (isPortraitTablet$ | async)" class="mobile" itemSize="10" [orientation]="(isLandscapeTabletWeb$ | async) ? 'vertical' : 'horizontal'">
-      
-
-      <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
-
-      <mat-card *cdkVirtualFor="let item of placesList" class="dashboard-card center">
-        <div>
-          <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
-        </div>
-        <div>
-          <mat-card-header>
-            <mat-card-title>
-              <!--fact.states[0][0] || -->
-              Some text here, meaningful text
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-            <div>
-              Time factor here. Wow.
-              <!-- [Card Content Here] -->
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <!--if they've liked it, tell them it's saved in their favorites and show them how to get there-->
-            <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
-              [@likes]="toggleLikeState" mat-button>
-              <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
-            </button>
-            <button matTooltip="Chat with the house agent" mat-button>
-              Contact
-            </button>
-          </mat-card-actions>
-        </div>
-      </mat-card>
-
-     
-      <!-- show only if user at bottom of page & in view-->
-      <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
-      </mat-spinner>
+  
+</cdk-virtual-scroll-viewport>
 
 
-    
-  </cdk-virtual-scroll-viewport>
-
-
+  <!-- Stop Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>
 

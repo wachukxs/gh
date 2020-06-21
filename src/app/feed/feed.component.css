@@ -1,12 +1,14 @@
 cdk-virtual-scroll-viewport {
-  /* background-color: blue; */
-  /* height: 526px; */
-    height: calc(100vh - 130px);
-  /* padding: 20px; */
+  height: calc(100vh - (64px + 64px));
 
   width: 100%;
 
   background-color: #EEF2F7;
+}
+@media only screen and (max-device-width: 960px) {
+  cdk-virtual-scroll-viewport {
+    height: calc(100vh - (56px + 56px));
+  }
 }
 
 .center {
@@ -121,6 +123,7 @@ mat-grid-list {
 
 .mat-card-in-tile {
   width: -moz-available;
+  width: -webkit-fill-available;
   height: 70%;
   border-radius: 1px !important;
 }
@@ -187,15 +190,16 @@ mat-grid-list {
 }
 
 .house-img { /** https://stackoverflow.com/a/38810343 */
-  position: relative;
-  left: 50%;
+  position: absolute; /* or display: block **/
   min-width: 100%;
   min-height: 100%;
-  transform: translateX(-50%);
+  width: -webkit-fill-available;
+  width: -moz-available;
 }
 
 :host() ::ng-deep cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper { /** https://stackoverflow.com/a/59205966 */
   width: -moz-available !important;
+  width: -webkit-fill-available !important;
 }
 
 mat-grid-list mat-grid-tile:nth-child(1) {
@@ -222,7 +226,7 @@ mat-grid-list {
 
 /** horizontal scroll => https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
 @media only screen and (max-device-width: 960px) {
-  :host ::ng-deep .mobile .cdk-virtual-scroll-content-wrapper {
+  /* :host ::ng-deep .mobile .cdk-virtual-scroll-content-wrapper {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -233,9 +237,9 @@ mat-grid-list {
   
     margin-left: 20px;
     margin-right: 20px;
-  }
+  } */
 }
 
-cdk-virtual-scroll-viewport.mobile { /** you won't come back to bite me */
+/* cdk-virtual-scroll-viewport.mobile {
   min-height: 100%;
-}
+} */
