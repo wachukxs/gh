@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { GoogleMapsModule } from '@angular/google-maps'
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,6 +64,7 @@ import { ChatsComponent } from './chats/chats.component';
     ChatsComponent
   ],
   imports: [
+    GoogleMapsModule,
     BrowserModule,
     CdkStepperModule,
     MatStepperModule,
