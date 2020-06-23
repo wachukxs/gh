@@ -19,6 +19,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { ImageCarouselComponent } from '../image-carousel/image-carousel.component';
 
 export interface Fact { // change to property
   text?: string;

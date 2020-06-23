@@ -1,0 +1,34 @@
+<section class="example-container">
+    <!-- <h2>Step {{ selectedIndex + 1 }}/{{ steps.length }}</h2> -->
+  
+    <div >
+      <ng-container 
+      [style.display]="selected ? 'block' : 'none'" 
+      [ngTemplateOutlet]="selected.content"
+      (swipeleft)="onSwipeLeft($event)"
+        (swiperight)="onSwipeRight($event)"
+      >
+        
+      </ng-container>
+      <div class="container">
+        <span
+            *ngFor="let step of steps; let i = index"
+            [ngClass]="{'dot': true, 'active': selectedIndex === i}"
+            (click)="onClick(i)"
+        ></span>
+    </div>
+    </div>
+    
+  
+    <!-- <footer class="example-step-navigation-bar">
+      <button class="example-nav-button" cdkStepperPrevious>&larr;</button>
+      <button
+        *ngFor="let step of steps; let i = index"
+        [ngClass]="{ 'example-active': selectedIndex === i }"
+        (click)="onClick(i)"
+      >
+        Step {{ i + 1 }}
+      </button>
+      <button class="example-nav-button" cdkStepperNext>&rarr;</button>
+    </footer> -->
+  </section>

@@ -1,0 +1,23 @@
+/*
+owl dots from http://jsfiddle.net/kajrttgv/2
+*/
+.container {
+    /* padding: 20px; */
+    margin-top: -45px;
+    margin-bottom: 20px;
+}
+.dot {
+    background-color: #eee;
+    border: 1px solid #666;
+    border-radius: 5px;
+    box-shadow: inset 1px 1px 1px #888;
+    display: inline-block;
+    height: 5px;
+    width: 5px;
+    
+    margin-right: 3px;
+}
+.dot.active {
+    background-color: #41ABE5;
+    box-shadow: inset 2px 0px 2px -2px #333;
+}

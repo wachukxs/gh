@@ -1,4 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { MyHammerConfig } from './hammer-js.config';
 import { NgModule } from '@angular/core';
 
 import { GoogleMapsModule } from '@angular/google-maps'
@@ -39,6 +40,7 @@ import { StatusComponent } from './status/status.component';
 import { CartComponent } from './cart/cart.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FeedComponent } from './feed/feed.component';
 import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
@@ -47,6 +49,7 @@ import { TestComponent } from './test/test.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseDetailDialogComponent } from './house-detail-dialog/house-detail-dialog.component';
 import { ChatsComponent } from './chats/chats.component';
+import { ImageCarouselComponent } from './image-carousel/image-carousel.component';
 
 @NgModule({
   declarations: [
@@ -62,9 +65,12 @@ import { ChatsComponent } from './chats/chats.component';
     SignupComponent,
     TestComponent,
     HouseDetailDialogComponent,
-    ChatsComponent
+    ChatsComponent,
+    ImageCarouselComponent
   ],
   imports: [
+    HammerModule,
+    MatTabsModule,
     MatCheckboxModule,
     GoogleMapsModule,
     BrowserModule,
@@ -100,7 +106,12 @@ import { ChatsComponent } from './chats/chats.component';
     MatDialogModule,
     ClipboardModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
