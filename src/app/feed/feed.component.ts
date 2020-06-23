@@ -8,6 +8,7 @@ import { LocationService } from '../services/location.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatChip } from '@angular/material/chips';
+import { CdkStepper } from '@angular/cdk/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HouseDetailDialogComponent } from '../house-detail-dialog/house-detail-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';

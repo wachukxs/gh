@@ -218,17 +218,6 @@
 
     <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
 
-    <!-- <mat-grid-list *cdkVirtualFor="let item of placesList" cols="1" rowHeight="150px">
-      <mat-grid-tile [style.background]="'lightblue'">
-        <mat-grid-tile-header>
-          this is a header
-        </mat-grid-tile-header>
-        4
-        <mat-grid-tile-footer>
-          this is a footer
-        </mat-grid-tile-footer>
-      </mat-grid-tile>
-    </mat-grid-list> -->
 
     <mat-card *cdkVirtualFor="let item of placesList" class="dashboard-card center">
       <!-- <mat-card-header>
@@ -236,7 +225,7 @@
         <mat-card-title>Shiba Inu</mat-card-title>
         <mat-card-subtitle>Dog Breed</mat-card-subtitle>
       </mat-card-header> -->
-      <div>
+      <div (click)="seeHouseDetails()">
         <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
       </div>
       <div>

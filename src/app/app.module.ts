@@ -30,7 +30,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CdkStepperModule } from '@angular/cdk/stepper'; // not using this yet, don't even know what it's for & MatFormFieldModule
+import { CdkStepperModule } from '@angular/cdk/stepper'; // not using this yet, don't even know what it's for [// https://material.angular.io/guide/creating-a-custom-stepper-using-the-cdk-stepper] & MatFormFieldModule
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -44,6 +44,7 @@ import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TestComponent } from './test/test.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseDetailDialogComponent } from './house-detail-dialog/house-detail-dialog.component';
 import { ChatsComponent } from './chats/chats.component';
 
@@ -64,6 +65,7 @@ import { ChatsComponent } from './chats/chats.component';
     ChatsComponent
   ],
   imports: [
+    MatCheckboxModule,
     GoogleMapsModule,
     BrowserModule,
     CdkStepperModule,
