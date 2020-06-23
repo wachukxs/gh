@@ -226,10 +226,10 @@
         <mat-card-subtitle>Dog Breed</mat-card-subtitle>
       </mat-card-header> -->
       <div>
-        <app-image-carousel>
-          <cdk-step> <img (click)="seeHouseDetails()" class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" /> </cdk-step>
-          <cdk-step> <img (click)="seeHouseDetails()" class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" /> </cdk-step>
-          <cdk-step> <img (click)="seeHouseDetails()" class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" /> </cdk-step>
+        <app-image-carousel (click)="seeHouseDetails()">
+          <cdk-step> <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" /> </cdk-step>
+          <cdk-step> <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" /> </cdk-step>
+          <cdk-step> <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" /> </cdk-step>
         </app-image-carousel>
         <!-- <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" /> -->
       </div>

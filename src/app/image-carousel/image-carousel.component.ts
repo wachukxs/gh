@@ -9,15 +9,24 @@ import { CdkStepper } from '@angular/cdk/stepper';
 })
 export class ImageCarouselComponent extends CdkStepper /* implements OnInit */ { // is a stepper
 
+  action: string;
   onClick(index: number): void {
     this.selectedIndex = index;
   }
 
-  onSwipeRight(): void {
+  onSwipeRight(event): void {
+    this.action = 'swiped right';
+    setTimeout(() => {
+      this.action = '';
+    }, 3000);
     this.previous();
   }
 
-  onSwipeLeft(): void {
+  onSwipeLeft(event): void {
+    this.action = 'swiped left';
+    setTimeout(() => {
+      this.action = '';
+    }, 3000);
     this.next();
   }
 
