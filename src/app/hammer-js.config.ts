@@ -1,6 +1,6 @@
 
 import { HammerGestureConfig } from '@angular/platform-browser';
-import * as hammer from 'hammerjs';
+import * as Hammer from 'hammerjs';
 import { Injectable } from '@angular/core';
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component';
 // import { HammerInstance } from '@angular/material/core';
@@ -8,10 +8,22 @@ import { ImageCarouselComponent } from './image-carousel/image-carousel.componen
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = {
-    swipe: { direction: hammer.DIRECTION_HORIZONTAL },
+    pan: { direction: Hammer.DIRECTION_All },
+    swipe: { direction: Hammer.DIRECTION_VERTICAL },
     pinch: { enable: false },
     rotate: { enable: false }
   };
 
-  // buildHammer(element: ImageCarouselComponent);
+  buildHammer(element: HTMLElement) {
+    const mc = new Hammer(element, {
+      touchAction: 'auto',
+          inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
+          recognizers: [
+            [Hammer.Swipe, {
+              direction: Hammer.DIRECTION_HORIZONTAL
+            }]
+          ]
+    });
+    return mc;
+  }
 }
