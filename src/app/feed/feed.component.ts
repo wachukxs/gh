@@ -214,6 +214,14 @@ export class FeedComponent implements OnInit {
               private locationService: LocationService) {
   }
 
+  onSwipeRight(event): void {
+    console.log('right');
+  }
+
+  onSwipeLeft(event): void {
+    console.log('left');
+  }
+
   ngOnInit() {
 
     /* this.breakpointObserver.observe(Breakpoints.Handset).subscribe(result => {
