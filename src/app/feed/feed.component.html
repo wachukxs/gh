@@ -225,9 +225,9 @@
         <mat-card-title>Shiba Inu</mat-card-title>
         <mat-card-subtitle>Dog Breed</mat-card-subtitle>
       </mat-card-header> -->
-      <div>
-        <app-image-carousel (swipeleft)="onSwipeLeft($event)"
-        (swiperight)="onSwipeRight($event)" (click)="seeHouseDetails()">
+      <div (swipeleft)="onSwipeLeft($event)"
+      (swiperight)="onSwipeRight($event)">
+        <app-image-carousel  (click)="seeHouseDetails()">
           <cdk-step> <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" /> </cdk-step>
           <cdk-step> <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" /> </cdk-step>
           <cdk-step> <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" /> </cdk-step>
