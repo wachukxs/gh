@@ -200,6 +200,8 @@ export class FeedComponent implements OnInit {
 
   likeState = false;
 
+  swipeEvent = '';
+
   /**
    * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
    */
@@ -215,11 +217,17 @@ export class FeedComponent implements OnInit {
   }
 
   onSwipeRight(event): void {
-    console.log('right');
+    this.swipeEvent = 'swiped right';
+    setTimeout(() => {
+      this.swipeEvent = 'do sth';
+    }, 3000);
   }
 
   onSwipeLeft(event): void {
-    console.log('left');
+    this.swipeEvent = 'swiped left';
+    setTimeout(() => {
+      this.swipeEvent = 'do sth';
+    }, 3000);
   }
 
   ngOnInit() {

@@ -9,7 +9,7 @@ import { CdkStepper } from '@angular/cdk/stepper';
 })
 export class ImageCarouselComponent extends CdkStepper /* implements OnInit */ { // is a stepper
 
-  action: string = 'do sth';
+  action = 'do sth';
   onClick(index: number): void {
     this.selectedIndex = index;
   }
