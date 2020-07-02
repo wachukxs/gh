@@ -219,7 +219,8 @@
     <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
 
 
-    <mat-card *cdkVirtualFor="let item of placesList" class="dashboard-card center">
+    <mat-card (swipeleft)="onSwipeLeft($event)"
+    (swiperight)="onSwipeRight($event)" *cdkVirtualFor="let item of placesList" class="dashboard-card center">
       <!-- <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>Shiba Inu</mat-card-title>
@@ -234,8 +235,10 @@
         </app-image-carousel>
         <!-- <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" /> -->
       </div>
-      <div>
-        <mat-card-content class="dashboard-card-content">
+      <div (swipeleft)="onSwipeLeft($event)"
+      (swiperight)="onSwipeRight($event)">
+        <mat-card-content class="dashboard-card-content" (swipeleft)="onSwipeLeft($event)"
+        (swiperight)="onSwipeRight($event)">
           <div>
             Time factor here. Wow. {{swipeEvent}}
           </div>

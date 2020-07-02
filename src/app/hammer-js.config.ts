@@ -14,7 +14,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     rotate: { enable: false }
   };
 
-  buildHammer(element: HTMLElement) {
+  buildHammer(element: HTMLElement) { // https://stackoverflow.com/a/60761571
     const mc = new Hammer(element, {
       touchAction: 'auto',
           inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput,
