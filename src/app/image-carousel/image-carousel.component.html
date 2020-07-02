@@ -5,7 +5,8 @@
       <ng-container 
       [style.display]="selected ? 'block' : 'none'" 
       [ngTemplateOutlet]="selected.content"
-      
+      (swipeleft)="onSwipeLeft($event)"
+        (swiperight)="onSwipeRight($event)"
       >
         
       </ng-container>
