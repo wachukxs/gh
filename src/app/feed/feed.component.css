@@ -224,6 +224,9 @@ mat-grid-list {
   margin-bottom: 20px;
 }
 
+mat-card-actions button[mattooltip] mat-icon {
+  cursor: pointer;
+}
 /** horizontal scroll => https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
 @media only screen and (max-device-width: 960px) {
   /* :host ::ng-deep .mobile .cdk-virtual-scroll-content-wrapper {
