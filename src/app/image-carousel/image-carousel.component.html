@@ -1,12 +1,12 @@
-<section class="example-container">
+<section (swipeleft)="onSwipeLeft($event)"
+(swiperight)="onSwipeRight($event)" class="example-container">
     <!-- <h2>Step {{ selectedIndex + 1 }}/{{ steps.length }}</h2> -->
   
     <div >
       <ng-container 
       [style.display]="selected ? 'block' : 'none'" 
       [ngTemplateOutlet]="selected.content"
-      (swipeleft)="onSwipeLeft($event)"
-        (swiperight)="onSwipeRight($event)"
+      
       >
         
       </ng-container>
