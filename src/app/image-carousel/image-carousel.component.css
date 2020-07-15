@@ -3,8 +3,11 @@ owl dots from http://jsfiddle.net/kajrttgv/2
 */
 .container {
     /* padding: 20px; */
-    margin-top: -45px;
+    margin-top: -30px;
     margin-bottom: 20px;
+
+    display: flex;
+    justify-content: center;
 }
 .dot {
     background-color: #eee;
@@ -23,7 +26,7 @@ owl dots from http://jsfiddle.net/kajrttgv/2
 }
 
 .control {
-    top: 30%;
+    top: 20%;
 
     border: none;
     background-color: #804f4fa1;
