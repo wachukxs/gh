@@ -198,6 +198,13 @@ export class FeedComponent implements OnInit {
     }),
   });
 
+
+  public slides = [
+    { src: 'assets/images/r2.png' },
+    { src: 'assets/images/k2.png' },
+    { src: 'assets/images/yes.jpg' }
+  ];
+
   likeState = false;
 
   swipeEvent = '';

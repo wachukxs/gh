@@ -157,7 +157,7 @@
                   <span class="room-number">3 <span>kitchen</span> </span>
   
                   <mat-icon matTooltip="Has 4 bedrooms" aria-hidden="false" aria-label="Room icon">local_hotel</mat-icon>
-                  <span class="room-number">4 <span>bedrooms</span> </span>
+                  <span class="room-number">4 <span>rooms</span> </span>
 
                   <mat-icon matTooltip="Has 4 bathrooms" aria-hidden="false" aria-label="Bathroom icon">hot_tub</mat-icon>
                   <span class="room-number">4 <span>bathroom</span> </span>
@@ -220,15 +220,16 @@
 
 
     <mat-card (swipeleft)="onSwipeLeft($event)"
-    (swiperight)="onSwipeRight($event)" *cdkVirtualFor="let item of placesList" class="dashboard-card center">
-      <!-- <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      </mat-card-header> -->
+    (swiperight)="onSwipeRight($event)" 
+    *cdkVirtualFor="let item of placesList" 
+    class="dashboard-card center">
+      
       <div (swipeleft)="onSwipeLeft($event)"
       (swiperight)="onSwipeRight($event)">
-        <app-image-carousel  (click)="seeHouseDetails()">
+      <!-- <app-picture-carousel [slides]="slides">
+
+      </app-picture-carousel> -->
+        <app-image-carousel>
           <cdk-step> <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" /> </cdk-step>
           <cdk-step> <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" /> </cdk-step>
           <cdk-step> <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" /> </cdk-step>
@@ -262,6 +263,10 @@
               <span>Chat agent</span>
             </button>
           </mat-menu>
+
+          <button (click)="seeHouseDetails()" matTooltip="See more details about this house" mat-button>
+            See more
+          </button>
         </mat-card-actions>
       </div>
     </mat-card>

@@ -50,6 +50,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HouseDetailDialogComponent } from './house-detail-dialog/house-detail-dialog.component';
 import { ChatsComponent } from './chats/chats.component';
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component';
+import { PictureCarouselComponent } from './picture-carousel/picture-carousel.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ImageCarouselComponent } from './image-carousel/image-carousel.componen
     TestComponent,
     HouseDetailDialogComponent,
     ChatsComponent,
-    ImageCarouselComponent
+    ImageCarouselComponent,
+    PictureCarouselComponent
   ],
   imports: [
     HammerModule,
