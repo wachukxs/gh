@@ -12,10 +12,14 @@
       </ng-container>
 
       <!-- controls -->
-    <button class="control prev" cdkStepperPrevious>
+    <button
+      [style.display]="selectedIndex === 0 ? 'none' : 'block'" 
+      class="control prev" cdkStepperPrevious>
       <span class="arrow left"></span>
     </button>
-    <button class="control next" cdkStepperNext>
+    <button
+    [style.display]="selectedIndex === steps.length - 1 ? 'none' : 'block'" 
+      class="control next" cdkStepperNext>
       <span class="arrow right"></span>
     </button>
 
