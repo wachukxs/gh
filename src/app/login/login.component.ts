@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit {
   login() {
     console.log(this.loginForm.value);
     if (this.loginForm.valid) {
-      this.httpClient.post('http://localhost:8083/greenhomes/php/api/agents/verify.php',
+      // previously http://localhost:8083/greenhomes/php/api/agents/verify.php
+      this.httpClient.post('http://127.0.0.1:8000/api/v1/agents/',
       JSON.stringify(this.loginForm.value)).subscribe((res: PostResponse) => {
         console.log('result', res);
         if (res.response === 'OK') {

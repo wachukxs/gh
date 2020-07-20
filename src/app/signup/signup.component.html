@@ -4,6 +4,18 @@
     <!-- <mat-card-subtitle>Provide your details</mat-card-subtitle> -->
 
     <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Ruka Rentals">
+      <mat-hint align="start">Required</mat-hint>
+      <mat-error *ngIf="signupForm.controls['username'].hasError('username') && !signupForm.controls['username'].hasError('required')">
+        Please enter a valid username
+      </mat-error>
+      <mat-error *ngIf="signupForm.controls['username'].hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" placeholder="name@site.com">
       <mat-hint align="start">Required</mat-hint>

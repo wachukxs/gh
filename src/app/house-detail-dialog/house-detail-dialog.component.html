@@ -1,14 +1,33 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>
-        <mat-tab-group>
-            <mat-tab label="First"> Content 1 </mat-tab>
-            <mat-tab label="Second"> Content 2 </mat-tab>
-            <mat-tab label="Third"> Content 3 </mat-tab>
-          </mat-tab-group>
-          
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="deats-container">
+  <div class="top">
+    <h6 matDialogTitle>House details</h6>
+    <mat-icon matDialogClose>close</mat-icon>
+  </div>
+  <div matDialogContent>
+    <mat-tab-group mat-stretch-tabs>
+      <mat-tab label="Maps"> Content 1 </mat-tab>
+      <mat-tab label="Photos">
+
+        <mat-grid-list cols="2" rowHeight="2:1">
+          <mat-grid-tile>
+            <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" />
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" />
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" />
+          </mat-grid-tile>
+        </mat-grid-list>
+         
+      </mat-tab>
+      <mat-tab label="Details"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
 <!-- https://css-tricks.com/cool-little-css-grid-tricks-for-your-blog/ -->
 <!-- https://blog.angular-university.io/angular-host-context/ -->
 <!-- 

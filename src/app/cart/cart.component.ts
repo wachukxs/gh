@@ -3,10 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 import { FormStateService } from '../services/form-state.service';
 
-
-
-
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',

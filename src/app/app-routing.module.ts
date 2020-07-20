@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'status', component: StatusComponent },
   { path: 'cart', component: CartComponent },
   { path: 'nav', component: NavComponent },
+  // put activatedRoute for dashboard, agents much be loggedIN
   { path: 'dashboard', component: AgentDashboardComponent },
   { path: 'feed', component: FeedComponent },
   { path: 'login', component: LoginComponent },

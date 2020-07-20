@@ -58,7 +58,7 @@ mat-card {
 }
 
 mat-sidenav {
-  width: 35%;
+  width: min-content;
 }
 
 mat-slider {
@@ -86,9 +86,9 @@ mat-card {
 @media only screen 
   and (min-device-width: 426px) 
   and (max-device-width: 768px)  { 
-    mat-sidenav {
+    /* mat-sidenav {
         width: 35%;
-    }
+    } */
 
     mat-card {
       width: 70%;
@@ -99,9 +99,9 @@ mat-card {
 @media only screen 
   and (min-device-width: 769px) 
   and (max-device-width: 960px) { 
-    mat-sidenav {
+    /* mat-sidenav {
         width: 30%;
-    }
+    } */
 
     div.cdk-virtual-scroll-content-wrapper {
       position: inherit; /**not working*/

@@ -2,6 +2,16 @@ mat-grid-list {
     display: flex;
 }
 
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top mat-icon {
+    margin-top: 4px;
+    cursor: pointer;
+}
+
 @media only screen 
   and (min-device-width: 320px) 
   and (max-device-width: 425px)  { 

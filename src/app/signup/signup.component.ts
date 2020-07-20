@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
   signupForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -22,6 +23,10 @@ export class SignupComponent implements OnInit {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6)
+    ]),
+    username: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4)
     ])
   });
 
@@ -31,9 +36,12 @@ export class SignupComponent implements OnInit {
   signUp() {
     console.log(this.signupForm.value);
     if (this.signupForm.valid) {
-      this.httpClient.post('http://localhost:8083/greenhomes/php/api/agents/create.php',
-      JSON.stringify(this.signupForm.value)).subscribe(res => {
+      // previously http://localhost:8083/greenhomes/php/api/agents/create.php
+      this.httpClient.post('http://127.0.0.1:8000/api/v1/agents/',
+      this.signupForm.value).subscribe(res => {
+        // make sure we get a response, for now it's nothing. once it's success, we good
         console.log('result', res);
+        this.router.navigate(['/dashboard']);
       }, err => {
         console.log('err', err);
       }, () => {
