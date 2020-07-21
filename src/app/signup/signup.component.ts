@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -37,7 +38,7 @@ export class SignupComponent implements OnInit {
     console.log(this.signupForm.value);
     if (this.signupForm.valid) {
       // previously http://localhost:8083/greenhomes/php/api/agents/create.php
-      this.httpClient.post('http://127.0.0.1:8000/api/v1/agents/',
+      this.httpClient.post(`${environment.baseurl}/api/v1/agents/`,
       this.signupForm.value).subscribe(res => {
         // make sure we get a response, for now it's nothing. once it's success, we good
         console.log('result', res);

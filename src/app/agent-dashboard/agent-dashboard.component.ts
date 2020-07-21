@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-agent-dashboard',
@@ -78,7 +79,7 @@ export class AgentDashboardComponent implements OnInit {
     this.you = JSON.parse(sessionStorage.getItem('green-homes-agent'));
     // this.propertyForm.controls.by.patchValue
 
-    this.httpClient.get('http://localhost:8000/api/v1/houses/').subscribe((res: any) => {
+    this.httpClient.get(`${environment.baseurl}/api/v1/houses/`).subscribe((res: any) => {
       this.houses = res.objects;
       console.log(this.houses);
     });
@@ -98,7 +99,7 @@ export class AgentDashboardComponent implements OnInit {
   }
 
   updateHouseInfo(): void {
-    this.httpClient.post(`http://localhost:8000/api/v1/media/`, this.houseFormData)
+    this.httpClient.post(`${environment.baseurl}/api/v1/media/`, this.houseFormData)
       .subscribe((res: any) => {
         console.log('good?', res);
 
@@ -119,7 +120,7 @@ export class AgentDashboardComponent implements OnInit {
     }); */
 
     // previously 'http://localhost:8083/greenhomes/php/api/houses/create.php'
-    this.httpClient.post('http://localhost:8000/api/v1/houses/', this.propertyForm.value/* this.houseFormData */).subscribe((res: any) => {
+    this.httpClient.post(`${environment.baseurl}/api/v1/houses/`, this.propertyForm.value/* this.houseFormData */).subscribe((res: any) => {
       console.log('post good response', res);
 
       // if they clicked save draft, the post form like that and reset houseFormData variable

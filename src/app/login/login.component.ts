@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 declare interface PostResponse {
   message: string;
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     if (this.loginForm.valid) {
       // previously http://localhost:8083/greenhomes/php/api/agents/verify.php
-      this.httpClient.post('http://127.0.0.1:8000/api/v1/agents/',
+      this.httpClient.post(`${environment.baseurl}/api/v1/agents/`,
       JSON.stringify(this.loginForm.value)).subscribe((res: PostResponse) => {
         console.log('result', res);
         if (res.response === 'OK') {
@@ -54,7 +55,6 @@ export class LoginComponent implements OnInit {
         console.log('completed the http signup');
       } */);
     } else { // tell them
-
     }
   }
 
