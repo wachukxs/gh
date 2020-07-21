@@ -41,6 +41,7 @@ export class SignupComponent implements OnInit {
       this.signupForm.value).subscribe(res => {
         // make sure we get a response, for now it's nothing. once it's success, we good
         console.log('result', res);
+        sessionStorage.setItem('green-homes-agent', JSON.stringify(res));
         this.router.navigate(['/dashboard']);
       }, err => {
         console.log('err', err);

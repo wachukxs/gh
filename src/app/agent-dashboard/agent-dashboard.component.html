@@ -1,26 +1,29 @@
+<mat-tab-group mat-stretch-tabs color="primary" backgroundColor="primary">
+  <mat-tab label="Add place">
+    
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
+  <h1 class="mat-h1">Add an apartment</h1>
 
   <mat-card>
     <form [formGroup]="propertyForm" (ngSubmit)="postHouse()">
       <mat-vertical-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="propertyForm.controls.address" formGroupName="address">
+        <mat-step [stepControl]="propertyForm.controls.number && propertyForm.controls.street && propertyForm.controls.city_or_town && propertyForm.controls.state" >
 
           <ng-template matStepLabel>Fill out the house address</ng-template>
           <!--Intentionally did not put the exact flat because some Nigerians are dubious-->
+          <mat-form-field>
+            <mat-label>House number</mat-label>
+            <input matInput placeholder="Flat 10A" formControlName="number" required>
+          </mat-form-field>
+          
           <mat-form-field>
             <mat-label>Street</mat-label>
             <input matInput placeholder="Eforo street" formControlName="street" required>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>City</mat-label>
-            <input matInput placeholder="Umuahia" formControlName="city" required>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>LGA</mat-label>
-            <input matInput placeholder="Aniocha-North" formControlName="lga" required>
+            <mat-label>City or Town</mat-label>
+            <input matInput placeholder="Umuahia" formControlName="city_or_town" required>
           </mat-form-field>
 
           <mat-form-field>
@@ -34,25 +37,20 @@
           </div>
 
         </mat-step>
-        <mat-step [stepControl]="propertyForm.controls.specs" formGroupName="specs">
+        <mat-step [stepControl]="propertyForm.controls.house_type && propertyForm.controls.bedrooms && propertyForm.controls.kitchen && propertyForm.controls.toilet && propertyForm.controls.bathrooms" >
 
           <ng-template matStepLabel>Fill out the house details</ng-template>
           <!--type, price, rooms, floor types, probably wall type?? [should this all be together in a section?]-->
 
           <mat-form-field>
             <mat-label>Places like:</mat-label>
-            <mat-select role="listbox" [formControl]="propertyForm.controls.houseType">
+            <mat-select role="listbox" [formControl]="propertyForm.controls.house_type" required>
 
               <mat-option role="option" *ngFor="let houseType of houseTypes" [value]="houseType">{{houseType}}</mat-option>
     
             </mat-select>
-            <mat-hint>How would you best say the house is?</mat-hint>
+            <mat-hint>How would you best say the house is? Flat, Self-contain, etc.</mat-hint>
           </mat-form-field>
-
-          <!-- <mat-form-field>
-            <mat-label>House Type</mat-label>
-            <input matInput placeholder="Jigawa" [formControl]="propertyForm.controls.houseType" required>
-          </mat-form-field> -->
 
           <mat-form-field>
             <mat-label>Bathrooms</mat-label>
@@ -72,7 +70,7 @@
 
           <mat-form-field>
             <mat-label>Kitchen</mat-label>
-            <input matInput formControlName="media" placeholder="Shared" formControlName="kitchen" required>
+            <input matInput formControlName="graphics" placeholder="Shared" formControlName="kitchen" required>
           </mat-form-field>
           <div>
             <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
@@ -82,28 +80,6 @@
 
         </mat-step>
 
-        <mat-step [stepControl]="propertyForm.controls.media">
-
-          <ng-template matStepLabel>Media of the house details</ng-template>
-          <!--now put up pictures or videos of the places you mentioned, let's see --- we'll fill up this places dynamically, based on what you filled in the previous step-->
-
-          <mat-label>Add media files</mat-label>
-          <!--
-            style input button 
-            https://stackoverflow.com/questions/572768/styling-an-input-type-file-button 
-            from https://stackoverflow.com/questions/47974175/how-do-i-style-a-file-upload-button
-          -->
-          <button type="button" mat-button mat-raised-button>
-            <input type="file" accept="image/*" multiple required (change)="houseMedia($event)">
-          </button>
-
-          <div>
-            <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
-            <button type="button" mat-button mat-raised-button matStepperNext>Save draft</button>
-            <button type="button" mat-button mat-raised-button matStepperNext>Next</button>
-          </div>
-
-        </mat-step>
 
         <mat-step [stepControl]="propertyForm.controls.price">
           <ng-template matStepLabel>Done</ng-template>
@@ -124,7 +100,146 @@
     </form>
   </mat-card>
 
-  <mat-divider class="margin-up-down"></mat-divider>
+</div>
+
+  </mat-tab>
+  <mat-tab label="Listings"> 
+    <mat-accordion class="example-headers-align">
+
+      <mat-expansion-panel *ngFor="let house of houses" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{house.house_type}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your name and age
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+
+          <mat-label>Add media files</mat-label>
+          
+          <button type="button" mat-button mat-raised-button>
+            <input type="file" accept="image/*" required (change)="houseMedia($event, house.id)">
+          </button>
+          
+          <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput>
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Age</mat-label>
+            <input matInput type="number" min="1">
+          </mat-form-field>
+        </div>
+        <mat-action-row>
+          <button type="button" mat-button mat-raised-button (click)="updateHouseInfo()">Update</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your name and age
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1">
+        </mat-form-field>
+        <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Destination
+          </mat-panel-title>
+          <mat-panel-description>
+            Type the country name
+            <mat-icon>map</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <mat-form-field>
+          <mat-label>Country</mat-label>
+          <input matInput>
+        </mat-form-field>
+    
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Day of the trip
+          </mat-panel-title>
+          <mat-panel-description>
+            Inform the date you wish to travel
+            <mat-icon>date_range</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+    
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">End</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    
+    </mat-accordion>
+    
+  </mat-tab>
+  <mat-tab label="Third"> Content 3 </mat-tab>
+</mat-tab-group>
+
+
+<!--
+            style input button 
+            https://stackoverflow.com/questions/572768/styling-an-input-type-file-button 
+            from https://stackoverflow.com/questions/47974175/how-do-i-style-a-file-upload-button
+          -->
+        <!-- <mat-step [stepControl]="propertyForm.controls.graphics">
+
+          <ng-template matStepLabel>Media of the house details</ng-template>
+
+          <mat-label>Add media files</mat-label>
+          
+          <button type="button" mat-button mat-raised-button>
+            <input type="file" accept="image/*" multiple required (change)="houseMedia($event)">
+          </button>
+
+          <div>
+            <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
+            <button type="button" mat-button mat-raised-button matStepperNext>Save draft</button>
+            <button type="button" mat-button mat-raised-button matStepperNext>Next</button>
+          </div>
+
+        </mat-step> -->
 
   <!-- 
   <mat-card>
@@ -190,4 +305,3 @@
     </mat-grid-tile>
   </mat-grid-list> -->
 
-</div>

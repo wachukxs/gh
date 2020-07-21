@@ -29,7 +29,7 @@ import { NavComponent } from './nav/nav.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CdkStepperModule } from '@angular/cdk/stepper'; // not using this yet, don't even know what it's for [// https://material.angular.io/guide/creating-a-custom-stepper-using-the-cdk-stepper] & MatFormFieldModule
 import { MatStepperModule } from '@angular/material/stepper';
@@ -41,6 +41,8 @@ import { CartComponent } from './cart/cart.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FeedComponent } from './feed/feed.component';
 import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
@@ -71,6 +73,9 @@ import { PictureCarouselComponent } from './picture-carousel/picture-carousel.co
     PictureCarouselComponent
   ],
   imports: [
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatDatepickerModule,
     HammerModule,
     MatTabsModule,
     MatCheckboxModule,

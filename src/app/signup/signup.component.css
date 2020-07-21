@@ -3,29 +3,27 @@
 * 
 * https://stackoverflow.com/a/9737550/9259701
 */
-form {
+.sign-up {
   margin: 0 auto;
-  width: 20%;
-
+  width: 270px;
   margin-top: 10%;
 }
 
 .example-full-width {
-    width: -moz-available;
-
-    margin-bottom: 5px;
+  width: -moz-available;
+  margin-bottom: 5px;
 }
 
 /**small mobile view rules*/
 @media only screen /* and (min-device-width: 320px) */ and (max-device-width: 425px) {
-  form {
-    width: 75%;
+  .sign-up {
+    margin-top: 30%;
   }
 }
 
 /**large mobile view rules*/
 @media only screen and (min-device-width: 426px) and (max-device-width: 768px) {
-  form {
-    width: 45%;
+  .sign-up {
+    margin-top: 25%;
   }
 }
