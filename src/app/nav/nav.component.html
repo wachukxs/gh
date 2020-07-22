@@ -24,10 +24,9 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item [routerLink]="['/']">Home</button>
       <button mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
-      <button mat-menu-item [routerLink]="['/form']">Form</button>
-      <button mat-menu-item [routerLink]="['/nav']">Nav</button>
-      <button mat-menu-item [routerLink]="['/cart']">Cart</button>
-      <button mat-menu-item [routerLink]="['/status']">Status</button>
+      <button mat-menu-item [routerLink]="['/signup']">Sign up</button>
+      <button mat-menu-item [routerLink]="['/login']">Login</button>
+      <button mat-menu-item [routerLink]="['/']" (click)="logout()">Logout</button>
     </mat-menu>
 
   </mat-toolbar-row>

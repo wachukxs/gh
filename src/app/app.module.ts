@@ -43,6 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CanExitGuard, AuthenticationService } from './services/authentication.service';
 import { FeedComponent } from './feed/feed.component';
 import { LocationComponent } from './location/location.component';
 import { LoginComponent } from './login/login.component';
@@ -53,6 +54,7 @@ import { HouseDetailDialogComponent } from './house-detail-dialog/house-detail-d
 import { ChatsComponent } from './chats/chats.component';
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component';
 import { PictureCarouselComponent } from './picture-carousel/picture-carousel.component';
+import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog/exit-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { PictureCarouselComponent } from './picture-carousel/picture-carousel.co
     HouseDetailDialogComponent,
     ChatsComponent,
     ImageCarouselComponent,
-    PictureCarouselComponent
+    PictureCarouselComponent,
+    ExitConfirmationDialogComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -117,7 +120,9 @@ import { PictureCarouselComponent } from './picture-carousel/picture-carousel.co
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
-    }
+    },
+    CanExitGuard,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CanExit } from '../services/authentication.service';
 
 @Component({
   selector: 'app-agent-dashboard',
   templateUrl: './agent-dashboard.component.html',
   styleUrls: ['./agent-dashboard.component.css']
 })
-export class AgentDashboardComponent implements OnInit {
+export class AgentDashboardComponent implements OnInit, CanExit {
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -36,13 +39,18 @@ export class AgentDashboardComponent implements OnInit {
 
   you: any;
 
+  dev = isDevMode();
+
   houses: any;
 
   houseTypes: Array<string> = [
     'Duplex', 'Bongalow', 'Flat', 'Skyscrapper', 'Dungeon', 'Castle'
   ];
 
-  constructor(private httpClient: HttpClient, private breakpointObserver: BreakpointObserver, private formBuilder: FormBuilder) {}
+  constructor(private httpClient: HttpClient,
+              private breakpointObserver: BreakpointObserver,
+              public dialog: MatDialog,
+              private formBuilder: FormBuilder) {}
 
   propertyForm = new FormGroup({
     by: new FormControl(JSON.parse(sessionStorage.getItem('green-homes-agent')).resource_uri),
@@ -128,6 +136,31 @@ export class AgentDashboardComponent implements OnInit {
       console.log('post err response', err);
       console.warn(err.error.error_message);
     });
+  }
+
+  canDeactivate(): Promise<any> | boolean {
+    if (this.houseFormData.has('images')) { // means there's a picture to post/update
+      return new Promise((resolve, reject) => {
+        const confirm = this.dialog.open(ExitConfirmationDialogComponent, {
+          data: {
+            message: 'unsaved changes',
+            username: 'u-name'
+          }
+        });
+        confirm.afterClosed().subscribe((res) => {
+          if (res === 'wait') {
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        }, (err) => { // might never get here, to err
+          console.log(`exit confirmation Dialog error: ${err}`);
+          resolve(false);
+        });
+      });
+    } else {
+      return true;
+    }
   }
 
 }

@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Wait a bit, {{data.username}}.</h1>
+
+<div mat-dialog-content>
+    You have some {{data.message}}
+</div>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Leave</button>
+    <button mat-button cdkFocusInitial (click)="okayWait()">Finish up</button>
+</mat-dialog-actions>
