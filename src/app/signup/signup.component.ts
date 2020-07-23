@@ -39,9 +39,10 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       // previously http://localhost:8083/greenhomes/php/api/agents/create.php
       this.httpClient.post(`${environment.baseurl}/api/v1/agents/`,
-      this.signupForm.value).subscribe(res => {
+      this.signupForm.value).subscribe((res: any) => {
         // make sure we get a response, for now it's nothing. once it's success, we good
         console.log('result', res);
+        delete res.password;
         sessionStorage.setItem('green-homes-agent', JSON.stringify(res));
         this.router.navigate(['/dashboard']);
       }, err => {

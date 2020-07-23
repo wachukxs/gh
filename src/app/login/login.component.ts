@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
           console.log('login res', res);
           if (res.objects.length === 1) { // we're good
           // sessionStorage.setItem('green-homes-agent', JSON.stringify(res));
+          delete res.objects[0].password;
           sessionStorage.setItem('green-homes-agent', JSON.stringify(res.objects[0]));
           this.router.navigate(['/dashboard']);
           } else { // show error message
