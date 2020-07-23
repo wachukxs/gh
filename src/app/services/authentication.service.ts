@@ -22,12 +22,12 @@ export class AuthenticationService implements CanActivate, CanLoad {
   }
 
   canLoad(route: Route): boolean {
-      return this.checkToken();
+    return this.checkToken();
   }
 
   checkToken() {
     if (sessionStorage.getItem('green-homes-agent')) {
-        return true;
+      return true;
     } else {
         // this.router.navigateByUrl('/user/login');
         this.router.navigate(['/login']);
