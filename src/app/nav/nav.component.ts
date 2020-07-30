@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-nav',
@@ -11,20 +12,26 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class NavComponent {
 
-  rightMeunState = false;
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
-  /**
-   * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
-   */
-  protected get toggleRightMeunState(): '_open' | '' {
-    return this.rightMeunState ? '_open' : '' ;
-  }
+  menuState = '';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+
+  /**
+   * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
+   */
+  menuOpen(): void {
+    this.menuState = '_open';
+  }
+
+  menuClose(): void {
+    this.menuState = '';
+  }
 
   logout(): void {
     sessionStorage.removeItem('green-homes-agent');

@@ -13,12 +13,11 @@
     <button mat-button *ngIf="isHandset$ | async">
       <mat-icon class="nav-icon" aria-hidden="true" [routerLink]="['/signup']" aria-label="login person icon">person_outline</mat-icon>
     </button>
-    
 
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="!(isHandset$ | async)">Menu</button>
     
-    <button (click)="this.rightMeunState = !this.rightMeunState" mat-button [matMenuTriggerFor]="menu" *ngIf="isHandset$ | async">
-      <mat-icon class="nav-icon" aria-hidden="true" aria-label="meun icon" *ngIf="isHandset$ | async">menu{{ toggleRightMeunState }}</mat-icon>
+    <button mat-button (menuOpened)="menuOpen()" (menuClosed)="menuClose()" [matMenuTriggerFor]="menu" *ngIf="isHandset$ | async">
+      <mat-icon class="nav-icon" aria-hidden="true" aria-label="meun icon" *ngIf="isHandset$ | async">menu{{ menuState }}</mat-icon>
     </button>
 
     <mat-menu #menu="matMenu">
