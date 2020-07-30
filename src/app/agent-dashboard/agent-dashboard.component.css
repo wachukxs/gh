@@ -24,3 +24,34 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.house-image {
+  width: 100%;
+  height: auto;
+}
+
+.mb {
+  margin-bottom: 20px;
+}
+
+.inner-update-form {
+  margin: 10px;
+}
+
+div.add-house-buttons button {
+  margin: 0 10px 0 0;
+}
+
+.inner-update-form > mat-form-field, .add-house > mat-form-field {
+  margin: 10px;
+}
+
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}

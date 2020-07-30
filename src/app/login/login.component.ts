@@ -58,7 +58,9 @@ export class LoginComponent implements OnInit {
             });
           }
         }, (err: any) => {
-
+          this.snackBar.open('Try that again please, an error occured', 'Close', {
+            duration: 4000,
+          });
       });
     } else { // tell them
       this.snackBar.open('Invalid form input', 'Close', {

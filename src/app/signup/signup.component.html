@@ -7,7 +7,7 @@
     
         <mat-form-field class="example-full-width">
           <mat-label>Username</mat-label>
-          <input matInput formControlName="username" placeholder="Ruka Rentals">
+          <input matInput formControlName="username" autocomplete="username" placeholder="Ruka Rentals">
           <mat-hint align="start">Minimum of 4 characters</mat-hint>
           <mat-error *ngIf="signupForm.controls['username'].hasError('username') && !signupForm.controls['username'].hasError('required')">
             Please enter a valid username
@@ -19,7 +19,7 @@
     
         <mat-form-field class="example-full-width">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="name@site.com">
+          <input matInput formControlName="email" autocomplete="new-password" placeholder="name@site.com">
           <mat-hint align="start">Required</mat-hint>
           <mat-error *ngIf="signupForm.controls['email'].hasError('email') && !signupForm.controls['email'].hasError('required')">
             Please enter a valid email address
@@ -32,7 +32,7 @@
         <mat-form-field class="example-full-width">
           <mat-label>Telephone</mat-label>
           <!-- <span matPrefix>+1 &nbsp;</span> -->
-          <input formControlName="phonenumber" type="tel" matInput placeholder="+234(0) 325 598 0967">
+          <input formControlName="phonenumber" type="tel" autocomplete="tel" matInput placeholder="+234(0) 325 598 0967">
           <mat-hint align="start">Required</mat-hint>
           <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
           <mat-error *ngIf="signupForm.controls['phonenumber'].hasError('pattern') && !signupForm.controls['phonenumber'].hasError('required')">
