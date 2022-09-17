@@ -1,5 +1,4 @@
-import { BrowserModule, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { MyHammerConfig } from './hammer-js.config';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { GoogleMapsModule } from '@angular/google-maps'
@@ -81,7 +80,6 @@ import { WaitlistComponent } from './waitlist/waitlist.component';
     MatNativeDateModule,
     MatExpansionModule,
     MatDatepickerModule,
-    HammerModule,
     MatTabsModule,
     MatCheckboxModule,
     GoogleMapsModule,
@@ -119,10 +117,6 @@ import { WaitlistComponent } from './waitlist/waitlist.component';
     ClipboardModule
   ],
   providers: [
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig
-    },
     CanExitGuard,
     AuthenticationService
   ],

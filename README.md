@@ -8,6 +8,9 @@
 * Wait list page
 * * [Desktop View](https://dribbble.com/shots/6780267-June-Homes-Wait-List)
 
+## Questions
+* What are we doing with [HammerJS](https://github.com/angular/components/blob/3a204da37fd1366cae411b5c234517ecad199737/guides/v9-hammerjs-migration.md) ?
+
 ## We're Using MatDesign!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
