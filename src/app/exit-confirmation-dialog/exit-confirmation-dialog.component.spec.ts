@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog.component';
 
@@ -6,7 +6,7 @@ describe('ExitConfirmationDialogComponent', () => {
   let component: ExitConfirmationDialogComponent;
   let fixture: ComponentFixture<ExitConfirmationDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ExitConfirmationDialogComponent ]
     })
