@@ -12,9 +12,16 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TestComponent } from './test/test.component';
 import { CanExitGuard, AuthenticationService } from './services/authentication.service';
+import { WaitlistComponent } from './waitlist/waitlist.component';
 
 const routes: Routes = [
-  { path: 'home', component: AppComponent },
+  { path: 'home', component: NavComponent,
+children: [
+  {
+    path: '',
+    component: FeedComponent
+  }
+] },
   { path: 'status', component: StatusComponent },
   { path: 'cart', component: CartComponent },
   { path: 'nav', component: NavComponent },
@@ -23,7 +30,7 @@ const routes: Routes = [
   { path: 'feed', component: FeedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: '', component: FeedComponent },
+  { path: '', component: WaitlistComponent },
   { path: 'form', component: SampleFormComponent },
   { path: 'test', component: TestComponent },
   { path: '**', component: AppComponent }

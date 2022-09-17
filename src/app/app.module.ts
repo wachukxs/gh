@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSliderModule } from '@angular/material/slider';
 import { AgentDashboardComponent } from './agent-dashboard/agent-dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -26,6 +25,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavComponent } from './nav/nav.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -55,6 +55,7 @@ import { ChatsComponent } from './chats/chats.component';
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component';
 import { PictureCarouselComponent } from './picture-carousel/picture-carousel.component';
 import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog/exit-confirmation-dialog.component';
+import { WaitlistComponent } from './waitlist/waitlist.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog/exit
     ChatsComponent,
     ImageCarouselComponent,
     PictureCarouselComponent,
-    ExitConfirmationDialogComponent
+    ExitConfirmationDialogComponent,
+    WaitlistComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -91,11 +93,11 @@ import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog/exit
     MatSlideToggleModule,
     ScrollingModule,
     AppRoutingModule,
-    FlexLayoutModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatGridListModule,
+    MatAutocompleteModule,
     MatCardModule,
     MatMenuModule,
     MatIconModule,
