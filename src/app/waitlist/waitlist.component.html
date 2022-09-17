@@ -1,37 +1,49 @@
 <div class="wrapper">
-    <div class="first-part">
+  <div class="first-part">
 
-    </div>
-    <div class="second-part" for-forms>
-        <form [formGroup]="waitListForm" class="example-form">
+  </div>
+  <div class="second-part" for-forms>
+    <form [formGroup]="waitListForm" class="example-form">
 
- <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Number</mat-label>
-                  <input type="text"
-                         placeholder="Pick one"
-                         aria-label="Number"
-                         matInput
-                         [formControl]="waitListForm.get('servingstate')"
-                         [matAutocomplete]="auto">
-                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                      {{option}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Firstname</mat-label>
+        <input formControlName="firstname" matInput placeholder="Idris">
+      </mat-form-field>
 
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Middlename</mat-label>
+        <input formControlName="middlename" matInput placeholder="Akin">
+        <mat-hint>Optional</mat-hint>
+      </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Favorite food</mat-label>
-              <input matInput placeholder="Ex. Pizza" value="Sushi">
-            </mat-form-field>
-          
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Leave a comment</mat-label>
-              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-            </mat-form-field>
-          </form>
-          
-    </div>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Lastname</mat-label>
+        <input formControlName="lastname" matInput placeholder="Uzo">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="name@email.com" autocomplete="email">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Serving state</mat-label>
+        <input type="text" placeholder="" aria-label="Serving state" matInput
+          [formControl]="waitListForm.get('servingstate')" [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field color="primary" class="example-full-width" appearance="fill">
+        <mat-label>Leave a comment</mat-label>
+        <textarea formControlName="comment" matInput placeholder="Anything. A question, comment, or nothing." matAutosizeMaxRows="5" matTextareaAutosize rows="3"></textarea>
+      </mat-form-field>
+
+      <button (click)="joinWaitList()" mat-raised-button color="primary">Join</button>
+    </form>
+
+  </div>
 </div>

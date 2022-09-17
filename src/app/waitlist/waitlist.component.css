@@ -1,0 +1,14 @@
+div.wrapper {
+    height: 100%;
+}
+
+form {
+    display: grid;
+    max-width: 250px;
+    row-gap: 13px;
+
+    margin: 0 auto;
+}
+
+mat-form-field {
+}
