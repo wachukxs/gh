@@ -39,6 +39,19 @@ export class WaitlistComponent implements OnInit {
 
   joinWaitList() {
     console.log('value', this.waitListForm.value);
+
+    if (this.waitListForm.valid) {
+      this.callerService.joinWaitList(this.waitListForm.value).subscribe({
+        next: (res: any) => {
+          console.log('who joined?', res);
+        },
+        error: (err: any) => {
+          console.log('why NOT joined?', err);
+        }
+      })
+    } else {
+      this.callerService.showNotification("Ouch. We couldn't save it, please try again.", 8000)
+    }
     
   }
 

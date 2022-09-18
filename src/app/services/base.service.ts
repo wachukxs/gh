@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) { }
+
+  showNotification(message: string, duration = 5000, action: string = 'OK', verticalPosition: MatSnackBarVerticalPosition = 'bottom') {
+    this.snackBar.open(message, action, {
+      duration: duration,
+      verticalPosition: verticalPosition
+    })
+  }
 
   /**
    * an array of the NYSC abbrevation standard of all the states in nigeria
