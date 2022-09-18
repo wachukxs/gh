@@ -23,7 +23,7 @@ export class WaitlistComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   waitListForm:FormGroup = this._formBuilder.group({
-    servingstate: [''],
+    servingstate: ['', [Validators.required]],
     firstname: ['', [Validators.required]],
     lastname: [''],
     middlename: [''],
@@ -50,7 +50,9 @@ export class WaitlistComponent implements OnInit {
         }
       })
     } else {
-      this.callerService.showNotification("Ouch. We couldn't save it, please try again.", 8000)
+      console.log(this.waitListForm.get('email').errors);
+      
+      // this.callerService.showNotification("Some errors on the form", 8000)
     }
     
   }
