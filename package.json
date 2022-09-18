@@ -1,6 +1,9 @@
 {
   "name": "corpers.online",
   "version": "0.0.1",
+  "engines" : {
+    "node" : ">=16.10.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --watch --port=3043",
