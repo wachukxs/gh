@@ -315,7 +315,7 @@ export class FeedComponent implements OnInit {
       return (value / 1000).toFixed(1);
   }
 
-  getPosistion() {
+  /* getPosistion() {
     this.locationService.getPosition().then(pos => {
       console.log('posistion obj', pos);
 
@@ -338,9 +338,9 @@ export class FeedComponent implements OnInit {
     }).catch(err => {
       console.log('An error occured', err);
     });
-  }
+  } */
 
-  watchPosistion() {
+  /* watchPosistion() {
     const location = this.locationService.watchPosition().subscribe(pos => {
       console.log('Started watching position...');
 
@@ -355,7 +355,7 @@ export class FeedComponent implements OnInit {
     setTimeout(() => {
       location.unsubscribe();
     }, 10 * 1000);
-  }
+  } */
 
   seeHouseDetails(): void {
     const dialogRef = this.dialog.open(HouseDetailDialogComponent, {

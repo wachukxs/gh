@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { GoogleMapsModule } from '@angular/google-maps'
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -82,7 +81,6 @@ import { WaitlistComponent } from './waitlist/waitlist.component';
     MatDatepickerModule,
     MatTabsModule,
     MatCheckboxModule,
-    GoogleMapsModule,
     BrowserModule,
     CdkStepperModule,
     MatStepperModule,

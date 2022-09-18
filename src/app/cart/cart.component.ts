@@ -30,7 +30,8 @@ export class CartComponent implements OnInit {
 
     this.formStateService.form$.subscribe(u => {
       console.log('it:::', u);
-      this.sampleForm.setValue(u);
+      
+      // this.sampleForm.setValue(u);
     });
 
   }

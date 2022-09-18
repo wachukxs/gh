@@ -11,18 +11,18 @@ export class LocationService {
    * from https://stackoverflow.com/questions/51628568/get-coordinates-of-current-location-in-angular
    */
 
-  getPosition(): Promise<Position> {
+  /* getPosition(): Promise<Position> {
     return new Promise((resolve, reject) => {
 
       navigator.geolocation.getCurrentPosition(
         response => {
-          resolve(response/* { lng: response.coords.longitude, lat: response.coords.latitude } */);
+          resolve(response); // { lng: response.coords.longitude, lat: response.coords.latitude }
         },
         error => {
           reject(error);
         });
     });
-  }
+  } */
 
   /* watchPosition(): Promise<any> { // take arguments of how often to watch?
     return new Promise((resolve, reject) => {
@@ -42,7 +42,7 @@ export class LocationService {
    * and https://stackoverflow.com/a/44880385/9259701
    */
 
-  watchPosition(): Observable<Position> { // take arguments of how often to watch?
+  /* watchPosition(): Observable<Position> { // take arguments of how often to watch?
     return new Observable(observer => {
 
       let watchId: number;
@@ -70,6 +70,6 @@ export class LocationService {
         }
       };
   });
-  }
+  } */
 
 }
