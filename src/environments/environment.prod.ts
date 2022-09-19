@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  staging: false,
+  localserve: false,
   baseurl: 'https://corpers-online.herokuapp.com'
 };

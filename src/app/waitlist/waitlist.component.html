@@ -56,7 +56,10 @@
         <textarea formControlName="comment" matInput placeholder="Anything. A question, comment, or nothing." matAutosizeMaxRows="5" matTextareaAutosize rows="3"></textarea>
       </mat-form-field>
 
-      <button (click)="joinWaitList()" mat-raised-button color="primary">Join</button>
+      <button #waitlistjoinbutton (click)="joinWaitList()" mat-raised-button color="primary">
+        <span [style.display]="hideJoinText ? 'block' : 'none'">Join</span>
+        <mat-spinner [style.display]="hideJoinMatSpinner ? 'block' : 'none'" #signUpMatSpinner style="margin: 2px auto;" diameter="35" color="warn"></mat-spinner>
+      </button>
     </form>
 
   </div>

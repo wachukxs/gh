@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CallerService } from '../services/caller.service';
@@ -10,6 +11,10 @@ import { CallerService } from '../services/caller.service';
   styleUrls: ['./waitlist.component.css']
 })
 export class WaitlistComponent implements OnInit {
+
+  @ViewChild('waitlistjoinbutton') waitListBtn: MatButton;
+  hideJoinMatSpinner: boolean = false;
+  hideJoinText: boolean = true;
 
   constructor(private _formBuilder: FormBuilder, private callerService: CallerService) { }
 
@@ -41,12 +46,28 @@ export class WaitlistComponent implements OnInit {
     console.log('value', this.waitListForm.value);
 
     if (this.waitListForm.valid) {
+      this.hideJoinMatSpinner = !this.hideJoinMatSpinner
+      this.hideJoinText = !this.hideJoinText
+
       this.callerService.joinWaitList(this.waitListForm.value).subscribe({
         next: (res: any) => {
           console.log('who joined?', res);
+
+          this.waitListForm.reset()
+          for (let control in this.waitListForm.controls) {
+            this.waitListForm.controls[control].setErrors(null);
+          }
+
+          this.callerService.showNotification("Great! We'll holla at you in a bit.")
+
+          this.hideJoinMatSpinner = !this.hideJoinMatSpinner
+          this.hideJoinText = !this.hideJoinText
         },
         error: (err: any) => {
           console.log('why NOT joined?', err);
+
+          this.hideJoinMatSpinner = !this.hideJoinMatSpinner
+          this.hideJoinText = !this.hideJoinText
         }
       })
     } else {

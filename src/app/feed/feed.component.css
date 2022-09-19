@@ -197,7 +197,7 @@ mat-grid-list {
   width: -moz-available;
 }
 
-:host() ::ng-deep cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper { /** https://stackoverflow.com/a/59205966 */
+:host ::ng-deep cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper { /** https://stackoverflow.com/a/59205966 */
   width: -moz-available !important;
   width: -webkit-fill-available !important;
 }

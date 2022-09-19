@@ -8,6 +8,8 @@
     "ng": "ng",
     "start": "ng serve --open --watch --port=3043",
     "build": "ng build --output-hashing=all",
+    "show-ipaddr": "echo Open http://`ipconfig getifaddr en0`:4004 in your browser\n\n",
+    "local-serve": "npm run show-ipaddr && IPADDR=`ipconfig getifaddr en0` && ng serve --host=0.0.0.0 --port=4004 --disable-host-check --watch --configuration=local-serve",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
