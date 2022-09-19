@@ -53,10 +53,21 @@ export class WaitlistComponent implements OnInit {
         next: (res: any) => {
           console.log('who joined?', res);
 
-          this.waitListForm.reset()
-          for (let control in this.waitListForm.controls) {
+          this.waitListForm.reset({
+            servingstate: '',
+            firstname: '',
+            lastname: '',
+            middlename: '',
+            email: '',
+            comment: '',
+          })
+
+          for (let control in this.waitListForm.controls) { // not a good hack
             this.waitListForm.controls[control].setErrors(null);
           }
+
+          // tell them to share with their friends
+
 
           this.callerService.showNotification("Great! We'll holla at you in a bit.")
 
