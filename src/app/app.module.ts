@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,6 +55,8 @@ import { ImageCarouselComponent } from './image-carousel/image-carousel.componen
 import { PictureCarouselComponent } from './picture-carousel/picture-carousel.component';
 import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog/exit-confirmation-dialog.component';
 import { WaitlistComponent } from './waitlist/waitlist.component';
+import { JoinWaitlistSuccessBottomsheetComponent } from './join-waitlist-success-bottomsheet/join-waitlist-success-bottomsheet.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,9 @@ import { WaitlistComponent } from './waitlist/waitlist.component';
     ImageCarouselComponent,
     PictureCarouselComponent,
     ExitConfirmationDialogComponent,
-    WaitlistComponent
+    WaitlistComponent,
+    JoinWaitlistSuccessBottomsheetComponent,
+    ProfileComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -95,6 +100,7 @@ import { WaitlistComponent } from './waitlist/waitlist.component';
     MatGridListModule,
     MatAutocompleteModule,
     MatCardModule,
+    MatBottomSheetModule,
     MatMenuModule,
     MatIconModule,
     MatButtonModule,

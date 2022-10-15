@@ -1,12 +1,20 @@
 # Current New corpers.online front-end
 
 ## TODOs... well, alot.
-* link to our backend.
+* ~~link to our backend.~~
+* They should invite their friends after joining our waitlist
+* Implement [animated icons](https://material.io/design/iconography/animated-icons.html#usage)
+* How to use angular [motion design kit](https://material.io/resources/motion-design-kit)
+  * https://material.io/resources/tutorials#web
+  * https://codelabs.developers.google.com/codelabs/mdc-103-web#0
+
+## Considerations, and things we might want to use
+* [HammerJS Directive](http://ryanmullins.github.io/angular-hammer/) as a fallback plan
 
 
 ## Design sources
 * Wait list page
-* * [Desktop View](https://dribbble.com/shots/6780267-June-Homes-Wait-List)
+  * [Desktop View](https://dribbble.com/shots/6780267-June-Homes-Wait-List)
 
 ## Questions
 * What are we doing with [HammerJS](https://github.com/angular/components/blob/3a204da37fd1366cae411b5c234517ecad199737/guides/v9-hammerjs-migration.md) ?

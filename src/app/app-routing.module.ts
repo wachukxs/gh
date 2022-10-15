@@ -13,15 +13,18 @@ import { SignupComponent } from './signup/signup.component';
 import { TestComponent } from './test/test.component';
 import { CanExitGuard, AuthenticationService } from './services/authentication.service';
 import { WaitlistComponent } from './waitlist/waitlist.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: 'home', component: NavComponent,
-children: [
-  {
-    path: '',
-    component: FeedComponent
-  }
-] },
+    children: [
+      {
+        path: '',
+        component: FeedComponent
+      },
+    ]
+  },
+  { path: 'profile', component: ProfileComponent },
   { path: 'status', component: StatusComponent },
   { path: 'cart', component: CartComponent },
   { path: 'nav', component: NavComponent },

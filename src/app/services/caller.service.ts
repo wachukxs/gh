@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,8 +13,8 @@ import { BaseService } from './base.service';
 })
 export class CallerService extends BaseService {
 
-  constructor(private http: HttpClient, snackBar: MatSnackBar) {
-    super(snackBar)
+  constructor(private http: HttpClient, snackBar: MatSnackBar, breakpointObserver: BreakpointObserver) {
+    super(snackBar, breakpointObserver)
   }
 
   private JSONHttpOptions = {

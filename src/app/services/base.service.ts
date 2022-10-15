@@ -1,18 +1,45 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar, private breakpointObserver: BreakpointObserver) { }
 
   showNotification(message: string, duration = 5000, action: string = 'OK', verticalPosition: MatSnackBarVerticalPosition = 'bottom') {
     this.snackBar.open(message, action, {
       duration: duration,
       verticalPosition: verticalPosition
     })
+  }
+
+  isHandset$(): Observable<boolean> {
+    return this.breakpointObserver
+    .observe([Breakpoints.Handset]) // needs work??
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+  }
+
+  isSmallScreen(): boolean {
+    return this.breakpointObserver
+    .isMatched('(max-width: 600px)') // eventually use this, and depreciate isHandset$
+  }
+
+  isSmallScreen$(): Observable<boolean> {
+    return this.breakpointObserver
+    .observe('(max-width: 959px)') // needs work??
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+    // .isMatched('(max-width: 959px)') // eventually use this, and depreciate isHandset$
   }
 
   /**

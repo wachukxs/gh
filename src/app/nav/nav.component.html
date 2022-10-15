@@ -14,6 +14,12 @@
       <mat-icon class="nav-icon" aria-hidden="true" [routerLink]="['/signup']" aria-label="login person icon">person_outline</mat-icon>
     </button>
 
+
+    <button *ngIf="!(isHandset$ | async)" mat-button [routerLink]="['/profile']">Profile</button>
+    <button mat-button *ngIf="isHandset$ | async">
+      <mat-icon class="nav-icon" aria-hidden="true" [routerLink]="['/profile']" aria-label="login person icon">person_outline</mat-icon>
+    </button>
+
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="!(isHandset$ | async)">Menu</button>
     
     <button mat-button (menuOpened)="menuOpen()" (menuClosed)="menuClose()" [matMenuTriggerFor]="menu" *ngIf="isHandset$ | async">
@@ -23,6 +29,7 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item [routerLink]="['/']">Home</button>
       <button mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
+      <button mat-menu-item [routerLink]="['/profile']">Profile</button>
       <button mat-menu-item [routerLink]="['/signup']">Sign up</button>
       <button mat-menu-item [routerLink]="['/login']">Login</button>
       <button mat-menu-item [routerLink]="['/']" (click)="logout()">Logout</button>

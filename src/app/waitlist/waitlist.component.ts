@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatButton } from '@angular/material/button';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { JoinWaitlistSuccessBottomsheetComponent } from '../join-waitlist-success-bottomsheet/join-waitlist-success-bottomsheet.component';
 import { CallerService } from '../services/caller.service';
 
 @Component({
@@ -16,7 +18,7 @@ export class WaitlistComponent implements OnInit {
   hideJoinMatSpinner: boolean = false;
   hideJoinText: boolean = true;
 
-  constructor(private _formBuilder: FormBuilder, private callerService: CallerService) { }
+  constructor(private _formBuilder: FormBuilder, private callerService: CallerService, private bottomSheet: MatBottomSheet,) { }
 
   ngOnInit(): void {
     this.filteredOptions = this.waitListForm.get('servingstate').valueChanges.pipe(
@@ -53,6 +55,8 @@ export class WaitlistComponent implements OnInit {
         next: (res: any) => {
           console.log('who joined?', res);
 
+          let _firstname = this.waitListForm.get('firstname').value
+
           this.waitListForm.reset({
             servingstate: '',
             firstname: '',
@@ -73,6 +77,14 @@ export class WaitlistComponent implements OnInit {
 
           this.hideJoinMatSpinner = !this.hideJoinMatSpinner
           this.hideJoinText = !this.hideJoinText
+
+          // if (this.callerService.isSmallScreen) {
+          //   this.bottomSheet.open(JoinWaitlistSuccessBottomsheetComponent, {
+          //     data: {
+          //       firstname: _firstname
+          //     },
+          //   });
+          // }
         },
         error: (err: any) => {
           console.log('why NOT joined?', err);
