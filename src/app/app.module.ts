@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG, HAMMER_LOADER } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -118,11 +118,16 @@ import { ProfileComponent } from './profile/profile.component';
     MatRippleModule,
     MatTooltipModule,
     MatDialogModule,
-    ClipboardModule
+    ClipboardModule,
+    HammerModule
   ],
   providers: [
     CanExitGuard,
-    AuthenticationService
+    AuthenticationService,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerGestureConfig
+    }
   ],
   bootstrap: [AppComponent]
 })
