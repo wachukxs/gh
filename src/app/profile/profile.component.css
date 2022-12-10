@@ -1,0 +1,24 @@
+section[forms] {
+    padding: 70px;
+}
+
+section[forms] form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+
+    column-gap: 25px;
+    row-gap: 30px;
+}
+
+mat-divider {
+    margin: 2rem 0 2.5rem 0;
+}
+
+section[forms] form .half-width {
+
+}
+
+section[forms] form .full-width {
+
+}

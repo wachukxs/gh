@@ -105,7 +105,20 @@
         *ngIf="(isPortraitHandset$|| isTablet$) | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Browse houses</span>
+      <div class="feed-header">
+        <span>Browse houses</span>
+
+        <div class="spacer"></div>
+
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="left" aria-label="Text align left">
+            <mat-icon>format_align_left</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="center" aria-label="Text align center">
+            <mat-icon>format_align_center</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>    
       <!-- show number of available properties, and the filter citerias the user has choosen -->
     </mat-toolbar>
 

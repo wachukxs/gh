@@ -22,15 +22,15 @@ const routes: Routes = [
         path: '',
         component: FeedComponent
       },
+      { path: 'profile', component: ProfileComponent }
     ]
   },
-  { path: 'profile', component: ProfileComponent },
   { path: 'status', component: StatusComponent },
   { path: 'cart', component: CartComponent },
   { path: 'nav', component: NavComponent },
+  
   // put activatedRoute for dashboard, agents much be loggedIN
   { path: 'dashboard', component: AgentDashboardComponent, canActivate: [AuthenticationService], canDeactivate: [CanExitGuard] },
-  { path: 'feed', component: FeedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: '', component: WaitlistComponent },

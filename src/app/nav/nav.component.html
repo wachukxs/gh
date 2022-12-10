@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
 
   <mat-toolbar-row>
-    <span>Corpers Online</span><!--Green Tower Realities-->
+    <span class="app-name-header" routerLink="/home">Corpers Online</span><!--Green Tower Realities-->
     <span class="example-spacer"></span>
 
     <button *ngIf="!(isHandset$ | async)" mat-button [routerLink]="['/signup']">Sign up</button>
@@ -15,9 +15,9 @@
     </button>
 
 
-    <button *ngIf="!(isHandset$ | async)" mat-button [routerLink]="['/profile']">Profile</button>
+    <button *ngIf="!(isHandset$ | async)" mat-button [routerLink]="['/home/profile']">Profile</button>
     <button mat-button *ngIf="isHandset$ | async">
-      <mat-icon class="nav-icon" aria-hidden="true" [routerLink]="['/profile']" aria-label="login person icon">person_outline</mat-icon>
+      <mat-icon class="nav-icon" aria-hidden="true" [routerLink]="['/home/profile']" aria-label="login person icon">person_outline</mat-icon>
     </button>
 
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="!(isHandset$ | async)">Menu</button>

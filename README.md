@@ -7,9 +7,13 @@
 * How to use angular [motion design kit](https://material.io/resources/motion-design-kit)
   * https://material.io/resources/tutorials#web
   * https://codelabs.developers.google.com/codelabs/mdc-103-web#0
+* [File upload](https://blog.angular-university.io/angular-file-upload/)
 
 ## Considerations, and things we might want to use
-* [HammerJS Directive](http://ryanmullins.github.io/angular-hammer/) as a fallback plan
+* ~~[HammerJS Directive](http://ryanmullins.github.io/angular-hammer/) as a fallback plan~~
+* Use (pan*) events to acheive the drag that is on AirBnB app with images.
+* [Google Codelabs](https://codelabs.developers.google.com/)
+* Can we use AI to auto give directions
 
 
 ## Design sources

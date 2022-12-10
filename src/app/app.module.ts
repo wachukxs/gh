@@ -57,6 +57,8 @@ import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog/exit
 import { WaitlistComponent } from './waitlist/waitlist.component';
 import { JoinWaitlistSuccessBottomsheetComponent } from './join-waitlist-success-bottomsheet/join-waitlist-success-bottomsheet.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { ProfileComponent } from './profile/profile.component';
     ExitConfirmationDialogComponent,
     WaitlistComponent,
     JoinWaitlistSuccessBottomsheetComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreatePostComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -95,6 +98,7 @@ import { ProfileComponent } from './profile/profile.component';
     ScrollingModule,
     AppRoutingModule,
     HttpClientModule,
+    MatButtonToggleModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatGridListModule,
