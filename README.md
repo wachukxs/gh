@@ -19,6 +19,10 @@
 ## Design sources
 * Wait list page
   * [Desktop View](https://dribbble.com/shots/6780267-June-Homes-Wait-List)
+* [Material 2 Design Components](https://www.figma.com/community/file/778763161265841481)
+* [Material 3 Design Components](https://www.figma.com/community/file/1035203688168086460)
+  * [An Inspiration](https://www.figma.com/community/file/1164313362327941158)
+* [M2 Resources](https://m2.material.io/resources)
 
 ## Questions
 * What are we doing with [HammerJS](https://github.com/angular/components/blob/3a204da37fd1366cae411b5c234517ecad199737/guides/v9-hammerjs-migration.md) ?

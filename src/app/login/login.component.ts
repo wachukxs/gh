@@ -5,6 +5,12 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * README
+ * 1. https://dribbble.com/shots/17408454-Login-Form-Prototype We should use the right side to show some important info
+ * 1.1 Like new features, or just welcome them
+ */
+
 declare interface PostResponse {
   message: string;
   response_code: number;

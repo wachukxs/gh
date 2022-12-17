@@ -1,16 +1,37 @@
-/**
-* same as sign up
-*/
-form {
-  margin: 0 auto;
-  width: 210px;
+div[root] {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
 
-  margin-top: 10%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
-.example-full-width {
-  width: -moz-available;
+section[first] {
+  background-color: red;
+}
 
+form {
+  display: grid;
+
+  width: 290px;
+  margin: 0 auto;
+}
+
+.login-button {
+  margin-top: 25px;
+}
+
+div.center {
+  margin-top: 30%;
+
+  text-align: center;
+}
+
+.full-width {
+  width: -moz-available;
   margin-bottom: 5px;
 }
 

@@ -1,35 +1,45 @@
-<form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
-  <mat-card>
-    <mat-card-header style="display: block;">Agents Login</mat-card-header>
-    <!-- <mat-card-subtitle>Provide your details</mat-card-subtitle> -->
+<div root>
+  <section first>
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Username</mat-label>
-      <input autocomplete="username" matInput formControlName="username" placeholder="">
-      <mat-hint align="start">Required</mat-hint>
-      <mat-error *ngIf="loginForm.controls['username'].hasError('minlength') && !loginForm.controls['username'].hasError('required')">
-        Please enter a valid username
-      </mat-error>
-      <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
-        Username is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+  </section>
+  
+  <section second>
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Password</mat-label>
-      <input matInput autocomplete="current-password" type="password" formControlName="password" placeholder="Minimum of 6 characters">
-      <mat-hint align="start">Minimum of 6 characters</mat-hint>
-      <mat-error
-        *ngIf="loginForm.controls.password.hasError('minlength') && !loginForm.controls.password.hasError('required')">
-        Please exceed 6 characters
-      </mat-error>
-      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+    <div class="center">
+      <h2>Login</h2>
 
-    <mat-card-actions>
-      <button [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit">Login</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+    
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input autocomplete="username" matInput formControlName="username" placeholder="">
+          <mat-hint align="start">Required</mat-hint>
+          <mat-error *ngIf="loginForm.controls['username'].hasError('minlength') && !loginForm.controls['username'].hasError('required')">
+            Please enter a valid username
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+            Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput autocomplete="current-password" type="password" formControlName="password" placeholder="Minimum of 6 characters">
+          <mat-hint align="start">Minimum of 6 characters</mat-hint>
+          <mat-error
+            *ngIf="loginForm.controls.password.hasError('minlength') && !loginForm.controls.password.hasError('required')">
+            Please exceed 6 characters
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+    
+        
+        <button class="login-button" [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit">Login</button>
+        
+    </form>
+    </div>
+    
+  </section>
+</div>
