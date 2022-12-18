@@ -3,27 +3,38 @@
 * 
 * https://stackoverflow.com/a/9737550/9259701
 */
-.sign-up {
+div[root] {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+section[first] {
+  background-color: red;
+}
+
+form {
+  display: grid;
+
+  width: 290px;
   margin: 0 auto;
-  width: 215px;
-  margin-top: 10%;
 }
 
-.example-full-width {
+.signup-button {
+  margin-top: 25px;
+}
+
+div.center {
+  margin-top: 30%;
+
+  text-align: center;
+}
+
+.full-width {
   width: -moz-available;
-  margin-bottom: 5px;
-}
-
-/**small mobile view rules*/
-@media only screen /* and (min-device-width: 320px) */ and (max-device-width: 425px) {
-  .sign-up {
-    margin-top: 30%;
-  }
-}
-
-/**large mobile view rules*/
-@media only screen and (min-device-width: 426px) and (max-device-width: 768px) {
-  .sign-up {
-    margin-top: 25%;
-  }
 }

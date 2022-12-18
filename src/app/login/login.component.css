@@ -32,15 +32,5 @@ div.center {
 
 .full-width {
   width: -moz-available;
-  margin-bottom: 5px;
 }
 
-/**small mobile view rules*/
-@media only screen /* and (min-device-width: 320px) */ and (max-device-width: 425px) {
-  
-}
-
-/**large mobile view rules*/
-@media only screen and (min-device-width: 426px) and (max-device-width: 768px) {
-  
-}
