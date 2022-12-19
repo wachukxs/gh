@@ -27,7 +27,7 @@
 /// @param {Map} $button Configuration for the "button" typographic level.
 /// @param {Map} $input Configuration for the "input" typographic level.
 /// @returns {Map} A typography config for the application.
-$grow-agric-typography: mat.define-typography-config(
+$grow-agric-typography: mat.define-legacy-typography-config(
   $font-family: 'Roboto, "Poppins", sans-serif',
 
   $display-4:     mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
@@ -53,7 +53,16 @@ $grow-agric-typography: mat.define-typography-config(
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.core($grow-agric-typography);
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy($grow-agric-typography);`
+@include mat.all-legacy-component-typographies($grow-agric-typography);
+@include mat.legacy-core();
 
 // TODO: create a PR that once you click on a palette in https://material.io/design/color/the-color-system.html#tools-for-picking-colors, it copies the color code
 // trying a palette for us
@@ -115,5 +124,5 @@ $grow-agric-angular-theme: mat.define-light-theme((
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($grow-agric-angular-theme);
+@include mat.all-legacy-component-themes($grow-agric-angular-theme);
 

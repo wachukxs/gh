@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatButton } from '@angular/material/button';
+import { MatLegacyButton as MatButton } from '@angular/material/legacy-button';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { JoinWaitlistSuccessBottomsheetComponent } from '../join-waitlist-success-bottomsheet/join-waitlist-success-bottomsheet.component';
