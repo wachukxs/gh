@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 }) // https://medium.com/showpad-engineering/angular-animations-lets-create-a-carousel-with-reusable-animations-81c0dd8847e8
 export class PictureCarouselComponent implements OnInit {
 
-  @Input() slides: Array<any>;
+  @Input() slides: Array<any> = [];
 
   currentSlide = 0;
 

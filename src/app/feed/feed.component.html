@@ -24,10 +24,10 @@
 
       <div class="byside">
         <mat-chip-listbox aria-label="Range selection">
-          <mat-chip-option selected>₦50,000</mat-chip-option>
+          <mat-chip selected>₦50,000</mat-chip>
           <!--color="#f2f2f7"-->
           <span class="example-spacer"></span>
-          <mat-chip-option color="primary" selected>₦200,000</mat-chip-option>
+          <mat-chip color="primary" selected>₦200,000</mat-chip>
         </mat-chip-listbox>
         <!--https://material.io/components/sliders/-->
         <!-- TODO: The 'tickInterval' property no longer exists -->
@@ -48,9 +48,9 @@
       <div class="byside">
         <mat-chip-listbox [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
           <!-- https://stackblitz.com/edit/angular-ynznsk?file=app%2Fchips-stacked-example.ts -->
-          <mat-chip-option #chipRef="matChip" *ngFor="let chip of availableHouseTypes" (click)="onChipClick(chipRef, chip)"
-            [selected]="chip.selected">
-            {{ chip.name }}
+          <mat-chip-option *ngFor="let houseType of availableHouseTypes" (selectionChange)="onChipClick($event, houseType)"
+            [selected]="houseType.selected" [highlighted]="houseType.selected">
+            {{ houseType.name }}
           </mat-chip-option>
         </mat-chip-listbox>
       </div>

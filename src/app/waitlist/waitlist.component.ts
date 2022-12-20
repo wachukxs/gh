@@ -14,20 +14,20 @@ import { CallerService } from '../services/caller.service';
 })
 export class WaitlistComponent implements OnInit {
 
-  @ViewChild('waitlistjoinbutton') waitListBtn: MatButton;
+  @ViewChild('waitlistjoinbutton') waitListBtn: MatButton | undefined;
   hideJoinMatSpinner: boolean = false;
   hideJoinText: boolean = true;
 
   constructor(private _formBuilder: FormBuilder, private callerService: CallerService, private bottomSheet: MatBottomSheet,) { }
 
   ngOnInit(): void {
-    this.filteredOptions = this.waitListForm.get('servingstate').valueChanges.pipe(
+    this.filteredOptions = this.waitListForm.get('servingstate')?.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
   }
 
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Observable<string[]> | undefined;
 
   waitListForm:FormGroup = this._formBuilder.group({
     servingstate: ['', [Validators.required]],
@@ -55,7 +55,7 @@ export class WaitlistComponent implements OnInit {
         next: (res: any) => {
           console.log('who joined?', res);
 
-          let _firstname = this.waitListForm.get('firstname').value
+          let _firstname = this.waitListForm.get('firstname')?.value
 
           this.waitListForm.reset({
             servingstate: '',
@@ -94,7 +94,7 @@ export class WaitlistComponent implements OnInit {
         }
       })
     } else {
-      console.log(this.waitListForm.get('email').errors);
+      console.log(this.waitListForm.get('email')?.errors);
       
       // this.callerService.showNotification("Some errors on the form", 8000)
     }

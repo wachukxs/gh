@@ -14,7 +14,9 @@ export class ImageCarouselComponent extends CdkStepper /* implements OnInit */ {
     this.selectedIndex = index;
   }
 
-  onSwipeRight(event): void {
+  onSwipeRight(event: any): void {
+    console.log('event', event);
+    
     this.action = 'swiped right';
     setTimeout(() => {
       this.action = 'do sth';
@@ -22,7 +24,7 @@ export class ImageCarouselComponent extends CdkStepper /* implements OnInit */ {
     this.previous();
   }
 
-  onSwipeLeft(event): void {
+  onSwipeLeft(event: any): void {
     this.action = 'swiped left';
     setTimeout(() => {
       this.action = 'do sth';

@@ -12,7 +12,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 })
 export class NavComponent {
 
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger | undefined;
 
   menuState = '';
 

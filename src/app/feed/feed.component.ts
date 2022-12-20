@@ -38,6 +38,12 @@ interface PlacesGroup {
   place: Place[];
 }
 
+interface HouseTypes {
+  name: string;
+  selected: boolean;
+  codeRef: string
+}
+
 export interface Tile {
   color: string;
   cols: number;
@@ -79,8 +85,8 @@ export class FeedComponent implements OnInit {
     {text: 'Lower details', cols: 1, rows: 1, color: '#DDBDF1'},
   ];
 
-  hidePlacesSelect: boolean;
-  hideProximityPlacesSelect: boolean;
+  hidePlacesSelect: boolean = false;
+  hideProximityPlacesSelect: boolean = false;
 
   location: any = undefined;
 
@@ -166,7 +172,7 @@ export class FeedComponent implements OnInit {
      * it's important that codeRef is same with filterForm.houseType...
      */
 
-    availableHouseTypes = [
+    availableHouseTypes: Array<HouseTypes> = [
       {name: '1 BHK', selected: false, codeRef: 'bhk1'},
       {name: '2 BHK', selected: false, codeRef: 'bhk2'},
       {name: '1 BK', selected: false, codeRef: 'bk1'},
@@ -223,14 +229,14 @@ export class FeedComponent implements OnInit {
               private locationService: LocationService) {
   }
 
-  onSwipeRight(event): void {
+  onSwipeRight(event: any): void {
     this.swipeEvent = 'swiped right';
     setTimeout(() => {
       this.swipeEvent = 'do sth';
     }, 3000);
   }
 
-  onSwipeLeft(event): void {
+  onSwipeLeft(event: any): void {
     this.swipeEvent = 'swiped left';
     setTimeout(() => {
       this.swipeEvent = 'do sth';
@@ -250,36 +256,31 @@ export class FeedComponent implements OnInit {
   /**
    * chipRef is the Angular object definition, while chip is from the UI
    */
-
-  onChipClick(chipRef: MatChip, chip) {
+  onChipClick(chipRef: any, chip: any) {
     /**
      * if the filter is disabled, the chips shouldn't work.
      */
+    console.log('?', chipRef, chip);
+    
     if (!this.houseTypeDisabled) {
-      chipRef.toggleSelected();
-      // chipRef.select();
-      // chipRef.selected = !chipRef.selected;
-      // chip.selected = !chip.selected;
-
-      // console.log('chipRef', chipRef.selected);
-      this.filterForm.get(['houseType', chip.codeRef]).setValue(chipRef.selected);
+      this.filterForm.get(['houseType', chip.codeRef])?.setValue(chipRef.selected);
     }
 
   }
 
   budgetSliderChange(newValue: number) {
     // console.log('new slider value', newValue);
-    this.filterForm.get('budget.preferredBudget').setValue(newValue);
+    this.filterForm.get('budget.preferredBudget')?.setValue(newValue);
   }
 
   proximitySliderChange(newValue: number) {
     // console.log('new slider value', newValue);
-    this.filterForm.get('proximity.preferredDistance').setValue(newValue);
+    this.filterForm.get('proximity.preferredDistance')?.setValue(newValue);
   }
 
   budgetDisableChange(evtObject: MatSlideToggleChange) {
     this.budgetDisabled = evtObject.checked; // seems we don't need this anymore
-    this.filterForm.get(['budget', 'disableBudget']).setValue(evtObject.checked);
+    this.filterForm.get(['budget', 'disableBudget'])?.setValue(evtObject.checked);
     if (evtObject.checked) {
       // enable filters if true
     }
@@ -287,12 +288,12 @@ export class FeedComponent implements OnInit {
 
   houseTypeDisableChange(evtObject: MatSlideToggleChange) {
     this.houseTypeDisabled = evtObject.checked; // seems we don't need this anymore
-    this.filterForm.get(['houseType', 'disableHouseType']).setValue(evtObject.checked);
+    this.filterForm.get(['houseType', 'disableHouseType'])?.setValue(evtObject.checked);
   }
 
   proximityDisableChange(evtObject: MatSlideToggleChange) {
     this.proximityDisabled = evtObject.checked; // seems we don't need this anymore
-    this.filterForm.get(['proximity', 'disableProximity']).setValue(evtObject.checked);
+    this.filterForm.get(['proximity', 'disableProximity'])?.setValue(evtObject.checked);
     if (evtObject.checked) { // true
       // enable filter controls
     } else {

@@ -42,6 +42,8 @@ export class AgentDashboardComponent implements OnInit, CanExit {
 
   dev = isDevMode();
 
+  theAgent: string = ''
+
   baseUrl: string =  environment.baseurl;
 
   houses: Array<any> = []; // get data type of houses
@@ -54,10 +56,16 @@ export class AgentDashboardComponent implements OnInit, CanExit {
               private httpClient: HttpClient,
               private breakpointObserver: BreakpointObserver,
               public dialog: MatDialog,
-              private formBuilder: FormBuilder) {}
+              private formBuilder: FormBuilder) {
+
+                let agnt = sessionStorage.getItem('green-homes-agent')
+                if (agnt) {
+                  this.theAgent = agnt
+                }
+              }
 
   propertyForm = new FormGroup({
-    by: new FormControl(JSON.parse(sessionStorage.getItem('green-homes-agent')).resource_uri),
+    by: new FormControl(JSON.parse(this.theAgent).resource_uri),
     bedrooms: new FormControl(''),
     kitchen: new FormControl(''),
     toilet: new FormControl(''),
@@ -115,7 +123,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
   }
 
   ngOnInit() {
-    this.you = JSON.parse(sessionStorage.getItem('green-homes-agent'));
+    this.you = JSON.parse(this.theAgent);
     // this.propertyForm.controls.by.patchValue
 
     this.loadHousesData();
@@ -161,7 +169,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     });
   }
 
-  houseMedia(event, houseID: number): void {
+  houseMedia(event: any, houseID: number): void {
     console.log('house media', event.target.files);
 
     this.houseFormData.append('images', event.target.files[0]);
