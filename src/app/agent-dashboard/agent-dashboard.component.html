@@ -4,7 +4,7 @@
 <div class="grid-container">
   <h1 class="mat-h1">Add an apartment</h1>
 
-  <mat-card>
+  <mat-card appearance="outlined">
     <form [formGroup]="propertyForm" (ngSubmit)="postHouse()">
       <mat-vertical-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="propertyForm.controls.number && propertyForm.controls.street && propertyForm.controls.city_or_town && propertyForm.controls.state" >

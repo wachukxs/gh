@@ -17,6 +17,7 @@ cdk-virtual-scroll-viewport {
   margin-right: auto;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
   width: 45%;
 
@@ -61,11 +62,13 @@ mat-sidenav {
   width: min-content;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of slider that may no longer apply for the MDC version. */
 mat-slider {
   width: -moz-available;
   width: -webkit-fill-available;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
   height: min-content;
 }
@@ -77,7 +80,7 @@ mat-card {
     mat-sidenav {
         width: 75%;
     }
-
+    /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
     mat-card {
       width: 70%;
     }
@@ -89,7 +92,7 @@ mat-card {
     /* mat-sidenav {
         width: 35%;
     } */
-
+    /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
     mat-card {
       width: 70%;
     }
@@ -106,14 +109,14 @@ mat-card {
     div.cdk-virtual-scroll-content-wrapper {
       position: inherit; /**not working*/
     }
-
+    /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
     mat-card {
       width: 70%;
     }
 }
 
 /** --- */
-.mat-card-actions {
+.mat-mdc-card-actions {
   margin-bottom: 0px;
 }
 
@@ -121,6 +124,7 @@ mat-grid-list {
   width: 75%;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 .mat-card-in-tile {
   width: -moz-available;
   width: -webkit-fill-available;
@@ -235,6 +239,7 @@ mat-grid-list {
   margin-bottom: 20px;
 }
 
+/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-actions button[mattooltip] mat-icon {
   cursor: pointer;
 }

@@ -1,14 +1,14 @@
 <p>cart works!</p>
 
 <div class="cart">
-    <mat-slider min="1" max="100" step="1" value="67"></mat-slider>
+    <mat-slider min="1" max="100" step="1"><input matSliderThumb value="67" /></mat-slider>
   
-    <mat-chip-list aria-label="Fish selection">
-      <mat-chip>One fish</mat-chip>
-      <mat-chip>Two fish</mat-chip>
-      <mat-chip color="primary" selected>Primary fish</mat-chip>
-      <mat-chip color="accent" selected>Accent fish</mat-chip>
-    </mat-chip-list>
+    <mat-chip-listbox aria-label="Fish selection">
+      <mat-chip-option>One fish</mat-chip-option>
+      <mat-chip-option>Two fish</mat-chip-option>
+      <mat-chip-option color="primary" selected>Primary fish</mat-chip-option>
+      <mat-chip-option color="accent" selected>Accent fish</mat-chip-option>
+    </mat-chip-listbox>
   
     <form class="example-form" [formGroup]="sampleForm">
       <mat-form-field class="example-full-width">
@@ -46,7 +46,7 @@
 
   <div class="align-content-center">
 
-        <mat-card class="example-card" >
+        <mat-card appearance="outlined" class="example-card" >
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Shiba Inu</mat-card-title>
@@ -66,7 +66,7 @@
           </mat-card-actions>
         </mat-card>
 
-        <mat-card class="example-card" >
+        <mat-card appearance="outlined" class="example-card" >
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Shiba Inu</mat-card-title>
@@ -86,7 +86,7 @@
           </mat-card-actions>
         </mat-card>
 
-        <mat-card class="example-card" >
+        <mat-card appearance="outlined" class="example-card" >
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Shiba Inu</mat-card-title>

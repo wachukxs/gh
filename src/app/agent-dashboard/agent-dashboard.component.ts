@@ -5,9 +5,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CanExit } from '../services/authentication.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-agent-dashboard',

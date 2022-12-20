@@ -23,15 +23,16 @@
       </mat-toolbar-row>
 
       <div class="byside">
-        <mat-chip-list aria-label="Range selection">
-          <mat-chip selected>₦50,000</mat-chip>
+        <mat-chip-listbox aria-label="Range selection">
+          <mat-chip-option selected>₦50,000</mat-chip-option>
           <!--color="#f2f2f7"-->
           <span class="example-spacer"></span>
-          <mat-chip color="primary" selected>₦200,000</mat-chip>
-        </mat-chip-list>
+          <mat-chip-option color="primary" selected>₦200,000</mat-chip-option>
+        </mat-chip-listbox>
         <!--https://material.io/components/sliders/-->
+        <!-- TODO: The 'tickInterval' property no longer exists -->
         <mat-slider (valueChange)="budgetSliderChange($event)" [displayWith]="formatBudgetSliderLabel" thumbLabel="true"
-          min="50000" tickInterval="20000" max="200000" value="100000"></mat-slider>
+          min="50000" max="200000"><input matSliderThumb value="100000" /></mat-slider>
       </div>
 
       <mat-divider class="margin-up-down"></mat-divider>
@@ -45,13 +46,13 @@
       </mat-toolbar-row>
 
       <div class="byside">
-        <mat-chip-list [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
+        <mat-chip-listbox [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
           <!-- https://stackblitz.com/edit/angular-ynznsk?file=app%2Fchips-stacked-example.ts -->
-          <mat-chip #chipRef="matChip" *ngFor="let chip of availableHouseTypes" (click)="onChipClick(chipRef, chip)"
+          <mat-chip-option #chipRef="matChip" *ngFor="let chip of availableHouseTypes" (click)="onChipClick(chipRef, chip)"
             [selected]="chip.selected">
             {{ chip.name }}
-          </mat-chip>
-        </mat-chip-list>
+          </mat-chip-option>
+        </mat-chip-listbox>
       </div>
       <!--maybe https://stackblitz.com/edit/angular-wcfsvk?file=app%2Fchips-input-example.html-->
 
@@ -66,8 +67,9 @@
       </mat-toolbar-row>
 
       <div class="byside">
+        <!-- TODO: The 'tickInterval' property no longer exists -->
         <mat-slider (valueChange)="proximitySliderChange($event)" [displayWith]="formatProximitySliderLabel"
-          thumbLabel="true" min="100" max="3000" tickInterval="500" value="1000"></mat-slider>
+          thumbLabel="true" min="100" max="3000"><input matSliderThumb value="1000" /></mat-slider>
 
         <!-- based on the distance, filter the avaliabel places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
 
@@ -137,7 +139,7 @@
               alt="Photo of the appropriate room" />
           </mat-grid-tile>
           <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
-            <mat-card class="mat-card-in-tile">
+            <mat-card appearance="outlined" class="mat-card-in-tile">
               
                 <mat-card-title>Shiba Inu</mat-card-title>
                 <mat-card-subtitle id="under-mat-card-title"> Dog Breed </mat-card-subtitle>
@@ -146,13 +148,13 @@
           </mat-grid-tile>
           
           <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'black'">
-            <mat-card class="mat-card-in-tile price-area">
+            <mat-card appearance="outlined" class="mat-card-in-tile price-area">
               <div mat-line>who posted</div>
               <div mat-line>use date pipe</div>
             </mat-card>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'gray'">
-            <mat-card class="mat-card-in-tile">
+            <mat-card appearance="outlined" class="mat-card-in-tile">
               <div mat-line>
                 <mat-card-subtitle>Notes: </mat-card-subtitle> <span class="other-details"> Some other detail</span>
               </div>
@@ -164,7 +166,7 @@
             </mat-card>
           </mat-grid-tile>
           <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'lightblue'">
-            <mat-card class="mat-card-in-tile">
+            <mat-card appearance="outlined" class="mat-card-in-tile">
               <mat-card-actions>
                 <div class="room-deats">
                   <mat-icon matTooltip="Has 3 kitchen" aria-hidden="false" aria-label="Kitchen icon">kitchen</mat-icon>
@@ -233,7 +235,7 @@
     <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
 
 
-    <mat-card (swipeleft)="onSwipeLeft($event)"
+    <mat-card appearance="outlined" (swipeleft)="onSwipeLeft($event)"
     (swiperight)="onSwipeRight($event)" 
     *cdkVirtualFor="let item of placesList" 
     class="dashboard-card center">
