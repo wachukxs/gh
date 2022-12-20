@@ -7,7 +7,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { LocationService } from '../services/location.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatChip } from '@angular/material/chips';
+import { MatChip, MatChipSelectionChange } from '@angular/material/chips';
 import { CdkStepper } from '@angular/cdk/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HouseDetailDialogComponent } from '../house-detail-dialog/house-detail-dialog.component';
@@ -40,7 +40,6 @@ interface PlacesGroup {
 
 interface HouseTypes {
   name: string;
-  selected: boolean;
   codeRef: string
 }
 
@@ -90,7 +89,11 @@ export class FeedComponent implements OnInit {
 
   location: any = undefined;
 
-  places = new FormControl();
+  budgetDisabled = false;
+  houseTypeDisabled = false;
+  proximityDisabled = false;
+
+  places = new FormControl({value: '', disabled: this.proximityDisabled});
   placesList: string[] = [
     'Bodija', 'Aare', 'Lagos', 'Surelere', 'Iwo', 'Zamfara',
     'Osun', 'Ibafo', 'Mowe', 'Mile 12', 'Jos', 'Umuahia',
@@ -134,9 +137,6 @@ export class FeedComponent implements OnInit {
   ];
 
 
-  budgetDisabled = false;
-  houseTypeDisabled = false;
-  proximityDisabled = false;
 
   isPortraitHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
     .pipe(
@@ -173,20 +173,20 @@ export class FeedComponent implements OnInit {
      */
 
     availableHouseTypes: Array<HouseTypes> = [
-      {name: '1 BHK', selected: false, codeRef: 'bhk1'},
-      {name: '2 BHK', selected: false, codeRef: 'bhk2'},
-      {name: '1 BK', selected: false, codeRef: 'bk1'},
-      {name: '2B 1K', selected: false, codeRef: 'b2k1'},
-      {name: '3B 1K', selected: false, codeRef: 'b3k1'},
-      {name: '4B 1K', selected: false, codeRef: 'b4k1'}
+      {name: '1 BHK',  codeRef: 'bhk1'},
+      {name: '2 BHK',  codeRef: 'bhk2'},
+      {name: '1 BK',  codeRef: 'bk1'},
+      {name: '2B 1K',  codeRef: 'b2k1'},
+      {name: '3B 1K',  codeRef: 'b3k1'},
+      {name: '4B 1K',  codeRef: 'b4k1'}
     ];
 
   filterForm = new FormGroup({
     budget: new FormGroup({
       maxBudget: new FormControl(200000), // select highest value from db
       minBudget: new FormControl(50000), // select lowest value from db
-      preferredBudget: new FormControl(),
-      disableBudget: new FormControl(false)
+      preferredMaxBudget: new FormControl(),
+      preferredMinBudget: new FormControl(),
     }),
     houseType: new FormGroup({
       bhk1: new FormControl(),
@@ -195,12 +195,10 @@ export class FeedComponent implements OnInit {
       b2k1: new FormControl(),
       b3k1: new FormControl(),
       b4k1: new FormControl(),
-      disableHouseType: new FormControl(false)
     }),
     proximity: new FormGroup({
       preferredDistance: new FormControl(),
       preferredPlaces: new FormControl(),
-      disableProximity: new FormControl(true)
     }),
   });
 
@@ -256,21 +254,22 @@ export class FeedComponent implements OnInit {
   /**
    * chipRef is the Angular object definition, while chip is from the UI
    */
-  onChipClick(chipRef: any, chip: any) {
+  onChipClick(chipChangeEvent: MatChipSelectionChange, chip: any) {
     /**
      * if the filter is disabled, the chips shouldn't work.
      */
-    console.log('?', chipRef, chip);
-    
     if (!this.houseTypeDisabled) {
-      this.filterForm.get(['houseType', chip.codeRef])?.setValue(chipRef.selected);
+      this.filterForm.get(['houseType', chip.codeRef])?.setValue(chipChangeEvent.selected);
     }
 
   }
 
-  budgetSliderChange(newValue: number) {
-    // console.log('new slider value', newValue);
-    this.filterForm.get('budget.preferredBudget')?.setValue(newValue);
+  budgetMaxSliderChange(newValue: number) {
+    this.filterForm.get('budget.preferredMaxBudget')?.setValue(newValue);
+  }
+
+  budgetMinSliderChange(newValue: number) {
+    this.filterForm.get('budget.preferredMinBudget')?.setValue(newValue);
   }
 
   proximitySliderChange(newValue: number) {
@@ -279,40 +278,31 @@ export class FeedComponent implements OnInit {
   }
 
   budgetDisableChange(evtObject: MatSlideToggleChange) {
-    this.budgetDisabled = evtObject.checked; // seems we don't need this anymore
-    this.filterForm.get(['budget', 'disableBudget'])?.setValue(evtObject.checked);
-    if (evtObject.checked) {
-      // enable filters if true
-    }
+    this.budgetDisabled = evtObject.checked; // we can do this different, but this is okay.
   }
 
   houseTypeDisableChange(evtObject: MatSlideToggleChange) {
-    this.houseTypeDisabled = evtObject.checked; // seems we don't need this anymore
-    this.filterForm.get(['houseType', 'disableHouseType'])?.setValue(evtObject.checked);
+    this.houseTypeDisabled = evtObject.checked;
   }
 
   proximityDisableChange(evtObject: MatSlideToggleChange) {
     this.proximityDisabled = evtObject.checked; // seems we don't need this anymore
-    this.filterForm.get(['proximity', 'disableProximity'])?.setValue(evtObject.checked);
-    if (evtObject.checked) { // true
-      // enable filter controls
+    if (evtObject.checked) {
+      this.places.disable()
     } else {
-      // do nothing when clicked
-      // unselect everything
-
+      this.places.enable()
     }
 
   }
 
-  formatBudgetSliderLabel(value: number) {
+  formatBudgetSliderLabel(value: number): string {
     if (value >= 1000) {
       return `${Math.round(value / 1000)}K`; // ₦
     }
-
-    return value;
+    return value.toString();
   }
 
-  formatProximitySliderLabel(value: number) {
+  formatProximitySliderLabel(value: number): string {
       return (value / 1000).toFixed(1);
   }
 

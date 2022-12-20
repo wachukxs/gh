@@ -29,10 +29,11 @@
           <span class="example-spacer"></span>
           <mat-chip color="primary" selected>₦200,000</mat-chip>
         </mat-chip-listbox>
-        <!--https://material.io/components/sliders/-->
-        <!-- TODO: The 'tickInterval' property no longer exists -->
-        <mat-slider (valueChange)="budgetSliderChange($event)" [displayWith]="formatBudgetSliderLabel" thumbLabel="true"
-          min="50000" max="200000"><input matSliderThumb value="100000" /></mat-slider>
+        <!-- TODO: Change the max value from 200000 -->
+        <mat-slider [disabled]="budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete min="20000" step="25000" max="200000">
+          <input value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
+          <input value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
+        </mat-slider>
       </div>
 
       <mat-divider class="margin-up-down"></mat-divider>
@@ -47,14 +48,11 @@
 
       <div class="byside">
         <mat-chip-listbox [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
-          <!-- https://stackblitz.com/edit/angular-ynznsk?file=app%2Fchips-stacked-example.ts -->
-          <mat-chip-option *ngFor="let houseType of availableHouseTypes" (selectionChange)="onChipClick($event, houseType)"
-            [selected]="houseType.selected" [highlighted]="houseType.selected">
+          <mat-chip-option *ngFor="let houseType of availableHouseTypes" (selectionChange)="onChipClick($event, houseType)">
             {{ houseType.name }}
           </mat-chip-option>
         </mat-chip-listbox>
       </div>
-      <!--maybe https://stackblitz.com/edit/angular-wcfsvk?file=app%2Fchips-input-example.html-->
 
       <mat-divider class="margin-up-down"></mat-divider>
 
@@ -62,14 +60,13 @@
         <h4>Proximity (in km)</h4>
         <span class="example-spacer"></span>
         <mat-slide-toggle (change)="proximityDisableChange($event)" aria-label="Cancel proximity filter">
-          <!-- Reset -->
         </mat-slide-toggle>
       </mat-toolbar-row>
 
       <div class="byside">
-        <!-- TODO: The 'tickInterval' property no longer exists -->
-        <mat-slider (valueChange)="proximitySliderChange($event)" [displayWith]="formatProximitySliderLabel"
-          thumbLabel="true" min="100" max="3000"><input matSliderThumb value="1000" /></mat-slider>
+        <mat-slider [disabled]="proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete step="500" min="100" max="3000">
+          <input matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
+        </mat-slider>
 
         <!-- based on the distance, filter the avaliabel places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
 
@@ -92,7 +89,7 @@
 
           <span class="example-spacer"></span>
 
-          <button type="button" aria-label="Toggle geolocation" mat-icon-button>
+          <button [disabled]="proximityDisabled" type="button" aria-label="Toggle geolocation" mat-icon-button>
             <!--switch between gps_fixed, gps_not_fixed and gps_off icons  when communicating geolocation status-->
             <mat-icon matTooltip="Filter with current location" aria-label="get geolocation toggle icon">gps_fixed
             </mat-icon>

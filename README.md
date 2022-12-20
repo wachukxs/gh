@@ -8,6 +8,8 @@
   * https://material.io/resources/tutorials#web
   * https://codelabs.developers.google.com/codelabs/mdc-103-web#0
 * [File upload](https://blog.angular-university.io/angular-file-upload/)
+* [Infinite Scroll](https://zoaibkhan.com/blog/create-a-fast-infinite-scrolling-list-in-angular/)
+  * Not bad [animation](https://zoaibkhan.com/blog/add-spring-animations-to-your-angular-app-with-popmotion/)
 
 ## Considerations, and things we might want to use
 * ~~[HammerJS Directive](http://ryanmullins.github.io/angular-hammer/) as a fallback plan~~
