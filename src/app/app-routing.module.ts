@@ -20,23 +20,26 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        title: 'Your feed',
         component: FeedComponent
       },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', 
+      title: 'Profile',
+      component: ProfileComponent }
     ]
   },
-  { path: 'status', component: StatusComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'nav', component: NavComponent },
+  { path: 'status', title: 'Status', component: StatusComponent },
+  { path: 'cart', title: 'Cart', component: CartComponent },
+  { path: 'nav', title: 'Nav?', component: NavComponent },
   
   // put activatedRoute for dashboard, agents much be loggedIN
-  { path: 'dashboard', component: AgentDashboardComponent, canActivate: [AuthenticationService], canDeactivate: [CanExitGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: '', component: WaitlistComponent },
-  { path: 'form', component: SampleFormComponent },
-  { path: 'test', component: TestComponent },
-  { path: '**', component: AppComponent }
+  { path: 'dashboard', title: 'Dashboard', component: AgentDashboardComponent, canActivate: [AuthenticationService], canDeactivate: [CanExitGuard] },
+  { path: 'login', title: 'Login', component: LoginComponent },
+  { path: 'signup', title: 'Sign up', component: SignupComponent },
+  { path: '', title: 'Welcome! Join our waitlist.', component: WaitlistComponent },
+  { path: 'form', title: 'A sample Form Page.', component: SampleFormComponent },
+  { path: 'test', title: 'This is a test component', component: TestComponent },
+  { path: '**', title: 'You\'re lost!', component: AppComponent }
 ];
 
 @NgModule({
