@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CallerService } from '../services/caller.service';
 
 /**
  * README
@@ -24,7 +25,7 @@ declare interface PostResponse {
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private snackBar: MatSnackBar, private httpClient: HttpClient, private router: Router) { }
+  constructor(private callerService: CallerService, private httpClient: HttpClient, private router: Router) { }
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
   login() {
     console.log(this.loginForm.value);
     if (this.loginForm.valid) {
-      // previously http://localhost:8083/greenhomes/php/api/agents/verify.php
+      
       // tslint:disable-next-line: max-line-length
       this.httpClient.get(`${environment.baseurl}/api/v1/agents/\?username=${this.loginForm.controls.username.value}&password=${this.loginForm.controls.password.value}`)
         .subscribe((res: any) => {
@@ -59,19 +60,13 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('green-homes-agent', JSON.stringify(res.objects[0]));
           this.router.navigate(['/dashboard']);
           } else { // show error message
-            this.snackBar.open('Wrong username or password', 'Close', {
-              duration: 4000,
-            });
+            this.callerService.showNotification('Wrong username or password', 4000, 'Close')
           }
         }, (err: any) => {
-          this.snackBar.open('Try that again please, an error occured', 'Close', {
-            duration: 4000,
-          });
+          this.callerService.showNotification('Try that again please, an error occured', 4000, 'Close')
       });
-    } else { // tell them
-      this.snackBar.open('Invalid form input', 'Close', {
-        duration: 4000,
-      });
+    } else { // tell the user
+      this.callerService.showNotification('Invalid form input', 4000, 'Close')
     }
   }
 

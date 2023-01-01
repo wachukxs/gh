@@ -11,14 +11,14 @@
     <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
     
         <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Username</mat-label>
+          <mat-label>State code or Email</mat-label>
           <input autocomplete="username" matInput formControlName="username" placeholder="">
           <mat-hint align="start">Required</mat-hint>
           <mat-error *ngIf="loginForm.controls['username'].hasError('minlength') && !loginForm.controls['username'].hasError('required')">
-            Please enter a valid username
+            Please enter a valid state code or email
           </mat-error>
           <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
-            Username is <strong>required</strong>
+            State code or email is <strong>required</strong>
           </mat-error>
         </mat-form-field>
     

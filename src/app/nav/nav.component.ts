@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { CreateNewAccommodationComponent } from '../create-new-accommodation/create-new-accommodation.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-nav',
@@ -33,11 +35,27 @@ export class NavComponent {
     this.menuState = '';
   }
 
+  openCreatePostDialot() {
+    const dialogRef = this.dialog.open(CreateNewAccommodationComponent, {
+      width: '100%',
+      height: '100%',
+      data: {},
+      maxWidth: '100%',
+      maxHeight: '100%',
+      ariaLabel: 'Dialog to create a new post'
+    });
+
+    /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   logout(): void {
     sessionStorage.removeItem('green-homes-agent');
     this.router.navigate(['/']);
   }
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {}
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private dialog: MatDialog,) {}
 
 }

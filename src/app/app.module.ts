@@ -1,6 +1,7 @@
 import { BrowserModule, HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG, HAMMER_LOADER } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { SwiperModule } from 'swiper/angular';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { AppRoutingModule } from './app-routing.module';
@@ -57,8 +58,9 @@ import { ExitConfirmationDialogComponent } from './exit-confirmation-dialog/exit
 import { WaitlistComponent } from './waitlist/waitlist.component';
 import { JoinWaitlistSuccessBottomsheetComponent } from './join-waitlist-success-bottomsheet/join-waitlist-success-bottomsheet.component';
 import { ProfileComponent } from './profile/profile.component';
-import { CreatePostComponent } from './create-post/create-post.component';
+import { CreateNewAccommodationComponent } from './create-new-accommodation/create-new-accommodation.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { CreateNewSaleComponent } from './create-new-sale/create-new-sale.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     WaitlistComponent,
     JoinWaitlistSuccessBottomsheetComponent,
     ProfileComponent,
-    CreatePostComponent
+    CreateNewAccommodationComponent,
+    CreateNewSaleComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -123,7 +126,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatTooltipModule,
     MatDialogModule,
     ClipboardModule,
-    HammerModule
+    HammerModule,
+    SwiperModule
   ],
   providers: [
     CanExitGuard,

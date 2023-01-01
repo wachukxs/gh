@@ -68,4 +68,19 @@ export class CallerService extends BaseService {
       catchError(this.handleError) // then handle the error
     );
   }
+
+  createNewPost(data: any) {
+    return this.http.post(environment.baseurl + URLPaths.createNewPost, data)
+  }
+
+  signUp(data: any) {
+    console.log('sign up up via', environment.baseurl + URLPaths.corpMemberSignUp);
+    
+    return this.http.post(environment.baseurl + URLPaths.corpMemberSignUp, data, this.JSONHttpOptions)
+    .pipe(
+      timeout(15000),
+      // retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
+  }
 }

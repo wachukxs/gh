@@ -29,6 +29,12 @@
 ## Questions
 * What are we doing with [HammerJS](https://github.com/angular/components/blob/3a204da37fd1366cae411b5c234517ecad199737/guides/v9-hammerjs-migration.md) ?
 
+## Resources we're using
+* [typescript.tv](https://typescript.tv/)
+* For our image sliders
+    * [keen-slider](https://keen-slider.io/examples)
+    * [SwiperJS](https://swiperjs.com/angular) - we're going with this.
+
 ## We're Using MatDesign!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.

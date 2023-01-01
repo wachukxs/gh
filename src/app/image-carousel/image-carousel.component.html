@@ -1,48 +1,14 @@
-<section class="example-container">
-    <!-- <h2>Step {{ selectedIndex + 1 }}/{{ steps.length }}</h2> -->
-  
-    <div >
-      <ng-container 
-      [style.display]="selected ? 'block' : 'none'" 
-      [ngTemplateOutlet]="selected.content"
-      (swipeleft)="onSwipeLeft($event)"
-        (swiperight)="onSwipeRight($event)"
-      >
-        
-      </ng-container>
-
-      <!-- controls -->
-    <button
-      [style.display]="selectedIndex === 0 ? 'none' : 'block'" 
-      class="control prev" cdkStepperPrevious>
-      <span class="arrow left"></span>
-    </button>
-    <button
-    [style.display]="selectedIndex === steps.length - 1 ? 'none' : 'block'" 
-      class="control next" cdkStepperNext>
-      <span class="arrow right"></span>
-    </button>
-
-      <div class="container">
-        <span
-            *ngFor="let step of steps; let i = index"
-            [ngClass]="{'dot': true, 'active': selectedIndex === i}"
-            (click)="onClick(i)"
-        ></span>
-        
-    </div>
-    </div>
-    
-  
-    <!-- <footer class="example-step-navigation-bar">
-      <button class="example-nav-button" cdkStepperPrevious>&larr;</button>
-      <button
-        *ngFor="let step of steps; let i = index"
-        [ngClass]="{ 'example-active': selectedIndex === i }"
-        (click)="onClick(i)"
-      >
-        Step {{ i + 1 }}
-      </button>
-      <button class="example-nav-button" cdkStepperNext>&rarr;</button>
-    </footer> -->
-  </section>
+<swiper 
+[pagination]="{
+      dynamicBullets: true
+    }" class="mySwiper container">
+    <ng-template swiperSlide class="custom-class">
+      <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
+    </ng-template>
+</swiper>

@@ -1,0 +1,9 @@
+<p>create-post works!</p>
+<button mat-icon-button (click)="close()">
+    <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
+</button>
+
+<input multiple (change)="onFileSelected($event)" type="file">
+
+
+<button (click)="submit()" mat-raised-button color="primary" type="submit">Post</button>

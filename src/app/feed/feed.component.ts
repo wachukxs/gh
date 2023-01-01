@@ -63,7 +63,25 @@ export interface Tile {
         }),
         animate('.2s 0s ease-out'),
       ])
-    ])
+    ]),
+    trigger('iconChangeAnimation', [
+      transition('* <=> *', [
+        style({
+          transform: `scale(1.5)`,
+          opacity: 0
+        }),
+        animate('.2s 0s ease-out'),
+      ])
+    ]),
+    trigger('testAni', [
+      transition('favorite <=> bookmark', [
+        style({
+          transform: `scale(1.5)`,
+          opacity: 0
+        }),
+        animate('.2s 0s ease-out'),
+      ])
+    ]),
   ]
 })
 export class FeedComponent implements OnInit {
@@ -210,14 +228,22 @@ export class FeedComponent implements OnInit {
   ];
 
   likeState = false;
-
-  swipeEvent = '';
+  bookmarkState = false;
+  favouriteState = false;
 
   /**
    * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
    */
   protected get toggleLikeState(): '_border' | '' {
     return this.likeState ? '_border' : '';
+  }
+
+  protected get toggleBookmarkIcon(): 'bookmark_border' | 'bookmark' {
+    return this.bookmarkState ? 'bookmark_border' : 'bookmark';
+  }
+
+  protected get toggleFavouriteIcon(): 'favorite_border' | 'favorite' {
+    return this.favouriteState ? 'favorite_border' : 'favorite';
   }
 
   constructor(private breakpointObserver: BreakpointObserver,
@@ -228,17 +254,9 @@ export class FeedComponent implements OnInit {
   }
 
   onSwipeRight(event: any): void {
-    this.swipeEvent = 'swiped right';
-    setTimeout(() => {
-      this.swipeEvent = 'do sth';
-    }, 3000);
   }
 
   onSwipeLeft(event: any): void {
-    this.swipeEvent = 'swiped left';
-    setTimeout(() => {
-      this.swipeEvent = 'do sth';
-    }, 3000);
   }
 
   ngOnInit() {
@@ -249,6 +267,14 @@ export class FeedComponent implements OnInit {
 
     this.isPortraitHandset$.subscribe(value => console.log('is portrait handset', value));
     this.isTablet$.subscribe(value => console.log('is tablet', value));
+  }
+
+  bookmarkPost() {
+    this.bookmarkState = !this.bookmarkState
+  }
+
+  favouritePost() {
+    this.favouriteState = !this.favouriteState
   }
 
   /**

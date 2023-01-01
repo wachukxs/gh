@@ -11,27 +11,78 @@ cdk-virtual-scroll-viewport {
   }
 }
 
+[long-house] {
+  display: flex;
+
+  width: 75%;
+}
+
+[long-house] img {
+  width: 350px;
+}
+
+[long-house] mat-card-content {
+  width: inherit;
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 40px;
+}
+
+[long-house] .post-info-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[long-house] .post-amenities {
+  display: flex;
+  align-items: center;
+}
+
+[long-house] .post-buttons {
+  display: flex;
+  align-items: center;
+}
+
+[long-house] .post-amenities span:not(:last-child) {
+  padding-right: 10px;
+}
+
+
+.top-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+[house] .top-details {
+  padding-top: 16px;
+}
+
+[house] .post-amenities {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+[house] .post-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card {
-  width: 45%;
+[house] {
+  width: 450px;
 
   margin-top: 20px;
   margin-bottom: 20px;
 
-  /** https://codepen.io/chriscoyier/pen/KKwNLyL */
-  box-shadow:
-    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-    0 12.5px 10px rgba(0, 0, 0, 0.06),
-    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-    0 100px 80px rgba(0, 0, 0, 0.12);
+  /* cool box-shadow here https://codepen.io/chriscoyier/pen/KKwNLyL */
 }
 
 .filters {
@@ -47,29 +98,40 @@ mat-card {
   margin-bottom: 5px;
 }
 
-
 /* fairly Stable CSS */
 
 .example-spacer {
   flex: 1 1 auto;
 }
 
+.long-image {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
 .byside {
   padding: 0px 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.content {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background: white;
+
+  /* try to use the scss variable for the value of this box-shadow */
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
 
 mat-sidenav {
   width: min-content;
 }
 
-/*TODO(mdc-migration): The following rule targets internal classes of slider that may no longer apply for the MDC version. */
-mat-slider {
-  width: -moz-available;
-  width: -webkit-fill-available;
-}
-
-/*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card {
+[house] {
   height: min-content;
 }
 
@@ -80,8 +142,8 @@ mat-card {
     mat-sidenav {
         width: 75%;
     }
-    /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-    mat-card {
+    
+    [house] {
       width: 70%;
     }
 }
@@ -92,8 +154,8 @@ mat-card {
     /* mat-sidenav {
         width: 35%;
     } */
-    /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-    mat-card {
+
+    [house] {
       width: 70%;
     }
 }
@@ -109,6 +171,7 @@ mat-card {
     div.cdk-virtual-scroll-content-wrapper {
       position: inherit; /**not working*/
     }
+
     /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
     mat-card {
       width: 70%;
@@ -143,6 +206,7 @@ mat-grid-list {
   cursor: default;
 }
 
+/* ??? */
 @media only screen and (max-device-width: 1280px) {
   .room-deats span.room-number > span {
     display: none;
@@ -245,6 +309,32 @@ mat-card-actions button[mattooltip] mat-icon {
 }
 
 /** horizontal scroll => https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
-@media only screen and (max-device-width: 960px) {
 
+
+/*
+    Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+    Place media queries after other queries
+*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  [long-house] {
+      display: none;
+  }
 }
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  [house] {
+    display: none;
+}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

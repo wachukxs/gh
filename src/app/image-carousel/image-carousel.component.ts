@@ -1,40 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { CdkStepper } from '@angular/cdk/stepper';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { SwiperComponent } from "swiper/angular";
+// import Swiper core and required modules
+import SwiperCore, { Keyboard, Pagination, Navigation, Virtual } from "swiper";
+
+// install Swiper modules
+SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
 
 @Component({
   selector: 'app-image-carousel',
   templateUrl: './image-carousel.component.html',
   styleUrls: ['./image-carousel.component.css'],
-  providers: [{ provide: CdkStepper, useExisting: ImageCarouselComponent }]
+  encapsulation: ViewEncapsulation.None,
 })
-export class ImageCarouselComponent extends CdkStepper /* implements OnInit */ { // is a stepper
+export class ImageCarouselComponent implements OnInit { // is a stepper
 
-  action = 'do sth';
   onClick(index: number): void {
-    this.selectedIndex = index;
   }
 
   onSwipeRight(event: any): void {
-    console.log('event', event);
-    
-    this.action = 'swiped right';
-    setTimeout(() => {
-      this.action = 'do sth';
-    }, 3000);
-    this.previous();
   }
 
   onSwipeLeft(event: any): void {
-    this.action = 'swiped left';
-    setTimeout(() => {
-      this.action = 'do sth';
-    }, 3000);
-    this.next();
   }
 
-  /* constructor() { }
+  constructor() { }
 
   ngOnInit(): void {
-  } */
+  }
 
 }
