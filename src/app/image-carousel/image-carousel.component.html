@@ -1,14 +1,26 @@
-<swiper 
-[pagination]="{
-      dynamicBullets: true
-    }" class="mySwiper container">
-    <ng-template swiperSlide class="custom-class">
-      <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" />
-    </ng-template>
-    <ng-template swiperSlide>
-      <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" />
-    </ng-template>
-    <ng-template swiperSlide>
-      <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
-    </ng-template>
+<swiper [config]="swiperConfig" class="" #swiper>
+  <ng-template swiperSlide>
+    <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" />
+  </ng-template>
+  <ng-template swiperSlide>
+    <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" />
+  </ng-template>
+  <ng-template swiperSlide>
+    <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
+  </ng-template>
 </swiper>
+
+
+<div class="nav-button-container">
+  <button #leftButton [ngClass]="['left-btn-' + displayIndex, 'lb']" left-btn mat-icon-button color="primary" aria-label=""
+    class="left-002">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+
+  <button #rightButton [ngClass]="['right-btn-' + displayIndex, 'rb']" right-btn mat-icon-button color="primary" aria-label=""
+    class="right-002">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
+
+<!-- sample here https://stackblitz.com/edit/swiper-angular-example?file=src%2Fapp%2Fapp.component.html -->

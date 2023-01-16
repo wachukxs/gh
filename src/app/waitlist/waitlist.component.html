@@ -39,8 +39,7 @@
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Serving state</mat-label>
-        <input type="text" placeholder="" aria-label="Serving state" matInput
-          [formControl]="waitListForm?.get('servingstate')" [matAutocomplete]="auto">
+        <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="servingstate" [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <!-- <mat-option value="">Choose</mat-option> -->
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">

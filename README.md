@@ -10,12 +10,15 @@
 * [File upload](https://blog.angular-university.io/angular-file-upload/)
 * [Infinite Scroll](https://zoaibkhan.com/blog/create-a-fast-infinite-scrolling-list-in-angular/)
   * Not bad [animation](https://zoaibkhan.com/blog/add-spring-animations-to-your-angular-app-with-popmotion/)
+* Do cost of living for corpers.online (like [numbeo](https://www.numbeo.com/cost-of-living/)) in various Nigerian states/cities/ and places.
+* Use [Transclusion](https://daily-dev-tips.com/posts/angular-10-transclusion-when-and-why-youll-need-it/) in Angular
 
 ## Considerations, and things we might want to use
 * ~~[HammerJS Directive](http://ryanmullins.github.io/angular-hammer/) as a fallback plan~~
 * Use (pan*) events to acheive the drag that is on AirBnB app with images.
 * [Google Codelabs](https://codelabs.developers.google.com/)
 * Can we use AI to auto give directions
+* Implement [these best practices for our scrolling](https://climbtheladder.com/10-angular-cdk-virtual-scroll-best-practices/)
 
 
 ## Design sources

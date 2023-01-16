@@ -17,7 +17,11 @@ cdk-virtual-scroll-viewport {
   width: 75%;
 }
 
-[long-house] img {
+.scroller [long-house], .scroller [house] {
+  margin: 35px auto;
+}
+
+[long-house] img, [long-house] app-image-carousel { /* [long-house] img, will no longer be needed */
   width: 350px;
 }
 
@@ -144,7 +148,7 @@ mat-sidenav {
     }
     
     [house] {
-      width: 70%;
+      width: 95%;
     }
 }
 /**large mobile view rules*/
@@ -156,24 +160,6 @@ mat-sidenav {
     } */
 
     [house] {
-      width: 70%;
-    }
-}
-
-/**very large mobile (tablets) view rules*/
-@media only screen 
-  and (min-device-width: 769px) 
-  and (max-device-width: 960px) { 
-    /* mat-sidenav {
-        width: 30%;
-    } */
-
-    div.cdk-virtual-scroll-content-wrapper {
-      position: inherit; /**not working*/
-    }
-
-    /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-    mat-card {
       width: 70%;
     }
 }
@@ -338,3 +324,7 @@ mat-card-actions button[mattooltip] mat-icon {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {}
+
+.dashboard-card {
+  width: 500px;
+}

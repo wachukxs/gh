@@ -34,12 +34,11 @@ export class BaseService {
 
   isSmallScreen$(): Observable<boolean> {
     return this.breakpointObserver
-    .observe('(max-width: 959px)') // needs work??
+    .observe('(max-width: 600px)') // needs work??
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
-    // .isMatched('(max-width: 959px)') // eventually use this, and depreciate isHandset$
   }
 
   /**

@@ -119,11 +119,9 @@
     <!-- Add Content Here -->
 
 
-    <mat-card appearance="outlined" class="dashboard-card center">
-      
-      <app-image-carousel>
-    
-      </app-image-carousel>
+    <!-- test card -->
+    <!-- <mat-card appearance="outlined" class="dashboard-card">
+      <app-image-carousel></app-image-carousel>
       <div>
         <mat-card-content class="dashboard-card-content">
           <div>
@@ -155,20 +153,27 @@
           </button>
         </mat-card-actions>
       </div>
-    </mat-card>
+    </mat-card> -->
+
 
     <cdk-virtual-scroll-viewport 
     itemSize="10" 
-    orientation="horizontal">
+    orientation="horizontal" class="scroller">
       
 
-        <ng-container *cdkVirtualFor="let item of placesList">
-
+        <ng-container *cdkVirtualFor="let item of placesList;
+        let index = index;
+        let count = count;
+        let first = first;
+        let last = last;
+        let even = even;
+        let odd = odd;">
           <div long-house>
             <!--
               If you click image, it should open seeHouseDetails() right to images section.
             -->
-            <img class="long-image" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu">
+            <!-- <img class="long-image" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
+            <app-image-carousel [displayIndex]="index"></app-image-carousel>
       
             <mat-card-content class="content">
       
@@ -232,7 +237,8 @@
             <!--
               If you click image, it should open seeHouseDetails() right to images section.
             -->
-            <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu">
+            <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
+            <app-image-carousel></app-image-carousel>
       
             <mat-card-content>
       
