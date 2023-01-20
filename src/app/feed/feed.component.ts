@@ -265,8 +265,9 @@ export class FeedComponent implements OnInit {
       console.log('brek pnt', result);
     }); */
 
-    this.isPortraitHandset$.subscribe(value => console.log('is portrait handset', value));
-    this.isTablet$.subscribe(value => console.log('is tablet', value));
+    // this.isPortraitHandset$.subscribe(value => console.log('is portrait handset', value));
+    
+    // this.isTablet$.subscribe(value => console.log('is tablet', value));
   }
 
   bookmarkPost() {

@@ -43,7 +43,6 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
         // automatically added swiper button navigation
         this.baseService.isSmallScreen$().subscribe({
             next: (isSmallScreen) => {
-                console.log('is hand', isSmallScreen)
                 if (isSmallScreen) {
                     this.swiperConfig.navigation = false
                 } else {
