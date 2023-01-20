@@ -4,15 +4,15 @@
     <span class="app-name-header" routerLink="/home">Corpers Online</span>
     <span class="example-spacer"></span>
 
-    <button *ngIf="!(isHandset$ | async)" mat-button (click)="openCreatePostDialot()">New Post</button>
-    <button mat-button *ngIf="isHandset$ | async" (click)="openCreatePostDialot()">
+    <button class="hide-mobile" mat-button (click)="openCreatePostDialot()">New Post</button>
+    <button mat-icon-button class="hide-desktop" (click)="openCreatePostDialot()">
       <mat-icon class="nav-icon" aria-label="sign up person icon">add</mat-icon>
     </button>
 
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="!(isHandset$ | async)">Menu</button>
+    <button class="hide-mobile" mat-button [matMenuTriggerFor]="menu">Menu</button>
     
-    <button mat-button (menuOpened)="menuOpen()" (menuClosed)="menuClose()" [matMenuTriggerFor]="menu" *ngIf="isHandset$ | async">
-      <mat-icon class="nav-icon" aria-label="meun icon" *ngIf="isHandset$ | async">menu{{ menuState }}</mat-icon>
+    <button mat-icon-button (menuOpened)="menuOpen()" (menuClosed)="menuClose()" [matMenuTriggerFor]="menu" class="hide-desktop">
+      <mat-icon class="nav-icon" aria-label="meun icon">menu{{ menuState }}</mat-icon>
     </button>
 
     <mat-menu #menu="matMenu">
