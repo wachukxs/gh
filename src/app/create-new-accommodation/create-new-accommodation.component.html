@@ -1,9 +1,77 @@
-<p>create-post works!</p>
-<button mat-icon-button (click)="close()">
-    <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
-</button>
+<div class="wrapper">
 
-<input multiple (change)="onFileSelected($event)" type="file">
+    <div class="top-div">
+        <button mat-icon-button (click)="close()">
+            <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
+        </button>
+    </div>
 
 
-<button (click)="submit()" mat-raised-button color="primary" type="submit">Post</button>
+
+
+
+    <section>
+
+        <mat-stepper [orientation]="stepperOrientation" #stepper>
+            <!-- Icon overrides. -->
+            <ng-template matStepperIcon="location" let-index="index">
+                <mat-icon>pin_drop</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="house">
+                <mat-icon>apartment</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="call_end">
+                <mat-icon>call_end</mat-icon>
+            </ng-template>
+
+            <mat-step [stepControl]="firstFormGroup" state="call_end">
+                <ng-template matStepLabel>Fill out your name</ng-template>
+                <form [formGroup]="firstFormGroup">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            
+            <mat-step [stepControl]="secondFormGroup" label="Fill out your address" state="house">
+                <form [formGroup]="secondFormGroup">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+                    </mat-form-field>
+                    <input multiple (change)="onFileSelected($event)" type="file">
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            
+            <mat-step state="location">
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+
+                    <button (click)="submit()" mat-raised-button color="primary" type="submit">Post</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+
+
+            
+        </mat-stepper>
+
+    </section>
+</div>
+
+<!--
+    Helper links:
+    1. https://stackoverflow.com/questions/53132581/override-the-default-icon-from-mat-stepper-angular-material
+    2. https://github.com/angular/components/issues/8997
+    3. https://stackblitz.com/angular/maxbjapeayr?file=app%2Fstepper-states-example.ts
+-->
