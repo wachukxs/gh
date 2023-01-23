@@ -15,10 +15,10 @@
       <mat-icon class="nav-icon" aria-label="meun icon">menu{{ menuState }}</mat-icon>
     </button>
 
-    <mat-menu #menu="matMenu">
+    <mat-menu #menu="matMenu" class="menu-list">
       <button mat-menu-item [routerLink]="['/']">Home</button>
       <button mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
-      <button mat-menu-item [routerLink]="['home/profile']">Profile</button>
+      <button mat-menu-item [routerLink]="['/home/profile']">Profile</button>
       <button mat-menu-item [routerLink]="['/signup']">Sign up</button>
       <button mat-menu-item [routerLink]="['/login']">Login</button>
       <button mat-menu-item [routerLink]="['/']" (click)="logout()">Logout</button>

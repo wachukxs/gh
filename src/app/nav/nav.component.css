@@ -32,6 +32,10 @@ app-feed {
   background-color: white;
 }
 
+.menu-list {
+  
+}
+
 /** make nav go to the bottom on little screens */
 /* @media only screen and (max-device-width: 960px) {
   :host {
