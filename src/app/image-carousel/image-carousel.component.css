@@ -1,7 +1,6 @@
-@import '~swiper/swiper-bundle.css';
 @import '~swiper/swiper.min.css';
-/* @import "~swiper/modules/navigation/navigation.min.css"; */
-/* @import "~swiper/modules/pagination/pagination.min.css"; */
+@import 'node_modules/swiper/modules/navigation/navigation.min.css';
+@import 'node_modules/swiper/modules/pagination/pagination.min.css';
 
 .img {
     width: 100%;
@@ -20,16 +19,9 @@
 }
 
 .lb, .rb {
-    /* we need to use percentages to calculate this */
-    top: -190px;
+    top: -190px; /* we need to use percentages to calculate this */
 }
 
-/*
-    Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
-    Place media queries after other queries
-*/
-
-/* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .nav-button-container {
         display: none;
