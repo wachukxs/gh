@@ -24,7 +24,10 @@
     
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput autocomplete="current-password" type="password" formControlName="password" placeholder="Minimum of 6 characters">
+          <input #passwordInput matInput autocomplete="current-password" type="password" formControlName="password" placeholder="Minimum of 6 characters">
+          <button class="umami--click--toggle-login-password-view" matSuffix mat-icon-button type="button" aria-label="Toggle password visibility" (click)="togglePasswordInputIcon()">
+            <mat-icon>{{passwordInputIcon}}</mat-icon>
+          </button>
           <mat-hint align="start">Minimum of 6 characters</mat-hint>
           <mat-error
             *ngIf="loginForm.controls.password.hasError('minlength') && !loginForm.controls.password.hasError('required')">
@@ -35,8 +38,10 @@
           </mat-error>
         </mat-form-field>
     
-        
-        <button class="login-button" [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit">Login</button>
+        <button class="login-button" [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit">
+          <span [style.display]="hideLoginText ? 'block' : 'none'" >Login</span>
+          <mat-spinner [style.display]="hideLoginMatSpinner ? 'block' : 'none'" style="margin: 2px auto;" diameter="35" color="warn"></mat-spinner>
+        </button>
         
     </form>
     </div>

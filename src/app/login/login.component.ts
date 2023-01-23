@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -25,6 +25,13 @@ declare interface PostResponse {
 })
 export class LoginComponent implements OnInit {
 
+  @ViewChild('passwordInput') passwordInput!: ElementRef;
+
+  hideLoginMatSpinner: boolean = false;
+  hideLoginText: boolean = true;
+
+  passwordInputIcon: string = 'visibility';
+
   constructor(private callerService: CallerService, private httpClient: HttpClient, private router: Router) { }
 
   emailFormControl = new FormControl('', [
@@ -49,6 +56,9 @@ export class LoginComponent implements OnInit {
   login() {
     console.log(this.loginForm.value);
     if (this.loginForm.valid) {
+
+      this.hideLoginText = !this.hideLoginText
+      this.hideLoginMatSpinner = !this.hideLoginMatSpinner
       
       // tslint:disable-next-line: max-line-length
       this.httpClient.get(`${environment.baseurl}/api/v1/agents/\?username=${this.loginForm.controls.username.value}&password=${this.loginForm.controls.password.value}`)
@@ -67,6 +77,16 @@ export class LoginComponent implements OnInit {
       });
     } else { // tell the user
       this.callerService.showNotification('Invalid form input', 4000, 'Close')
+    }
+  }
+
+  togglePasswordInputIcon(): void {
+    if (this.passwordInputIcon == 'visibility') {
+      this.passwordInputIcon = 'visibility_off';
+      this.passwordInput.nativeElement.type = 'text';
+    } else {
+      this.passwordInputIcon = 'visibility';
+      this.passwordInput.nativeElement.type = 'password';
     }
   }
 
