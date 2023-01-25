@@ -1,12 +1,21 @@
 <section forms>
 
     <h2>Service Details</h2>
-    <form class="form">
+    <form class="form" [formGroup]="profileForm">
 
-        <mat-form-field class="half-width">
-          <mat-label>Company</mat-label>
-          <input matInput value="Google">
-        </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Serving state</mat-label>
+        <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="servingstate" [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <!-- <mat-option value="">Choose</mat-option> -->
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="profileForm?.get(['servingstate'])?.hasError('required')">
+          Serving state is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
       
         <mat-form-field class="half-width">
             <mat-label>First name</mat-label>

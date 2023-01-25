@@ -61,6 +61,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateNewAccommodationComponent } from './create-new-accommodation/create-new-accommodation.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CreateNewSaleComponent } from './create-new-sale/create-new-sale.component';
+import { JoinWaitlistSuccessDialogComponent } from './dialogs/join-waitlist-success-dialog/join-waitlist-success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { CreateNewSaleComponent } from './create-new-sale/create-new-sale.compon
     JoinWaitlistSuccessBottomsheetComponent,
     ProfileComponent,
     CreateNewAccommodationComponent,
-    CreateNewSaleComponent
+    CreateNewSaleComponent,
+    JoinWaitlistSuccessDialogComponent
   ],
   imports: [
     MatNativeDateModule,

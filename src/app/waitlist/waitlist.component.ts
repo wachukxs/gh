@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { JoinWaitlistSuccessDialogComponent } from '../dialogs/join-waitlist-success-dialog/join-waitlist-success-dialog.component';
 import { JoinWaitlistSuccessBottomsheetComponent } from '../join-waitlist-success-bottomsheet/join-waitlist-success-bottomsheet.component';
 import { CallerService } from '../services/caller.service';
 
@@ -18,7 +20,9 @@ export class WaitlistComponent implements OnInit {
   hideJoinMatSpinner: boolean = false;
   hideJoinText: boolean = true;
 
-  constructor(private _formBuilder: FormBuilder, private callerService: CallerService, private bottomSheet: MatBottomSheet,) { }
+  constructor(private _formBuilder: FormBuilder, private callerService: CallerService, 
+    public dialog: MatDialog,
+    private bottomSheet: MatBottomSheet,) { }
 
   ngOnInit(): void {
     this.filteredOptions = this.waitListForm.get('servingstate')?.valueChanges.pipe(
@@ -45,7 +49,7 @@ export class WaitlistComponent implements OnInit {
   }
 
   joinWaitList() {
-    console.log('value', this.waitListForm.value);
+    console.log('valid?', this.waitListForm.valid, 'value:', this.waitListForm.value);
 
     if (this.waitListForm.valid) {
       this.hideJoinMatSpinner = !this.hideJoinMatSpinner
@@ -64,30 +68,51 @@ export class WaitlistComponent implements OnInit {
             middlename: '',
             email: '',
             comment: '',
+          }, {
+            // onlySelf: true,
+            // emitEvent: true
           })
 
           for (let control in this.waitListForm.controls) { // not a good hack
             this.waitListForm.controls[control].setErrors(null);
           }
 
-          // tell them to share with their friends
+          // this.waitListForm.markAsPristine()
+          // this.waitListForm.markAsUntouched()
 
+          this.waitListForm.markAsTouched()
+          this.waitListForm.updateValueAndValidity()
+
+          // tell them to share with their friends
 
           this.callerService.showNotification("Great! We'll holla at you in a bit.")
 
           this.hideJoinMatSpinner = !this.hideJoinMatSpinner
           this.hideJoinText = !this.hideJoinText
 
-          // if (this.callerService.isSmallScreen) {
-          //   this.bottomSheet.open(JoinWaitlistSuccessBottomsheetComponent, {
-          //     data: {
-          //       firstname: _firstname
-          //     },
-          //   });
-          // }
+          // this.dialog.open(JoinWaitlistSuccessDialogComponent, {
+          //   width: '100%',
+          //   height: '100%',
+          //   data: {
+          //     firstname: _firstname
+          //   },
+          //   maxWidth: '100%',
+          //   maxHeight: '100%',
+          //   ariaLabel: 'Success dialog after joining wait list'
+          // })
+
+          // this.bottomSheet.open(JoinWaitlistSuccessBottomsheetComponent, {
+          //   data: {
+          //     firstname: _firstname
+          //   },
+          // });
         },
         error: (err: any) => {
           console.log('why NOT joined?', err);
+
+          if (err.status == 400) { // bad data
+            this.callerService.showNotification(err.error.error.details[0].message)
+          }
 
           this.hideJoinMatSpinner = !this.hideJoinMatSpinner
           this.hideJoinText = !this.hideJoinText

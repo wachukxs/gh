@@ -12,7 +12,7 @@ export class JoinWaitlistSuccessBottomsheetComponent implements OnInit {
   private _bottomSheetRef: MatBottomSheetRef<JoinWaitlistSuccessBottomsheetComponent>) { }
 
   ngOnInit(): void {
-    console.log('what is coming in',this.inputData);
+    console.log('what is coming in', this.inputData);
   }
 
 }

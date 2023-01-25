@@ -1,4 +1,4 @@
-import * as filterActions from './../actions/filter.actions';
+import * as filterActions from '../actions/filter.actions';
 
 export function FilterReducer(state: Array<object> = [], action: filterActions.Action) {
     switch (action.type) { // use the payload to filter state.
