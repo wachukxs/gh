@@ -29,8 +29,16 @@ form {
   margin-top: 25px;
 }
 
-div.center {
+.login-sentence {
+  width: 100%;
+  margin: 0 auto;
+
   margin-top: 20%;
+  text-align: center;
+}
+
+div.center {
+  margin-top: 15%;
 
   text-align: center;
 }

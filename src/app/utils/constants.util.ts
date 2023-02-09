@@ -4,4 +4,11 @@ export enum URLPaths {
     joinWaitList = '/join-waitlist',
     createNewPost = '/accommodations',
     corpMemberSignUp = '/signup',
+    corpMemberLogIn = '/login',
+
+    corpMemberProfileBioUpdate = '/profile/bio',
+    corpMemberProfileServiceDetailsUpdate = '/profile/service-details',
+    corpMemberProfilePpaDetailsUpdate = '/profile/ppa-details',
+    corpMemberProfileOtherDetailsUpdate = '/profile/other-details',
+    corpMemberProfilePhotoUpdate = '/profile/profile-photo',
 }

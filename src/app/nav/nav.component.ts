@@ -52,7 +52,7 @@ export class NavComponent {
   }
 
   logout(): void {
-    sessionStorage.removeItem('green-homes-agent');
+    sessionStorage.removeItem('online-corper');
     this.router.navigate(['/']);
   }
 

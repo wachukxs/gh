@@ -1,104 +1,186 @@
 <section forms>
 
-    <h2>Service Details</h2>
-    <form class="form" [formGroup]="profileForm">
+  <h2>Service Details</h2>
+  <form class="form" [formGroup]="serviceDetailsFormGroup">
 
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Serving state</mat-label>
-        <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="servingstate" [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <!-- <mat-option value="">Choose</mat-option> -->
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error *ngIf="profileForm?.get(['servingstate'])?.hasError('required')">
-          Serving state is <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-      
-        <mat-form-field class="half-width">
-            <mat-label>First name</mat-label>
-            <input matInput>
-          </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Serving state</mat-label>
+      <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="servicestate"
+        [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <!-- <mat-option value="">Choose</mat-option> -->
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="serviceDetailsFormGroup?.get(['servicestate'])?.hasError('required')">
+        Serving state is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-          <mat-form-field class="full-width">
-            <mat-label>Long Last Name That Will Be Truncated</mat-label>
-            <input matInput>
-          </mat-form-field>
-        
-          <mat-form-field class="full-width">
-            <mat-label>Address</mat-label>
-            <textarea matInput placeholder="Ex. 100 Main St">1600 Amphitheatre Pkwy</textarea>
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <mat-label>Address 2</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-        
-          <mat-form-field class="half-width">
-            <mat-label>City</mat-label>
-            <input matInput placeholder="Ex. San Francisco">
-          </mat-form-field>
-          <mat-form-field class="half-width">
-            <mat-label>State</mat-label>
-            <input matInput placeholder="Ex. California">
-          </mat-form-field>
-          <mat-form-field class="half-width">
-            <mat-label>Postal Code</mat-label>
-            <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" value="94043">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
-        
-    </form>
+    <mat-form-field class="half-width">
+      <mat-label>LGA</mat-label>
+      <input matInput formControlName="lga">
+      <mat-error *ngIf="serviceDetailsFormGroup?.get(['lga'])?.hasError('required')">
+        LGA is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-    <mat-divider></mat-divider>
+    <mat-form-field class="full-width">
+      <mat-label>City or Town</mat-label>
+      <input matInput formControlName="cityOrTown">
+      <mat-error *ngIf="serviceDetailsFormGroup?.get(['cityOrTown'])?.hasError('required')">
+        City or Town is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-    <h2>PPA Details</h2>
-    <form class="form">
+    <mat-form-field class="full-width">
+      <mat-label>Street</mat-label>
+      <input matInput formControlName="street">
+      <mat-hint>Optional</mat-hint>
+      <mat-error *ngIf="serviceDetailsFormGroup?.get(['street'])?.hasError('required')">
+        Street is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-        <mat-form-field class="half-width">
-          <mat-label>Company</mat-label>
-          <input matInput value="Google">
-        </mat-form-field>
-      
-        <mat-form-field class="half-width">
-            <mat-label>First name</mat-label>
-            <input matInput>
-          </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Stream</mat-label>
+      <mat-select formControlName="stream">
+        <mat-option *ngFor="let stream of serviceStreams" [value]="stream">
+          {{stream}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="serviceDetailsFormGroup?.get(['stream'])?.hasError('required')">
+        Stream is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-          <mat-form-field class="full-width">
-            <mat-label>Long Last Name That Will Be Truncated</mat-label>
-            <input matInput>
-          </mat-form-field>
-        
-          <mat-form-field class="full-width">
-            <mat-label>Address</mat-label>
-            <textarea matInput placeholder="Ex. 100 Main St">1600 Amphitheatre Pkwy</textarea>
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <mat-label>Address 2</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-        
-          <mat-form-field class="half-width">
-            <mat-label>City</mat-label>
-            <input matInput placeholder="Ex. San Francisco">
-          </mat-form-field>
-          <mat-form-field class="half-width">
-            <mat-label>State</mat-label>
-            <input matInput placeholder="Ex. California">
-          </mat-form-field>
-          <mat-form-field class="half-width">
-            <mat-label>Postal Code</mat-label>
-            <input matInput #postalCode maxlength="5" placeholder="Ex. 94105" value="94043">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
-        
-    </form>
+  </form>
 
-    <mat-divider></mat-divider>
-    
-    <button mat-raised-button color="primary">Update details</button>
-      
+  <mat-divider></mat-divider>
+
+  <h2>PPA Details</h2>
+  <form class="form" [formGroup]="ppaDetailsFormGroup">
+
+    <mat-form-field class="half-width">
+      <mat-label>Name of PPA</mat-label>
+      <input formControlName="ppaName" matInput placeholder="St. Marys Model Secondary School">
+      <mat-hint>This helps other corp members find it</mat-hint>
+      <!-- TODO: pull a dropdown of suggestions from other corp members from the backend. -->
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <mat-label>Type of Institution</mat-label>
+      <!-- TODO: should be like a dropdown or have suggestions list -->
+      <mat-hint>eg. School, Bank, Hospital, Gov. Institution, etc.</mat-hint>
+      <input formControlName="typeOfInstitution" matInput>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <mat-label>PPA address</mat-label>
+      <!-- we should save the cordinates too if they used geo button -->
+      <input formControlName="ppaAddress" matInput placeholder="Opposite Ijukaya Estate, Favos, Umuahia">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Directions</mat-label>
+      <textarea formControlName="ppaDirections" matInput
+        placeholder="Please give directions to the PPA from a popular nearby junction or hard-to-miss building"></textarea>
+    </mat-form-field>
+
+  </form>
+
+  <mat-divider></mat-divider>
+
+  <h2>Other Details</h2>
+  <form class="form" [formGroup]="otherDetailsFormGroup">
+
+    <mat-form-field class="half-width">
+      <mat-label>Origin state</mat-label>
+      <input matInput formControlName="originState" placeholder="St. Marys Model Secondary School">
+      <mat-hint>Where did you travel from for NYSC?</mat-hint>
+      <mat-hint align="end">
+        <mat-icon matTooltipPosition="above"
+          matTooltip="So we can help pair corp members traveling together, or assist with transportation from our patners (ABC Transport, Jos Riders etc.)">info</mat-icon>
+      </mat-hint>
+      <!-- TODO: pull a dropdown of suggestions from other corp members from the backend. -->
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <mat-label>Origin city or town</mat-label>
+      <mat-hint>Optional</mat-hint>
+      <input matInput formControlName="originCityOrTown">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Where did you find accomodation?</mat-label>
+      <input formControlName="whereTheyFoundAccommodation" matInput placeholder="What part of town is it?">
+      <mat-hint>So corp members can know where other corp members are.</mat-hint>
+    </mat-form-field>
+
+
+    <div class="custom-radio-form-field">
+      <!-- TODO: If they choose yes, we'll ask them what kind. -->
+      <label>Want an SPA?</label>
+      <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="wantSpa">
+        <mat-radio-button value="yes">Yes</mat-radio-button>
+        <mat-radio-button value="no">No</mat-radio-button>
+      </mat-radio-group>
+      <mat-hint class="mat-caption">An SPA is a side job you do during your Service Year for extra cash</mat-hint>
+    </div>
+
+    <div class="custom-radio-form-field">
+      <label>Looking for accommodation?</label>
+      <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="lookingForAccommodation">
+        <mat-radio-button value="yes">Yes</mat-radio-button>
+        <mat-radio-button value="no">No</mat-radio-button>
+      </mat-radio-group>
+      <mat-hint class="mat-caption">Default is 'yes.' If you choose no, we'll stop showing you posts about
+        accommodations up for rent.</mat-hint>
+    </div>
+
+  </form>
+
+  <mat-divider></mat-divider>
+
+  <h2>Bio</h2>
+  <form class="form" [formGroup]="bioDetailsFormGroup">
+
+    <div class="custom-radio-form-field">
+      <label>Public profile?</label>
+      <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="publicProfile">
+        <mat-radio-button value="yes">Publicly visible</mat-radio-button>
+        <mat-radio-button value="no">Keep private</mat-radio-button>
+      </mat-radio-group>
+      <mat-hint class="mat-caption">
+        A publicly visible profile means you can <b>search for other corpers</b> and <b>be seen by them too</b>.
+      </mat-hint>
+    </div>
+
+    <mat-form-field class="full-width">
+      <mat-label>Do you have a nickname you go by?</mat-label>
+      <input matInput formControlName="nickname" placeholder="">
+      <mat-hint>A more common name other corp members might know you by, or you want them to know you by.</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="half-width">
+      <mat-label>Profile</mat-label>
+      <!-- TODO: should we change the label from profile? to something better descriptive? -->
+      <textarea matInput #profile maxlength="50" formControlName="profile" rows="5"
+        placeholder="I'm a graphic designer. Get in touch if you like to travel. I'm your plug for all things phones. I'd love to visit Idanre hills before the service year is over, who's in?"></textarea>
+      <mat-hint>What do you want other corpers to know about you?</mat-hint>
+      <mat-hint align="end">{{profile.value.length}} / 50</mat-hint>
+    </mat-form-field>
+
+    <div class="custom-file-form-field">
+      <label for="profilePhoto">Public photo:</label>
+      <input name="profilePhoto" type="file" class="" onchange="">
+    </div>
+
+  </form>
+
+  <mat-divider></mat-divider>
+
+  <button (click)="updateCorpMemberProfile()" mat-raised-button color="primary">Update details</button>
+
 </section>

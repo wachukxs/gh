@@ -26,7 +26,7 @@ export class AuthenticationService implements CanActivate, CanLoad {
   }
 
   checkToken() {
-    if (sessionStorage.getItem('green-homes-agent')) {
+    if (sessionStorage.getItem('online-corper')) {
       return true;
     } else {
         // this.router.navigateByUrl('/user/login');

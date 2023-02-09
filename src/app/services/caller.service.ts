@@ -40,7 +40,7 @@ export class CallerService extends BaseService {
   // should this be commonly available ?
   private handleError(error: HttpErrorResponse) {
     console.error('got this error', error);
-    
+    // Report to sentry maybe?
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -56,6 +56,50 @@ export class CallerService extends BaseService {
     // Return an observable with a user-facing error message.
 
     return throwError(error);
+  }
+
+  updateProfileBio(data: any) {
+    console.log('calling via', environment.baseurl + URLPaths.corpMemberProfileBioUpdate);
+    
+    return this.http.post(environment.baseurl + URLPaths.corpMemberProfileBioUpdate, data, this.JSONHttpOptions)
+    .pipe(
+      timeout(15000),
+      // retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
+  }
+
+  updateProfileOtherDetails(data: any) {
+    console.log('calling via', environment.baseurl + URLPaths.corpMemberProfileOtherDetailsUpdate);
+    
+    return this.http.post(environment.baseurl + URLPaths.corpMemberProfileOtherDetailsUpdate, data, this.JSONHttpOptions)
+    .pipe(
+      timeout(15000),
+      // retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
+  }
+
+  updateProfilePpaDetails(data: any) {
+    console.log('calling via', environment.baseurl + URLPaths.corpMemberProfilePpaDetailsUpdate);
+    
+    return this.http.post(environment.baseurl + URLPaths.corpMemberProfilePpaDetailsUpdate, data, this.JSONHttpOptions)
+    .pipe(
+      timeout(15000),
+      // retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
+  }
+
+  updateProfileServiceDetails(data: any) {
+    console.log('calling via', environment.baseurl + URLPaths.corpMemberProfileServiceDetailsUpdate);
+    
+    return this.http.post(environment.baseurl + URLPaths.corpMemberProfileServiceDetailsUpdate, data, this.JSONHttpOptions)
+    .pipe(
+      timeout(15000),
+      // retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
   }
 
   joinWaitList(data: any) {
@@ -81,6 +125,17 @@ export class CallerService extends BaseService {
       timeout(15000),
       // retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
+    );
+  }
+
+  corpMemberLogIn(data: any) {
+    console.log('log in via', environment.baseurl + URLPaths.corpMemberLogIn);
+    
+    return this.http.post(environment.baseurl + URLPaths.corpMemberLogIn, data, this.JSONHttpOptions)
+    .pipe(
+      timeout(15000),
+      // retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // we'll handle from the calling component
     );
   }
 }

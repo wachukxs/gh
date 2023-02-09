@@ -11,6 +11,19 @@ section[forms] form {
     row-gap: 30px;
 }
 
+mat-form-field {
+    height: fit-content;
+}
+
+.custom-radio-form-field, .radio-group, .custom-file-form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-file-form-field {
+    row-gap: 15px;
+}
+
 mat-divider {
     margin: 2rem 0 2.5rem 0;
 }

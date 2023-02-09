@@ -58,14 +58,14 @@ export class AgentDashboardComponent implements OnInit, CanExit {
               public dialog: MatDialog,
               private formBuilder: FormBuilder) {
 
-                let agnt = sessionStorage.getItem('green-homes-agent')
+                let agnt = sessionStorage.getItem('online-corper')
                 if (agnt) {
-                  this.theAgent = agnt
+                  this.theAgent = agnt // TODO: we aren't using agent.
                 }
               }
 
   propertyForm = new FormGroup({
-    by: new FormControl(JSON.parse(this.theAgent).resource_uri),
+    by: new FormControl(), // JSON.parse(this.theAgent).resource_uri
     bedrooms: new FormControl(''),
     kitchen: new FormControl(''),
     toilet: new FormControl(''),

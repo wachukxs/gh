@@ -34,6 +34,14 @@ div.center {
   width: -moz-available;
 }
 
+.signup-sentence {
+  width: 100%;
+  margin: 0 auto;
+
+  margin-top: 65%;
+  text-align: center;
+}
+
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
     Place media queries after other queries

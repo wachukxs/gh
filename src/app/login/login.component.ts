@@ -1,10 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CallerService } from '../services/caller.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { FormControl, Validators, FormGroup } from '@angular/forms'
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpResponse,
+} from '@angular/common/http'
+import { Router } from '@angular/router'
+import { environment } from '../../environments/environment'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { CallerService } from '../services/caller.service'
 
 /**
  * README
@@ -13,81 +17,98 @@ import { CallerService } from '../services/caller.service';
  */
 
 declare interface PostResponse {
-  message: string;
-  response_code: number;
-  response: string;
+    message: string
+    response_code: number
+    response: string
 }
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+    @ViewChild('passwordInput') passwordInput!: ElementRef
 
-  @ViewChild('passwordInput') passwordInput!: ElementRef;
+    hideLoginMatSpinner: boolean = false
+    hideLoginText: boolean = true
 
-  hideLoginMatSpinner: boolean = false;
-  hideLoginText: boolean = true;
+    passwordInputIcon: string = 'visibility'
 
-  passwordInputIcon: string = 'visibility';
+    constructor(
+        private callerService: CallerService,
+        private httpClient: HttpClient,
+        private router: Router,
+    ) {}
 
-  constructor(private callerService: CallerService, private httpClient: HttpClient, private router: Router) { }
+    loginForm = new FormGroup({
+        username: new FormControl('', [
+            Validators.required,
+            Validators.minLength(4),
+        ]),
+        password: new FormControl('', [
+            Validators.required,
+            Validators.minLength(6),
+        ]),
+    })
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+    ngOnInit() {}
 
-  loginForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6)
-    ])
-  });
+    login() {
+        console.log(this.loginForm.value)
+        if (this.loginForm.valid) {
+            this.hideLoginText = !this.hideLoginText
+            this.hideLoginMatSpinner = !this.hideLoginMatSpinner
 
-  ngOnInit() {
-  }
+            this.callerService.corpMemberLogIn(this.loginForm.value).subscribe({
+                next: (res: HttpResponse<any>) => {
+                    this.hideLoginText = !this.hideLoginText
+                    this.hideLoginMatSpinner = !this.hideLoginMatSpinner
 
-  login() {
-    console.log(this.loginForm.value);
-    if (this.loginForm.valid) {
+                    console.log('login res', res)
+                    if (res.status === 200) {
+                        // we're good
+                        // sessionStorage.setItem('green-homes-agent', JSON.stringify(res));
+                        sessionStorage.setItem('online-corper', JSON.stringify(res.body.data));
+                        this.router.navigate(['/home']); // retired /dashboard for agents
+                    } else {
+                        // show error message
+                        this.callerService.showNotification(
+                            'Wrong username or password',
+                            4000,
+                            'Close',
+                        )
+                    }
+                },
+                error: (err) => {
+                    console.log('login err', err);
+                    this.hideLoginText = !this.hideLoginText
+                    this.hideLoginMatSpinner = !this.hideLoginMatSpinner
 
-      this.hideLoginText = !this.hideLoginText
-      this.hideLoginMatSpinner = !this.hideLoginMatSpinner
-      
-      // tslint:disable-next-line: max-line-length
-      this.httpClient.get(`${environment.baseurl}/api/v1/agents/\?username=${this.loginForm.controls.username.value}&password=${this.loginForm.controls.password.value}`)
-        .subscribe((res: any) => {
-          console.log('login res', res);
-          if (res.objects.length === 1) { // we're good
-          // sessionStorage.setItem('green-homes-agent', JSON.stringify(res));
-          delete res.objects[0].password;
-          sessionStorage.setItem('green-homes-agent', JSON.stringify(res.objects[0]));
-          this.router.navigate(['/dashboard']);
-          } else { // show error message
-            this.callerService.showNotification('Wrong username or password', 4000, 'Close')
-          }
-        }, (err: any) => {
-          this.callerService.showNotification('Try that again please, an error occured', 4000, 'Close')
-      });
-    } else { // tell the user
-      this.callerService.showNotification('Invalid form input', 4000, 'Close')
+                    this.callerService.showNotification(
+                        'Try that again please, an error occured',
+                        4000,
+                        'Close',
+                    )
+                },
+            })
+        } else {
+            // tell the user
+            this.callerService.showNotification(
+                'Invalid form input',
+                4000,
+                'Close',
+            )
+        }
     }
-  }
 
-  togglePasswordInputIcon(): void {
-    if (this.passwordInputIcon == 'visibility') {
-      this.passwordInputIcon = 'visibility_off';
-      this.passwordInput.nativeElement.type = 'text';
-    } else {
-      this.passwordInputIcon = 'visibility';
-      this.passwordInput.nativeElement.type = 'password';
+    togglePasswordInputIcon(): void {
+        if (this.passwordInputIcon == 'visibility') {
+            this.passwordInputIcon = 'visibility_off'
+            this.passwordInput.nativeElement.type = 'text'
+        } else {
+            this.passwordInputIcon = 'visibility'
+            this.passwordInput.nativeElement.type = 'password'
+        }
     }
-  }
-
 }
