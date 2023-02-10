@@ -19,20 +19,20 @@ export class BasicAuthGuard implements CanActivate {
         let foundData = JSON.parse(
           new String(localStorage.getItem('online-corper')).toString()
         );
-        if (foundData?.id && foundData?.statecode && this.callerService.corpMemberStateCodeRegex.test(foundData?.statecode)) { // and check state code too?
+        if (foundData?.id && foundData?.statecode && this.callerService.corpMemberStateCodeRegex.test(foundData?.statecode)) { // and check state code
           console.log('authenticated');
         
           return true;
         } else {
           this.callerService.showNotification("Session Expired. Login.", undefined, "OK" , "bottom")
-          return this.router.navigate(['/'])
+          return this.router.navigate(['/login'])
         }
         
       } else {
         console.log('not authenticated');
   
         this.callerService.showNotification("Session Expired. Login.", undefined, "OK" , "bottom")
-        return this.router.navigate(['/'])
+        return this.router.navigate(['/login'])
       }
   }
   
