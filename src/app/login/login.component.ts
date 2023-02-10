@@ -68,8 +68,7 @@ export class LoginComponent implements OnInit {
                     console.log('login res', res)
                     if (res.status === 200) {
                         // we're good
-                        // sessionStorage.setItem('green-homes-agent', JSON.stringify(res));
-                        sessionStorage.setItem('online-corper', JSON.stringify(res.body.data));
+                        localStorage.setItem('online-corper', JSON.stringify(res.body.data));
                         this.router.navigate(['/home']); // retired /dashboard for agents
                     } else {
                         // show error message

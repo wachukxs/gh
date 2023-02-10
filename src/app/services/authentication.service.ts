@@ -26,7 +26,7 @@ export class AuthenticationService implements CanActivate, CanLoad {
   }
 
   checkToken() {
-    if (sessionStorage.getItem('online-corper')) {
+    if (localStorage.getItem('online-corper')) {
       return true;
     } else {
         // this.router.navigateByUrl('/user/login');

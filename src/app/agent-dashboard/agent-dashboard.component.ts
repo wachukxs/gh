@@ -58,7 +58,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
               public dialog: MatDialog,
               private formBuilder: FormBuilder) {
 
-                let agnt = sessionStorage.getItem('online-corper')
+                let agnt = localStorage.getItem('online-corper')
                 if (agnt) {
                   this.theAgent = agnt // TODO: we aren't using agent.
                 }

@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit {
       .subscribe((res: any) => {
         // make sure we get a response, for now it's nothing. once it's success, we good
         console.log('result', res);
-        sessionStorage.setItem('corpMember', JSON.stringify(res));
+        localStorage.setItem('online-corper', JSON.stringify(res));
         this.router.navigate(['/home']);
       }, err => {
         console.log('err', err);

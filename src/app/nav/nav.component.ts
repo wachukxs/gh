@@ -52,7 +52,7 @@ export class NavComponent {
   }
 
   logout(): void {
-    sessionStorage.removeItem('online-corper');
+    localStorage.removeItem('online-corper');
     this.router.navigate(['/']);
   }
 

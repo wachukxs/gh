@@ -14,9 +14,11 @@ import { TestComponent } from './test/test.component';
 import { CanExitGuard, AuthenticationService } from './services/authentication.service';
 import { WaitlistComponent } from './waitlist/waitlist.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BasicAuthGuard } from './guards/basic-auth.guard';
 
 const routes: Routes = [
   { path: 'home', component: NavComponent,
+    canActivate: [BasicAuthGuard],
     children: [
       {
         path: '',
