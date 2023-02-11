@@ -1,15 +1,27 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AppState } from '../ngrx-store/app.state';
+import { selectFeatureCorpMember } from '../ngrx-store/selectors/corp.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
 
-  constructor(private snackBar: MatSnackBar, private breakpointObserver: BreakpointObserver) { }
+  _store: Store<AppState> = this.store
+
+  constructor(private snackBar: MatSnackBar, private breakpointObserver: BreakpointObserver, private store: Store<AppState>) {
+    this.store.select(selectFeatureCorpMember).subscribe({
+      next: (value) => {
+        console.log('selectFeatureCorpMember', value);
+      }
+    });
+    
+  }
 
   showNotification(message: string, duration = 5000, action: string = 'OK', verticalPosition: MatSnackBarVerticalPosition = 'bottom') {
     this.snackBar.open(message, action, {

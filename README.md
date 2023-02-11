@@ -20,6 +20,8 @@
 * Can we use AI to auto give directions
 * Implement [these best practices for our scrolling](https://climbtheladder.com/10-angular-cdk-virtual-scroll-best-practices/)
 
+## Reference Links
+* Using [ngrx](https://inveritasoft.com/blog/angular-using-ngrx-schematics-and-ngrx-entity-to-speed-up-your-startup)
 
 ## Design sources
 * Wait list page

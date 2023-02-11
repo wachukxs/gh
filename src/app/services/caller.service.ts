@@ -2,9 +2,11 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
 import { throwError } from 'rxjs';
 import { catchError, timeout } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AppState } from '../ngrx-store/app.state';
 import { URLPaths } from '../utils/constants.util';
 import { BaseService } from './base.service';
 
@@ -13,8 +15,8 @@ import { BaseService } from './base.service';
 })
 export class CallerService extends BaseService {
 
-  constructor(private http: HttpClient, snackBar: MatSnackBar, breakpointObserver: BreakpointObserver) {
-    super(snackBar, breakpointObserver)
+  constructor(private http: HttpClient, snackBar: MatSnackBar, breakpointObserver: BreakpointObserver, store: Store<AppState>) {
+    super(snackBar, breakpointObserver, store)
   }
 
   private JSONHttpOptions = {

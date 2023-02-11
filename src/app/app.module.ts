@@ -62,6 +62,10 @@ import { CreateNewAccommodationComponent } from './create-new-accommodation/crea
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CreateNewSaleComponent } from './create-new-sale/create-new-sale.component';
 import { JoinWaitlistSuccessDialogComponent } from './dialogs/join-waitlist-success-dialog/join-waitlist-success-dialog.component';
+import { EffectsModule } from '@ngrx/effects';
+import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
+import { StoreModule } from '@ngrx/store';
+import { corpMemberReducer, corpMemberFeatureKey } from './ngrx-store/reducers/corp-member.reducer';
 
 @NgModule({
   declarations: [
@@ -129,7 +133,9 @@ import { JoinWaitlistSuccessDialogComponent } from './dialogs/join-waitlist-succ
     MatDialogModule,
     ClipboardModule,
     HammerModule,
-    SwiperModule
+    SwiperModule,
+    EffectsModule.forRoot([CorpMemberEffects]),
+    StoreModule.forRoot({[corpMemberFeatureKey]: corpMemberReducer}), // {corper: corpMemberReducer} // {[corpMemberFeatureKey]: corpMemberReducer}
   ],
   providers: [
     CanExitGuard,

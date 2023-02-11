@@ -9,6 +9,7 @@ import { Router } from '@angular/router'
 import { environment } from '../../environments/environment'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { CallerService } from '../services/caller.service'
+import { setCorpMember } from '../ngrx-store/actions/corp-member.actions'
 
 /**
  * README
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
                     if (res.status === 200) {
                         // we're good
                         localStorage.setItem('online-corper', JSON.stringify(res.body.data));
+                        this.callerService._store.dispatch(setCorpMember({data: res.body.data}))
                         this.router.navigate(['/home']); // retired /dashboard for agents
                     } else {
                         // show error message
