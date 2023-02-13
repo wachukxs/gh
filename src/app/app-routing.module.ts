@@ -19,6 +19,7 @@ import { WaitlistComponent } from './waitlist/waitlist.component'
 import { ProfileComponent } from './profile/profile.component'
 import { BasicAuthGuard } from './guards/basic-auth.guard'
 import { InLocalGuard } from './guards/in-local.guard'
+import { CreateNewAccommodationComponent } from './create-new-accommodation/create-new-accommodation.component'
 
 const routes: Routes = [
     {
@@ -79,6 +80,13 @@ const routes: Routes = [
         title: 'This is a test component',
         component: TestComponent,
         canActivate: [InLocalGuard],
+        children: [
+            // {
+            //     path: 'new-accommodation',
+            //     title: 'Testing new accommodation dialog',
+            //     component: CreateNewAccommodationComponent,
+            // },
+        ]
     },
     { path: '**', redirectTo: 'home' },
 ]

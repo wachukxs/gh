@@ -12,7 +12,7 @@ import { selectFeatureCorpMember } from '../ngrx-store/selectors/corp.selectors'
 })
 export class BaseService {
 
-  _store: Store<AppState> = this.store
+  _store: Store<AppState> = this.store // TODO: can't we do this better?
 
   constructor(private snackBar: MatSnackBar, private breakpointObserver: BreakpointObserver, private store: Store<AppState>) {
     this.store.select(selectFeatureCorpMember).subscribe({
