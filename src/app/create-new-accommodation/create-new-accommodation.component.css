@@ -7,3 +7,7 @@
 .top-div-header {
     padding-left: 12px;
 }
+
+.accommodation-form-step-1 {
+    display: grid;
+}

@@ -1,6 +1,6 @@
 import { StepperOrientation } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { CallerService } from '../services/caller.service';
@@ -19,12 +19,23 @@ export class CreateNewAccommodationComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private createPostDialogRef: MatDialogRef<CreateNewAccommodationComponent>
     , private callerService: CallerService) { }
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+  accommodationFormGroup = new FormGroup({
+    accommodationType: new FormControl(''),
+    availableRooms: this._formBuilder.group({
+      "Sitting-room": false,
+      "Kitchen": false,
+      "Bedroom": false,
+      "Toilet": false,
+      "Bathroom": false,
+      "Dining-room": false,
+    }),
+    location: new FormGroup({
+      address: new FormControl(''),
+      directions: new FormControl('')
+    }),
+    status: new FormControl(''),
+    rent: new FormControl(''),
+    rentInterval: new FormControl(''),
   });
   
   stepperOrientation: StepperOrientation = 'vertical'
@@ -39,6 +50,18 @@ export class CreateNewAccommodationComponent implements OnInit {
           this.stepperOrientation = 'horizontal'
         }
       }
+    })
+
+    this.accommodationFormGroup.valueChanges.subscribe({
+      next: (value) => {
+        console.log('new accommodation value', value);
+      },
+    })
+
+    this.accommodationFormGroup.get(['status'])?.valueChanges.subscribe({
+      next: (value) => {
+        console.log('new accommodation value', value);
+      },
     })
   }
 

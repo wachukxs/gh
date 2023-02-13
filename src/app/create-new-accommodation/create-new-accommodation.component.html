@@ -23,38 +23,162 @@
                 <mat-icon>call_end</mat-icon>
             </ng-template>
 
-            <mat-step [stepControl]="firstFormGroup" state="call_end">
-                <ng-template matStepLabel>Fill out your name</ng-template>
-                <form [formGroup]="firstFormGroup">
+            <mat-step state="call_end">
+                <ng-template matStepLabel>Accommodation size</ng-template>
+                <form class="accommodation-form-step-1" [formGroup]="accommodationFormGroup">
                     <mat-form-field appearance="fill">
-                        <mat-label>Name</mat-label>
-                        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                        <mat-label>Accommodation type</mat-label>
+                        <select matNativeControl formControlName="accommodationType">
+                            <option value="Self contain">Self contain</option>
+                            <option value="Flat">Flat</option>
+                            <option value="1 bedroom flat">1 bedroom flat</option>
+                            <option value="2 bedroom flat">2 bedroom flat</option>
+                            <option value="3 bedroom flat">3 bedroom flat</option>
+                        </select>
+                        <mat-hint>
+                            Choose the category tha best describes it.
+                        </mat-hint>
                     </mat-form-field>
-                    <div>
-                        <button mat-button matStepperNext>Next</button>
+
+                    <div formGroupName="availableRooms">
+                        <label>What rooms does the accommodation contain?</label>
+                        <div>
+                            <mat-checkbox formControlName="Sitting-room">Sitting room</mat-checkbox>
+                            <mat-checkbox formControlName="Kitchen">Kitchen</mat-checkbox>
+                            <mat-checkbox formControlName="Bedroom">Bedroom</mat-checkbox>
+                            <mat-checkbox formControlName="Toilet">Toilet</mat-checkbox>
+                            <mat-checkbox formControlName="Bathroom">Bathroom</mat-checkbox>
+                            <mat-checkbox formControlName="Dining-room">Dining room</mat-checkbox>
+                        </div>
                     </div>
+
                 </form>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
             </mat-step>
-            
-            <mat-step [stepControl]="secondFormGroup" label="Fill out your address" state="house">
-                <form [formGroup]="secondFormGroup">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Address</mat-label>
-                        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-                    </mat-form-field>
-                    <input multiple (change)="onFileSelected($event)" type="file">
+
+            <mat-step>
+                <ng-template matStepLabel>Accommodation location</ng-template>
+
+                <div [formGroup]="accommodationFormGroup">
+                    <div formGroupName="location">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="address" placeholder="Please specify street, and area.">
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Directions</mat-label>
+                            <textarea matInput formControlName="directions"
+                                placeholder="Give directions to the accommodation from a popular nearby junction, a land mark or hard-to-miss building"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <mat-step label="Let's see it" state="house">
+                <form>
+
+                    <input accept="image/*,video/*" multiple (change)="onFileSelected($event)" type="file">
                     <div>
                         <button mat-button matStepperPrevious>Back</button>
                         <button mat-button matStepperNext>Next</button>
                     </div>
                 </form>
             </mat-step>
-            
+
+            <mat-step state="location">
+                <ng-template matStepLabel>Current status</ng-template>
+
+                <div [formGroup]="accommodationFormGroup">
+                    <div>
+                        <label id="accommodation-current-status">Are you leasing out your active rent tenure, or a new
+                            rent, or seeking a roomate?</label>
+                        <div>
+                            <mat-radio-group formControlName="status" aria-label="Select an option"
+                                aria-labelledby="accommodation-current-status">
+                                <mat-radio-button value="newrent">New rent (No occupant)</mat-radio-button>
+                                <mat-radio-button value="oldrent">Subleasing out an active rent</mat-radio-button>
+                                <mat-radio-button value="roommate">Seeking a roommate</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+
+                    <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'oldrent'">
+                        <mat-form-field appearance="fill">
+                            <mat-label>When does your rent expire</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'roommate'">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Describe your ideal roommate:</mat-label>
+                            <textarea matInput placeholder="Someone nice..."></textarea>
+                            <mat-hint>Optional</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Describe yourself to your ideal roommate:</mat-label>
+                            <textarea matInput placeholder="I'm tolerant, clean..."></textarea>
+                            <mat-hint>Optional</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+
+            <mat-step state="payments">
+                <ng-template matStepLabel>How much it costs</ng-template>
+                <form [formGroup]="accommodationFormGroup">
+                    <div>
+                        <label id="accommodation-periodic-rent">Rent is</label>
+                        <mat-radio-group formControlName="rentInterval" aria-labelledby="accommodation-periodic-rent"
+                            class="example-radio-group">
+                            <mat-radio-button value="yearly">Yearly</mat-radio-button>
+                            <mat-radio-button value="quarterly">Quarterly</mat-radio-button>
+                            <mat-radio-button value="monthly">Monthly</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Rent
+                            {{ accommodationFormGroup.get(['rentInterval'])?.value ? 'per ' + accommodationFormGroup.get(['rentInterval'])?.value.slice(0, -2) : '' }}
+                            {{ accommodationFormGroup.get(['status'])?.value == 'roommate' ? 'for your roommate' : '' }}</mat-label>
+                        <span matPrefix>&#8358;</span>
+                        <input type="text" min="0" inputmode="numeric" matInput placeholder="50,000">
+                        <mat-hint></mat-hint>
+                    </mat-form-field>
+
+                </form>
+                <button mat-button>Save as draft</button>
+
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+
+            </mat-step>
+
             <mat-step state="location">
                 <ng-template matStepLabel>Done</ng-template>
                 <p>You are now done.</p>
                 <div>
                     <button mat-button matStepperPrevious>Back</button>
+
+
+                    <button mat-button>Save as draft</button>
 
                     <button (click)="submit()" mat-raised-button color="primary" type="submit">Post</button>
                     <button mat-button (click)="stepper.reset()">Reset</button>
