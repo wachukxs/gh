@@ -28,13 +28,13 @@
                 <form class="accommodation-form-step-1" [formGroup]="accommodationFormGroup">
                     <mat-form-field appearance="fill">
                         <mat-label>Accommodation type</mat-label>
-                        <select matNativeControl formControlName="accommodationType">
-                            <option value="Self contain">Self contain</option>
-                            <option value="Flat">Flat</option>
-                            <option value="1 bedroom flat">1 bedroom flat</option>
-                            <option value="2 bedroom flat">2 bedroom flat</option>
-                            <option value="3 bedroom flat">3 bedroom flat</option>
-                        </select>
+                        <mat-select formControlName="accommodationType">
+                            <mat-option value="Self contain">Self contain</mat-option>
+                            <mat-option value="Flat">Flat</mat-option>
+                            <mat-option value="1 bedroom flat">1 bedroom flat</mat-option>
+                            <mat-option value="2 bedroom flat">2 bedroom flat</mat-option>
+                            <mat-option value="3 bedroom flat">3 bedroom flat</mat-option>
+                        </mat-select>
                         <mat-hint>
                             Choose the category tha best describes it.
                         </mat-hint>
@@ -62,7 +62,7 @@
                 <ng-template matStepLabel>Accommodation location</ng-template>
 
                 <div [formGroup]="accommodationFormGroup">
-                    <div formGroupName="location">
+                    <div>
                         <mat-form-field appearance="fill">
                             <mat-label>Address</mat-label>
                             <input matInput formControlName="address" placeholder="Please specify street, and area.">
@@ -85,7 +85,29 @@
             <mat-step label="Let's see it" state="house">
                 <form>
 
-                    <input accept="image/*,video/*" multiple (change)="onFileSelected($event)" type="file">
+                    <input class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
+                        type="file">
+
+                    <div class="images-preview">
+                        <ng-container *ngFor="let image of accommodationImagesPreview">
+                            <mat-card>
+                                <img [src]="image.dataUrl" mat-card-image alt="A supposed image of the apartment">
+                                <mat-divider></mat-divider>
+                                <mat-card-actions>
+                                    <mat-form-field class="id-img" appearance="fill">
+                                        <mat-label>Identify image</mat-label>
+                                        <mat-select>
+                                            <mat-option>Choose</mat-option>
+                                            <mat-option *ngFor="let food of availableHouseRooms" [value]="food.value">
+                                                {{food.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <button mat-stroked-button color="warn">DELETE</button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </ng-container>
+                    </div>
                     <div>
                         <button mat-button matStepperPrevious>Back</button>
                         <button mat-button matStepperNext>Next</button>
@@ -113,8 +135,8 @@
                     <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'oldrent'">
                         <mat-form-field appearance="fill">
                             <mat-label>When does your rent expire</mat-label>
-                            <input matInput [matDatepicker]="picker">
-                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <input matInput [matDatepicker]="picker" formControlName="rentExpireDate">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -123,13 +145,13 @@
                     <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'roommate'">
                         <mat-form-field class="example-full-width">
                             <mat-label>Describe your ideal roommate:</mat-label>
-                            <textarea matInput placeholder="Someone nice..."></textarea>
+                            <textarea matInput placeholder="Someone nice..." formControlName="idealRoommate"></textarea>
                             <mat-hint>Optional</mat-hint>
                         </mat-form-field>
 
                         <mat-form-field class="example-full-width">
                             <mat-label>Describe yourself to your ideal roommate:</mat-label>
-                            <textarea matInput placeholder="I'm tolerant, clean..."></textarea>
+                            <textarea matInput placeholder="I'm tolerant, clean..." formControlName="occupantDescription"></textarea>
                             <mat-hint>Optional</mat-hint>
                         </mat-form-field>
                     </div>
@@ -143,7 +165,7 @@
 
             <mat-step state="payments">
                 <ng-template matStepLabel>How much it costs</ng-template>
-                <form [formGroup]="accommodationFormGroup">
+                <div [formGroup]="accommodationFormGroup">
                     <div>
                         <label id="accommodation-periodic-rent">Rent is</label>
                         <mat-radio-group formControlName="rentInterval" aria-labelledby="accommodation-periodic-rent"
@@ -159,11 +181,11 @@
                             {{ accommodationFormGroup.get(['rentInterval'])?.value ? 'per ' + accommodationFormGroup.get(['rentInterval'])?.value.slice(0, -2) : '' }}
                             {{ accommodationFormGroup.get(['status'])?.value == 'roommate' ? 'for your roommate' : '' }}</mat-label>
                         <span matPrefix>&#8358;</span>
-                        <input type="text" min="0" inputmode="numeric" matInput placeholder="50,000">
+                        <input formControlName="rent" type="text" min="0" inputmode="numeric" matInput placeholder="50,000">
                         <mat-hint></mat-hint>
                     </mat-form-field>
 
-                </form>
+                </div>
                 <button mat-button>Save as draft</button>
 
                 <button mat-button matStepperPrevious>Back</button>
@@ -181,7 +203,7 @@
                     <button mat-button>Save as draft</button>
 
                     <button (click)="submit()" mat-raised-button color="primary" type="submit">Post</button>
-                    <button mat-button (click)="stepper.reset()">Reset</button>
+                    <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
                 </div>
             </mat-step>
 

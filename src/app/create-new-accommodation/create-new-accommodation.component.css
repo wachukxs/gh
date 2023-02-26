@@ -11,3 +11,61 @@
 .accommodation-form-step-1 {
     display: grid;
 }
+
+.images-preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    gap: 15px;
+}
+
+.images-preview img {
+    height: 200px;
+    flex-grow: 1;
+}
+
+.images-preview mat-card-actions {
+    justify-content: space-between;
+}
+
+.id-img {
+    display: contents;
+}
+
+/**
+    custom file input styling via https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ 
+**/
+.custom-file-input {
+    color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.custom-file-input::before {
+    content: 'Select some files';
+    color: black;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+}
+.custom-file-input:hover::before {
+    border-color: black;
+}
+.custom-file-input:active {
+    outline: 0;
+}
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}

@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
 import { SampleFormComponent } from './sample-form/sample-form.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -62,6 +63,7 @@ import { CreateNewAccommodationComponent } from './create-new-accommodation/crea
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CreateNewSaleComponent } from './create-new-sale/create-new-sale.component';
 import { JoinWaitlistSuccessDialogComponent } from './dialogs/join-waitlist-success-dialog/join-waitlist-success-dialog.component';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { EffectsModule } from '@ngrx/effects';
 import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
@@ -133,6 +135,7 @@ import { corpMemberReducer, corpMemberFeatureKey } from './ngrx-store/reducers/c
     MatDialogModule,
     ClipboardModule,
     HammerModule,
+    MatBadgeModule,
     SwiperModule,
     EffectsModule.forRoot([CorpMemberEffects]),
     StoreModule.forRoot({[corpMemberFeatureKey]: corpMemberReducer}), // {corper: corpMemberReducer} // {[corpMemberFeatureKey]: corpMemberReducer}
@@ -143,7 +146,8 @@ import { corpMemberReducer, corpMemberFeatureKey } from './ngrx-store/reducers/c
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerGestureConfig
-    }
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' } // https://stackoverflow.com/a/62839144/9259701
   ],
   bootstrap: [AppComponent]
 })

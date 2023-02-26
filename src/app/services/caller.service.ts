@@ -23,10 +23,11 @@ export class CallerService extends BaseService {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
       'timeout': `${3000}`, // doesn't seem to work
-      // Authorization: 'my-auth-token'
+      // Authorization: 'my-auth-token',
     }),
     observe: 'response' as const,
     responseType: 'json' as const,
+    withCredentials: true
   };
 
   private TextHttpOptions = {
@@ -37,6 +38,18 @@ export class CallerService extends BaseService {
     }),
     observe: 'response' as const,
     responseType: 'text' as const,
+    withCredentials: true
+  };
+
+  private FormDataOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'multipart/form-data;boundary=CorpersOnlineFormBoundary',
+      timeout: `${3000}`, // doesn't seem to work
+      // Authorization: 'my-auth-token'
+    }),
+    observe: 'response' as const,
+    responseType: 'text' as const,
+    withCredentials: true
   };
 
   // should this be commonly available ?
@@ -115,8 +128,8 @@ export class CallerService extends BaseService {
     );
   }
 
-  createNewPost(data: any) {
-    return this.http.post(environment.baseurl + URLPaths.createNewPost, data)
+  createNewAccommodationPost(data: any) {
+    return this.http.post(environment.baseurl + URLPaths.createNewAccommodationPost, data, this.FormDataOptions)
   }
 
   signUp(data: any) {

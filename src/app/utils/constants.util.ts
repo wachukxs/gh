@@ -2,7 +2,7 @@
 export enum URLPaths {
     test = '/test',
     joinWaitList = '/join-waitlist',
-    createNewPost = '/accommodations',
+    createNewAccommodationPost = '/accommodations',
     corpMemberSignUp = '/signup',
     corpMemberLogIn = '/login',
 

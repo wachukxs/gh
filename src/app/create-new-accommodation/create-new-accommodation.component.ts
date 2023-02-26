@@ -1,105 +1,223 @@
-import { StepperOrientation } from '@angular/cdk/stepper';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { CallerService } from '../services/caller.service';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { StepperOrientation } from '@angular/cdk/stepper'
+import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatDialogRef } from '@angular/material/dialog'
+import { Observable } from 'rxjs'
+import { CallerService } from '../services/caller.service'
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper'
+
+interface ImagePreview {
+    name: string
+    dataUrl: string
+    lastModified: number
+    size: number
+}
+
+interface Rooms {
+    value: string
+    viewValue: string
+}
 
 @Component({
-  selector: 'create-new-accommodation',
-  templateUrl: './create-new-accommodation.component.html',
-  styleUrls: ['./create-new-accommodation.component.css'],
-  providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-  }]
+    selector: 'create-new-accommodation',
+    templateUrl: './create-new-accommodation.component.html',
+    styleUrls: ['./create-new-accommodation.component.css'],
+    providers: [
+        {
+            provide: STEPPER_GLOBAL_OPTIONS,
+            useValue: { displayDefaultIndicatorType: false },
+        },
+    ],
 })
 export class CreateNewAccommodationComponent implements OnInit {
+    constructor(
+        private _formBuilder: FormBuilder,
+        private createPostDialogRef: MatDialogRef<CreateNewAccommodationComponent>,
+        private callerService: CallerService,
+    ) {}
 
-  constructor(private _formBuilder: FormBuilder, private createPostDialogRef: MatDialogRef<CreateNewAccommodationComponent>
-    , private callerService: CallerService) { }
+    accommodationImagesPreview: Array<ImagePreview> = []
 
-  accommodationFormGroup = new FormGroup({
-    accommodationType: new FormControl(''),
-    availableRooms: this._formBuilder.group({
-      "Sitting-room": false,
-      "Kitchen": false,
-      "Bedroom": false,
-      "Toilet": false,
-      "Bathroom": false,
-      "Dining-room": false,
-    }),
-    location: new FormGroup({
-      address: new FormControl(''),
-      directions: new FormControl('')
-    }),
-    status: new FormControl(''),
-    rent: new FormControl(''),
-    rentInterval: new FormControl(''),
-  });
-  
-  stepperOrientation: StepperOrientation = 'vertical'
+    availableHouseRooms: Array<Rooms> = [
+        {
+            value: 'Bathroom',
+            viewValue: 'Bathroom',
+        },
+        {
+            value: 'Sitting Room',
+            viewValue: 'Sitting Room',
+        },
+        {
+            value: 'Toilet',
+            viewValue: 'Toilet',
+        },
+        {
+            value: 'Kitchen',
+            viewValue: 'Kitchen',
+        },
+        {
+            value: 'Bathroom & Toilet',
+            viewValue: 'Bathroom & Toilet',
+        },
+        {
+            value: 'Hallway or Corridor',
+            viewValue: 'Hallway/Corridor',
+        },
+        {
+            value: 'Frontage',
+            viewValue: 'Frontage',
+        },
+    ]
 
-
-  ngOnInit(): void {
-    this.callerService.isSmallScreen$().subscribe({
-      next: (value) => { // TODO: do we wanna pipe() instead?
-        if (value) {
-          this.stepperOrientation = 'vertical'
-        } else {
-          this.stepperOrientation = 'horizontal'
-        }
-      }
+    accommodationFormGroup: FormGroup = new FormGroup({
+        accommodationType: new FormControl(''),
+        availableRooms: this._formBuilder.group({
+            'Sitting-room': false,
+            Kitchen: false,
+            Bedroom: false,
+            Toilet: false,
+            Bathroom: false,
+            'Dining-room': false,
+        }),
+        address: new FormControl(''),
+        directions: new FormControl(''),
+        status: new FormControl(''),
+        rent: new FormControl(''),
+        rentInterval: new FormControl(''),
+        rentExpireDate: new FormControl(''),
+        idealRoommate: new FormControl(''),
+        occupantDescription: new FormControl(''),
     })
 
-    this.accommodationFormGroup.valueChanges.subscribe({
-      next: (value) => {
-        console.log('new accommodation value', value);
-      },
-    })
+    stepperOrientation: StepperOrientation = 'vertical'
 
-    this.accommodationFormGroup.get(['status'])?.valueChanges.subscribe({
-      next: (value) => {
-        console.log('new accommodation value', value);
-      },
-    })
-  }
+    ngOnInit(): void {
+        this.callerService.isSmallScreen$().subscribe({
+            next: (value) => {
+                // TODO: do we wanna pipe() instead?
+                if (value) {
+                    this.stepperOrientation = 'vertical'
+                } else {
+                    this.stepperOrientation = 'horizontal'
+                }
+            },
+        })
 
-  postForm: FormData = new FormData()
+        this.accommodationFormGroup.valueChanges.subscribe({
+            next: (value) => {
+                // console.log('new accommodation value', value);
+            },
+        })
 
-  close(): void {
-    this.createPostDialogRef.close()
-  }
-
-  /**
-   * https://github.com/microsoft/TypeScript/issues/31816#issuecomment-646000392
-   * @param event file input
-   */
-  onFileSelected(event: Event): void {
-    console.log('evt', event);
-
-    console.log('UI', (event.target as HTMLInputElement)?.files);
-    const target = event.target as HTMLInputElement;
-    const files = target.files;
-
-    if (files && files.length) {
-      for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
-        const file = files[fileIndex];
-        this.postForm.set(`file-${fileIndex}`, file)
-      }
+        this.accommodationFormGroup.get(['status'])?.valueChanges.subscribe({
+            next: (value) => {
+                console.log('new accommodation value', value)
+            },
+        })
     }
-  }
 
-  submit(): void {
-    // how do we check that this.postForm is valid?
-    this.callerService.createNewPost(this.postForm).subscribe({
-      next: (res) => {
-        console.log('res', res);
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    })
-  }
+    postForm: FormData = new FormData()
 
+    close(): void {
+        this.createPostDialogRef.close()
+    }
+
+    /**
+     * https://github.com/microsoft/TypeScript/issues/31816#issuecomment-646000392
+     * https://stackblitz.com/edit/angular-14-image-upload-preview?file=src%2Fapp%2Fcomponents%2Fimage-upload%2Fimage-upload.component.ts
+     * @param event file input
+     */
+    onFileSelected(event: Event): void {
+        console.log('evt', event)
+
+        console.log('UI', (event.target as HTMLInputElement)?.files)
+        const target = event.target as HTMLInputElement
+        const files = target.files
+
+        if (files && files.length) {
+            for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
+                this.processImage(files[fileIndex])
+            }
+        }
+    }
+
+    processImage(file: File) {
+        const reader = new FileReader()
+
+        reader.onerror = function () {
+            console.log('FileReader Err:', reader.error)
+        }
+
+        reader.onload = (e: any) => {
+            console.log('e', e) // e.target.result
+            this.accommodationImagesPreview.push({
+                dataUrl: e.target.result,
+                lastModified: file.lastModified,
+                name: file.name,
+                size: file.size,
+            })
+        }
+
+        reader.readAsDataURL(file)
+        this.postForm.set(
+            `accommodationMedia-${file.lastModified}-${file.size}-${file.name}`,
+            file,
+        ) // setting individually so it's easier to delete.
+    }
+
+    populateFormData(): void {
+        console.log(
+            'availableRooms',
+            Object.entries(
+                this.accommodationFormGroup.get('availableRooms')?.value,
+            ),
+        )
+
+        for (const field in this.accommodationFormGroup.controls) {
+            // console.log(field, this.accommodationFormGroup.get(field))
+            switch (field) {
+                case 'availableRooms':
+                    let _value = ''
+                    Object.entries(
+                        this.accommodationFormGroup.get(field)?.value,
+                    ).forEach(([key, value], i) =>
+                        _value = _value + (value ? `,${key.toString()}` : '')
+                    )
+                    this.postForm.append(field, _value.slice(1)) // slice the first comma
+                    console.log('value rooms', _value.slice(1));
+                    
+                    break
+                default:
+                    this.postForm.append(
+                        field,
+                        this.accommodationFormGroup.get(field)?.value,
+                    )
+                    break
+            }
+        }
+
+        console.log('this.postForm', this.postForm)
+    }
+
+    submit(): void {
+        // TODO: populate the postFrom from the form controls data
+
+        console.log(
+            'this.accommodationFormGroup.value',
+            this.accommodationFormGroup.value,
+        )
+        this.populateFormData()
+
+        return
+        // how do we check that this.postForm is valid?
+        this.callerService.createNewAccommodationPost(this.postForm).subscribe({
+          next: (res) => {
+            console.log('res', res);
+            this.postForm = new FormData() // reset
+          },
+          error: (err) => {
+            console.log('err', err);
+          }
+        })
+    }
 }
