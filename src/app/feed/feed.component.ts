@@ -20,6 +20,7 @@ import {
   transition
 } from '@angular/animations';
 import { ImageCarouselComponent } from '../image-carousel/image-carousel.component';
+import { SocketIoService } from '../services/socket-io.service';
 
 export interface Fact { // change to property
   text?: string;
@@ -250,6 +251,7 @@ export class FeedComponent implements OnInit {
               private dialog: MatDialog,
               private clipboard: Clipboard,
               private snackBar: MatSnackBar,
+              private socketIoService: SocketIoService,
               private locationService: LocationService) {
   }
 
