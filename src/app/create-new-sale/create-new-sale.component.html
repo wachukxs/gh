@@ -1,1 +1,68 @@
-<p>create-new-sale works!</p>
+<div class="wrapper">
+    <div class="top-div">
+        <h2 class="top-div-header">
+            Create new sale
+        </h2>
+        <button mat-icon-button (click)="close()" title="Close dialog">
+            <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
+        </button>
+    </div>
+
+    <section>
+        <form [formGroup]="saleFormGroup">
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Item name</mat-label>
+                <input formControlName="itemname" matInput placeholder="Bucket">
+                <mat-error *ngIf="saleFormGroup.get(['itemname'])?.hasError('required')">
+                    Item name is <strong>required</strong>
+                </mat-error>
+                <mat-error
+                    *ngIf="saleFormGroup.controls['itemname'].hasError('minlength') && !saleFormGroup.controls['itemname'].hasError('required')">
+                    Minimum of {{ saleFormGroup.controls['itemname'].errors?.minlength?.requiredLength }} characters
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Price</mat-label>
+                <input type="text" inputmode="numeric" formControlName="price" matInput placeholder="2,000">
+                <mat-error *ngIf="saleFormGroup.get(['price'])?.hasError('required')">
+                    Price is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-checkbox formControlName="isItemNegotiable" class="example-margin">Negotiable</mat-checkbox>
+
+            <mat-form-field class="example-full-width" *ngIf="saleFormGroup.get(['isItemNegotiable'])?.value">
+                <mat-label>Min. Price</mat-label>
+                <input type="text" inputmode="numeric" formControlName="minPrice" matInput placeholder="2,000">
+                <!-- Maybe later pre-fill with AI predicted value -->
+                <mat-error *ngIf="saleFormGroup.get(['minPrice'])?.hasError('required')">
+                    Minimum price is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <input class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
+                type="file">
+
+            <div class="images-preview">
+                <ng-container *ngFor="let image of saleImagesPreview">
+                    <mat-card>
+                        <img [src]="image.dataUrl" mat-card-image alt="A supposed image of the item for sale">
+                    </mat-card>
+                </ng-container>
+            </div>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Item description</mat-label>
+                <textarea formControlName="text" matInput placeholder=""></textarea>
+                <mat-hint>Optional</mat-hint>
+                <!-- TODO: textbox should expand as you type -->
+              </mat-form-field>
+        </form>
+
+        <button mat-button>Save as draft</button>
+
+        <button (click)="submit()" mat-raised-button color="primary">Post</button>
+    </section>
+</div>

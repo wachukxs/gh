@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { CreateNewAccommodationComponent } from '../create-new-accommodation/create-new-accommodation.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateNewSaleComponent } from '../create-new-sale/create-new-sale.component';
 
 @Component({
   selector: 'app-nav',
@@ -35,19 +36,35 @@ export class NavComponent {
     this.menuState = '';
   }
 
-  openCreatePostDialot() {
+  openCreateAccommodationPostDialog() {
     const dialogRef = this.dialog.open(CreateNewAccommodationComponent, {
       width: '100%',
       height: '100%',
       data: {},
       maxWidth: '100%',
       maxHeight: '100%',
-      ariaLabel: 'Dialog to create a new post'
+      ariaLabel: 'Dialog to create a new accommodation post'
     });
 
     /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The accommodation dialog was closed');
+    });
+  }
+
+  openCreateSalePostDialog() {
+    const dialogRef = this.dialog.open(CreateNewSaleComponent, {
+      width: '100%',
+      height: '100%',
+      data: {},
+      maxWidth: '100%',
+      maxHeight: '100%',
+      ariaLabel: 'Dialog to create a new sale post'
+    });
+
+    /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The sale dialog was closed');
     });
   }
 

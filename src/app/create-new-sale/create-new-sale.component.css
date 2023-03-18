@@ -1,0 +1,13 @@
+.top-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.top-div-header {
+    padding-left: 12px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}

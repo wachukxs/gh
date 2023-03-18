@@ -116,7 +116,7 @@ export class CreateNewAccommodationComponent implements OnInit {
         })
     }
 
-    postForm: FormData = new FormData()
+    accommodationPostFormData: FormData = new FormData()
 
     close(): void {
         this.createPostDialogRef.close()
@@ -159,7 +159,7 @@ export class CreateNewAccommodationComponent implements OnInit {
         }
 
         reader.readAsDataURL(file)
-        this.postForm.set(
+        this.accommodationPostFormData.set(
             `accommodationMedia-${file.lastModified}-${file.size}-${file.name}`,
             file,
         ) // setting individually so it's easier to delete.
@@ -183,12 +183,12 @@ export class CreateNewAccommodationComponent implements OnInit {
                     ).forEach(([key, value], i) =>
                         _value = _value + (value ? `,${key.toString()}` : '')
                     )
-                    this.postForm.append(field, _value.slice(1)) // slice the first comma
+                    this.accommodationPostFormData.set(field, _value.slice(1)) // slice the first comma
                     console.log('value rooms', _value.slice(1));
                     
                     break
                 default:
-                    this.postForm.append(
+                    this.accommodationPostFormData.set(
                         field,
                         this.accommodationFormGroup.get(field)?.value,
                     )
@@ -196,11 +196,11 @@ export class CreateNewAccommodationComponent implements OnInit {
             }
         }
 
-        console.log('this.postForm', this.postForm)
+        console.log('this.accommodationPostFormData', this.accommodationPostFormData)
     }
 
     submit(): void {
-        // TODO: populate the postFrom from the form controls data
+        // TODO: check for from validity
 
         console.log(
             'this.accommodationFormGroup.value',
@@ -208,12 +208,11 @@ export class CreateNewAccommodationComponent implements OnInit {
         )
         this.populateFormData()
 
-        return
-        // how do we check that this.postForm is valid?
-        this.callerService.createNewAccommodationPost(this.postForm).subscribe({
+        // TODO: check that this.accommodationPostFormData is valid
+        this.callerService.createNewAccommodationPost(this.accommodationPostFormData).subscribe({
           next: (res) => {
             console.log('res', res);
-            this.postForm = new FormData() // reset
+            this.accommodationPostFormData = new FormData() // reset
           },
           error: (err) => {
             console.log('err', err);

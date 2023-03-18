@@ -3,6 +3,7 @@ export enum URLPaths {
     test = '/test',
     joinWaitList = '/join-waitlist',
     createNewAccommodationPost = '/accommodations',
+    createNewSalePost = '/sale',
     corpMemberSignUp = '/signup',
     corpMemberLogIn = '/login',
 

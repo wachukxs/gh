@@ -4,7 +4,7 @@
         <h2 class="top-div-header">
             Create new accommodation
         </h2>
-        <button mat-icon-button (click)="close()">
+        <button mat-icon-button (click)="close()" title="Close dialog">
             <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
         </button>
     </div>
@@ -202,7 +202,7 @@
 
                     <button mat-button>Save as draft</button>
 
-                    <button (click)="submit()" mat-raised-button color="primary" type="submit">Post</button>
+                    <button (click)="submit()" mat-raised-button color="primary">Post</button>
                     <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
                 </div>
             </mat-step>

@@ -4,9 +4,14 @@
     <span class="app-name-header" routerLink="/home">Corpers Online</span>
     <span class="example-spacer"></span>
 
-    <button class="hide-mobile" mat-button (click)="openCreatePostDialot()">New Post</button>
-    <button mat-icon-button class="hide-desktop" (click)="openCreatePostDialot()">
-      <mat-icon class="nav-icon" aria-label="sign up person icon">add</mat-icon>
+    <button class="hide-mobile" mat-button (click)="openCreateAccommodationPostDialog()">Post Accommodation</button>
+    <button mat-icon-button class="hide-desktop" (click)="openCreateAccommodationPostDialog()">
+      <mat-icon class="nav-icon" aria-label="create new accommodation icon">add_home_work</mat-icon>
+    </button>
+
+    <button class="hide-mobile" mat-button (click)="openCreateSalePostDialog()">Post Sale</button>
+    <button mat-icon-button class="hide-desktop" (click)="openCreateSalePostDialog()">
+      <mat-icon class="nav-icon" aria-label="create new sale icon">sell</mat-icon>
     </button>
 
     <button class="hide-mobile" mat-button [matMenuTriggerFor]="menu">Menu</button>

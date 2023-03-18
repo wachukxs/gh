@@ -61,6 +61,8 @@ export class SignupComponent implements OnInit {
       }, () => {
         console.log('completed the http signup');
       });
+    } else {
+      console.log('sign up form errors', this.signupForm);
     }
   }
 

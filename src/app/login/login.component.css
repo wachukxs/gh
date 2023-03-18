@@ -1,45 +1,44 @@
 div[root] {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
 
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
 }
 
 section[first] {
-  background-color: red;
+    background-color: red;
 }
 
 form {
-  display: grid;
+    display: grid;
 
-  width: 290px;
-  margin: 0 auto;
+    width: 290px;
+    margin: 0 auto;
 }
 
 .login-button {
-  margin-top: 25px;
+    margin-top: 25px;
 }
 
 div.center {
-  margin-top: 30%;
-
-  text-align: center;
+    margin-top: 30%;
+    text-align: center;
 }
 
 .full-width {
-  width: -moz-available;
+    width: -moz-available;
 }
 
 .signup-sentence {
-  width: 100%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 
-  margin-top: 65%;
-  text-align: center;
+    margin-top: 65%;
+    text-align: center;
 }
 
 /*
@@ -48,16 +47,24 @@ div.center {
 */
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+    div[root] {
+        grid-template-columns: 0fr 3fr;
+    }
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 600px) {
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
+@media only screen and (min-width: 768px) {
+}
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+}

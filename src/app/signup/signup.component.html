@@ -10,15 +10,14 @@
       <h2>Sign up</h2>
     </div>
 
-    <form class="form" [formGroup]="signupForm" (ngSubmit)="signUp()">
+    <form class="form" [formGroup]="signupForm">
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Firstname</mat-label>
         <input matInput formControlName="firstname" autocomplete="given-name" placeholder="Emeka">
-        <mat-hint align="start">Minimum of 4 characters</mat-hint>
         <mat-error
-          *ngIf="signupForm.controls['firstname'].hasError('firstname') && !signupForm.controls['firstname'].hasError('required')">
-          Please enter a valid First name
+          *ngIf="signupForm.controls['firstname'].hasError('minlength') && !signupForm.controls['firstname'].hasError('required')">
+          Minimum of {{ signupForm.controls['firstname'].errors?.minlength?.requiredLength }} characters
         </mat-error>
         <mat-error *ngIf="signupForm.controls['firstname'].hasError('required')">
           First name is <strong>required</strong>
@@ -28,20 +27,15 @@
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Middlename</mat-label>
         <input matInput formControlName="middlename" autocomplete="additional-name" placeholder="Mariam">
-        <mat-hint align="start">Minimum of 4 characters</mat-hint>
         <mat-error
-          *ngIf="signupForm.controls['middlename'].hasError('middlename') && !signupForm.controls['middlename'].hasError('required')">
-          Please enter a valid Middle name
-        </mat-error>
-        <mat-error *ngIf="signupForm.controls['middlename'].hasError('required')">
-          Middle name is <strong>required</strong>
+          *ngIf="signupForm.controls['middlename'].hasError('minlength')">
+          Minimum of {{ signupForm.controls['middlename'].errors?.minlength?.requiredLength }} characters
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Lastname</mat-label>
         <input matInput formControlName="lastname" autocomplete="family-name" placeholder="Ola">
-        <mat-hint align="start">Minimum of 4 characters</mat-hint>
         <mat-error
           *ngIf="signupForm.controls['lastname'].hasError('lastname') && !signupForm.controls['lastname'].hasError('required')">
           Please enter a valid Last name
@@ -54,7 +48,6 @@
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" autocomplete="email" placeholder="name@site.com">
-        <mat-hint align="start">Required</mat-hint>
         <mat-error
           *ngIf="signupForm.controls['email'].hasError('email') && !signupForm.controls['email'].hasError('required')">
           Please enter a valid email address
@@ -79,10 +72,7 @@
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>State code</mat-label>
-        <!-- <span matPrefix>+1 &nbsp;</span> -->
         <input formControlName="statecode" matInput placeholder="e.g. AB/17A/4567">
-        <mat-hint align="start">Required</mat-hint>
-        <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
         <mat-error
           *ngIf="signupForm.controls['statecode'].hasError('pattern') && !signupForm.controls['statecode'].hasError('required')">
           Please enter a valid state code
@@ -92,8 +82,7 @@
         </mat-error>
       </mat-form-field>
 
-
-      <button class="signup-button" [disabled]="signupForm.invalid" mat-raised-button color="primary" type="submit">Sign
+      <button role="button" (click)="signUp()" class="signup-button" [disabled]="signupForm.invalid" mat-raised-button color="primary">Sign
         up</button>
 
     </form>

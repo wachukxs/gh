@@ -8,12 +8,11 @@
     <div class="center">
       <h2>Login</h2>
 
-    <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <form class="form" [formGroup]="loginForm">
     
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>State code or Email</mat-label>
           <input autocomplete="username" matInput formControlName="username" placeholder="">
-          <mat-hint align="start">Required</mat-hint>
           <mat-error *ngIf="loginForm.controls['username'].hasError('minlength') && !loginForm.controls['username'].hasError('required')">
             Please enter a valid state code or email
           </mat-error>
@@ -38,7 +37,7 @@
           </mat-error>
         </mat-form-field>
     
-        <button class="login-button" [disabled]="loginForm.invalid" mat-raised-button color="primary" type="submit">
+        <button role="button" (click)="login()" class="login-button" [disabled]="loginForm.invalid" mat-raised-button color="primary">
           <span [style.display]="hideLoginText ? 'block' : 'none'" >Login</span>
           <mat-spinner [style.display]="hideLoginMatSpinner ? 'block' : 'none'" style="margin: 2px auto;" diameter="35" color="warn"></mat-spinner>
         </button>
