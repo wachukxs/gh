@@ -8,10 +8,6 @@
     padding-left: 12px;
 }
 
-.accommodation-form-step-1 {
-    display: grid;
-}
-
 .images-preview {
     display: flex;
     flex-direction: row;
@@ -32,6 +28,33 @@
 
 .id-img {
     display: contents;
+}
+
+mat-radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+section[body] {
+    margin-inline: auto;
+}
+
+.action-buttons > div {
+    display: flex;
+    gap: 10px;
+}
+
+.accommodation-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.action-buttons {
+    padding-top: 25px;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 /**

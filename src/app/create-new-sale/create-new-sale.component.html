@@ -1,17 +1,17 @@
 <div class="wrapper">
-    <div class="top-div">
+    <section class="top-div">
         <h2 class="top-div-header">
             Create new sale
         </h2>
         <button mat-icon-button (click)="close()" title="Close dialog">
             <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
         </button>
-    </div>
+    </section>
 
-    <section>
-        <form [formGroup]="saleFormGroup">
+    <section body>
+        <div class="sales-form" [formGroup]="saleFormGroup">
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="">
                 <mat-label>Item name</mat-label>
                 <input formControlName="itemname" matInput placeholder="Bucket">
                 <mat-error *ngIf="saleFormGroup.get(['itemname'])?.hasError('required')">
@@ -23,7 +23,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="">
                 <mat-label>Price</mat-label>
                 <input type="text" inputmode="numeric" formControlName="price" matInput placeholder="2,000">
                 <mat-error *ngIf="saleFormGroup.get(['price'])?.hasError('required')">
@@ -33,7 +33,7 @@
 
             <mat-checkbox formControlName="isItemNegotiable" class="example-margin">Negotiable</mat-checkbox>
 
-            <mat-form-field class="example-full-width" *ngIf="saleFormGroup.get(['isItemNegotiable'])?.value">
+            <mat-form-field class="" *ngIf="saleFormGroup.get(['isItemNegotiable'])?.value">
                 <mat-label>Min. Price</mat-label>
                 <input type="text" inputmode="numeric" formControlName="minPrice" matInput placeholder="2,000">
                 <!-- Maybe later pre-fill with AI predicted value -->
@@ -53,16 +53,19 @@
                 </ng-container>
             </div>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="">
                 <mat-label>Item description</mat-label>
-                <textarea formControlName="text" matInput placeholder=""></textarea>
+                <textarea rows="3"
+                cdkAutosizeMinRows="3"
+    cdkAutosizeMaxRows="5" formControlName="text" matInput placeholder=""></textarea>
                 <mat-hint>Optional</mat-hint>
                 <!-- TODO: textbox should expand as you type -->
               </mat-form-field>
-        </form>
+        </div>
 
-        <button mat-button>Save as draft</button>
-
-        <button (click)="submit()" mat-raised-button color="primary">Post</button>
+        <div class="action-buttons">
+            <button mat-stroked-button>Save as draft</button>
+            <button (click)="submit()" mat-raised-button color="primary">Post</button>
+        </div>
     </section>
 </div>

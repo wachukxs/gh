@@ -9,7 +9,7 @@
         </button>
     </div>
 
-    <section>
+    <section body>
 
         <mat-stepper [orientation]="stepperOrientation" #stepper>
             <!-- Icon overrides. -->
@@ -25,7 +25,7 @@
 
             <mat-step state="call_end">
                 <ng-template matStepLabel>Accommodation size</ng-template>
-                <form class="accommodation-form-step-1" [formGroup]="accommodationFormGroup">
+                <div class="accommodation-form form-step-1" [formGroup]="accommodationFormGroup">
                     <mat-form-field appearance="fill">
                         <mat-label>Accommodation type</mat-label>
                         <mat-select formControlName="accommodationType">
@@ -42,7 +42,7 @@
 
                     <div formGroupName="availableRooms">
                         <label>What rooms does the accommodation contain?</label>
-                        <div>
+                        <div class="checkbox-group">
                             <mat-checkbox formControlName="Sitting-room">Sitting room</mat-checkbox>
                             <mat-checkbox formControlName="Kitchen">Kitchen</mat-checkbox>
                             <mat-checkbox formControlName="Bedroom">Bedroom</mat-checkbox>
@@ -52,38 +52,41 @@
                         </div>
                     </div>
 
-                </form>
-                <div>
-                    <button mat-button matStepperNext>Next</button>
+                </div>
+                <div class="action-buttons">
+                    <div>
+                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                    </div>
                 </div>
             </mat-step>
 
             <mat-step>
                 <ng-template matStepLabel>Accommodation location</ng-template>
 
-                <div [formGroup]="accommodationFormGroup">
-                    <div>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Address</mat-label>
-                            <input matInput formControlName="address" placeholder="Please specify street, and area.">
-                        </mat-form-field>
+                <div class="accommodation-form form-step-2" [formGroup]="accommodationFormGroup">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address" placeholder="Please specify street, and area.">
+                    </mat-form-field>
 
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Directions</mat-label>
-                            <textarea matInput formControlName="directions"
-                                placeholder="Give directions to the accommodation from a popular nearby junction, a land mark or hard-to-miss building"></textarea>
-                        </mat-form-field>
-                    </div>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Directions</mat-label>
+                        <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" cdkTextareaAutosize matInput
+                            formControlName="directions"
+                            placeholder="Give directions to the accommodation from a popular nearby junction, a land mark or hard-to-miss building"></textarea>
+                    </mat-form-field>
                 </div>
 
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                <div class="action-buttons">
+                    <div>
+                        <button mat-stroked-button matStepperPrevious>Back</button>
+                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                    </div>
                 </div>
             </mat-step>
 
             <mat-step label="Let's see it" state="house">
-                <form>
+                <div class="accommodation-form form-step-1">
 
                     <input class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                         type="file">
@@ -108,17 +111,21 @@
                             </mat-card>
                         </ng-container>
                     </div>
+
+                </div>
+
+                <div class="action-buttons">
                     <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
+                        <button mat-stroked-button matStepperPrevious>Back</button>
+                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
                     </div>
-                </form>
+                </div>
             </mat-step>
 
             <mat-step state="location">
                 <ng-template matStepLabel>Current status</ng-template>
 
-                <div [formGroup]="accommodationFormGroup">
+                <div class="accommodation-form form-step-3" [formGroup]="accommodationFormGroup">
                     <div>
                         <label id="accommodation-current-status">Are you leasing out your active rent tenure, or a new
                             rent, or seeking a roomate?</label>
@@ -145,28 +152,32 @@
                     <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'roommate'">
                         <mat-form-field class="example-full-width">
                             <mat-label>Describe your ideal roommate:</mat-label>
-                            <textarea matInput placeholder="Someone nice..." formControlName="idealRoommate"></textarea>
+                            <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" matInput
+                                placeholder="Someone nice..." formControlName="idealRoommate"></textarea>
                             <mat-hint>Optional</mat-hint>
                         </mat-form-field>
 
                         <mat-form-field class="example-full-width">
                             <mat-label>Describe yourself to your ideal roommate:</mat-label>
-                            <textarea matInput placeholder="I'm tolerant, clean..." formControlName="occupantDescription"></textarea>
+                            <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" matInput
+                                placeholder="I'm tolerant, clean..." formControlName="occupantDescription"></textarea>
                             <mat-hint>Optional</mat-hint>
                         </mat-form-field>
                     </div>
                 </div>
 
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                <div class="action-buttons">
+                    <div>
+                        <button mat-stroked-button matStepperPrevious>Back</button>
+                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                    </div>
                 </div>
             </mat-step>
 
             <mat-step state="payments">
                 <ng-template matStepLabel>How much it costs</ng-template>
-                <div [formGroup]="accommodationFormGroup">
-                    <div>
+                <div class="accommodation-form form-step-4" [formGroup]="accommodationFormGroup">
+                    <div class="radio-options">
                         <label id="accommodation-periodic-rent">Rent is</label>
                         <mat-radio-group formControlName="rentInterval" aria-labelledby="accommodation-periodic-rent"
                             class="example-radio-group">
@@ -180,30 +191,43 @@
                         <mat-label>Rent
                             {{ accommodationFormGroup.get(['rentInterval'])?.value ? 'per ' + accommodationFormGroup.get(['rentInterval'])?.value.slice(0, -2) : '' }}
                             {{ accommodationFormGroup.get(['status'])?.value == 'roommate' ? 'for your roommate' : '' }}</mat-label>
-                        <span matPrefix>&#8358;</span>
-                        <input formControlName="rent" type="text" min="0" inputmode="numeric" matInput placeholder="50,000">
+                        <span matPrefix>&nbsp;&nbsp; &#8358; &nbsp;</span>
+                        <input formControlName="rent" type="text" min="0" inputmode="numeric" matInput
+                            placeholder="50,000">
                         <mat-hint></mat-hint>
                     </mat-form-field>
 
                 </div>
-                <button mat-button>Save as draft</button>
 
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+                <div class="action-buttons">
+                    <div>
+                        <button mat-stroked-button matStepperPrevious>Back</button>
+                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                    </div>
+
+                    <div>
+                        <button mat-button>Save as draft</button>
+                    </div>
+
+
+                </div>
 
             </mat-step>
 
             <mat-step state="location">
-                <ng-template matStepLabel>Done</ng-template>
+                <ng-template matStepLabel>Done / Preview</ng-template>
                 <p>You are now done.</p>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
+                <div class="action-buttons">
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                    </div>
 
+                    <div>
+                        <button mat-button>Save as draft</button>
 
-                    <button mat-button>Save as draft</button>
-
-                    <button (click)="submit()" mat-raised-button color="primary">Post</button>
-                    <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+                        <button (click)="submit()" mat-raised-button color="primary">Post</button>
+                        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+                    </div>
                 </div>
             </mat-step>
 
