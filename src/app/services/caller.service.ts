@@ -51,7 +51,7 @@ export class CallerService extends BaseService {
 
     private FormDataOptions = {
         headers: new HttpHeaders({
-            // exclude content-type because we'd need to set boundry, and the browser might choose a different boundry, causing it to fail on the backend. Also, the broswer sets it for us if we leave it.
+            // exclude content-type because we'd need to set boundary, and the browser might choose a different boundary, causing it to fail on the backend. Also, the browser sets it for us if we leave it.
             timeout: `${3000}`, // doesn't seem to work
             // Authorization: 'my-auth-token'
         }),
@@ -185,6 +185,7 @@ export class CallerService extends BaseService {
         return this.http.post(
             environment.baseurl + URLPaths.createNewAccommodationPost,
             data,
+            this.FormDataOptions
         )
     }
 

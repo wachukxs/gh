@@ -19,20 +19,20 @@
 
 .images-preview img {
     height: 200px;
-    flex-grow: 1;
+    width: auto;
+    object-fit: cover;
 }
 
 .images-preview mat-card-actions {
     justify-content: space-between;
 }
 
-.id-img {
-    display: contents;
+.rent-expire-form-field {
+    min-width: 270px;
 }
 
-mat-radio-group, .checkbox-group {
-    display: flex;
-    flex-direction: column;
+.id-img {
+    width: 60%;
 }
 
 section[body] {
@@ -45,6 +45,7 @@ section[body] {
 }
 
 .accommodation-form {
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     row-gap: 20px;
@@ -92,3 +93,30 @@ section[body] {
 .custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
+
+/*
+    Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+    Place media queries after other queries
+*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

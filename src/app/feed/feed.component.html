@@ -1,7 +1,9 @@
 <!-- Put tooltips almost everywhere -->
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" [attr.role]="((isPortraitHandset$|| isTablet$) | async) ? 'dialog' : 'navigation'"
-    [mode]="((isPortraitHandset$|| isTablet$) | async) ? 'over' : 'side'" [opened]="((isPortraitHandset$|| isTablet$) | async) === false">
+  <mat-sidenav #drawer class="sidenav"
+    [attr.role]="((isPortraitHandset$|| isTablet$) | async) ? 'dialog' : 'navigation'"
+    [mode]="((isPortraitHandset$|| isTablet$) | async) ? 'over' : 'side'"
+    [opened]="((isPortraitHandset$|| isTablet$) | async) === false">
     <mat-toolbar class="filters">
       Filters
       <span class="example-spacer"></span>
@@ -25,7 +27,8 @@
           <mat-chip color="primary" selected>₦200,000</mat-chip>
         </mat-chip-listbox>
         <!-- TODO: Change the max value from 200000 -->
-        <mat-slider [disabled]="budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete min="20000" step="25000" max="200000">
+        <mat-slider [disabled]="budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete
+          min="20000" step="25000" max="200000">
           <input value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
           <input value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
         </mat-slider>
@@ -43,7 +46,8 @@
 
       <div class="byside">
         <mat-chip-listbox [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
-          <mat-chip-option *ngFor="let houseType of availableHouseTypes" (selectionChange)="onChipClick($event, houseType)">
+          <mat-chip-option *ngFor="let houseType of availableHouseTypes"
+            (selectionChange)="onChipClick($event, houseType)">
             {{ houseType.name }}
           </mat-chip-option>
         </mat-chip-listbox>
@@ -59,7 +63,8 @@
       </mat-toolbar-row>
 
       <div class="byside">
-        <mat-slider [disabled]="proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete step="500" min="100" max="3000">
+        <mat-slider [disabled]="proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete
+          step="500" min="100" max="3000">
           <input matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
         </mat-slider>
 
@@ -78,8 +83,9 @@
               <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{ place }}</mat-option>
             </mat-select>
             <!-- use hint to communicate progress of getting current location -->
-            <mat-hint>Click <mat-icon>gps_fixed</mat-icon> to find places near
-              you</mat-hint>
+            <mat-hint class="straighten-text">
+              Click <mat-icon>gps_fixed</mat-icon> to find places near you
+            </mat-hint>
           </mat-form-field>
 
           <span class="example-spacer"></span>
@@ -96,7 +102,7 @@
   <mat-sidenav-content>
     <mat-toolbar color="accent">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-        *ngIf="(isPortraitHandset$|| isTablet$) | async">
+        *ngIf="(isPortraitHandset$ || isTablet$) | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <div class="feed-header">
@@ -113,8 +119,8 @@
             <mat-icon>format_align_center</mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group> -->
-      </div>    
-      <!-- show number of available properties, and the filter citerias the user has choosen -->
+      </div>
+      <!-- show number of available properties, and the filter criteria the user has chosen -->
     </mat-toolbar>
 
     <!-- Add Content Here -->
@@ -157,112 +163,118 @@
     </mat-card> -->
 
 
-    <cdk-virtual-scroll-viewport 
-    itemSize="10" 
-    orientation="horizontal" class="scroller">
-      
+    <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="scroller">
 
-        <ng-container *cdkVirtualFor="let item of placesList;
+
+      <ng-container *cdkVirtualFor="let item of placesList;
         let index = index;
         let count = count;
         let first = first;
         let last = last;
         let even = even;
         let odd = odd;">
-          <div long-house>
-            <!--
+        <div long-house>
+          <!--
               If you click image, it should open seeHouseDetails() right to images section.
             -->
-            <!-- <img class="long-image" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
-            <app-image-carousel [displayIndex]="index"></app-image-carousel>
-      
-            <mat-card-content class="content">
-      
-              <div class="top-details">
-                <section>
-                  <mat-card-title>Apartment type</mat-card-title>
-                  <mat-card-subtitle>Posted by XX/DDX/DDDD</mat-card-subtitle>
-                </section>
-                <section>
-                  <span>&#8358;57,000</span>
-                  <span class="mat-caption"> /month</span>
-                </section>
-              </div>
-              <div>
-                <section>
-                  <p>Details: 5.56k / sq.ft</p>
-                  <p>Status: Unfurnished, Immediately available</p>
-                </section>
-              </div>
-              <div class="post-info-actions">
-                <section class="post-amenities">
-                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-                  <span class="mat-caption">4 rooms</span>
-                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-                  <span class="mat-caption">4 rooms</span>
-                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-                  <span class="mat-caption">4 rooms</span>
-                </section>
-      
-                <section class="post-buttons">
-                  <button mat-raised-button [matMenuTriggerFor]="chatMenuBig">More</button>
-                  <button [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button color="primary" aria-label="Save this post">
-                    <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
-                  </button>
-                  <button [@iconChangeAnimation]="toggleFavouriteIcon" (click)="favouritePost()" mat-icon-button color="primary" aria-label="Like this post">
-                    <mat-icon [fontIcon]="toggleFavouriteIcon"></mat-icon>
-                  </button>
+          <!-- <img class="long-image" mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
+          <app-image-carousel [displayIndex]="index"></app-image-carousel>
 
-                  <mat-menu #chatMenuBig="matMenu" yPosition="above">
-                    <button mat-menu-item (click)="copyAgentPhoneNumber()">
-                      <mat-icon>phone</mat-icon>
-                      <span>Copy phone number</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>chat</mat-icon>
-                      <span>Chat agent</span>
-                    </button>
-                    <button mat-menu-item (click)="seeHouseDetails()">
-                      <mat-icon>view_cozy</mat-icon>
-                      <span>Chat agent</span>
-                    </button>
-                  </mat-menu>
-                </section>
-              </div>
-      
-            </mat-card-content>
-      
-          </div>
-      
-          <mat-card house>
-            <!--
+          <mat-card-content class="content">
+
+            <div class="top-details">
+              <section>
+                <mat-card-title>Apartment type</mat-card-title>
+                <mat-card-subtitle>Posted by XX/DDX/DDDD</mat-card-subtitle>
+              </section>
+              <section>
+                <span>&#8358;57,000</span>
+                <span class="mat-caption"> /month</span>
+              </section>
+            </div>
+            <div>
+              <section>
+                <p>Details: 5.56k / sq.ft</p>
+                <p>Status: Unfurnished, Immediately available</p>
+              </section>
+            </div>
+            <div class="post-info-actions">
+              <section class="post-amenities">
+                <div class="amenity">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+                  <span class="mat-caption">4 rooms</span>
+                </div>
+                <div class="amenity">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+                  <span class="mat-caption">4 rooms</span>
+                </div>
+                <div class="amenity">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+                  <span class="mat-caption">4 rooms</span>
+                </div>
+              </section>
+
+              <section class="post-buttons">
+                <button mat-raised-button [matMenuTriggerFor]="chatMenuBig">More</button>
+                <button [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button
+                  color="primary" aria-label="Save this post">
+                  <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
+                </button>
+                <button [@iconChangeAnimation]="toggleFavouriteIcon" (click)="favouritePost()" mat-icon-button
+                  color="primary" aria-label="Like this post">
+                  <mat-icon [fontIcon]="toggleFavouriteIcon"></mat-icon>
+                </button>
+
+                <mat-menu #chatMenuBig="matMenu" yPosition="above">
+                  <button mat-menu-item (click)="copyAgentPhoneNumber()">
+                    <mat-icon>phone</mat-icon>
+                    <span>Copy phone number</span>
+                  </button>
+                  <button mat-menu-item disabled>
+                    <mat-icon>chat</mat-icon>
+                    <span>Chat agent</span>
+                  </button>
+                  <button mat-menu-item (click)="seeHouseDetails()">
+                    <mat-icon>view_cozy</mat-icon>
+                    <span>Chat agent</span>
+                  </button>
+                </mat-menu>
+              </section>
+            </div>
+
+          </mat-card-content>
+
+        </div>
+
+        <mat-card house>
+          <!--
               If you click image, it should open seeHouseDetails() right to images section.
             -->
-            <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
-            <app-image-carousel></app-image-carousel>
-      
-            <mat-card-content>
-      
-              <div class="top-details">
-                <section>
-                  <mat-card-title>Shiba Inu</mat-card-title>
-                  <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                </section>
-                <section>
-                  <span>&#8358;57,000</span>
-                  <span class="mat-caption"> /m</span>
-                </section>
-              </div>
-              <div>
-                <section>
-                  Details: 5.56k / sq.ft
-                  <br>
-                  Status: Unfurnished, Immediately available
-                </section>
-              </div>
-              <div>
-      
-                <!-- <section class="post-amenities">
+          <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
+          <app-image-carousel></app-image-carousel>
+
+          <mat-card-content>
+
+            <div class="top-details">
+              <section>
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+              </section>
+              <section>
+                <span>&#8358;57,000</span>
+                <span class="mat-caption"> /m</span>
+              </section>
+            </div>
+            <div>
+              <section>
+                Details: 5.56k / sq.ft
+                <br>
+                Status: Unfurnished, Immediately available
+              </section>
+            </div>
+            <div>
+
+              <!-- <section class="post-amenities">
                   <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
                   <span>4 rooms</span>
                   <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
@@ -270,52 +282,54 @@
                   <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
                   <span>4 rooms</span>
                 </section> -->
-      
-                <section class="post-buttons">
-                  <button [@iconChangeAnimation]="toggleFavouriteIcon" (click)="favouritePost()" mat-icon-button color="primary" aria-label="Like this post">
-                    <mat-icon [fontIcon]="toggleFavouriteIcon"></mat-icon>
-                  </button>
-                  <button [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button color="primary" aria-label="Save this post">
-                    <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
-                  </button>
-                  <button mat-raised-button [matMenuTriggerFor]="chatMenuSmall">More</button>
-                  <mat-menu #chatMenuSmall="matMenu" yPosition="above">
-                    <button mat-menu-item (click)="copyAgentPhoneNumber()">
-                      <mat-icon>phone</mat-icon>
-                      <span>Copy phone number</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>chat</mat-icon>
-                      <span>Chat agent</span>
-                    </button>
-                    <button mat-menu-item (click)="seeHouseDetails()">
-                      <mat-icon>view_cozy</mat-icon>
-                      <span>View details</span>
-                    </button>
-                  </mat-menu>
-                </section>
-      
-              </div>
-      
-            </mat-card-content>
-      
-          </mat-card>
 
-        </ng-container>
-  
+              <section class="post-buttons">
+                <button [@iconChangeAnimation]="toggleFavouriteIcon" (click)="favouritePost()" mat-icon-button
+                  color="primary" aria-label="Like this post">
+                  <mat-icon [fontIcon]="toggleFavouriteIcon"></mat-icon>
+                </button>
+                <button [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button
+                  color="primary" aria-label="Save this post">
+                  <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
+                </button>
+                <button mat-raised-button [matMenuTriggerFor]="chatMenuSmall">More</button>
+                <mat-menu #chatMenuSmall="matMenu" yPosition="above">
+                  <button mat-menu-item (click)="copyAgentPhoneNumber()">
+                    <mat-icon>phone</mat-icon>
+                    <span>Copy phone number</span>
+                  </button>
+                  <button mat-menu-item disabled>
+                    <mat-icon>chat</mat-icon>
+                    <span>Chat agent</span>
+                  </button>
+                  <button mat-menu-item (click)="seeHouseDetails()">
+                    <mat-icon>view_cozy</mat-icon>
+                    <span>View details</span>
+                  </button>
+                </mat-menu>
+              </section>
+
+            </div>
+
+          </mat-card-content>
+
+        </mat-card>
+
+      </ng-container>
+
       <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
 
-     
+
       <!-- show only if user at bottom of page & in view-->
       <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
       </mat-spinner>
 
 
-    
-  </cdk-virtual-scroll-viewport>
+
+    </cdk-virtual-scroll-viewport>
 
 
-  <!-- Stop Add Content Here -->
+    <!-- Stop Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>
 

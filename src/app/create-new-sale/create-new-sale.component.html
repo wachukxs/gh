@@ -34,7 +34,7 @@
             <mat-checkbox formControlName="isItemNegotiable" class="example-margin">Negotiable</mat-checkbox>
 
             <mat-form-field class="" *ngIf="saleFormGroup.get(['isItemNegotiable'])?.value">
-                <mat-label>Min. Price</mat-label>
+                <mat-label>Minimum Price</mat-label>
                 <input type="text" inputmode="numeric" formControlName="minPrice" matInput placeholder="2,000">
                 <!-- Maybe later pre-fill with AI predicted value -->
                 <mat-error *ngIf="saleFormGroup.get(['minPrice'])?.hasError('required')">
@@ -64,8 +64,8 @@
         </div>
 
         <div class="action-buttons">
-            <button mat-stroked-button>Save as draft</button>
             <button (click)="submit()" mat-raised-button color="primary">Post</button>
+            <button mat-stroked-button>Save as draft</button>
         </div>
     </section>
 </div>

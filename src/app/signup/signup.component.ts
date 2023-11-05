@@ -30,17 +30,17 @@ export class SignupComponent implements OnInit {
       Validators.required,
       Validators.minLength(6)
     ]),
-    firstname: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2)
-    ]),
-    middlename: new FormControl('', [
-      Validators.minLength(2)
-    ]),
-    lastname: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2)
-    ]),
+    // firstname: new FormControl('', [
+    //   // Validators.required,
+    //   // Validators.minLength(2)
+    // ]),
+    // middlename: new FormControl('', [
+    //   Validators.minLength(2)
+    // ]),
+    // lastname: new FormControl('', [
+    //   // Validators.required,
+    //   // Validators.minLength(2)
+    // ]),
   });
 
   ngOnInit() {

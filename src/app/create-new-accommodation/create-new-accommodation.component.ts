@@ -199,6 +199,10 @@ export class CreateNewAccommodationComponent implements OnInit {
         console.log('this.accommodationPostFormData', this.accommodationPostFormData)
     }
 
+    removePreviewImage(i: number) {
+        this.accommodationImagesPreview.splice(i, 1)
+    }
+
     submit(): void {
         // TODO: check for from validity
 
@@ -212,7 +216,13 @@ export class CreateNewAccommodationComponent implements OnInit {
         this.callerService.createNewAccommodationPost(this.accommodationPostFormData).subscribe({
           next: (res) => {
             console.log('res', res);
-            this.accommodationPostFormData = new FormData() // reset
+            if (res.status === 200) {
+                this.accommodationPostFormData = new FormData() // reset
+                this.createPostDialogRef.close()
+                // TODO: return to calling component that is was successful?
+            } else { // else show error message?
+                
+            }
           },
           error: (err) => {
             console.log('err', err);

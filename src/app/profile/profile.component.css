@@ -15,7 +15,7 @@ mat-form-field {
     height: fit-content;
 }
 
-.custom-radio-form-field, .radio-group, .custom-file-form-field {
+.custom-file-form-field {
     display: flex;
     flex-direction: column;
 }

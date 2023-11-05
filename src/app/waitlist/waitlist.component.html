@@ -8,21 +8,21 @@
     <form [formGroup]="waitListForm" class="example-form">
 
       <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Firstname</mat-label>
+        <mat-label>First name</mat-label>
         <input formControlName="firstname" matInput placeholder="Idris">
         <mat-error *ngIf="waitListForm?.get(['firstname'])?.hasError('required')">
-          Firstname is <strong>required</strong>
+          First name is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Middlename</mat-label>
+        <mat-label>Middle name</mat-label>
         <input formControlName="middlename" matInput placeholder="Akin">
         <mat-hint>Optional</mat-hint>
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Lastname</mat-label>
+        <mat-label>Last name</mat-label>
         <input formControlName="lastname" matInput placeholder="Uzo">
         <mat-hint>Optional</mat-hint>
       </mat-form-field>
@@ -55,6 +55,7 @@
       <mat-form-field color="primary" class="example-full-width" appearance="fill">
         <mat-label>Leave a comment</mat-label>
         <textarea formControlName="comment" matInput placeholder="Anything. A question, comment, or nothing." matAutosizeMaxRows="5" matTextareaAutosize rows="3"></textarea>
+        <mat-hint>Optional</mat-hint>
       </mat-form-field>
 
       <button #waitlistjoinbutton (click)="joinWaitList()" mat-raised-button color="primary">

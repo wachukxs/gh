@@ -40,7 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StatusComponent } from './status/status.component';
 import { CartComponent } from './cart/cart.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -68,6 +68,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
 import { corpMemberReducer, corpMemberFeatureKey } from './ngrx-store/reducers/corp-member.reducer';
+import { BaseInterceptorInterceptor } from './base-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -147,7 +148,10 @@ import { corpMemberReducer, corpMemberFeatureKey } from './ngrx-store/reducers/c
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerGestureConfig
     },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' } // https://stackoverflow.com/a/62839144/9259701
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, // https://stackoverflow.com/a/62839144/9259701
+    {
+      provide: HTTP_INTERCEPTORS, useClass: BaseInterceptorInterceptor, multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

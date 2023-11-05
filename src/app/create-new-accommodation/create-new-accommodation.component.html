@@ -74,6 +74,9 @@
                         <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" cdkTextareaAutosize matInput
                             formControlName="directions"
                             placeholder="Give directions to the accommodation from a popular nearby junction, a land mark or hard-to-miss building"></textarea>
+                            <mat-hint>
+                                Don't forget to use a landmark!
+                            </mat-hint>
                     </mat-form-field>
                 </div>
 
@@ -92,7 +95,7 @@
                         type="file">
 
                     <div class="images-preview">
-                        <ng-container *ngFor="let image of accommodationImagesPreview">
+                        <ng-container *ngFor="let image of accommodationImagesPreview; let imgIndex = index">
                             <mat-card>
                                 <img [src]="image.dataUrl" mat-card-image alt="A supposed image of the apartment">
                                 <mat-divider></mat-divider>
@@ -106,7 +109,16 @@
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <button mat-stroked-button color="warn">DELETE</button>
+                                    <div class="hide-mobile">
+                                        <button (click)="removePreviewImage(imgIndex)" mat-stroked-button color="warn" aria-label="delete image">
+                                            Delete
+                                        </button>
+                                    </div>
+                                    <div class="hide-desktop">
+                                        <button (click)="removePreviewImage(imgIndex)" mat-icon-button aria-label="delete image">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
                                 </mat-card-actions>
                             </mat-card>
                         </ng-container>
@@ -130,7 +142,7 @@
                         <label id="accommodation-current-status">Are you leasing out your active rent tenure, or a new
                             rent, or seeking a roomate?</label>
                         <div>
-                            <mat-radio-group formControlName="status" aria-label="Select an option"
+                            <mat-radio-group class="radio-group" formControlName="status" aria-label="Select an option"
                                 aria-labelledby="accommodation-current-status">
                                 <mat-radio-button value="newrent">New rent (No occupant)</mat-radio-button>
                                 <mat-radio-button value="oldrent">Subleasing out an active rent</mat-radio-button>
@@ -140,7 +152,7 @@
                     </div>
 
                     <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'oldrent'">
-                        <mat-form-field appearance="fill">
+                        <mat-form-field appearance="fill" class="rent-expire-form-field">
                             <mat-label>When does your rent expire</mat-label>
                             <input matInput [matDatepicker]="picker" formControlName="rentExpireDate">
                             <mat-hint>DD/MM/YYYY</mat-hint>
@@ -149,7 +161,7 @@
                         </mat-form-field>
                     </div>
 
-                    <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'roommate'">
+                    <ng-container *ngIf="accommodationFormGroup.get(['status'])?.value == 'roommate'">
                         <mat-form-field class="example-full-width">
                             <mat-label>Describe your ideal roommate:</mat-label>
                             <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" matInput
@@ -163,7 +175,7 @@
                                 placeholder="I'm tolerant, clean..." formControlName="occupantDescription"></textarea>
                             <mat-hint>Optional</mat-hint>
                         </mat-form-field>
-                    </div>
+                    </ng-container>
                 </div>
 
                 <div class="action-buttons">
@@ -177,10 +189,9 @@
             <mat-step state="payments">
                 <ng-template matStepLabel>How much it costs</ng-template>
                 <div class="accommodation-form form-step-4" [formGroup]="accommodationFormGroup">
-                    <div class="radio-options">
+                    <div>
                         <label id="accommodation-periodic-rent">Rent is</label>
-                        <mat-radio-group formControlName="rentInterval" aria-labelledby="accommodation-periodic-rent"
-                            class="example-radio-group">
+                        <mat-radio-group class="radio-group" formControlName="rentInterval" aria-labelledby="accommodation-periodic-rent">
                             <mat-radio-button value="yearly">Yearly</mat-radio-button>
                             <mat-radio-button value="quarterly">Quarterly</mat-radio-button>
                             <mat-radio-button value="monthly">Monthly</mat-radio-button>
@@ -202,7 +213,7 @@
                 <div class="action-buttons">
                     <div>
                         <button mat-stroked-button matStepperPrevious>Back</button>
-                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                        <button mat-raised-button color="primary" (click)="submit()">Post</button>
                     </div>
 
                     <div>
@@ -214,7 +225,7 @@
 
             </mat-step>
 
-            <mat-step state="location">
+            <!-- <mat-step state="location">
                 <ng-template matStepLabel>Done / Preview</ng-template>
                 <p>You are now done.</p>
                 <div class="action-buttons">
@@ -226,10 +237,10 @@
                         <button mat-button>Save as draft</button>
 
                         <button (click)="submit()" mat-raised-button color="primary">Post</button>
-                        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+                        <button class="d-none" mat-button (click)="stepper.reset()">Reset</button>
                     </div>
                 </div>
-            </mat-step>
+            </mat-step> -->
 
         </mat-stepper>
 

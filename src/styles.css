@@ -2,8 +2,26 @@
 
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-radio-button > .mdc-form-field > label {
+    cursor: pointer;
+}
+
+.d-none {
+    display: none;
+}
 
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp

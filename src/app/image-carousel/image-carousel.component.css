@@ -19,7 +19,11 @@
 }
 
 .lb, .rb {
-    top: -190px; /* we need to use percentages to calculate this */
+    top: -160px; /* we need to use percentages to calculate this */
+}
+
+.custom-swiper-class {
+    /* align-items: center; */
 }
 
 @media only screen and (max-width: 600px) {
