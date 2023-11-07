@@ -97,7 +97,7 @@ section[body] {
     height: calc(100vh - 59.5px);
 }
 .top-div button {
-    padding: 0 20px;
+    margin: 0 20px;
 }
 
 /*

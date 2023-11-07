@@ -45,7 +45,6 @@ export class NavComponent {
       data: {},
       ariaLabel: 'Dialog to create a new accommodation post',
       role: 'dialog',
-      panelClass: 'full-screen-dialog',
     });
 
     /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
@@ -63,7 +62,6 @@ export class NavComponent {
       data: {},
       ariaLabel: 'Dialog to create a new sale post',
       role: 'dialog',
-      panelClass: 'full-screen-dialog',
     });
 
     /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */

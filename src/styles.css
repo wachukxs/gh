@@ -47,12 +47,6 @@ mat-radio-button > .mdc-form-field > label {
     flex-direction: row;
 }
 
-.full-screen-dialog .mat-dialog-container {
-    padding: 1em;
-    width: 100%;
-    height: 100%;
-}
-
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
     Place media queries after other queries

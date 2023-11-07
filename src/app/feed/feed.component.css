@@ -14,8 +14,7 @@ cdk-virtual-scroll-viewport {
 [long-house] {
   display: flex;
 
-  min-width: 75%;
-  max-width: 90%;
+  max-width: 800px;
 }
 
 .scroller [long-house], .scroller [house] {
@@ -54,6 +53,10 @@ cdk-virtual-scroll-viewport {
 
 [long-house] .post-amenities span:not(:last-child) {
   padding-right: 10px;
+}
+
+[long-house] .content {
+  flex-grow: 1;
 }
 
 .amenity {
