@@ -14,15 +14,17 @@ cdk-virtual-scroll-viewport {
 [long-house] {
   display: flex;
 
-  width: 75%;
+  min-width: 75%;
+  max-width: 90%;
 }
 
 .scroller [long-house], .scroller [house] {
   margin: 35px auto;
 }
 
-[long-house] img, [long-house] app-image-carousel { /* [long-house] img, will no longer be needed */
+[long-house] img, [long-house] app-image-carousel {
   width: 350px;
+  flex-basis: 350px; /* This doesn't work as I expect */
 }
 
 [long-house] mat-card-content {
@@ -191,30 +193,13 @@ mat-grid-list {
   border-radius: 1px !important;
 }
 
-.room-deats {
-  display: flex;
-  align-items: center;
-  font-size: small;
-  margin-inline: 8px;
-}
-
-.room-deats mat-icon {
-  cursor: default;
-}
 
 /* ??? */
 @media only screen and (max-device-width: 1280px) {
-  .room-deats span.room-number > span {
-    display: none;
-  }
-
   span.room-number {
     padding-right: 15px;
   }
 
-  .room-deats {
-    font-size: initial;
-  }
 }
 
 .price-area {
@@ -232,10 +217,6 @@ mat-grid-list {
 .room-number {
   padding-top: 5px;
   padding-right: 10px;
-}
-
-.room-deats mat-icon {
-  padding-right: 3px;
 }
 
 .mat-card-in-tile mat-card-subtitle {
@@ -261,7 +242,10 @@ mat-grid-list {
   width: -moz-available;
 }
 
-:host ::ng-deep cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper { /** https://stackoverflow.com/a/59205966 */
+/**
+  * https://stackoverflow.com/a/59205966
+  */
+:host ::ng-deep cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper {
   width: -moz-available !important;
   width: -webkit-fill-available !important;
 }
@@ -310,6 +294,14 @@ mat-card-actions button[mattooltip] mat-icon {
   column-gap: 2px;
 }
 
+.dashboard-card {
+  width: 500px;
+}
+
+.amenity .mat-caption {
+  text-align: center;
+}
+
 /** horizontal scroll => https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
 
 
@@ -320,27 +312,30 @@ mat-card-actions button[mattooltip] mat-icon {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  [long-house] {
-      display: none;
-  }
+  
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  [house] {
-    display: none;
-}
+  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {}
 
+
+@media only screen and (max-width: 992px) {
+  [long-house] {
+    display: none;
+  }
+}
+
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+  [house] {
+    display: none;
+  }
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {}
-
-.dashboard-card {
-  width: 500px;
-}

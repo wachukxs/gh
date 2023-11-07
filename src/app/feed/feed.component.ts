@@ -379,10 +379,11 @@ export class FeedComponent implements OnInit {
 
   seeHouseDetails(): void {
     const dialogRef = this.dialog.open(HouseDetailDialogComponent, {
-      width: '80%',
+      width: '100%',
+      height: '100%',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
       data: {},
-      maxWidth: '100%',
-      maxHeight: '100%',
       ariaLabel: 'Details of the house you just clicked'
     });
 

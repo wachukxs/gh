@@ -1,11 +1,14 @@
 <div class="deats-container">
   <div class="top">
-    <h6 matDialogTitle>House details</h6>
-    <mat-icon matDialogClose>close</mat-icon>
+    <div matDialogTitle>House details</div>
+
+    <button mat-icon-button matDialogClose (click)="closeDialog()" title="Close dialog">
+      <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
+  </button>
   </div>
   <div matDialogContent>
     <mat-tab-group mat-stretch-tabs>
-      <mat-tab label="Maps"> Content 1 </mat-tab>
+      <mat-tab label="Maps">Content 1</mat-tab>
       <mat-tab label="Photos">
 
         <mat-grid-list cols="2" rowHeight="2:1">
@@ -24,7 +27,7 @@
         </mat-grid-list>
          
       </mat-tab>
-      <mat-tab label="Details"> Content 3 </mat-tab>
+      <mat-tab label="Details">Content 3</mat-tab>
     </mat-tab-group>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="wrapper">
     <section class="top-div">
-        <h2 class="top-div-header">
+        <h2 class="top-div-header" matDialogTitle>
             Create new sale
         </h2>
         <button mat-icon-button (click)="close()" title="Close dialog">
@@ -8,7 +8,7 @@
         </button>
     </section>
 
-    <section body>
+    <section body matDialogContent>
         <div class="sales-form" [formGroup]="saleFormGroup">
 
             <mat-form-field class="">

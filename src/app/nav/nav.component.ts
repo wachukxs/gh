@@ -38,12 +38,14 @@ export class NavComponent {
 
   openCreateAccommodationPostDialog() {
     const dialogRef = this.dialog.open(CreateNewAccommodationComponent, {
-      width: '100%',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
       height: '100%',
+      width: '100%',
       data: {},
-      maxWidth: '100%',
-      maxHeight: '100%',
-      ariaLabel: 'Dialog to create a new accommodation post'
+      ariaLabel: 'Dialog to create a new accommodation post',
+      role: 'dialog',
+      panelClass: 'full-screen-dialog',
     });
 
     /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
@@ -54,12 +56,14 @@ export class NavComponent {
 
   openCreateSalePostDialog() {
     const dialogRef = this.dialog.open(CreateNewSaleComponent, {
-      width: '100%',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
       height: '100%',
+      width: '100%',
       data: {},
-      maxWidth: '100%',
-      maxHeight: '100%',
-      ariaLabel: 'Dialog to create a new sale post'
+      ariaLabel: 'Dialog to create a new sale post',
+      role: 'dialog',
+      panelClass: 'full-screen-dialog',
     });
 
     /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */

@@ -5,11 +5,12 @@ mat-grid-list {
 .top {
     display: flex;
     justify-content: space-between;
+
+    align-items: center;
 }
 
-.top mat-icon {
-    margin-top: 4px;
-    cursor: pointer;
+.top button {
+    padding: 0 20px;
 }
 
 @media only screen 

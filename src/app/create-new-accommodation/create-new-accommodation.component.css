@@ -1,11 +1,11 @@
+:host {
+    height: 100%;
+}
+
 .top-div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.top-div-header {
-    padding-left: 12px;
 }
 
 .images-preview {
@@ -93,7 +93,12 @@ section[body] {
 .custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
-
+section[body] {
+    height: calc(100vh - 59.5px);
+}
+.top-div button {
+    padding: 0 20px;
+}
 
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
@@ -104,6 +109,9 @@ section[body] {
 @media only screen and (max-width: 600px) {
     mat-form-field {
         width: 100%;
+    }
+    section[body] {
+        padding: 0px;
     }
 }
 

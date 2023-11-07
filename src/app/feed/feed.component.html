@@ -68,9 +68,9 @@
           <input matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
         </mat-slider>
 
-        <!-- based on the distance, filter the avaliabel places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
+        <!-- based on the distance, filter the available places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
 
-        <mat-toolbar-row style="padding: 0px;">
+        <mat-toolbar-row style="padding: 0px; align-items: start;">
           <mat-form-field [hidden]="hidePlacesSelect">
             <mat-label>Places like:</mat-label>
             <mat-select role="listbox" [formControl]="places" multiple>
@@ -173,6 +173,7 @@
         let last = last;
         let even = even;
         let odd = odd;">
+
         <div long-house>
           <!--
               If you click image, it should open seeHouseDetails() right to images section.
@@ -185,7 +186,7 @@
             <div class="top-details">
               <section>
                 <mat-card-title>Apartment type</mat-card-title>
-                <mat-card-subtitle>Posted by XX/DDX/DDDD</mat-card-subtitle>
+                <mat-card-subtitle>Posted 3 days ago</mat-card-subtitle>
               </section>
               <section>
                 <span>&#8358;57,000</span>
@@ -235,8 +236,8 @@
                     <span>Chat agent</span>
                   </button>
                   <button mat-menu-item (click)="seeHouseDetails()">
-                    <mat-icon>view_cozy</mat-icon>
-                    <span>Chat agent</span>
+                    <mat-icon>info</mat-icon>
+                    <span>View details</span>
                   </button>
                 </mat-menu>
               </section>
@@ -303,7 +304,7 @@
                     <span>Chat agent</span>
                   </button>
                   <button mat-menu-item (click)="seeHouseDetails()">
-                    <mat-icon>view_cozy</mat-icon>
+                    <mat-icon>info</mat-icon>
                     <span>View details</span>
                   </button>
                 </mat-menu>
