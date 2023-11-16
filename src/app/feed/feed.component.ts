@@ -35,7 +35,7 @@ interface Place {
 interface PlacesGroup {
   // more relevant properties
   disabled?: boolean;
-  distace: number;
+  distance: number;
   place: Place[];
 }
 
@@ -103,7 +103,7 @@ export class FeedComponent implements OnInit {
     {text: 'Lower details', cols: 1, rows: 1, color: '#DDBDF1'},
   ];
 
-  hidePlacesSelect: boolean = false;
+  hidePlacesSelect: boolean = false; // why did we need this?
   hideProximityPlacesSelect: boolean = false;
 
   location: any = undefined;
@@ -112,7 +112,7 @@ export class FeedComponent implements OnInit {
   houseTypeDisabled = false;
   proximityDisabled = false;
 
-  places = new FormControl({value: '', disabled: this.proximityDisabled});
+  places = new FormControl({value: '', disabled: !this.proximityDisabled});
   placesList: string[] = [
     'Bodija', 'Aare', 'Lagos', 'Surelere', 'Iwo', 'Zamfara',
     'Osun', 'Ibafo', 'Mowe', 'Mile 12', 'Jos', 'Umuahia',
@@ -122,7 +122,7 @@ export class FeedComponent implements OnInit {
   placesControl = new FormControl();
   placesGroup: PlacesGroup[] = [
     {
-      distace: 355.34,
+      distance: 355.34,
       place: [
         {value: 'bulbasaur-0', viewValue: 'Bulbasaur'},
         {value: 'oddish-1', viewValue: 'Oddish'},
@@ -130,7 +130,7 @@ export class FeedComponent implements OnInit {
       ]
     },
     {
-      distace: 353.23,
+      distance: 353.23,
       place: [
         {value: 'squirtle-3', viewValue: 'Squirtle'},
         {value: 'psyduck-4', viewValue: 'Psyduck'},
@@ -138,7 +138,7 @@ export class FeedComponent implements OnInit {
       ]
     },
     {
-      distace: 523,
+      distance: 523,
       disabled: true,
       place: [
         {value: 'charmander-6', viewValue: 'Charmander'},
@@ -147,7 +147,7 @@ export class FeedComponent implements OnInit {
       ]
     },
     {
-      distace: 3,
+      distance: 3,
       place: [
         {value: 'mew-9', viewValue: 'Mew'},
         {value: 'mewtwo-10', viewValue: 'Mewtwo'},

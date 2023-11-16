@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
 
   <mat-toolbar-row>
-    <span class="app-name-header" routerLink="/home">Corpers Online</span>
+    <span class="app-name-header" routerLink="/">Corpers Online</span>
     <span class="example-spacer"></span>
 
     <button class="hide-mobile" mat-button (click)="openCreateAccommodationPostDialog()">Post Accommodation</button>
@@ -23,10 +23,8 @@
     <mat-menu #menu="matMenu" class="menu-list">
       <button mat-menu-item [routerLink]="['/']">Home</button>
       <button mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
-      <button mat-menu-item [routerLink]="['/home/profile']">Profile</button>
-      <button mat-menu-item [routerLink]="['/signup']">Sign up</button>
-      <button mat-menu-item [routerLink]="['/login']">Login</button>
-      <button mat-menu-item [routerLink]="['/']" (click)="logout()">Logout</button>
+      <button mat-menu-item [routerLink]="['/profile']">Profile</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
 
   </mat-toolbar-row>

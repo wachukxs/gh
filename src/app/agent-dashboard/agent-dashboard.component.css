@@ -1,57 +1,114 @@
 .grid-container {
+    margin: 20px;
+}
+
+.parent-chat {
   margin: 20px;
+  display: flex;
+  height: calc(100vh - 64px - 48px - 40px);
 }
 
 .dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
 }
 
 .more-button {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
 }
 
 .dashboard-card-content {
-  text-align: center;
+    text-align: center;
 }
 
 .margin-up-down {
-  margin-top: 10px;
-  margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .house-image {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
 
 .mb {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .inner-update-form {
-  margin: 10px;
+    margin: 10px;
 }
 
 div.add-house-buttons button {
-  margin: 0 10px 0 0;
+    margin: 0 10px 0 0;
 }
 
-.inner-update-form > mat-form-field, .add-house > mat-form-field {
-  margin: 10px;
+.inner-update-form > mat-form-field,
+.add-house > mat-form-field {
+    margin: 10px;
 }
 
-.headers-align .mat-expansion-panel-header-title,
-.headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
+.chat-list {
+    flex-basis: 350px;
+}
+.chat-box {
+    flex-grow: 1;
 }
 
-.headers-align .mat-expansion-panel-header-description {
-  justify-content: space-between;
-  align-items: center;
+.inner-chat-box {
+    height: 75%;
+    border: 1px solid black;
+}
+
+.profile-image {
+    flex-basis: inherit;
+
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.person-msg-intro {
+    display: flex;
+    align-items: center;
+}
+
+.chat-card {
+    padding: 5px;
+    width: fit-content;
+}
+
+.spacer {
+    flex-basis: 20%;
+}
+
+.sender {
+    flex-direction: row;
+    text-align: right;
+}
+
+.receiver {
+    flex-direction: row-reverse;
+    text-align: left;
+}
+
+.msg-row .spacer {
+    flex-grow: 1;
+}
+
+.msg-row {
+    display: flex;
+
+    margin: 15px 0px;
+}
+
+.msg-input {
+    width: calc(100% - 50px);
 }

@@ -2,6 +2,14 @@
 @import 'node_modules/swiper/modules/navigation/navigation.min.css';
 @import 'node_modules/swiper/modules/pagination/pagination.min.css';
 
+.img-gallery-container, app-image-carousel {
+    width: inherit;
+}
+
+.nav-button {
+    top: -180px;
+}
+
 .img {
     width: 100%;
     height: auto;
@@ -11,23 +19,12 @@
 .nav-button-container {
     position: fixed;
     z-index: 10;
-    cursor: pointer;
     width: inherit;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.lb, .rb {
-    top: -160px; /* we need to use percentages to calculate this */
-}
-
-.custom-swiper-class {
-    /* align-items: center; */
-}
-
 @media only screen and (max-width: 600px) {
-    .nav-button-container {
-        display: none;
-    }
+
 }

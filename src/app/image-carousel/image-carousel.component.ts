@@ -21,42 +21,40 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
     @ViewChild('rightButton', { static: false, read: ElementRef }) rightButton?: HTMLButtonElement
     @ViewChild('leftButton', { static: false, read: ElementRef }) leftButton?: HTMLButtonElement
 
-    @Input() displayIndex: null | number = null
+    @Input() displayIndex!: number // should be sth unique.
 
     swiperConfig: SwiperOptions = {
-        // navigation: false, // automatically added
         zoom: true,
         pagination: { clickable: true, dynamicBullets: true },
+        // navigation: {
+        //     nextEl: '.right-btn-' + this.displayIndex,
+        //     prevEl: '.left-btn-' + this.displayIndex,
+        // }
     }
 
     isSmallScreen$: Observable<boolean> = this.baseService.isSmallScreen$()
 
     onClick(index: number): void {}
 
-    // from hammerjs, not used
+    // from hammerjs, not used - swiper has same/similar event methods we can use
     onSwipeRight(event: any): void {}
     onSwipeLeft(event: any): void {}
 
     constructor(private baseService: BaseService) {}
 
     ngOnInit(): void {
-        // automatically added swiper button navigation
-        this.baseService.isSmallScreen$().subscribe({
-            next: (isSmallScreen) => {
-                if (isSmallScreen) {
-                    this.swiperConfig.navigation = false
-                } else {
-                    this.swiperConfig.navigation = {
-                        nextEl: '.right-btn-' + this.displayIndex,
-                        prevEl: '.left-btn-' + this.displayIndex,
-                    }
-                }
-            },
-            error: (err) => {
-                console.log('ish', err)
-            },
-        })
+        this.swiperConfig.navigation = {
+            nextEl: '.right-btn-' + this.displayIndex,
+            prevEl: '.left-btn-' + this.displayIndex,
+        }
     }
 
     ngAfterViewInit(): void {}
+
+    swipePrev() {
+        // this.swiper?.swiperRef.slidePrev();
+    }
+    swipeNext() {
+        // this.swiper?.swiperRef.slideNext();
+    }
 }

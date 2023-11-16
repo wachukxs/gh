@@ -33,6 +33,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CdkStepperModule } from '@angular/cdk/stepper'; // not using this yet, don't even know what it's for [// https://material.angular.io/guide/creating-a-custom-stepper-using-the-cdk-stepper] & MatFormFieldModule
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -69,6 +70,7 @@ import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
 import { corpMemberReducer, corpMemberFeatureKey } from './ngrx-store/reducers/corp-member.reducer';
 import { BaseInterceptorInterceptor } from './base-interceptor.interceptor';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
@@ -138,6 +140,8 @@ import { BaseInterceptorInterceptor } from './base-interceptor.interceptor';
     HammerModule,
     MatBadgeModule,
     SwiperModule,
+    MatFormFieldModule,
+    TextFieldModule,
     EffectsModule.forRoot([CorpMemberEffects]),
     StoreModule.forRoot({[corpMemberFeatureKey]: corpMemberReducer}), // {corper: corpMemberReducer} // {[corpMemberFeatureKey]: corpMemberReducer}
   ],

@@ -1,162 +1,177 @@
-<mat-tab-group mat-stretch-tabs color="primary" backgroundColor="primary">
+<mat-tab-group mat-stretch-tabs color="primary" backgroundColor="accent">
   <mat-tab label="Add place">
-    
-<div class="grid-container">
-  <h1 class="mat-h1">Add an apartment</h1>
+    <div class="grid-container">
+      <h1 class="mat-h1">Add an apartment</h1>
 
-  <mat-card appearance="outlined">
-    <form [formGroup]="propertyForm" (ngSubmit)="postHouse()">
-      <mat-vertical-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="propertyForm.controls.number && propertyForm.controls.street && propertyForm.controls.city_or_town && propertyForm.controls.state" >
+      <mat-card appearance="outlined">
+        <form [formGroup]="propertyForm" (ngSubmit)="postHouse()">
+          <mat-vertical-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="
+                                propertyForm.controls.number &&
+                                propertyForm.controls.street &&
+                                propertyForm.controls.city_or_town &&
+                                propertyForm.controls.state
+                            ">
+              <ng-template matStepLabel>Fill out the house address</ng-template>
+              <!--Intentionally did not put the exact flat because some Nigerians are dubious-->
+              <div class="add-house">
+                <mat-form-field>
+                  <mat-label>House number</mat-label>
+                  <input matInput placeholder="Flat 10A" formControlName="number" required />
+                </mat-form-field>
 
-          <ng-template matStepLabel>Fill out the house address</ng-template>
-          <!--Intentionally did not put the exact flat because some Nigerians are dubious-->
-          <div class="add-house">
-            <mat-form-field>
-              <mat-label>House number</mat-label>
-              <input matInput placeholder="Flat 10A" formControlName="number" required>
-            </mat-form-field>
-            
-            <mat-form-field>
-              <mat-label>Street</mat-label>
-              <input matInput placeholder="Eforo street" formControlName="street" required>
-            </mat-form-field>
-  
-            <mat-form-field>
-              <mat-label>City or Town</mat-label>
-              <input matInput placeholder="Umuahia" formControlName="city_or_town" required>
-            </mat-form-field>
-  
-            <mat-form-field>
-              <mat-label>State</mat-label>
-              <input matInput placeholder="Jigawa" formControlName="state" required>
-            </mat-form-field>
-          </div>
+                <mat-form-field>
+                  <mat-label>Street</mat-label>
+                  <input matInput placeholder="Eforo street" formControlName="street" required />
+                </mat-form-field>
 
-          <div class="add-house-buttons"><!-- add "Save draft" button to this and other group? -->
-            <button type="button" mat-button mat-raised-button matStepperNext>Next</button>
-          </div>
+                <mat-form-field>
+                  <mat-label>City or Town</mat-label>
+                  <input matInput placeholder="Umuahia" formControlName="city_or_town" required />
+                </mat-form-field>
 
-        </mat-step>
-        <mat-step [stepControl]="propertyForm.controls.house_type && propertyForm.controls.bedrooms && propertyForm.controls.kitchen && propertyForm.controls.toilet && propertyForm.controls.bathrooms" >
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <input matInput placeholder="Jigawa" formControlName="state" required />
+                </mat-form-field>
+              </div>
 
-          <ng-template matStepLabel>Fill out the house details</ng-template>
-          <!--type, price, rooms, floor types, probably wall type?? [should this all be together in a section?]-->
+              <div class="add-house-buttons">
+                <!-- add "Save draft" button to this and other group? -->
+                <button type="button" mat-button mat-raised-button matStepperNext>
+                  Next
+                </button>
+              </div>
+            </mat-step>
+            <mat-step [stepControl]="
+                                propertyForm.controls.house_type &&
+                                propertyForm.controls.bedrooms &&
+                                propertyForm.controls.kitchen &&
+                                propertyForm.controls.toilet &&
+                                propertyForm.controls.bathrooms
+                            ">
+              <ng-template matStepLabel>Fill out the house details</ng-template>
+              <!--type, price, rooms, floor types, probably wall type?? [should this all be together in a section?]-->
 
-          <div class="add-house">
-            <mat-form-field>
-              <mat-label>Places like:</mat-label>
-              <mat-select role="listbox" [formControl]="propertyForm.controls.house_type" required>
-  
-                <mat-option role="option" *ngFor="let houseType of houseTypes" [value]="houseType">{{houseType}}</mat-option>
-      
-              </mat-select>
-              <mat-hint>How would you best say the house is? Flat, Self-contain, etc.</mat-hint>
-            </mat-form-field>
-  
-            <mat-form-field>
-              <mat-label>Bathrooms</mat-label>
-              <input matInput placeholder="1" formControlName="bathrooms" required>
-            </mat-form-field>
-  
-            <mat-form-field>
-              <mat-label>Toilet</mat-label>
-              <input matInput placeholder="8" formControlName="toilet" required>
-            </mat-form-field>
-  
-            <mat-form-field>
-              <mat-label>Bedrooms</mat-label>
-              <input matInput placeholder="15" formControlName="bedrooms" required>
-            </mat-form-field>
-  
-  
-            <mat-form-field>
-              <mat-label>Kitchen</mat-label>
-              <input matInput formControlName="graphics" placeholder="Shared" formControlName="kitchen" required>
-            </mat-form-field>
-          </div>
-          <div class="add-house-buttons">
-            <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
-            <button type="button" mat-button mat-raised-button matStepperNext>Next</button>
-          </div>
+              <div class="add-house">
+                <mat-form-field>
+                  <mat-label>Places like:</mat-label>
+                  <mat-select role="listbox" [formControl]="
+                                            propertyForm.controls.house_type
+                                        " required>
+                    <mat-option role="option" *ngFor="let houseType of houseTypes"
+                      [value]="houseType">{{ houseType }}</mat-option>
+                  </mat-select>
+                  <mat-hint>How would you best say the house is?
+                    Flat, Self-contain, etc.</mat-hint>
+                </mat-form-field>
 
-        </mat-step>
+                <mat-form-field>
+                  <mat-label>Bathrooms</mat-label>
+                  <input matInput placeholder="1" formControlName="bathrooms" required />
+                </mat-form-field>
 
+                <mat-form-field>
+                  <mat-label>Toilet</mat-label>
+                  <input matInput placeholder="8" formControlName="toilet" required />
+                </mat-form-field>
 
-        <mat-step [stepControl]="propertyForm.controls.price">
-          <ng-template matStepLabel>Done</ng-template>
-          <!-- <p>Is price is bargainable?</p> -->
-          <div class="add-house">
-            <mat-form-field>
-              <mat-label>Price</mat-label>
-              <input matInput placeholder="₦75,000" formControlName="price" required>
-            </mat-form-field>
-          </div>
+                <mat-form-field>
+                  <mat-label>Bedrooms</mat-label>
+                  <input matInput placeholder="15" formControlName="bedrooms" required />
+                </mat-form-field>
 
-          <div class="add-house-buttons">
-            <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
-            <button type="button" mat-button mat-raised-button (click)="stepper.reset()">Reset</button>
-            <button type="submit" mat-button mat-raised-button type="submit">Submit</button>
-          </div>
-        </mat-step>
-      </mat-vertical-stepper>
-    </form>
-  </mat-card>
+                <mat-form-field>
+                  <mat-label>Kitchen</mat-label>
+                  <input matInput formControlName="graphics" placeholder="Shared" formControlName="kitchen" required />
+                </mat-form-field>
+              </div>
+              <div class="add-house-buttons">
+                <button type="button" mat-button mat-raised-button matStepperPrevious>
+                  Back
+                </button>
+                <button type="button" mat-button mat-raised-button matStepperNext>
+                  Next
+                </button>
+              </div>
+            </mat-step>
 
-</div>
+            <mat-step [stepControl]="propertyForm.controls.price">
+              <ng-template matStepLabel>Done</ng-template>
+              <!-- <p>Is price is bargainable?</p> -->
+              <div class="add-house">
+                <mat-form-field>
+                  <mat-label>Price</mat-label>
+                  <input matInput placeholder="₦75,000" formControlName="price" required />
+                </mat-form-field>
+              </div>
 
+              <div class="add-house-buttons">
+                <button type="button" mat-button mat-raised-button matStepperPrevious>
+                  Back
+                </button>
+                <button type="button" mat-button mat-raised-button (click)="stepper.reset()">
+                  Reset
+                </button>
+                <button type="submit" mat-button mat-raised-button type="submit">
+                  Submit
+                </button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </form>
+      </mat-card>
+    </div>
   </mat-tab>
-  <mat-tab label="Listings"> 
+  <mat-tab label="Listings">
     <div class="listing-parent">
       <div class="grid-container">
         <h1 class="mat-h1">Edit house details</h1>
 
         <mat-accordion class="headers-align">
-
           <mat-expansion-panel *ngFor="let house of houses" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{house.house_type}}, {{house.number}}
+                {{ house.house_type }}, {{ house.number }}
               </mat-panel-title>
               <mat-panel-description>
-                {{house.street}}
+                {{ house.street }}
                 <span class="price">
-                  &#8358;{{house.price}}
+                  &#8358;{{ house.price }}
                 </span>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div>
-    
               <form class="update-form">
-
                 <div>
                   <mat-label>Add media files</mat-label>
-                  <br>
+                  <br />
                   <button type="button" mat-button mat-raised-button>
-                    <input type="file" accept="image/*" required multiple (change)="houseMedia($event, house.id)">
+                    <input type="file" accept="image/*" required multiple (change)="
+                                                houseMedia($event, house.id)
+                                            " />
                   </button>
                 </div>
-                
-              
+
                 <div class="inner-update-form">
                   <mat-form-field>
                     <mat-label>Bathroom</mat-label>
-                    <input matInput [value]="house.bathrooms">
+                    <input matInput [value]="house.bathrooms" />
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Toilet</mat-label>
-                    <input matInput [value]="house.toilet">
+                    <input matInput [value]="house.toilet" />
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Kitchen</mat-label>
-                    <input matInput [value]="house.kitchen">
+                    <input matInput [value]="house.kitchen" />
                   </mat-form-field>
-              
+
                   <mat-form-field>
                     <mat-label>Bedroom</mat-label>
-                    <input matInput [value]="house.bedrooms" type="number" min="1">
+                    <input matInput [value]="house.bedrooms" type="number" min="1" />
                   </mat-form-field>
                 </div>
               </form>
@@ -164,53 +179,59 @@
               <mat-divider class="mb"></mat-divider>
 
               <mat-grid-list cols="2" gutterSize="10px" rowHeight="6:4">
-
-                <mat-grid-tile *ngFor="let image of aHouseImages(house.resource_uri)">
-                  <img class="house-image" mat-card-image [src]="baseUrl + image.images" alt="A photo of a room in this house">
+                <mat-grid-tile *ngFor="
+                                        let image of aHouseImages(
+                                            house.resource_uri
+                                        )
+                                    ">
+                  <img class="house-image" mat-card-image [src]="baseUrl + image.images"
+                    alt="A photo of a room in this house" />
                   <mat-grid-tile-footer>
-                    <button (click)="deleteHouseImage(image.images)" mat-icon-button color="basic" aria-label="Delete this picture of this house">
+                    <button (click)="
+                                                deleteHouseImage(image.images)
+                                            " mat-icon-button color="basic"
+                      aria-label="Delete this picture of this house">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </mat-grid-tile-footer>
                 </mat-grid-tile>
               </mat-grid-list>
-
-
             </div>
             <mat-action-row>
-              <button type="button" mat-button mat-raised-button (click)="updateHouseInfo()">Update</button>
-              <button mat-button color="primary" (click)="nextStep()">Next</button>
+              <button type="button" mat-button mat-raised-button (click)="updateHouseInfo()">
+                Update
+              </button>
+              <button mat-button color="primary" (click)="nextStep()">
+                Next
+              </button>
             </mat-action-row>
           </mat-expansion-panel>
-    
+
           <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                Personal data
-              </mat-panel-title>
+              <mat-panel-title> Personal data </mat-panel-title>
               <mat-panel-description>
                 Type your name and age
                 <mat-icon>account_circle</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-        
+
             <mat-form-field>
               <mat-label>First name</mat-label>
-              <input matInput>
+              <input matInput />
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Age</mat-label>
-              <input matInput type="number" min="1">
+              <input matInput type="number" min="1" />
             </mat-form-field>
 
-            
             <mat-divider></mat-divider>
 
             <mat-grid-list cols="2" gutterSize="10px" rowHeight="6:4">
-              
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'" alt="A photo of a room in this house">
+                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                  alt="A photo of a room in this house" />
                 <mat-grid-tile-footer>
                   <button mat-icon-button color="basic" aria-label="Delete this picture of this house">
                     <mat-icon>delete</mat-icon>
@@ -218,102 +239,164 @@
                 </mat-grid-tile-footer>
               </mat-grid-tile>
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'" alt="A photo of a room in this house">
+                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                  alt="A photo of a room in this house" />
               </mat-grid-tile>
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'" alt="A photo of a room in this house">
+                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                  alt="A photo of a room in this house" />
               </mat-grid-tile>
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'" alt="A photo of a room in this house">
+                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                  alt="A photo of a room in this house" />
               </mat-grid-tile>
             </mat-grid-list>
-            
-
 
             <mat-action-row>
-              <button mat-button color="primary" (click)="nextStep()">Next</button>
+              <button mat-button color="primary" (click)="nextStep()">
+                Next
+              </button>
             </mat-action-row>
           </mat-expansion-panel>
-        
+
           <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                Destination
-              </mat-panel-title>
+              <mat-panel-title> Destination </mat-panel-title>
               <mat-panel-description>
                 Type the country name
                 <mat-icon>map</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-        
+
             <mat-form-field>
               <mat-label>Country</mat-label>
-              <input matInput>
+              <input matInput />
             </mat-form-field>
-        
+
             <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">Previous</button>
-              <button mat-button color="primary" (click)="nextStep()">Next</button>
+              <button mat-button color="warn" (click)="prevStep()">
+                Previous
+              </button>
+              <button mat-button color="primary" (click)="nextStep()">
+                Next
+              </button>
             </mat-action-row>
           </mat-expansion-panel>
-        
+
           <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                Day of the trip
-              </mat-panel-title>
+              <mat-panel-title> Day of the trip </mat-panel-title>
               <mat-panel-description>
                 Inform the date you wish to travel
                 <mat-icon>date_range</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
-        
+
             <mat-form-field>
               <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+              <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly />
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
-        
+
             <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">Previous</button>
-              <button mat-button color="primary" (click)="nextStep()">End</button>
+              <button mat-button color="warn" (click)="prevStep()">
+                Previous
+              </button>
+              <button mat-button color="primary" (click)="nextStep()">
+                End
+              </button>
             </mat-action-row>
           </mat-expansion-panel>
-        
         </mat-accordion>
-        
       </div>
     </div>
   </mat-tab>
-  <mat-tab label="Chats">
+  <mat-tab label="Messages">
     <div class="parent-chat">
-      <mat-list>
-        <div mat-subheader>Folders</div>
-        <mat-list-item *ngFor="let folder of folders">
-          <mat-icon mat-list-icon>folder</mat-icon>
-          <div mat-line>{{folder.name}}</div>
-          <div mat-line> {{folder.updated | date}} </div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <div mat-subheader>Notes</div>
-        <mat-list-item *ngFor="let note of notes">
-          <mat-icon mat-list-icon>note</mat-icon>
-          <div mat-line>{{note.name}}</div>
-          <div mat-line> {{note.updated | date}} </div>
-        </mat-list-item>
-      </mat-list>
-      
+      <div class="chat-list">
+        <mat-list role="list">
+          <!-- <div mat-subheader>Folders</div>
+          <ng-container *ngFor="let folder of folders">
+            <mat-list-item>
+              <mat-icon matListItemIcon>folder</mat-icon>
+              <div matListItemTitle> {{folder.name}} </div>
+              <div matListItemLine> {{folder.updated | date}} </div>
+            </mat-list-item>
+          </ng-container>
+          <mat-divider></mat-divider> -->
+          <div mat-subheader>Chats</div>
+          <mat-divider></mat-divider>
+          <ng-container *ngFor="let note of notes">
+            <mat-list-item>
+              <div class="person-msg-intro">
+                <img class="profile-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                  alt="Profile pic" />
+                <div>
+                  <div>{{ note.name }}</div>
+                  <div>{{ note.updated | date }}</div>
+                </div>
+              </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </ng-container>
+          
+        </mat-list>
+      </div>
+
+      <div class="chat-box">
+        <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="inner-chat-box">
+          <div *cdkVirtualFor="
+                            let item of randomNumber;
+                            let index = index;
+                            let count = count;
+                            let first = first;
+                            let last = last;
+                            let even = even;
+                            let odd = odd
+                        " class="msg-row" [ngClass]="{ sender: even, receiver: odd }">
+            <div class="spacer"></div>
+            <mat-card class="chat-card">
+              <div *ngIf="even">
+                The Shiba Inu is the smallest of the six
+                original and distinct spitz breeds of dog from
+                Japan. A small, agile dog that copes very well
+                with mountainous terrain, the Shiba Inu was
+                originally bred for hunting.
+              </div>
+              <div *ngIf="odd">A shorter text.</div>
+
+              <span>4:45PM</span>
+            </mat-card>
+          </div>
+        </cdk-virtual-scroll-viewport>
+
+        <div>
+          <mat-form-field class="msg-input">
+            <mat-label>Your message</mat-label>
+            <textarea 
+            [formControl]="chatMessage"
+            matInput 
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+          <!-- TODO: send button should also be disabled if there is no internet connection -->
+          <button [disabled]="!chatMessage.value" mat-icon-button color="primary" aria-label="Send message icon" (click)="sendMessage()">
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
   </mat-tab>
 </mat-tab-group>
-
 
 <!--
             style input button 
             https://stackoverflow.com/questions/572768/styling-an-input-type-file-button 
             from https://stackoverflow.com/questions/47974175/how-do-i-style-a-file-upload-button
           -->
-        <!-- <mat-step [stepControl]="propertyForm.controls.graphics">
+<!-- <mat-step [stepControl]="propertyForm.controls.graphics">
 
           <ng-template matStepLabel>Media of the house details</ng-template>
 
@@ -331,7 +414,7 @@
 
         </mat-step> -->
 
-  <!-- 
+<!-- 
   <mat-card>
     <mat-vertical-stepper #stepper>
       <mat-step [stepControl]="firstFormGroup">
@@ -373,7 +456,7 @@
   </mat-card>
  -->
 
-  <!-- <mat-grid-list cols="2" rowHeight="350px">
+<!-- <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -394,4 +477,3 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list> -->
-

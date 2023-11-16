@@ -23,7 +23,8 @@ import { CreateNewAccommodationComponent } from './create-new-accommodation/crea
 
 const routes: Routes = [
     {
-        path: 'home',
+        path: '',
+        title: 'Home',
         component: NavComponent,
         canActivate: [BasicAuthGuard],
         children: [
@@ -33,6 +34,26 @@ const routes: Routes = [
                 component: FeedComponent,
             },
             { path: 'profile', title: 'Profile', component: ProfileComponent },
+            {
+                path: 'dashboard',
+                title: 'Dashboard',
+                component: AgentDashboardComponent,
+                canActivate: [AuthenticationService],
+                canDeactivate: [CanExitGuard],
+            },
+            {
+                path: 'test',
+                title: 'This is a test component',
+                component: TestComponent,
+                canActivate: [InLocalGuard],
+                children: [
+                    // {
+                    //     path: 'new-accommodation',
+                    //     title: 'Testing new accommodation dialog',
+                    //     component: CreateNewAccommodationComponent,
+                    // },
+                ]
+            },
         ],
     },
     {
@@ -47,28 +68,11 @@ const routes: Routes = [
         component: CartComponent,
         canActivate: [InLocalGuard],
     },
-    {
-        path: 'nav',
-        title: 'Nav?',
-        component: NavComponent,
-        canActivate: [InLocalGuard],
-    },
 
     // put activatedRoute for dashboard, agents much be loggedIN
-    {
-        path: 'dashboard',
-        title: 'Dashboard',
-        component: AgentDashboardComponent,
-        canActivate: [AuthenticationService],
-        canDeactivate: [CanExitGuard],
-    },
+
     { path: 'login', title: 'Login', component: LoginComponent },
     { path: 'signup', title: 'Sign up', component: SignupComponent },
-    {
-        path: '',
-        title: 'Welcome! Join our waitlist.',
-        component: WaitlistComponent,
-    },
     {
         path: 'form',
         title: 'A sample Form Page.',
@@ -76,19 +80,11 @@ const routes: Routes = [
         canActivate: [InLocalGuard],
     },
     {
-        path: 'test',
-        title: 'This is a test component',
-        component: TestComponent,
-        canActivate: [InLocalGuard],
-        children: [
-            // {
-            //     path: 'new-accommodation',
-            //     title: 'Testing new accommodation dialog',
-            //     component: CreateNewAccommodationComponent,
-            // },
-        ]
+        path: '',
+        title: 'Welcome! Join our wait list.',
+        component: WaitlistComponent,
     },
-    { path: '**', redirectTo: 'home' },
+    { path: '**', redirectTo: '' },
 ]
 
 @NgModule({

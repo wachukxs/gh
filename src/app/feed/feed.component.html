@@ -27,7 +27,7 @@
           <mat-chip color="primary" selected>₦200,000</mat-chip>
         </mat-chip-listbox>
         <!-- TODO: Change the max value from 200000 -->
-        <mat-slider [disabled]="budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete
+        <mat-slider [disabled]="!budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete
           min="20000" step="25000" max="200000">
           <input value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
           <input value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
@@ -45,7 +45,7 @@
       </mat-toolbar-row>
 
       <div class="byside">
-        <mat-chip-listbox [disabled]="houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
+        <mat-chip-listbox [disabled]="!houseTypeDisabled" aria-label="Specs selection" selectable="true" multiple="true">
           <mat-chip-option *ngFor="let houseType of availableHouseTypes"
             (selectionChange)="onChipClick($event, houseType)">
             {{ houseType.name }}
@@ -63,7 +63,7 @@
       </mat-toolbar-row>
 
       <div class="byside">
-        <mat-slider [disabled]="proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete
+        <mat-slider [disabled]="!proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete
           step="500" min="100" max="3000">
           <input matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
         </mat-slider>
@@ -73,7 +73,7 @@
         <mat-toolbar-row style="padding: 0px; align-items: start;">
           <mat-form-field [hidden]="hidePlacesSelect">
             <mat-label>Places like:</mat-label>
-            <mat-select role="listbox" [formControl]="places" multiple>
+            <mat-select role="listbox" [formControl]="places" multiple [disabled]="!proximityDisabled">
               <!-- <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace + ' meters from you'">
                 <mat-option *ngFor="let place of places.place" [value]="place.value">
                   {{place.viewValue}}
@@ -90,7 +90,7 @@
 
           <span class="example-spacer"></span>
 
-          <button [disabled]="proximityDisabled" type="button" aria-label="Toggle geolocation" mat-icon-button>
+          <button [disabled]="!proximityDisabled" type="button" aria-label="Toggle geolocation" mat-icon-button>
             <!-- switch between gps_fixed, gps_not_fixed and gps_off icons  when communicating geolocation status -->
             <mat-icon matTooltip="Filter with current location" aria-label="get geolocation toggle icon">gps_fixed
             </mat-icon>
@@ -185,7 +185,7 @@
 
             <div class="top-details">
               <section>
-                <mat-card-title>Apartment type</mat-card-title>
+                <mat-card-title>Apartment type {{count}}</mat-card-title>
                 <mat-card-subtitle>Posted 3 days ago</mat-card-subtitle>
               </section>
               <section>
@@ -252,7 +252,7 @@
               If you click image, it should open seeHouseDetails() right to images section.
             -->
           <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
-          <app-image-carousel></app-image-carousel>
+          <app-image-carousel [displayIndex]="index + count"></app-image-carousel>
 
           <mat-card-content>
 

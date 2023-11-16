@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
                         // we're good
                         localStorage.setItem('online-corper', JSON.stringify(res.body.data));
                         this.callerService._store.dispatch(setCorpMember({data: res.body.data}))
-                        this.router.navigate(['/home']); // retired /dashboard for agents
+                        this.router.navigate(['/']); // /dashboard for agents
                     } else {
                         // show error message
                         this.callerService.showNotification(

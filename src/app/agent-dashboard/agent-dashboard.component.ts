@@ -81,9 +81,13 @@ export class AgentDashboardComponent implements OnInit, CanExit {
 
   houseFormData = new FormData();
 
+  chatMessage = new FormControl({value: '', disabled: false});
+
   step = 0;
 
   loadingHouseDataTries = 0;
+
+  randomNumber: Array<string> = Array.from('af2389dsjfas3433fjdsakfal34335klsfdas')
 
   folders: any[] = [
     {
@@ -246,6 +250,10 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     } else {
       return true;
     }
+  }
+
+  sendMessage() {
+
   }
 
 }

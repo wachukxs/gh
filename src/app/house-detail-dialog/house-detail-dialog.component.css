@@ -10,7 +10,7 @@ mat-grid-list {
 }
 
 .top button {
-    padding: 0 20px;
+    margin: 0 5px;
 }
 
 @media only screen 
