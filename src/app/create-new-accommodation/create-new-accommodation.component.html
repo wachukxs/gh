@@ -13,23 +13,33 @@
 
         <mat-stepper [orientation]="stepperOrientation" #stepper>
             <!-- Icon overrides. -->
+            <!-- 
+            <ng-template matStepperIcon="other_houses" let-index="index">
+                <mat-icon>other_houses</mat-icon>
+            </ng-template>
             <ng-template matStepperIcon="location" let-index="index">
                 <mat-icon>pin_drop</mat-icon>
             </ng-template>
-            <ng-template matStepperIcon="house">
-                <mat-icon>apartment</mat-icon>
+            <ng-template matStepperIcon="image">
+                <mat-icon>image</mat-icon>
             </ng-template>
             <ng-template matStepperIcon="call_end">
                 <mat-icon>call_end</mat-icon>
             </ng-template>
-
-            <mat-step state="call_end">
+            <ng-template matStepperIcon="payments">
+                <mat-icon>payments</mat-icon>
+            </ng-template>
+            <ng-template matStepperIcon="domain">
+                <mat-icon>domain</mat-icon>
+            </ng-template>
+             -->
+            <mat-step state="other_houses">
                 <ng-template matStepLabel>Specs</ng-template>
                 <ng-container class="d-flex flex-column justify-content-between">
                     <div class="accommodation-form form-step-1" [formGroup]="accommodationFormGroup">
                         <mat-form-field appearance="fill">
                             <mat-label>Accommodation type</mat-label>
-                            <mat-select formControlName="accommodationType">
+                            <mat-select formControlName="accommodation_type">
                                 <mat-option value="Self contain">Self contain</mat-option>
                                 <mat-option value="Flat">Flat</mat-option>
                                 <mat-option value="1 bedroom flat">1 bedroom flat</mat-option>
@@ -92,10 +102,10 @@
                 </div>
             </mat-step>
 
-            <mat-step label="Let's see it" state="house">
+            <mat-step label="Let's see it" state="image">
                 <div class="accommodation-form form-step-1">
 
-                    <input class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
+                    <input #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                         type="file">
 
                     <div class="images-preview">
@@ -103,8 +113,8 @@
                             <mat-card>
                                 <img [src]="image.dataUrl" mat-card-image alt="A supposed image of the apartment">
                                 <mat-divider></mat-divider>
-                                <mat-card-actions>
-                                    <mat-form-field class="id-img" appearance="fill">
+                                <mat-card-actions class="custom-img-actions">
+                                    <mat-form-field class="what-img" appearance="fill">
                                         <mat-label>Identify image</mat-label>
                                         <mat-select>
                                             <mat-option>Choose</mat-option>
@@ -113,16 +123,12 @@
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <div class="hide-mobile">
-                                        <button (click)="removePreviewImage(imgIndex)" mat-stroked-button color="warn" aria-label="delete image">
-                                            Delete
-                                        </button>
-                                    </div>
-                                    <div class="hide-desktop">
-                                        <button (click)="removePreviewImage(imgIndex)" mat-icon-button aria-label="delete image">
-                                            <mat-icon>delete</mat-icon>
-                                        </button>
-                                    </div>
+                                    <!-- <button class="hide-mobile" (click)="removePreviewImage(imgIndex)" mat-stroked-button color="warn" aria-label="Delete image">
+                                        Delete
+                                    </button> -->
+                                    <button (click)="removePreviewImage(this.imgFileInput, imgIndex)" mat-icon-button aria-label="Delete image" color="warn">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
                                 </mat-card-actions>
                             </mat-card>
                         </ng-container>
@@ -138,13 +144,13 @@
                 </div>
             </mat-step>
 
-            <mat-step state="location">
+            <mat-step state="domain">
                 <ng-template matStepLabel>Current status</ng-template>
 
                 <div class="accommodation-form form-step-3" [formGroup]="accommodationFormGroup">
                     <div>
                         <label id="accommodation-current-status">Are you leasing out your active rent tenure, or a new
-                            rent, or seeking a roomate?</label>
+                            rent, or seeking a roommate?</label>
                         <div>
                             <mat-radio-group class="radio-group" formControlName="status" aria-label="Select an option"
                                 aria-labelledby="accommodation-current-status">
@@ -176,7 +182,7 @@
                         <mat-form-field class="example-full-width">
                             <mat-label>Describe yourself to your ideal roommate:</mat-label>
                             <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" matInput
-                                placeholder="I'm tolerant, clean..." formControlName="occupantDescription"></textarea>
+                                placeholder="I'm tolerant, clean..." formControlName="occupant_description"></textarea>
                             <mat-hint>Optional</mat-hint>
                         </mat-form-field>
                     </ng-container>
@@ -207,7 +213,7 @@
                             {{ accommodationFormGroup.get(['rentInterval'])?.value ? 'per ' + accommodationFormGroup.get(['rentInterval'])?.value.slice(0, -2) : '' }}
                             {{ accommodationFormGroup.get(['status'])?.value == 'roommate' ? 'for your roommate' : '' }}</mat-label>
                         <span matPrefix>&nbsp;&nbsp; &#8358; &nbsp;</span>
-                        <input formControlName="rent" type="text" min="0" inputmode="numeric" matInput
+                        <input formControlName="rent" type="number" min="0" inputmode="numeric" matInput
                             placeholder="50,000">
                         <mat-hint></mat-hint>
                     </mat-form-field>

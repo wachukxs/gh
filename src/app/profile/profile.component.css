@@ -35,3 +35,7 @@ section[forms] form .half-width {
 section[forms] form .full-width {
 
 }
+
+.hint-icon {
+    cursor: help;
+}

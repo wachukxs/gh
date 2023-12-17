@@ -1,11 +1,11 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { AppState } from '../ngrx-store/app.state';
-import { selectFeatureCorpMember } from '../ngrx-store/selectors/corp.selectors';
+import { map, shareReplay, tap } from 'rxjs/operators';
+import { AppState, CorpMemberState } from '../ngrx-store/app.state';
+import { selectFeatureCorpMember, selectStateCorpMember } from '../ngrx-store/selectors/corp.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,24 @@ export class BaseService {
 
   _store: Store<AppState> = this.store // TODO: can't we do this better?
 
+  corpMember$!: Observable<CorpMemberState>
+  corpMember!: CorpMemberState
+
   constructor(private snackBar: MatSnackBar, private breakpointObserver: BreakpointObserver, private store: Store<AppState>) {
-    this.store.select(selectFeatureCorpMember).subscribe({
+    this.corpMember$ = this.store.select(selectFeatureCorpMember)
+    this.store
+    // .pipe(select(state => state.corper))
+    // .select('corper')
+    .select(selectFeatureCorpMember)
+    // .select(selectStateCorpMember)
+    // .select(state => state.corper)
+    .pipe(tap((data) => console.log('??', data)))
+    .subscribe({
       next: (value) => {
         console.log('selectFeatureCorpMember', value);
+        // console.log('trying', value);
+
+        this.corpMember = value
       }
     });
     

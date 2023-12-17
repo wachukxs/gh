@@ -4,12 +4,13 @@ import {
     HttpClient,
     HttpErrorResponse,
     HttpResponse,
+    HttpStatusCode,
 } from '@angular/common/http'
 import { Router } from '@angular/router'
 import { environment } from '../../environments/environment'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { CallerService } from '../services/caller.service'
-import { setCorpMember } from '../ngrx-store/actions/corp-member.actions'
+import { setCorpMemberProfileData } from '../ngrx-store/actions/corp-member.actions'
 
 /**
  * README
@@ -67,16 +68,15 @@ export class LoginComponent implements OnInit {
                     this.hideLoginMatSpinner = !this.hideLoginMatSpinner
 
                     console.log('login res', res)
-                    if (res.status === 200) {
-                        // we're good
+                    if (res.status === HttpStatusCode.Ok) {
                         localStorage.setItem('online-corper', JSON.stringify(res.body.data));
-                        this.callerService._store.dispatch(setCorpMember({data: res.body.data}))
-                        this.router.navigate(['/']); // /dashboard for agents
+                        this.callerService._store.dispatch(setCorpMemberProfileData({data: res.body.data}))
+                        this.router.navigate(['/']); // '/dashboard' for agents
                     } else {
-                        // show error message
+                        // TODO: show error message if available
                         this.callerService.showNotification(
                             'Wrong username or password',
-                            4000,
+                            7000,
                             'Close',
                         )
                     }
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
                     this.hideLoginMatSpinner = !this.hideLoginMatSpinner
 
                     this.callerService.showNotification(
-                        'Try that again please, an error occured',
+                        err?.error?.message ?? 'Try that again please, an error occurred',
                         4000,
                         'Close',
                     )

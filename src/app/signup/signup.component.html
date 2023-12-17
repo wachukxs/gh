@@ -15,33 +15,33 @@
       <!-- 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Firstname</mat-label>
-        <input matInput formControlName="firstname" autocomplete="given-name" placeholder="Emeka">
+        <input matInput formControlName="first_name" autocomplete="given-name" placeholder="Emeka">
         <mat-error
-          *ngIf="signupForm.controls['firstname'].hasError('minlength') && !signupForm.controls['firstname'].hasError('required')">
-          Minimum of {{ signupForm.controls['firstname'].errors?.minlength?.requiredLength }} characters
+          *ngIf="signupForm.controls['first_name'].hasError('minlength') && !signupForm.controls['first_name'].hasError('required')">
+          Minimum of {{ signupForm.controls['first_name'].errors?.minlength?.requiredLength }} characters
         </mat-error>
-        <mat-error *ngIf="signupForm.controls['firstname'].hasError('required')">
+        <mat-error *ngIf="signupForm.controls['first_name'].hasError('required')">
           First name is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Middlename</mat-label>
-        <input matInput formControlName="middlename" autocomplete="additional-name" placeholder="Mariam">
+        <input matInput formControlName="middle_name" autocomplete="additional-name" placeholder="Mariam">
         <mat-error
-          *ngIf="signupForm.controls['middlename'].hasError('minlength')">
-          Minimum of {{ signupForm.controls['middlename'].errors?.minlength?.requiredLength }} characters
+          *ngIf="signupForm.controls['middle_name'].hasError('minlength')">
+          Minimum of {{ signupForm.controls['middle_name'].errors?.minlength?.requiredLength }} characters
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Lastname</mat-label>
-        <input matInput formControlName="lastname" autocomplete="family-name" placeholder="Ola">
+        <input matInput formControlName="last_name" autocomplete="family-name" placeholder="Ola">
         <mat-error
-          *ngIf="signupForm.controls['lastname'].hasError('lastname') && !signupForm.controls['lastname'].hasError('required')">
+          *ngIf="signupForm.controls['last_name'].hasError('last_name') && !signupForm.controls['last_name'].hasError('required')">
           Please enter a valid Last name
         </mat-error>
-        <mat-error *ngIf="signupForm.controls['lastname'].hasError('required')">
+        <mat-error *ngIf="signupForm.controls['last_name'].hasError('required')">
           Last name is <strong>required</strong>
         </mat-error>
       </mat-form-field>
@@ -74,12 +74,12 @@
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>State code</mat-label>
-        <input formControlName="statecode" matInput placeholder="e.g. AB/17A/4567">
+        <input formControlName="state_code" matInput placeholder="e.g. AB/17A/4567">
         <mat-error
-          *ngIf="signupForm.controls['statecode'].hasError('pattern') && !signupForm.controls['statecode'].hasError('required')">
+          *ngIf="signupForm.controls['state_code'].hasError('pattern') && !signupForm.controls['state_code'].hasError('required')">
           Please enter a valid state code
         </mat-error>
-        <mat-error *ngIf="signupForm.controls['statecode'].hasError('required')">
+        <mat-error *ngIf="signupForm.controls['state_code'].hasError('required')">
           State code is <strong>required</strong>
         </mat-error>
       </mat-form-field>

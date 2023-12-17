@@ -14,12 +14,10 @@ export class BasicAuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       console.log('authenticating');
 
-      if (localStorage.getItem('online-corper')) {
-  
-        let foundData = JSON.parse(
-          new String(localStorage.getItem('online-corper')).toString()
-        );
-        if (foundData?.id && foundData?.statecode && this.callerService.corpMemberStateCodeRegex.test(foundData?.statecode)) { // and check state code
+      const corpMemberLocal = localStorage.getItem('online-corper')
+      if (corpMemberLocal) {
+        const foundData = JSON.parse(corpMemberLocal);
+        if (foundData?.id && foundData?.state_code && this.callerService.corpMemberStateCodeRegex.test(foundData?.state_code)) { // and check state code
           console.log('authenticated');
         
           return true;

@@ -112,3 +112,51 @@ div.add-house-buttons button {
 .msg-input {
     width: calc(100% - 50px);
 }
+
+/* 
+    margin so it's on same level as message box 
+*/
+.send-message-button {
+    margin-bottom: 22px;
+}
+
+
+/*
+    Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+    Place media queries after other queries
+*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .chat-box {
+    flex-basis: 0px; /** not working */
+    flex-grow: 0; /** not working */
+
+    display: none;
+  }
+  .parent-chat {
+    margin: 0;
+    height: calc(100vh - 64px - 48px);
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+
+@media only screen and (max-width: 992px) {
+  
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

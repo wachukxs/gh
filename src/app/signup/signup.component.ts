@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
       Validators.required,
       Validators.email,
     ]),
-    statecode: new FormControl('', [
+    state_code: new FormControl('', [
       Validators.required,
       Validators.pattern(`(AB|AD|AK|AN|BA|BY|BN|BO|CR|DT|EB|ED|EK|EN|FC|GM|IM|JG|KD|KN|KT|KB|KG|KW|LA|NS|NG|OG|OD|OS|OY|PL|RV|SO|TR|YB|ZM|ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/${ this.yearrange }[abcACB]\\/[0-9]{4}`)
     ]),
@@ -30,14 +30,14 @@ export class SignupComponent implements OnInit {
       Validators.required,
       Validators.minLength(6)
     ]),
-    // firstname: new FormControl('', [
+    // first_name: new FormControl('', [
     //   // Validators.required,
     //   // Validators.minLength(2)
     // ]),
-    // middlename: new FormControl('', [
+    // middle_name: new FormControl('', [
     //   Validators.minLength(2)
     // ]),
-    // lastname: new FormControl('', [
+    // last_name: new FormControl('', [
     //   // Validators.required,
     //   // Validators.minLength(2)
     // ]),

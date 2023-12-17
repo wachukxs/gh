@@ -70,7 +70,7 @@ export class CreateNewAccommodationComponent implements OnInit {
     ]
 
     accommodationFormGroup: FormGroup = new FormGroup({
-        accommodationType: new FormControl(''),
+        accommodation_type: new FormControl(''),
         availableRooms: this._formBuilder.group({
             'Sitting-room': false,
             Kitchen: false,
@@ -86,7 +86,7 @@ export class CreateNewAccommodationComponent implements OnInit {
         rentInterval: new FormControl(''),
         rentExpireDate: new FormControl(''),
         idealRoommate: new FormControl(''),
-        occupantDescription: new FormControl(''),
+        occupant_description: new FormControl(''),
     })
 
     stepperOrientation: StepperOrientation = 'vertical'
@@ -199,8 +199,11 @@ export class CreateNewAccommodationComponent implements OnInit {
         console.log('this.accommodationPostFormData', this.accommodationPostFormData)
     }
 
-    removePreviewImage(i: number) {
+    removePreviewImage(imageFileInput: HTMLInputElement, i: number) {
         this.accommodationImagesPreview.splice(i, 1)
+
+        // clear the input. (incase the same file is deleted and selected again)
+        imageFileInput.value = ''
     }
 
     submit(): void {

@@ -7,6 +7,7 @@ export enum URLPaths {
     corpMemberSignUp = '/signup',
     corpMemberLogIn = '/login',
 
+    corpMemberProfileUpdate = '/profile',
     corpMemberProfileBioUpdate = '/profile/bio',
     corpMemberProfileServiceDetailsUpdate = '/profile/service-details',
     corpMemberProfilePpaDetailsUpdate = '/profile/ppa-details',

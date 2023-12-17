@@ -14,6 +14,10 @@ import { AppState } from '../ngrx-store/app.state'
 import { URLPaths } from '../utils/constants.util'
 import { BaseService } from './base.service'
 
+/**
+ * Once a call returns 401 logout the user; using interceptor!
+ */
+
 @Injectable({
     providedIn: 'root',
 })
@@ -152,6 +156,28 @@ export class CallerService extends BaseService {
             .post(
                 environment.baseurl +
                     URLPaths.corpMemberProfileServiceDetailsUpdate,
+                data,
+                this.JSONHttpOptions,
+            )
+            .pipe(
+                timeout(15000),
+                // retry(3), // retry a failed request up to 3 times
+                catchError(this.handleError), // then handle the error
+            )
+    }
+
+    // TODO: This should be like an side effect.
+    updateProfile(data: any) {
+        console.log(
+            'calling via',
+            environment.baseurl +
+                URLPaths.corpMemberProfileUpdate,
+        )
+
+        return this.http
+            .post(
+                environment.baseurl +
+                    URLPaths.corpMemberProfileUpdate,
                 data,
                 this.JSONHttpOptions,
             )

@@ -68,9 +68,11 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { EffectsModule } from '@ngrx/effects';
 import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
-import { corpMemberReducer, corpMemberFeatureKey } from './ngrx-store/reducers/corp-member.reducer';
+import { corpMemberReducer } from './ngrx-store/reducers/corp-member.reducer';
 import { BaseInterceptorInterceptor } from './base-interceptor.interceptor';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { corpMemberFeatureKey } from './ngrx-store/selectors/corp.selectors';
+import { _FEATURE_EFFECTS } from '@ngrx/effects/src/tokens';
 
 @NgModule({
   declarations: [
@@ -148,6 +150,10 @@ import { TextFieldModule } from '@angular/cdk/text-field';
   providers: [
     CanExitGuard,
     AuthenticationService,
+    // {
+    //   provide: _FEATURE_EFFECTS,
+    //   useValue: 
+    // },
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerGestureConfig

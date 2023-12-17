@@ -26,12 +26,12 @@ const routes: Routes = [
         path: '',
         title: 'Home',
         component: NavComponent,
-        canActivate: [BasicAuthGuard],
         children: [
             {
                 path: '',
                 title: 'Your feed',
                 component: FeedComponent,
+                canActivate: [BasicAuthGuard],
             },
             { path: 'profile', title: 'Profile', component: ProfileComponent },
             {

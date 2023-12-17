@@ -22,6 +22,7 @@
 
 ## Reference Links
 * Using [ngrx](https://inveritasoft.com/blog/angular-using-ngrx-schematics-and-ngrx-entity-to-speed-up-your-startup)
+* Using angular's [material design](https://ultimatecourses.com/blog/the-missing-guide-to-angular-material)
 
 ## Design sources
 * Wait list page

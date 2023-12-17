@@ -30,6 +30,30 @@ section[body] {
     margin: 0 20px;
 }
 
+.images-preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    gap: 40px;
+}
+
+.images-preview img {
+    height: 200px;
+    width: auto;
+    object-fit: cover;
+}
+
+.del-img {
+    z-index: 5;
+    position: absolute;
+    top: -25px;
+    right: -25px;
+
+    background-color: #d4e1e169;
+}
+
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
     Place media queries after other queries

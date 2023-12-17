@@ -327,6 +327,7 @@
           <div mat-subheader>Chats</div>
           <mat-divider></mat-divider>
           <ng-container *ngFor="let note of notes">
+            <!-- TODO: maybe later, if possible, use only mat list components here -->
             <mat-list-item>
               <div class="person-msg-intro">
                 <img class="profile-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"
@@ -370,7 +371,7 @@
           </div>
         </cdk-virtual-scroll-viewport>
 
-        <div>
+        <div class="d-flex align-items-end">
           <mat-form-field class="msg-input">
             <mat-label>Your message</mat-label>
             <textarea 
@@ -382,7 +383,7 @@
             cdkAutosizeMaxRows="5"></textarea>
           </mat-form-field>
           <!-- TODO: send button should also be disabled if there is no internet connection -->
-          <button [disabled]="!chatMessage.value" mat-icon-button color="primary" aria-label="Send message icon" (click)="sendMessage()">
+          <button class="send-message-button" [disabled]="!chatMessage.value" mat-icon-button color="primary" aria-label="Send message icon" (click)="sendMessage()">
             <mat-icon>send</mat-icon>
           </button>
         </div>

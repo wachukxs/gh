@@ -9,21 +9,21 @@
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>First name</mat-label>
-        <input formControlName="firstname" matInput placeholder="Idris">
-        <mat-error *ngIf="waitListForm?.get(['firstname'])?.hasError('required')">
+        <input formControlName="first_name" matInput placeholder="Idris">
+        <mat-error *ngIf="waitListForm?.get(['first_name'])?.hasError('required')">
           First name is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Middle name</mat-label>
-        <input formControlName="middlename" matInput placeholder="Akin">
+        <input formControlName="middle_name" matInput placeholder="Akin">
         <mat-hint>Optional</mat-hint>
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Last name</mat-label>
-        <input formControlName="lastname" matInput placeholder="Uzo">
+        <input formControlName="last_name" matInput placeholder="Uzo">
         <mat-hint>Optional</mat-hint>
       </mat-form-field>
 

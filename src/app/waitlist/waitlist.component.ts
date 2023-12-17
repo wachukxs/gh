@@ -35,9 +35,9 @@ export class WaitlistComponent implements OnInit {
 
   waitListForm:FormGroup = this._formBuilder.group({
     servingstate: ['', [Validators.required]],
-    firstname: ['', [Validators.required]],
-    lastname: [''],
-    middlename: [''],
+    first_name: ['', [Validators.required]],
+    last_name: [''],
+    middle_name: [''],
     email: ['', [Validators.required, Validators.email]],
     comment: [''],
   });
@@ -59,13 +59,13 @@ export class WaitlistComponent implements OnInit {
         next: (res: any) => {
           console.log('who joined?', res);
 
-          let _firstname = this.waitListForm.get('firstname')?.value
+          let _firstname = this.waitListForm.get('first_name')?.value
 
           this.waitListForm.reset({
             servingstate: '',
-            firstname: '',
-            lastname: '',
-            middlename: '',
+            first_name: '',
+            last_name: '',
+            middle_name: '',
             email: '',
             comment: '',
           }, {
@@ -94,7 +94,7 @@ export class WaitlistComponent implements OnInit {
           //   width: '100%',
           //   height: '100%',
           //   data: {
-          //     firstname: _firstname
+          //     first_name: _firstname
           //   },
           //   maxWidth: '100%',
           //   maxHeight: '100%',
@@ -103,7 +103,7 @@ export class WaitlistComponent implements OnInit {
 
           // this.bottomSheet.open(JoinWaitlistSuccessBottomsheetComponent, {
           //   data: {
-          //     firstname: _firstname
+          //     first_name: _firstname
           //   },
           // });
         },

@@ -39,7 +39,7 @@ export class SocketIoService extends BaseService implements OnInit {
         console.log('connecting socket...')
         this.socket = io(`${environment.basehost}`, {
             query: {
-                statecode: this.corpMember.statecode,
+                state_code: this.corpMember.state_code,
             },
         })
         this.socket.emit('hi', 'Hey from FE.')

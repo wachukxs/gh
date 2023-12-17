@@ -72,7 +72,16 @@ export class NavComponent {
 
   logout(): void {
     localStorage.removeItem('online-corper');
-    this.router.navigate(['/']);
+    console.log('laugh', this.router.url)
+    /**
+     * should refresh the page if you're in the home page (/).
+     * Using this.router.navigate(['']) or '/', if you're in the / home page, won't navigate since the url doesn't change.
+     */
+    if (this.router.url === '/') {
+      window.location.reload()
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private dialog: MatDialog,) {}

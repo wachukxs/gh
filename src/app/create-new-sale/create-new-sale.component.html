@@ -13,13 +13,13 @@
 
             <mat-form-field class="">
                 <mat-label>Item name</mat-label>
-                <input formControlName="itemname" matInput placeholder="Bucket">
-                <mat-error *ngIf="saleFormGroup.get(['itemname'])?.hasError('required')">
+                <input formControlName="item_name" matInput placeholder="Bucket">
+                <mat-error *ngIf="saleFormGroup.get(['item_name'])?.hasError('required')">
                     Item name is <strong>required</strong>
                 </mat-error>
                 <mat-error
-                    *ngIf="saleFormGroup.controls['itemname'].hasError('minlength') && !saleFormGroup.controls['itemname'].hasError('required')">
-                    Minimum of {{ saleFormGroup.controls['itemname'].errors?.minlength?.requiredLength }} characters
+                    *ngIf="saleFormGroup.controls['item_name'].hasError('minlength') && !saleFormGroup.controls['item_name'].hasError('required')">
+                    Minimum of {{ saleFormGroup.controls['item_name'].errors?.minlength?.requiredLength }} characters
                 </mat-error>
             </mat-form-field>
 
@@ -31,33 +31,39 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-checkbox formControlName="isItemNegotiable" class="example-margin">Negotiable</mat-checkbox>
+            <mat-checkbox formControlName="is_item_negotiable" class="example-margin">Negotiable</mat-checkbox>
 
-            <mat-form-field class="" *ngIf="saleFormGroup.get(['isItemNegotiable'])?.value">
+            <mat-form-field class="" *ngIf="saleFormGroup.get(['is_item_negotiable'])?.value">
                 <mat-label>Minimum Price</mat-label>
-                <input type="text" inputmode="numeric" formControlName="minPrice" matInput placeholder="2,000">
+                <input type="text" inputmode="numeric" formControlName="minimum_price" matInput placeholder="2,000">
                 <!-- Maybe later pre-fill with AI predicted value -->
-                <mat-error *ngIf="saleFormGroup.get(['minPrice'])?.hasError('required')">
+                <mat-error *ngIf="saleFormGroup.get(['minimum_price'])?.hasError('required')">
                     Minimum price is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="saleFormGroup.get(['minimum_price'])?.hasError('max')">
+                    Minimum price can't be more than <strong>Price</strong>
                 </mat-error>
             </mat-form-field>
 
-            <input class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
+            <input #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                 type="file">
 
             <div class="images-preview">
-                <ng-container *ngFor="let image of saleImagesPreview">
+                <div *ngFor="let image of saleImagesPreview; let imgIndex = index">
                     <mat-card>
+                        <button class="del-img" (click)="removePreviewImage(this.imgFileInput, imgIndex)" mat-icon-button aria-label="Delete image" color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                         <img [src]="image.dataUrl" mat-card-image alt="A supposed image of the item for sale">
                     </mat-card>
-                </ng-container>
+                </div>
             </div>
 
             <mat-form-field class="">
                 <mat-label>Item description</mat-label>
                 <textarea rows="3"
                 cdkAutosizeMinRows="3"
-    cdkAutosizeMaxRows="5" formControlName="text" matInput placeholder=""></textarea>
+                cdkAutosizeMaxRows="5" formControlName="text" matInput placeholder=""></textarea>
                 <mat-hint>Optional</mat-hint>
                 <!-- TODO: textbox should expand as you type -->
               </mat-form-field>
