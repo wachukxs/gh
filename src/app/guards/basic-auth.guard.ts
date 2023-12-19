@@ -17,7 +17,8 @@ export class BasicAuthGuard implements CanActivate {
       const corpMemberLocal = localStorage.getItem('online-corper')
       if (corpMemberLocal) {
         const foundData = JSON.parse(corpMemberLocal);
-        if (foundData?.id && foundData?.state_code && this.callerService.corpMemberStateCodeRegex.test(foundData?.state_code)) { // and check state code
+        // TODO: do we need to update state code regex? Could be update to 5 digits after
+        if (foundData?.state_code && this.callerService.corpMemberStateCodeRegex.test(foundData?.state_code)) { // and check state code
           console.log('authenticated');
         
           return true;
