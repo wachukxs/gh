@@ -33,6 +33,7 @@
 
             <mat-checkbox formControlName="is_item_negotiable" class="example-margin">Negotiable</mat-checkbox>
 
+            <!--  -->
             <mat-form-field class="" *ngIf="saleFormGroup.get(['is_item_negotiable'])?.value">
                 <mat-label>Minimum Price</mat-label>
                 <input type="text" inputmode="numeric" formControlName="minimum_price" matInput placeholder="2,000">
@@ -40,8 +41,8 @@
                 <mat-error *ngIf="saleFormGroup.get(['minimum_price'])?.hasError('required')">
                     Minimum price is <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="saleFormGroup.get(['minimum_price'])?.hasError('max')">
-                    Minimum price can't be more than <strong>Price</strong>
+                <mat-error *ngIf="saleFormGroup.get(['minimum_price'])?.hasError('max') && !saleFormGroup.controls['minimum_price'].hasError('required')">
+                    Minimum price can't be more than <strong>Price {{ saleFormGroup.controls['minimum_price'].errors?.max?.max }}</strong>
                 </mat-error>
             </mat-form-field>
 

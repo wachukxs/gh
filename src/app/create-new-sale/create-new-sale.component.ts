@@ -33,7 +33,10 @@ export class CreateNewSaleComponent implements OnInit {
         minimum_price: new FormControl(null),
         is_item_negotiable: new FormControl(false),
         text: new FormControl(''),
-        item_name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        item_name: new FormControl('', [
+            Validators.required,
+            Validators.minLength(3),
+        ]),
     })
 
     ngOnInit(): void {
@@ -44,34 +47,67 @@ export class CreateNewSaleComponent implements OnInit {
                 if (value) {
                     this.saleFormGroup
                         .get(['minimum_price'])
-                        ?.setValidators([Validators.required, Validators.max(
-                            this.saleFormGroup?.get(['price'])?.value
-                        )]) // can't be more than price.
+                        ?.setValidators([
+                            Validators.required,
+                            Validators.max(
+                                this.saleFormGroup?.get(['price'])?.value,
+                            ),
+                        ]) // can't be more than price.
                 } else {
+                    // reset the value
+                    this.saleFormGroup.get(['minimum_price'])?.setValue(null)
+
+                    // remove previous validations
                     this.saleFormGroup
                         .get(['minimum_price'])
-                        ?.removeValidators([Validators.required])
+                        ?.removeValidators([
+                            Validators.required,
+                            Validators.max(
+                                this.saleFormGroup?.get(['price'])?.value,
+                            ),
+                        ])
                 }
-                this.saleFormGroup.get(['minimum_price'])?.updateValueAndValidity()
+
+                this.saleFormGroup
+                    .get(['minimum_price'])
+                    ?.updateValueAndValidity()
             })
+
+        this.saleFormGroup.get(['price'])?.valueChanges.subscribe((value) => {
+            console.log('price value', value)
+
+            if (this.saleFormGroup.get(['is_item_negotiable'])?.value) {
+                this.saleFormGroup
+                    .get(['minimum_price'])
+                    ?.setValidators([
+                        Validators.required,
+                        Validators.max(
+                            this.saleFormGroup?.get(['price'])?.value,
+                        ),
+                    ]) // can't be more than price.
+
+                this.saleFormGroup
+                    .get(['minimum_price'])
+                    ?.updateValueAndValidity()
+            }
+        })
     }
 
     populateFormData(): void {
+        for (const field in this.saleFormGroup.controls) {
+            // console.log(field, this.accommodationFormGroup.get(field))
+            switch (field) {
+                default:
+                    this.salePostFormData.set(
+                        field,
+                        this.saleFormGroup.get(field)?.value,
+                    )
+                    break
+            }
+        }
 
-      for (const field in this.saleFormGroup.controls) {
-          // console.log(field, this.accommodationFormGroup.get(field))
-          switch (field) {
-              default:
-                  this.salePostFormData.set(
-                      field,
-                      this.saleFormGroup.get(field)?.value,
-                  )
-                  break
-          }
-      }
-
-      console.log('this.salePostFormData', this.salePostFormData)
-  }
+        console.log('this.salePostFormData', this.salePostFormData)
+    }
 
     onFileSelected(event: Event): void {
         console.log('evt', event)
@@ -112,27 +148,33 @@ export class CreateNewSaleComponent implements OnInit {
     }
 
     submit(): void {
-      if (this.saleFormGroup.valid) {
-        console.log('submitting...');
-        this.populateFormData()
+        if (this.saleFormGroup.valid) {
+            console.log('submitting...')
+            this.populateFormData()
 
-        // TODO: check that this.createNewSalePost is valid
-        this.callerService.createNewSalePost(this.salePostFormData).subscribe({
-            next: (res) => {
-              console.log('res', res);
-              this.salePostFormData = new FormData() // reset
-            },
-            error: (err) => {
-              console.log('err', err);
-            }
-          })
-        
-      } else {
-        console.log('form value', this.saleFormGroup.value);
-        
-        this.saleFormGroup.markAllAsTouched()
-        this.saleFormGroup.updateValueAndValidity()
-      }
+            // TODO: check that this.createNewSalePost is valid
+            this.callerService
+                .createNewSalePost(this.salePostFormData)
+                .subscribe({
+                    next: (res) => {
+                        console.log('res', res)
+                        this.salePostFormData = new FormData() // reset
+                    },
+                    error: (err) => {
+                        console.log('err', err)
+                    },
+                })
+        } else {
+            console.log('form value', this.saleFormGroup.value)
+
+            console.log(
+                'saleFormGroup ish',
+                this.saleFormGroup.get(['minimum_price']),
+            )
+
+            this.saleFormGroup.markAllAsTouched()
+            this.saleFormGroup.updateValueAndValidity()
+        }
     }
 
     close(): void {
@@ -142,11 +184,11 @@ export class CreateNewSaleComponent implements OnInit {
     /**
      * TODO: Use the ViewChild instance instead of passing the file instance to this removePreviewImage() method.
      * do same in CreateNewAccommodation Component.
-     * @param ifi 
-     * @param i 
+     * @param ifi
+     * @param i
      */
     removePreviewImage(imageFileInput: HTMLInputElement, i: number) {
-        this.saleImagesPreview.splice(i, 1);
+        this.saleImagesPreview.splice(i, 1)
 
         // clear the input. (incase the same file is deleted and selected again)
         imageFileInput.value = ''
