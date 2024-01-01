@@ -29,6 +29,9 @@
                 <mat-error *ngIf="saleFormGroup.get(['price'])?.hasError('required')">
                     Price is <strong>required</strong>
                 </mat-error>
+                <mat-error *ngIf="saleFormGroup.get(['price'])?.hasError('min') && !saleFormGroup.controls['price'].hasError('required')">
+                    Price can't be less than <strong> {{ saleFormGroup.controls['price'].errors?.min?.min }}</strong>
+                </mat-error>
             </mat-form-field>
 
             <mat-checkbox formControlName="is_item_negotiable" class="example-margin">Negotiable</mat-checkbox>
@@ -46,6 +49,7 @@
                 </mat-error>
             </mat-form-field>
 
+            <!-- Images should be required? -->
             <input #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                 type="file">
 

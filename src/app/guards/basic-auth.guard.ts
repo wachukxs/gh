@@ -17,14 +17,16 @@ export class BasicAuthGuard implements CanActivate {
       const corpMemberLocal = localStorage.getItem('online-corper')
       if (corpMemberLocal) {
         const foundData = JSON.parse(corpMemberLocal);
-        // TODO: do we need to update state code regex? Could be update to 5 digits after
-        if (foundData?.state_code && this.callerService.corpMemberStateCodeRegex.test(foundData?.state_code)) { // and check state code
+        /**
+         * we don't need only corp members from current year and last year.
+         */
+        if (foundData?.state_code && this.callerService.corpMemberStateCodeRegex.test(foundData?.state_code)) {
           console.log('authenticated');
         
           return true;
         } else {
-          this.callerService.showNotification("Session Expired. Login.", undefined, "OK" , "bottom")
-          return this.router.navigate(['/login'])
+          this.callerService.showNotification("State code not found or invalid. Sign up.", undefined, "OK" , "bottom")
+          return this.router.navigate(['/signup'])
         }
         
       } else {

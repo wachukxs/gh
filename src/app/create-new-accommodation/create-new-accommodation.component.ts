@@ -71,7 +71,7 @@ export class CreateNewAccommodationComponent implements OnInit {
 
     accommodationFormGroup: FormGroup = new FormGroup({
         accommodation_type: new FormControl(''),
-        availableRooms: this._formBuilder.group({
+        available_rooms: this._formBuilder.group({
             'Sitting-room': false,
             Kitchen: false,
             Bedroom: false,
@@ -82,10 +82,10 @@ export class CreateNewAccommodationComponent implements OnInit {
         address: new FormControl(''),
         directions: new FormControl(''),
         status: new FormControl(''),
-        rent: new FormControl(''),
-        rentInterval: new FormControl(''),
-        rentExpireDate: new FormControl(''),
-        idealRoommate: new FormControl(''),
+        rent: new FormControl('', [Validators.min(1)]),
+        rent_interval: new FormControl(''),
+        rent_expire_date: new FormControl(''),
+        ideal_roommate: new FormControl(''),
         occupant_description: new FormControl(''),
     })
 
@@ -167,16 +167,16 @@ export class CreateNewAccommodationComponent implements OnInit {
 
     populateFormData(): void {
         console.log(
-            'availableRooms',
+            'available_rooms',
             Object.entries(
-                this.accommodationFormGroup.get('availableRooms')?.value,
+                this.accommodationFormGroup.get('available_rooms')?.value,
             ),
         )
 
         for (const field in this.accommodationFormGroup.controls) {
             // console.log(field, this.accommodationFormGroup.get(field))
             switch (field) {
-                case 'availableRooms':
+                case 'available_rooms':
                     let _value = ''
                     Object.entries(
                         this.accommodationFormGroup.get(field)?.value,

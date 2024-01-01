@@ -51,7 +51,7 @@
                             </mat-hint>
                         </mat-form-field>
     
-                        <div formGroupName="availableRooms">
+                        <div formGroupName="available_rooms">
                             <label>What rooms does the accommodation contain?</label>
                             <div class="checkbox-group">
                                 <mat-checkbox formControlName="Sitting-room">Sitting room</mat-checkbox>
@@ -154,28 +154,28 @@
                         <div>
                             <mat-radio-group class="radio-group" formControlName="status" aria-label="Select an option"
                                 aria-labelledby="accommodation-current-status">
-                                <mat-radio-button value="newrent">New rent (No occupant)</mat-radio-button>
-                                <mat-radio-button value="oldrent">Subleasing out an active rent</mat-radio-button>
-                                <mat-radio-button value="roommate">Seeking a roommate</mat-radio-button>
+                                <mat-radio-button value="new_rent">New rent (No occupant)</mat-radio-button>
+                                <mat-radio-button value="old_rent">Subleasing out an active rent</mat-radio-button>
+                                <mat-radio-button value="seeking_roommate">Seeking a roommate</mat-radio-button>
                             </mat-radio-group>
                         </div>
                     </div>
 
-                    <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'oldrent'">
+                    <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'old_rent'">
                         <mat-form-field appearance="fill" class="rent-expire-form-field">
                             <mat-label>When does your rent expire</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="rentExpireDate">
-                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <input matInput [matDatepicker]="picker" formControlName="rent_expire_date">
+                            <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
                     </div>
 
-                    <ng-container *ngIf="accommodationFormGroup.get(['status'])?.value == 'roommate'">
+                    <ng-container *ngIf="accommodationFormGroup.get(['status'])?.value == 'seeking_roommate'">
                         <mat-form-field class="example-full-width">
                             <mat-label>Describe your ideal roommate:</mat-label>
                             <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5" matInput
-                                placeholder="Someone nice..." formControlName="idealRoommate"></textarea>
+                                placeholder="Someone nice..." formControlName="ideal_roommate"></textarea>
                             <mat-hint>Optional</mat-hint>
                         </mat-form-field>
 
@@ -201,7 +201,7 @@
                 <div class="accommodation-form form-step-4" [formGroup]="accommodationFormGroup">
                     <div>
                         <label id="accommodation-periodic-rent">Rent is</label>
-                        <mat-radio-group class="radio-group" formControlName="rentInterval" aria-labelledby="accommodation-periodic-rent">
+                        <mat-radio-group class="radio-group" formControlName="rent_interval" aria-labelledby="accommodation-periodic-rent">
                             <mat-radio-button value="yearly">Yearly</mat-radio-button>
                             <mat-radio-button value="quarterly">Quarterly</mat-radio-button>
                             <mat-radio-button value="monthly">Monthly</mat-radio-button>
@@ -210,12 +210,15 @@
 
                     <mat-form-field class="example-full-width">
                         <mat-label>Rent
-                            {{ accommodationFormGroup.get(['rentInterval'])?.value ? 'per ' + accommodationFormGroup.get(['rentInterval'])?.value.slice(0, -2) : '' }}
-                            {{ accommodationFormGroup.get(['status'])?.value == 'roommate' ? 'for your roommate' : '' }}</mat-label>
+                            {{ accommodationFormGroup.get(['rent_interval'])?.value ? 'per ' + accommodationFormGroup.get(['rent_interval'])?.value.slice(0, -2) : '' }}
+                            {{ accommodationFormGroup.get(['status'])?.value == 'seeking_roommate' ? 'for your roommate' : '' }}</mat-label>
                         <span matPrefix>&nbsp;&nbsp; &#8358; &nbsp;</span>
-                        <input formControlName="rent" type="number" min="0" inputmode="numeric" matInput
+                        <input formControlName="rent" type="number" inputmode="numeric" matInput
                             placeholder="50,000">
-                        <mat-hint></mat-hint>
+                        <!-- <mat-hint></mat-hint> -->
+                        <mat-error *ngIf="accommodationFormGroup.get(['rent'])?.hasError('min') && !accommodationFormGroup.controls['rent'].hasError('required')">
+                            Rent can't be less than <strong> {{ accommodationFormGroup.controls['rent'].errors?.min?.min }}</strong>
+                        </mat-error>
                     </mat-form-field>
 
                 </div>

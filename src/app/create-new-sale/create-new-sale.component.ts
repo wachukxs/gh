@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 import { CallerService } from '../services/caller.service'
+import { HttpStatusCode } from '@angular/common/http'
 
 interface ImagePreview {
     name: string
@@ -29,8 +30,8 @@ export class CreateNewSaleComponent implements OnInit {
     saleImagesPreview: Array<ImagePreview> = []
 
     saleFormGroup: FormGroup = new FormGroup({
-        price: new FormControl('', [Validators.required]), // TODO: min should be 1
-        minimum_price: new FormControl(null),
+        price: new FormControl('', [Validators.required, Validators.min(1)]), // TODO: min should be 1
+        minimum_price: new FormControl(''),
         is_item_negotiable: new FormControl(false),
         text: new FormControl(''),
         item_name: new FormControl('', [
@@ -142,7 +143,7 @@ export class CreateNewSaleComponent implements OnInit {
 
         reader.readAsDataURL(file)
         this.salePostFormData.set(
-            `saleMedia-${file.lastModified}-${file.size}-${file.name}`,
+            `sale-media-${file.lastModified}-${file.size}-${file.name}`,
             file,
         ) // setting individually so it's easier to delete.
     }
@@ -158,13 +159,28 @@ export class CreateNewSaleComponent implements OnInit {
                 .subscribe({
                     next: (res) => {
                         console.log('res', res)
-                        this.salePostFormData = new FormData() // reset
+                        if (res.status === HttpStatusCode.Ok) {
+                            this.salePostFormData = new FormData() // reset
+
+                            this.callerService.showNotification('Sale posted')
+
+                            // reset the form after filling it
+                            this.saleFormGroup.reset()
+                        } else {
+                            // TODO: maybe show the message from the backend.
+                            this.callerService.showNotification(
+                                'An error occurred',
+                            )
+                        }
                     },
                     error: (err) => {
                         console.log('err', err)
+                        this.callerService.showNotification('An error occurred')
                     },
                 })
         } else {
+            this.callerService.showNotification('Please fix invalid fields')
+
             console.log('form value', this.saleFormGroup.value)
 
             console.log(

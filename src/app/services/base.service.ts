@@ -79,6 +79,7 @@ export class BaseService {
 
   years = parseInt( new Date( Date.now() ).getFullYear().toFixed().slice( 2, 4 ) );
   yearrange = '(' + ( this.years - 1 ).toString() + '|' + this.years.toString() + ')';
-  corpMemberStateCodeRegex = new RegExp(`(AB|AD|AK|AN|BA|BY|BN|BO|CR|DT|EB|ED|EK|EN|FC|GM|IM|JG|KD|KN|KT|KB|KG|KW|LA|NS|NG|OG|OD|OS|OY|PL|RV|SO|TR|YB|ZM|ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/${ this.yearrange }[abcACB]\\/[0-9]{4}`)
+  servingCorpMemberStateCodeRegex = new RegExp(`(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/${ this.yearrange }[abc]\\/[0-9]{4,5}`, 'i')
 
+  corpMemberStateCodeRegex = /(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\/\d\d[abc]\/[0-9]{4,5}/i
 }
