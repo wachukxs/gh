@@ -3,7 +3,7 @@
 @import 'node_modules/swiper/modules/pagination/pagination.min.css';
 
 .img-gallery-container, app-image-carousel {
-    width: inherit;
+    width: 100%;
 }
 
 .nav-button {
@@ -16,15 +16,48 @@
     object-fit: cover;
 }
 
+/**
+Width must be same with [house] css rules in feed.component.css
+*/
 .nav-button-container {
     position: fixed;
     z-index: 10;
-    width: inherit;
+    width: inherit; /* inherit isn't working */
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-@media only screen and (max-width: 600px) {
+.nav-button-container {
+  /* This should be same as [long-house] */
+  width: 450px;
+}
 
+@media only screen and (min-width: 992px) {
+  .nav-button-container {
+    /* This should be same as [long-house] */
+    width: 350px;
+  }
+}
+/**small mobile view rules*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 425px)  { 
+    .nav-button-container {
+      width: 95%;
+    }
+}
+/**large mobile view rules*/
+@media only screen 
+  and (min-device-width: 426px) 
+  and (max-device-width: 768px)  { 
+    .nav-button-container {
+      width: 70%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .nav-button {
+        top: -155px;
+    }
 }

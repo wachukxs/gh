@@ -1,0 +1,37 @@
+.profile-image {
+    max-width: 35vw;
+
+    min-width: 350px;
+}
+
+.one-liner {
+    display: flex;
+    align-items: center;
+}
+
+section[root] {
+    padding: 10px;
+    margin: 0 auto;
+    display: grid;
+
+    grid-template-columns: 1fr 2fr;
+
+    grid-template-rows: auto;
+
+    grid-template-areas: 
+    "image-area location-info-area"
+    "image-area bio-area";
+
+    gap: 10px 10px;
+}
+
+.bio-area {
+    grid-area: bio-area;
+}
+.image-area {
+    grid-area: image-area;
+}
+.location-info-area {
+    grid-area: location-info-area;
+}
+

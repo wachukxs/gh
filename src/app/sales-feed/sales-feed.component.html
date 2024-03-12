@@ -1,0 +1,256 @@
+<!-- Put tooltips almost everywhere -->
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav"
+      [attr.role]="((callerService.isPortraitHandset$|| callerService.isTablet$) | async) ? 'dialog' : 'navigation'"
+      [mode]="((callerService.isPortraitHandset$|| callerService.isTablet$) | async) ? 'over' : 'side'"
+      [opened]="((callerService.isPortraitHandset$|| callerService.isTablet$) | async) === false">
+      <mat-toolbar class="filters">
+        Filters
+        <span class="example-spacer"></span>
+        <button mat-ripple mat-raised-button (click)="resetFilters()">Reset All</button>
+      </mat-toolbar>
+  
+      <form [formGroup]="filterForm">
+        <mat-toolbar-row>
+          <h4>Budget</h4>
+          <span class="example-spacer"></span>
+          <mat-slide-toggle (change)="budgetDisableChange($event)" aria-label="Cancel budget filter">
+            <!-- Reset -->
+          </mat-slide-toggle>
+        </mat-toolbar-row>
+  
+        <div class="byside">
+          <mat-chip-listbox aria-label="Range selection">
+            <mat-chip selected>₦50,000</mat-chip>
+            <!--color="#f2f2f7"-->
+            <span class="example-spacer"></span>
+            <mat-chip color="primary" selected>₦200,000</mat-chip>
+          </mat-chip-listbox>
+          <!-- TODO: Change the max value from 200000 -->
+          <mat-slider [disabled]="!budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete
+            min="20000" step="25000" max="200000">
+            <input value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
+            <input value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
+          </mat-slider>
+        </div>
+  
+        <mat-divider class="margin-up-down"></mat-divider>
+  
+        <mat-toolbar-row>
+          <h4>Proximity (in km)</h4>
+          <span class="example-spacer"></span>
+          <mat-slide-toggle (change)="proximityDisableChange($event)" aria-label="Cancel proximity filter">
+          </mat-slide-toggle>
+        </mat-toolbar-row>
+  
+        <div class="byside">
+          <mat-slider [disabled]="!proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete
+            step="500" min="100" max="3500">
+            <input matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
+          </mat-slider>
+  
+          <!-- based on the distance, filter the available places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
+  
+          <mat-toolbar-row style="padding: 0px; align-items: start;">
+            <mat-form-field [hidden]="hidePlacesSelect">
+              <mat-label>Places like:</mat-label>
+              <mat-select role="listbox" [formControl]="places" multiple [disabled]="!proximityDisabled">
+                <!-- <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace + ' meters from you'">
+                  <mat-option *ngFor="let place of places.place" [value]="place.value">
+                    {{place.viewValue}}
+                  </mat-option>
+                </mat-optgroup> -->
+  
+                <mat-option role="option" *ngFor="let place of placesList" [value]="place">{{ place }}</mat-option>
+              </mat-select>
+              <!-- use hint to communicate progress of getting current location -->
+              <mat-hint class="straighten-text">
+                Click <mat-icon>gps_fixed</mat-icon> to find places near you
+              </mat-hint>
+            </mat-form-field>
+  
+            <span class="example-spacer"></span>
+  
+            <button [disabled]="!proximityDisabled" type="button" aria-label="Toggle geolocation" mat-icon-button>
+              <!-- switch between gps_fixed, gps_not_fixed and gps_off icons  when communicating geolocation status -->
+              <mat-icon matTooltip="Filter with current location" aria-label="get geolocation toggle icon">gps_fixed
+              </mat-icon>
+            </button>
+          </mat-toolbar-row>
+        </div>
+      </form>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="accent">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+          *ngIf="(callerService.isPortraitHandset$ || callerService.isTablet$) | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <div class="feed-header">
+          <span>Browse houses</span>
+  
+          <div class="spacer"></div>
+  
+          <!-- Maybe uncomment when we're ready to change layouts -->
+          <mat-button-toggle-group appearance="standard" name="fontStyle" aria-label="Font Style" multiple="false" vertical="false">
+            <mat-button-toggle value="extended" aria-label="Show houses in extended view">
+              <mat-icon >format_align_left</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="compact" aria-label="Show houses in compact view">
+              <mat-icon>format_align_center</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        <!-- show number of available properties, and the filter criteria the user has chosen -->
+      </mat-toolbar>
+  
+      <!-- Add Content Here -->
+  
+  
+      <!-- test card -->
+      <!-- <mat-card appearance="outlined" class="dashboard-card">
+        <app-image-carousel></app-image-carousel>
+        <div>
+          <mat-card-content class="dashboard-card-content">
+            <mat-card-title>
+              Bucket
+            </mat-card-title>
+            <mat-card-subtitle>
+              Posted Feb 9th '24, by @Fred
+            </mat-card-subtitle>
+            <div>
+              Some details about the item for sale here. Wow.
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+         
+            <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
+              [@iconChangeAnimation]="toggleLikeState" mat-button>
+              <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
+            </button>
+            <button [matMenuTriggerFor]="chatMenuMobile" matTooltip="Chat with the house agent" mat-button>
+              Contact
+            </button>
+            <mat-menu #chatMenuMobile="matMenu" yPosition="above">
+              <button mat-menu-item (click)="copyAgentPhoneNumber()">
+                <mat-icon>phone</mat-icon>
+                <span>Copy phone number</span>
+              </button>
+              <button mat-menu-item disabled>
+                <mat-icon>chat</mat-icon>
+                <span>Chat agent</span>
+              </button>
+            </mat-menu>
+  
+            <button (click)="seeSaleDetails()" matTooltip="See more details about this house" mat-button>
+              More
+            </button>
+          </mat-card-actions>
+        </div>
+      </mat-card> -->
+  
+  
+      <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="scroller">
+  
+        <ng-container *cdkVirtualFor="let item of placesList;
+          let index = index;
+          let count = count;
+          let first = first;
+          let last = last;
+          let even = even;
+          let odd = odd;">
+  
+          <mat-card sale>
+            <!--
+                If you click image, it should open seeSaleDetails() right to images section.
+              -->
+            <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
+            <app-image-carousel [displayIndex]="index + count"></app-image-carousel>
+  
+            <mat-card-content class="dashboard-card-content">
+              <mat-card-title>
+                Bucket
+              </mat-card-title>
+              <mat-card-subtitle>
+                Posted Feb 9th '24, by @Fred
+              </mat-card-subtitle>
+              <div>
+                Some details about the item for sale here. Wow.
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+         
+              <button matTooltip="Save this house in your favorites" (click)="this.likeState = !this.likeState"
+                [@iconChangeAnimation]="toggleLikeState" mat-button>
+                <mat-icon>favorite{{ toggleLikeState }}</mat-icon>
+              </button>
+              <button [matMenuTriggerFor]="chatMenuMobile" matTooltip="Chat with the house agent" mat-button>
+                Contact
+              </button>
+              <mat-menu #chatMenuMobile="matMenu" yPosition="above">
+                <button mat-menu-item (click)="copyAgentPhoneNumber()">
+                  <mat-icon>phone</mat-icon>
+                  <span>Copy phone number</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon>chat</mat-icon>
+                  <span>Chat agent</span>
+                </button>
+              </mat-menu>
+    
+              <button (click)="seeSaleDetails()" matTooltip="See more details about this house" mat-button>
+                More
+              </button>
+            </mat-card-actions>
+          </mat-card>
+  
+        </ng-container>
+  
+        <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
+  
+  
+        <!-- show only if user at bottom of page & in view-->
+        <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
+        </mat-spinner>
+  
+  
+  
+      </cdk-virtual-scroll-viewport>
+  
+  
+      <!-- Stop Add Content Here -->
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
+  <!-- <cdk-virtual-scroll-viewport itemSize="100">
+      <mat-list *cdkVirtualFor="let fact of dataSource">
+        
+          <mat-card *ngFor="let g of fact.states[0] || fact" class="fact-item">
+  
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+            
+            {{ g || fact.year }}
+  
+            <mat-card-content>
+              <p>
+                The Shiba Inu is the smallest of the six original
+                and distinct spitz breeds of dog from Japan.
+              </p>
+            </mat-card-content>
+  
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+          <div class="black" *ngIf="!fact">
+            Loading ...
+          </div>
+      </mat-list>
+    </cdk-virtual-scroll-viewport> -->

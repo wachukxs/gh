@@ -25,7 +25,7 @@ export class WaitlistComponent implements OnInit {
     private bottomSheet: MatBottomSheet,) { }
 
   ngOnInit(): void {
-    this.filteredOptions = this.waitListForm.get('servingstate')?.valueChanges.pipe(
+    this.filteredOptions = this.waitListForm.get('serving_state')?.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
@@ -34,7 +34,7 @@ export class WaitlistComponent implements OnInit {
   filteredOptions: Observable<string[]> | undefined;
 
   waitListForm:FormGroup = this._formBuilder.group({
-    servingstate: ['', [Validators.required]],
+    serving_state: ['', [Validators.required]],
     first_name: ['', [Validators.required]],
     last_name: [''],
     middle_name: [''],
@@ -62,7 +62,7 @@ export class WaitlistComponent implements OnInit {
           let _firstname = this.waitListForm.get('first_name')?.value
 
           this.waitListForm.reset({
-            servingstate: '',
+            serving_state: '',
             first_name: '',
             last_name: '',
             middle_name: '',
@@ -110,8 +110,10 @@ export class WaitlistComponent implements OnInit {
         error: (err: any) => {
           console.log('why NOT joined?', err);
 
-          if (err.status == 400) { // bad data
-            this.callerService.showNotification(err.error.error.details[0].message)
+          if (err.status == 400) { // we sent bad data
+            this.callerService.showNotification(err.error.error || err.error.message || err.error.error.message, 1500)
+          } else {
+            this.callerService.showNotification('An error occurred. Maybe try again.')
           }
 
           this.hideJoinMatSpinner = !this.hideJoinMatSpinner

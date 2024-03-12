@@ -1,13 +1,13 @@
 <!-- Put tooltips almost everywhere -->
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav"
-    [attr.role]="((isPortraitHandset$|| isTablet$) | async) ? 'dialog' : 'navigation'"
-    [mode]="((isPortraitHandset$|| isTablet$) | async) ? 'over' : 'side'"
-    [opened]="((isPortraitHandset$|| isTablet$) | async) === false">
+    [attr.role]="((callerService.isPortraitHandset$|| callerService.isTablet$) | async) ? 'dialog' : 'navigation'"
+    [mode]="((callerService.isPortraitHandset$|| callerService.isTablet$) | async) ? 'over' : 'side'"
+    [opened]="((callerService.isPortraitHandset$|| callerService.isTablet$) | async) === false">
     <mat-toolbar class="filters">
       Filters
       <span class="example-spacer"></span>
-      <button mat-ripple mat-raised-button>Reset All</button>
+      <button mat-ripple mat-raised-button (click)="resetFilters()">Reset All</button>
     </mat-toolbar>
 
     <form [formGroup]="filterForm">
@@ -102,7 +102,7 @@
   <mat-sidenav-content>
     <mat-toolbar color="accent">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-        *ngIf="(isPortraitHandset$ || isTablet$) | async">
+        *ngIf="(callerService.isPortraitHandset$ || callerService.isTablet$) | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <div class="feed-header">

@@ -25,6 +25,7 @@ export class BasicAuthGuard implements CanActivate {
         
           return true;
         } else {
+          console.log('no statecode or invalid statecode');
           this.callerService.showNotification("State code not found or invalid. Sign up.", undefined, "OK" , "bottom")
           return this.router.navigate(['/signup'])
         }

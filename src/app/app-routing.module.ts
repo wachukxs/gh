@@ -20,6 +20,8 @@ import { ProfileComponent } from './profile/profile.component'
 import { BasicAuthGuard } from './guards/basic-auth.guard'
 import { InLocalGuard } from './guards/in-local.guard'
 import { CreateNewAccommodationComponent } from './create-new-accommodation/create-new-accommodation.component'
+import { PublicProfileComponent } from './public-profile/public-profile.component'
+import { SalesFeedComponent } from './sales-feed/sales-feed.component'
 
 const routes: Routes = [
     {
@@ -31,6 +33,18 @@ const routes: Routes = [
                 path: '',
                 title: 'Your feed',
                 component: FeedComponent,
+                canActivate: [BasicAuthGuard],
+            },
+            {
+                path: 'houses',
+                title: 'Your feed',
+                component: FeedComponent,
+                canActivate: [BasicAuthGuard],
+            },
+            {
+                path: 'sales',
+                title: 'Your feed',
+                component: SalesFeedComponent,
                 canActivate: [BasicAuthGuard],
             },
             { path: 'profile', title: 'Profile', component: ProfileComponent },
@@ -67,6 +81,11 @@ const routes: Routes = [
         title: 'Cart',
         component: CartComponent,
         canActivate: [InLocalGuard],
+    },
+    {
+        path: 'p/:route-id',
+        title: 'Hey!',
+        component: PublicProfileComponent,
     },
 
     // put activatedRoute for dashboard, agents much be loggedIN

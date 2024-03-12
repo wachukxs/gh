@@ -5,6 +5,7 @@
   <div class="second-part" for-forms>
     <h3>Join our waitlist.</h3>
     <p>We are a service for corp members to find accommodation, and house hold items so they can easily settle in their serving state.</p>
+    <p>We're cooking more things too.</p>
     <form [formGroup]="waitListForm" class="example-form">
 
       <mat-form-field class="example-full-width" appearance="fill">
@@ -40,21 +41,21 @@
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Serving state</mat-label>
-        <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="servingstate" [matAutocomplete]="auto">
+        <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="serving_state" [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <!-- <mat-option value="">Choose</mat-option> -->
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}
           </mat-option>
         </mat-autocomplete>
-        <mat-error *ngIf="waitListForm?.get(['servingstate'])?.hasError('required')">
+        <mat-error *ngIf="waitListForm?.get(['serving_state'])?.hasError('required')">
           Serving state is <strong>required</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field color="primary" class="example-full-width" appearance="fill">
         <mat-label>Leave a comment</mat-label>
-        <textarea formControlName="comment" matInput placeholder="Anything. A question, comment, or nothing." matAutosizeMaxRows="5" matTextareaAutosize rows="3"></textarea>
+        <textarea formControlName="comment" matInput placeholder="Anything. A question, comment, an expectation or nothing." matAutosizeMaxRows="5" matTextareaAutosize rows="3"></textarea>
         <mat-hint>Optional</mat-hint>
       </mat-form-field>
 

@@ -1,7 +1,7 @@
 # Current New corpers.online front-end
 
-## TODOs... well, alot.
-* ~~link to our backend.~~
+## TODOs... well, a lot.
+* ~~link to our backend.~~ ✅
 * They should invite their friends after joining our waitlist
 * Implement [animated icons](https://material.io/design/iconography/animated-icons.html#usage)
 * How to use angular [motion design kit](https://material.io/resources/motion-design-kit)
@@ -35,13 +35,18 @@
 ## Questions
 * What are we doing with [HammerJS](https://github.com/angular/components/blob/3a204da37fd1366cae411b5c234517ecad199737/guides/v9-hammerjs-migration.md) ?
 
+## How we're building / should build
+* [Loved by our corp members](https://www.figma.com/blog/peter-yangs-10-rules-for-making-products-that-customers-love/)
+* [Psychology and UX - NN/g](https://www.nngroup.com/topic/psychology-and-ux/)
+* [NN/g Study Guides](https://www.nngroup.com/topic/study-guide/)
+
 ## Resources we're using
 * [typescript.tv](https://typescript.tv/)
 * For our image sliders
     * [keen-slider](https://keen-slider.io/examples)
     * [SwiperJS](https://swiperjs.com/angular) - we're going with this.
 
-## We're Using MatDesign!
+## We're Using Material Design!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
 

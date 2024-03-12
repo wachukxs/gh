@@ -20,7 +20,10 @@ import {
   transition
 } from '@angular/animations';
 import { ImageCarouselComponent } from '../image-carousel/image-carousel.component';
-import { SocketIoService } from '../services/socket-io.service';
+import { IOEventName, SocketIoService } from '../services/socket-io.service';
+import { CallerService } from '../services/caller.service';
+
+// https://stackoverflow.com/questions/52566563/how-to-use-socket-io-in-angular-with-node-js
 
 export interface Fact { // change to property
   text?: string;
@@ -103,7 +106,7 @@ export class FeedComponent implements OnInit {
     {text: 'Lower details', cols: 1, rows: 1, color: '#DDBDF1'},
   ];
 
-  hidePlacesSelect: boolean = false; // why did we need this?
+  hidePlacesSelect: boolean = false; // why do we need this?
   hideProximityPlacesSelect: boolean = false;
 
   location: any = undefined;
@@ -157,48 +160,18 @@ export class FeedComponent implements OnInit {
 
 
 
-  isPortraitHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
-    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
-  isTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Tablet)
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
+  /**
+   * it's important that codeRef is same with filterForm.houseType...
+   */
 
-  isPortraitTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.TabletPortrait)
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
-
-  isLandscapeTabletWeb$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Web, Breakpoints.TabletLandscape])
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
-
-
-
-    /**
-     * it's important that codeRef is same with filterForm.houseType...
-     */
-
-    availableHouseTypes: Array<HouseTypes> = [
-      {name: '1 BHK',  codeRef: 'bhk1'},
-      {name: '2 BHK',  codeRef: 'bhk2'},
-      {name: '1 BK',  codeRef: 'bk1'},
-      {name: '2B 1K',  codeRef: 'b2k1'},
-      {name: '3B 1K',  codeRef: 'b3k1'},
-      {name: '4B 1K',  codeRef: 'b4k1'}
-    ];
+  availableHouseTypes: Array<HouseTypes> = [
+    {name: '1 BHK',  codeRef: 'bhk1'},
+    {name: '2 BHK',  codeRef: 'bhk2'},
+    {name: '1 BK',  codeRef: 'bk1'},
+    {name: '2B 1K',  codeRef: 'b2k1'},
+    {name: '3B 1K',  codeRef: 'b3k1'},
+    {name: '4B 1K',  codeRef: 'b4k1'}
+  ];
 
   filterForm = new FormGroup({
     budget: new FormGroup({
@@ -251,8 +224,10 @@ export class FeedComponent implements OnInit {
               private dialog: MatDialog,
               private clipboard: Clipboard,
               private snackBar: MatSnackBar,
+              public callerService: CallerService,
               private socketIoService: SocketIoService,
               private locationService: LocationService) {
+      
   }
 
   onSwipeRight(event: any): void {
@@ -270,6 +245,23 @@ export class FeedComponent implements OnInit {
     // this.isPortraitHandset$.subscribe(value => console.log('is portrait handset', value));
     
     // this.isTablet$.subscribe(value => console.log('is tablet', value));
+
+
+    this.socketIoService.onEvent(IOEventName.HI).subscribe(data => {
+      console.log('new hi data:', data);
+    })
+
+    this.socketIoService.onEvent(IOEventName.BROADCAST_MESSAGE).subscribe(data => {
+      console.log('new bc data:', data);
+    })
+
+    
+  }
+
+  resetFilters() {
+    // testing
+
+    this.socketIoService.sendEvent(IOEventName.HI, 'sth')
   }
 
   bookmarkPost() {
@@ -404,6 +396,10 @@ export class FeedComponent implements OnInit {
         duration: 2000,
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.socketIoService.destroy();
   }
 
 }

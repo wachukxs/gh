@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 import { CallerService } from '../services/caller.service'
 import { HttpStatusCode } from '@angular/common/http'
+import { SocketIoService } from '../services/socket-io.service'
 
 interface ImagePreview {
     name: string
@@ -16,13 +17,16 @@ interface ImagePreview {
     templateUrl: './create-new-sale.component.html',
     styleUrls: ['./create-new-sale.component.css'],
 })
-export class CreateNewSaleComponent implements OnInit {
-    // @ViewChild('imgFileInput', { read: HTMLInputElement, static: true }) imgFileInput!: HTMLInputElement
+export class CreateNewSaleComponent implements OnInit, AfterViewInit {
+    // TODO: NOT WORKING
+    @ViewChild('imgFileInput', { read: HTMLInputElement, static: true })
+    imgFileInput!: HTMLInputElement
 
     constructor(
         private _formBuilder: FormBuilder,
         private createPostDialogRef: MatDialogRef<CreateNewSaleComponent>,
         private callerService: CallerService,
+        private socketService: SocketIoService,
     ) {}
 
     salePostFormData: FormData = new FormData()
@@ -41,6 +45,8 @@ export class CreateNewSaleComponent implements OnInit {
     })
 
     ngOnInit(): void {
+        console.log('this.imgFileInput.1', this.imgFileInput)
+        
         this.saleFormGroup
             .get(['is_item_negotiable'])
             ?.valueChanges.subscribe((value: boolean) => {
@@ -94,6 +100,10 @@ export class CreateNewSaleComponent implements OnInit {
         })
     }
 
+    ngAfterViewInit(): void {
+        console.log('this.imgFileInput.2', this.imgFileInput)
+    }
+
     populateFormData(): void {
         for (const field in this.saleFormGroup.controls) {
             // console.log(field, this.accommodationFormGroup.get(field))
@@ -108,6 +118,24 @@ export class CreateNewSaleComponent implements OnInit {
         }
 
         console.log('this.salePostFormData', this.salePostFormData)
+    }
+
+    /**
+     * Also removes images.
+     */
+    clearFormDataAndImages(): void {
+        this.salePostFormData = new FormData() // reset
+
+        /**
+         * reset the input form, so if you select the same file again it'll work
+         * TODO: bug, imgFileInput is turning up null.
+         */
+        // this.imgFileInput.value = ''
+
+        // reset the form after filling it
+        this.saleFormGroup.reset()
+
+        this.saleImagesPreview = []
     }
 
     onFileSelected(event: Event): void {
@@ -160,12 +188,9 @@ export class CreateNewSaleComponent implements OnInit {
                     next: (res) => {
                         console.log('res', res)
                         if (res.status === HttpStatusCode.Ok) {
-                            this.salePostFormData = new FormData() // reset
-
                             this.callerService.showNotification('Sale posted')
-
-                            // reset the form after filling it
-                            this.saleFormGroup.reset()
+                            
+                            this.clearFormDataAndImages()
                         } else {
                             // TODO: maybe show the message from the backend.
                             this.callerService.showNotification(
@@ -208,5 +233,9 @@ export class CreateNewSaleComponent implements OnInit {
 
         // clear the input. (incase the same file is deleted and selected again)
         imageFileInput.value = ''
+    }
+
+    saveDraft() {
+        
     }
 }

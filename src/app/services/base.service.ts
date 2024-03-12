@@ -25,10 +25,10 @@ export class BaseService {
     .select(selectFeatureCorpMember)
     // .select(selectStateCorpMember)
     // .select(state => state.corper)
-    .pipe(tap((data) => console.log('??', data)))
+    // .pipe(tap((data) => console.log('??', data)))
     .subscribe({
       next: (value) => {
-        console.log('selectFeatureCorpMember', value);
+        // console.log('selectFeatureCorpMember', value);
         // console.log('trying', value);
 
         this.corpMember = value
@@ -67,8 +67,32 @@ export class BaseService {
     );
   }
 
+  isPortraitHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  isTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Tablet)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  isPortraitTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.TabletPortrait)
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
+  isLandscapeTabletWeb$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Web, Breakpoints.TabletLandscape])
+  .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
+
   /**
-   * an array of the NYSC abbrevation standard of all the states in nigeria
+   * an array of the NYSC abbreviation standard of all the states in nigeria
    */
   states_short:Array<string> = ['AB', 'AD', 'AK', 'AN', 'BA', 'BY', 'BN', 'BO', 'CR', 'DT', 'EB', 'ED', 'EK', 'EN', 'FC', 'GM', 'IM', 'JG', 'KD', 'KN', 'KT', 'KB', 'KG', 'KW', 'LA', 'NS', 'NG', 'OG', 'OD', 'OS', 'OY', 'PL', 'RV', 'SO', 'TR', 'YB', 'ZM'];
 

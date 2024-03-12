@@ -73,6 +73,13 @@ import { BaseInterceptorInterceptor } from './base-interceptor.interceptor';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { corpMemberFeatureKey } from './ngrx-store/selectors/corp.selectors';
 import { _FEATURE_EFFECTS } from '@ngrx/effects/src/tokens';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { PublicProfileComponent } from './public-profile/public-profile.component';
+import { SalesFeedComponent } from './sales-feed/sales-feed.component';
+
+const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member`, options: {
+  transports: ["websocket", "polling"],
+} };
 
 @NgModule({
   declarations: [
@@ -97,7 +104,9 @@ import { _FEATURE_EFFECTS } from '@ngrx/effects/src/tokens';
     ProfileComponent,
     CreateNewAccommodationComponent,
     CreateNewSaleComponent,
-    JoinWaitlistSuccessDialogComponent
+    JoinWaitlistSuccessDialogComponent,
+    PublicProfileComponent,
+    SalesFeedComponent
   ],
   imports: [
     MatNativeDateModule,
@@ -146,6 +155,7 @@ import { _FEATURE_EFFECTS } from '@ngrx/effects/src/tokens';
     TextFieldModule,
     EffectsModule.forRoot([CorpMemberEffects]),
     StoreModule.forRoot({[corpMemberFeatureKey]: corpMemberReducer}), // {corper: corpMemberReducer} // {[corpMemberFeatureKey]: corpMemberReducer}
+    SocketIoModule.forRoot(socketIoConfig),
   ],
   providers: [
     CanExitGuard,
