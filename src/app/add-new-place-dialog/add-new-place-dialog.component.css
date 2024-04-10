@@ -1,0 +1,11 @@
+.top-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-place-form {
+    display: flex;
+
+    flex-direction: column;
+}

@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
                     console.log('login res', res)
                     if (res.status === HttpStatusCode.Ok) {
                         localStorage.setItem('online-corper', JSON.stringify(res.body.data));
+                        sessionStorage.setItem('_online', res.body.token);
                         this.callerService._store.dispatch(setCorpMemberProfileData({data: res.body.data}))
                         this.router.navigate(['/']); // '/dashboard' for agents
                     } else {

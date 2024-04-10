@@ -7,10 +7,15 @@ export enum URLPaths {
     corpMemberSignUp = '/signup',
     corpMemberLogIn = '/login',
 
+    createNewPPA = '/ppa',
+
     corpMemberProfileUpdate = '/profile',
     corpMemberProfileBioUpdate = '/profile/bio',
     corpMemberProfileServiceDetailsUpdate = '/profile/service-details',
     corpMemberProfilePpaDetailsUpdate = '/profile/ppa-details',
     corpMemberProfileOtherDetailsUpdate = '/profile/other-details',
     corpMemberProfilePhotoUpdate = '/profile/profile-photo',
+
+    getNgStates = '/ng-states',
+    getNgStateLGAs = '/ng-states/:state_id/lgas',
 }

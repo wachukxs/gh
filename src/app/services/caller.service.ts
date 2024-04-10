@@ -35,7 +35,6 @@ export class CallerService extends BaseService {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
             timeout: `${3000}`, // doesn't seem to work
-            // Authorization: 'my-auth-token',
         }),
         observe: 'response' as const,
         responseType: 'json' as const,
@@ -46,7 +45,6 @@ export class CallerService extends BaseService {
         headers: new HttpHeaders({
             'Content-Type': 'application/text',
             timeout: `${3000}`, // doesn't seem to work
-            // Authorization: 'my-auth-token'
         }),
         observe: 'response' as const,
         responseType: 'text' as const,
@@ -259,5 +257,27 @@ export class CallerService extends BaseService {
                 // retry(3), // retry a failed request up to 3 times
                 catchError(this.handleError), // we'll handle from the calling component
             )
+    }
+
+    fetchAllNigeriaStates() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getNgStates,
+            this.JSONHttpOptions
+        )
+    }
+
+    fetchNigeriaStateLGAs(stateId: number) {
+        return this.http.get(
+            environment.baseurl + URLPaths.getNgStateLGAs.replace(':state_id', `${stateId}`),
+            this.JSONHttpOptions
+        )
+    }
+
+    addNewPPA(data: FormData) {
+        return this.http.post(
+            environment.baseurl + URLPaths.createNewPPA,
+            data,
+            this.FormDataOptions
+        )
     }
 }

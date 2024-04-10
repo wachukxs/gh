@@ -56,9 +56,9 @@
               <div class="add-house">
                 <mat-form-field>
                   <mat-label>Places like:</mat-label>
-                  <mat-select role="listbox" [formControl]="
-                                            propertyForm.controls.house_type
-                                        " required>
+                  <mat-select role="listbox" 
+                    [formControl]="propertyForm.controls.house_type" 
+                    required>
                     <mat-option role="option" *ngFor="let houseType of houseTypes"
                       [value]="houseType">{{ houseType }}</mat-option>
                   </mat-select>
@@ -147,9 +147,10 @@
                   <mat-label>Add media files</mat-label>
                   <br />
                   <button type="button" mat-button mat-raised-button>
-                    <input type="file" accept="image/*" required multiple (change)="
-                                                houseMedia($event, house.id)
-                                            " />
+                    <input type="file" 
+                    accept="image/*" required multiple 
+                    (change)="houseMedia($event, house.id)"
+                    />
                   </button>
                 </div>
 

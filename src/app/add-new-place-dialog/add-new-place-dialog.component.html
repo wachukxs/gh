@@ -1,0 +1,54 @@
+<div class="wrapper">
+    <section class="top-div">
+        <h2 class="top-div-header" matDialogTitle>
+            Add new PPA
+        </h2>
+        <button type="button" mat-icon-button (click)="close()" title="Close dialog">
+            <mat-icon fontIcon="close" aria-label="close icon"></mat-icon>
+        </button>
+    </section>
+
+    <section>
+        <form class="new-place-form" [formGroup]="newPlaceForm" (ngSubmit)="postNewPlace()">
+
+            <mat-form-field>
+                <mat-label>Place name</mat-label>
+                <input matInput placeholder="St. Mary's School" formControlName="name" required />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Category</mat-label>
+                <input matInput placeholder="Gov. Institution" formControlName="category" required />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Address</mat-label>
+                <input matInput placeholder="No. 26, B lane, Atero Street, Abuja" formControlName="address" required />
+              </mat-form-field>
+
+              <mat-form-field>
+                <!-- Should be pre-filled with their state of registration & LGA -->
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state_id">
+                  <mat-option *ngFor="let state of ng_states" [value]="state?.id">
+                    {{state?.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                <!-- TODO: Should have a loader -->
+                <mat-label>LGA</mat-label>
+                <mat-select formControlName="state_lga_id">
+                  <mat-option *ngFor="let lga of ng_states_lgas" [value]="lga?.id">
+                    {{lga?.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <button type="submit" mat-button mat-raised-button>
+              Add
+            </button>
+        </form>
+    </section>
+</div>

@@ -7,6 +7,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { CreateNewAccommodationComponent } from '../create-new-accommodation/create-new-accommodation.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateNewSaleComponent } from '../create-new-sale/create-new-sale.component';
+import { AddNewPlaceDialogComponent } from '../add-new-place-dialog/add-new-place-dialog.component';
 
 @Component({
   selector: 'app-nav',
@@ -53,6 +54,28 @@ export class NavComponent {
     });
   }
 
+  openAddNewPPADialog() {
+    try {
+      const dialogRef = this.dialog.open(AddNewPlaceDialogComponent, {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        data: {},
+        ariaLabel: 'Dialog to list a ppa',
+        role: 'dialog',
+      });
+  
+      /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log('The accommodation dialog was closed', result);
+      });
+    } catch (error) {
+      console.log('err opening dialog to add new ppa', error);
+      
+    }
+  }
+
   openCreateSalePostDialog() {
     const dialogRef = this.dialog.open(CreateNewSaleComponent, {
       maxWidth: '100vw',
@@ -72,6 +95,7 @@ export class NavComponent {
 
   logout(): void {
     localStorage.removeItem('online-corper');
+    sessionStorage.removeItem('_online')
     console.log('laugh', this.router.url)
     /**
      * should refresh the page if you're in the home page (/).

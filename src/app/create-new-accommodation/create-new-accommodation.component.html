@@ -105,7 +105,7 @@
             <mat-step label="Let's see it" state="image">
                 <div class="accommodation-form form-step-1">
 
-                    <input #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
+                    <input title="Select files" #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                         type="file">
 
                     <div class="images-preview">
@@ -164,8 +164,8 @@
                     <div *ngIf="accommodationFormGroup.get(['status'])?.value == 'old_rent'">
                         <mat-form-field appearance="fill" class="rent-expire-form-field">
                             <mat-label>When does your rent expire</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="rent_expire_date">
-                            <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
+                            <input title="Date your rent expires" matInput [matDatepicker]="picker" formControlName="rent_expire_date">
+                            <mat-hint>DD/MM/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -225,12 +225,12 @@
 
                 <div class="action-buttons">
                     <div>
-                        <button mat-stroked-button matStepperPrevious>Back</button>
-                        <button mat-raised-button color="primary" (click)="submit()">Post</button>
+                        <button type="button" mat-stroked-button matStepperPrevious>Back</button>
+                        <button type="button" mat-raised-button color="primary" (click)="submit()">Post</button>
                     </div>
 
                     <div>
-                        <button mat-button>Save as draft</button>
+                        <button type="button" mat-button>Save as draft</button>
                     </div>
 
 
