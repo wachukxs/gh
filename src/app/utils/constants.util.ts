@@ -8,6 +8,9 @@ export enum URLPaths {
     corpMemberLogIn = '/login',
 
     createNewPPA = '/ppa',
+    getAllPPAs = '/ppas',
+
+    createNewPpaReview = '/ppa/review',
 
     corpMemberProfileUpdate = '/profile',
     corpMemberProfileBioUpdate = '/profile/bio',

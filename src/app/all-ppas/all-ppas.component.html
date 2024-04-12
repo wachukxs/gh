@@ -1,0 +1,23 @@
+<div class="wrapper">
+    <mat-form-field class="example-full-width">
+        <mat-label>Search...</mat-label>
+        <input matInput placeholder="St. Mary's" value="">
+    </mat-form-field>
+
+    <section>
+        <div class="ppas-list">
+            <mat-card *ngFor="let ppa of ppas">
+                <mat-card-header>
+                    <mat-card-title>{{ ppa.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ ppa.type_of_ppa }}</mat-card-subtitle>
+                  </mat-card-header>
+                <mat-card-content *ngIf="ppa.Locations?.length">{{ppa.Locations?.length}} location{{ppa.Locations!.length > 1 ? 's' : ''}}</mat-card-content>
+
+                <mat-card-actions align="end">
+                    <button type="button" mat-button (click)="leaveReview(ppa)">Review</button>
+                    <button type="button" mat-button>Bookmark</button>
+                  </mat-card-actions>
+              </mat-card>              
+        </div>
+    </section>
+</div>

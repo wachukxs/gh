@@ -280,4 +280,20 @@ export class CallerService extends BaseService {
             this.FormDataOptions
         )
     }
+
+    // TODO: we would need to maybe filter by some params later.
+    getAllPPAs() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getAllPPAs,
+            this.JSONHttpOptions
+        )
+    }
+
+    addNewPpaReview(data: FormData) {
+        return this.http.post(
+            environment.baseurl + URLPaths.createNewPpaReview,
+            data,
+            this.JSONHttpOptions
+        )
+    }
 }

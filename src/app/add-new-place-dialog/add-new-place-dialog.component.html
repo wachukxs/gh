@@ -14,16 +14,25 @@
             <mat-form-field>
                 <mat-label>Place name</mat-label>
                 <input matInput placeholder="St. Mary's School" formControlName="name" required />
+                <mat-error *ngIf="newPlaceForm.get(['name'])?.hasError('required')">
+                  Name is <strong>required</strong>
+              </mat-error>
               </mat-form-field>
 
               <mat-form-field>
                 <mat-label>Category</mat-label>
                 <input matInput placeholder="Gov. Institution" formControlName="category" required />
+                <mat-error *ngIf="newPlaceForm.get(['category'])?.hasError('required')">
+                  Category is <strong>required</strong>
+              </mat-error>
               </mat-form-field>
 
               <mat-form-field>
                 <mat-label>Address</mat-label>
                 <input matInput placeholder="No. 26, B lane, Atero Street, Abuja" formControlName="address" required />
+                <mat-error *ngIf="newPlaceForm.get(['address'])?.hasError('required')">
+                  Address is <strong>required</strong>
+              </mat-error>
               </mat-form-field>
 
               <mat-form-field>
@@ -34,6 +43,9 @@
                     {{state?.name}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="newPlaceForm.get(['state_id'])?.hasError('required')">
+                  State is <strong>required</strong>
+              </mat-error>
               </mat-form-field>
 
               <mat-form-field>
@@ -44,6 +56,9 @@
                     {{lga?.name}}
                   </mat-option>
                 </mat-select>
+                <mat-error *ngIf="newPlaceForm.get(['state_lga_id'])?.hasError('required')">
+                  LGA is <strong>required</strong>
+              </mat-error>
               </mat-form-field>
 
             <button type="submit" mat-button mat-raised-button>

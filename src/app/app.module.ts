@@ -77,6 +77,8 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 import { SalesFeedComponent } from './sales-feed/sales-feed.component';
 import { AddNewPlaceDialogComponent } from './add-new-place-dialog/add-new-place-dialog.component';
+import { AllPpasComponent } from './all-ppas/all-ppas.component';
+import { LeaveReviewComponent } from './dialogs/leave-review/leave-review.component';
 
 const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member`, options: {
   transports: ["websocket", "polling"],
@@ -108,7 +110,9 @@ const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member
     JoinWaitlistSuccessDialogComponent,
     PublicProfileComponent,
     SalesFeedComponent,
-    AddNewPlaceDialogComponent
+    AddNewPlaceDialogComponent,
+    AllPpasComponent,
+    LeaveReviewComponent
   ],
   imports: [
     MatNativeDateModule,

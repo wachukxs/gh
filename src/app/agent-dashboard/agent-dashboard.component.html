@@ -146,8 +146,10 @@
                 <div>
                   <mat-label>Add media files</mat-label>
                   <br />
+
+                  <!-- TODO: Maybe fix this by adding "mat-button mat-raised-button" to <input> -->
                   <button type="button" mat-button mat-raised-button>
-                    <input type="file" 
+                    <input title="Select file" type="file" 
                     accept="image/*" required multiple 
                     (change)="houseMedia($event, house.id)"
                     />
@@ -157,22 +159,22 @@
                 <div class="inner-update-form">
                   <mat-form-field>
                     <mat-label>Bathroom</mat-label>
-                    <input matInput [value]="house.bathrooms" />
+                    <input title="Bathroom" matInput [value]="house.bathrooms" />
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Toilet</mat-label>
-                    <input matInput [value]="house.toilet" />
+                    <input title="Toilet" matInput [value]="house.toilet" />
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Kitchen</mat-label>
-                    <input matInput [value]="house.kitchen" />
+                    <input title="Kitchen" matInput [value]="house.kitchen" />
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Bedroom</mat-label>
-                    <input matInput [value]="house.bedrooms" type="number" min="1" />
+                    <input title="Bedroom" matInput [value]="house.bedrooms" type="number" min="1" />
                   </mat-form-field>
                 </div>
               </form>
@@ -219,12 +221,12 @@
 
             <mat-form-field>
               <mat-label>First name</mat-label>
-              <input matInput />
+              <input title="First name" matInput />
             </mat-form-field>
 
             <mat-form-field>
               <mat-label>Age</mat-label>
-              <input matInput type="number" min="1" />
+              <input title="Age" matInput type="number" min="1" />
             </mat-form-field>
 
             <mat-divider></mat-divider>
@@ -271,7 +273,7 @@
 
             <mat-form-field>
               <mat-label>Country</mat-label>
-              <input matInput />
+              <input title="Country" matInput />
             </mat-form-field>
 
             <mat-action-row>
@@ -295,7 +297,7 @@
 
             <mat-form-field>
               <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly />
+              <input title="Date" matInput [matDatepicker]="picker" (focus)="picker.open()" readonly />
             </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
 
@@ -315,7 +317,7 @@
   <mat-tab label="Messages">
     <div class="parent-chat">
       <div class="chat-list">
-        <mat-list role="list">
+        <mat-list role="directory">
           <!-- <div mat-subheader>Folders</div>
           <ng-container *ngFor="let folder of folders">
             <mat-list-item>
@@ -376,6 +378,7 @@
           <mat-form-field class="msg-input">
             <mat-label>Your message</mat-label>
             <textarea 
+            title="Message"
             [formControl]="chatMessage"
             matInput 
             cdkTextareaAutosize

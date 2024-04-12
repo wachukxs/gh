@@ -22,6 +22,7 @@ import { InLocalGuard } from './guards/in-local.guard'
 import { CreateNewAccommodationComponent } from './create-new-accommodation/create-new-accommodation.component'
 import { PublicProfileComponent } from './public-profile/public-profile.component'
 import { SalesFeedComponent } from './sales-feed/sales-feed.component'
+import { AllPpasComponent } from './all-ppas/all-ppas.component'
 
 const routes: Routes = [
     {
@@ -69,6 +70,18 @@ const routes: Routes = [
                 ]
             },
         ],
+    },
+    {
+        path: 'ppa',
+        title: 'PPAs',
+        component: AllPpasComponent,
+        // canActivate: [InLocalGuard], // TODO: should they be signed in to view?
+    },
+    {
+        path: 'ppas',
+        title: 'PPAs',
+        component: AllPpasComponent,
+        // canActivate: [InLocalGuard],  // TODO: should they be signed in to view? Maybe they won't be able to comment or leave a review if not signed in.
     },
     {
         path: 'status',

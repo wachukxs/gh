@@ -34,6 +34,30 @@ export interface AppState {
     corper: CorpMemberState
 }
 
+export interface PpaModel {
+    "id": Number,
+    "name": String,
+    "type_of_ppa": String,
+    "created_at": String,
+    "updated_at": String,
+    Locations?: Array<LocationModel>
+}
+
+export interface LocationModel {
+    "type": string,
+    "id": number,
+    "ppa_id": number,
+    "accommodation_id": null | number,
+    "directions": null | number,
+    "address": string,
+    "state_lga_id": number,
+    "state_id": number,
+    "corp_member_id": null | number,
+    "created_at": string,
+    "updated_at": string,
+    "CorpMemberId": null | number
+}
+
 export const initialCorpMemberState: CorpMemberState = {
     time_with_us: '',
     service_state: '',
