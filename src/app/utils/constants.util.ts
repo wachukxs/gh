@@ -9,6 +9,7 @@ export enum URLPaths {
 
     createNewPPA = '/ppa',
     getAllPPAs = '/ppas',
+    searchPPAs = '/ppas/search',
 
     createNewPpaReview = '/ppa/review',
 

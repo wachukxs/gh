@@ -296,4 +296,12 @@ export class CallerService extends BaseService {
             this.JSONHttpOptions
         )
     }
+
+    searchPPAs(data: object) {
+        return this.http.post(
+            environment.baseurl + URLPaths.searchPPAs,
+            data,
+            this.JSONHttpOptions
+        )
+    }
 }

@@ -7,7 +7,7 @@
     <mat-toolbar class="filters">
       Filters
       <span class="example-spacer"></span>
-      <button mat-ripple mat-raised-button (click)="resetFilters()">Reset All</button>
+      <button type="button" mat-ripple mat-raised-button (click)="resetFilters()">Reset All</button>
     </mat-toolbar>
 
     <form [formGroup]="filterForm">
@@ -29,8 +29,8 @@
         <!-- TODO: Change the max value from 200000 -->
         <mat-slider [disabled]="!budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete
           min="20000" step="25000" max="200000">
-          <input value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
-          <input value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
+          <input title="min slider" value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
+          <input title="max slider" value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
         </mat-slider>
       </div>
 
@@ -65,7 +65,7 @@
       <div class="byside">
         <mat-slider [disabled]="!proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete
           step="500" min="100" max="3500">
-          <input matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
+          <input title="proximity slider" matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
         </mat-slider>
 
         <!-- based on the distance, filter the available places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->

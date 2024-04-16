@@ -1,8 +1,30 @@
 <div class="wrapper">
-    <mat-form-field class="example-full-width">
-        <mat-label>Search...</mat-label>
-        <input matInput placeholder="St. Mary's" value="">
-    </mat-form-field>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span class="app-name-header" routerLink="/">Corpers NG</span>
+            <span class="toolbar-spacer"></span>
+            <button type="button" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+    </mat-toolbar>
+
+    <section class="d-flex search-bar-section">
+        <mat-form-field class="form-field-full-width">
+            <mat-label>Search...</mat-label>
+            <input [formControl]="searchInput" matInput placeholder="St. Mary's School" autocomplete="off">
+            <button type="button" *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear search text"
+                (click)="clearSearchInput()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <!-- Don't need button click. -->
+        <!-- <button type="button" mat-icon-button color="secondary" aria-label="Search button">
+            <mat-icon>search</mat-icon>
+        </button> -->
+    </section>
 
     <section>
         <div class="ppas-list">
@@ -10,14 +32,15 @@
                 <mat-card-header>
                     <mat-card-title>{{ ppa.name }}</mat-card-title>
                     <mat-card-subtitle>{{ ppa.type_of_ppa }}</mat-card-subtitle>
-                  </mat-card-header>
-                <mat-card-content *ngIf="ppa.Locations?.length">{{ppa.Locations?.length}} location{{ppa.Locations!.length > 1 ? 's' : ''}}</mat-card-content>
+                </mat-card-header>
+                <mat-card-content *ngIf="ppa.Locations?.length">{{ppa.Locations?.length}}
+                    location{{ppa.Locations!.length > 1 ? 's' : ''}}</mat-card-content>
 
                 <mat-card-actions align="end">
                     <button type="button" mat-button (click)="leaveReview(ppa)">Review</button>
                     <button type="button" mat-button>Bookmark</button>
-                  </mat-card-actions>
-              </mat-card>              
+                </mat-card-actions>
+            </mat-card>
         </div>
     </section>
 </div>
