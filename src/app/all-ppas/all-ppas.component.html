@@ -12,7 +12,7 @@
 
     <section class="d-flex search-bar-section">
         <mat-form-field class="form-field-full-width">
-            <mat-label>Search...</mat-label>
+            <mat-label>Search PPAs by name, location, or category</mat-label>
             <input [formControl]="searchInput" matInput placeholder="St. Mary's School" autocomplete="off">
             <button type="button" *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear search text"
                 (click)="clearSearchInput()">

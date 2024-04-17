@@ -24,7 +24,7 @@ export class AddNewPlaceDialogComponent implements OnInit {
             name: new FormControl(''),
             address: new FormControl(''),
             category: new FormControl(''),
-            state_id: new FormControl(''),
+            state_id: new FormControl('', [Validators.required]),
             state_lga_id: new FormControl(''),
         },
         [Validators.required],
@@ -89,7 +89,14 @@ export class AddNewPlaceDialogComponent implements OnInit {
                     console.log('res', res)
                     if (res.status === 200) {
                         this.callerService.showNotification('PPA added!') // show link to the PPA? For them to also share in groups, PPA should have directions on how to find it??
-                        // TODO: reset form, show notification
+                        // TODO: reset form properly?
+
+                        this.newPlaceForm.reset()
+                        for (let _control in this.newPlaceForm.controls) {
+                            this.newPlaceForm.controls[_control].setErrors(null)
+                        }
+
+                        this.ppaFormData = new FormData() // Should this be done like this??
                     } else {
                         // else show error message?
                     }

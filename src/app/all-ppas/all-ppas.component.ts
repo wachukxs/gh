@@ -27,7 +27,7 @@ export class AllPpasComponent implements OnInit {
     searchInput: FormControl = new FormControl('')
 
     clearSearchInput() {
-      this.searchInput.setValue('')
+        this.searchInput.setValue('')
     }
 
     ngOnInit(): void {
@@ -43,30 +43,32 @@ export class AllPpasComponent implements OnInit {
             },
         })
 
-        this.searchInput.valueChanges.pipe(
-          filter((value) => !!value?.trim()), // don't bother with empty strings
-          debounceTime(500),
-          distinctUntilChanged(),
-        ).subscribe((value) => {
-          console.log('searching...', value);
+        this.searchInput.valueChanges
+            .pipe(
+                filter((value) => !!value?.trim()), // don't bother with empty strings
+                debounceTime(500),
+                distinctUntilChanged(),
+            )
+            .subscribe((value) => {
+                console.log('searching...', value)
 
-          this.callerService.searchPPAs({searchText: value}).subscribe({
-            next: (res: HttpResponse<any>) => {
-              console.log('done searching', res);
-              if (res.status === HttpStatusCode.Ok) {
-                this.ppas = res.body?.ppas
-              }
-            },
-            error: (err) => {
-              console.log('ERR searching', err);
-              
-            }
-          })
-        })
+                this.callerService.searchPPAs({ searchText: value }).subscribe({
+                    next: (res: HttpResponse<any>) => {
+                        console.log('done searching', res)
+                        if (res.status === HttpStatusCode.Ok) {
+                            this.ppas = res.body?.ppas
+                        }
+                    },
+                    error: (err) => {
+                        console.log('ERR searching', err)
+                    },
+                })
+            })
     }
 
     leaveReview(ppa: PpaModel | any) {
         const confirm = this.dialog.open(LeaveReviewComponent, {
+            maxWidth: '360px',
             data: {
                 ppa,
             },
@@ -76,6 +78,10 @@ export class AllPpasComponent implements OnInit {
             (res: any) => {
                 console.log('closed review modal', res)
 
+                // If nothing was done, don't bother.
+                if (!res?.comment && !res?.star_rating) {
+                    return
+                }
                 this.callerService.addNewPpaReview(res).subscribe({
                     next: (res) => {
                         console.log('res', res)

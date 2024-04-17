@@ -1,22 +1,27 @@
 <div mat-dialog-content [formGroup]="reviewFormGroup">
     <p>How was your experience with {{ data.ppa.name }}?</p>
-    <mat-form-field>
-<!--         <mat-label>Your review</mat-label>
-        <input title="Your review" formControlName="comment" matInput [(ngModel)]="data.animal">
- -->
 
-        <textarea matInput formControlName="comment" placeholder="Leave a review or comment"></textarea>
-    </mat-form-field>
-
-    <div>
+    <div class="start-rating-div">
         <button *ngFor="let rating of [1,2,3,4,5]" type="button" mat-icon-button (click)="rateReview(rating)"
             title="Close dialog">
             <mat-icon [fontIcon]="reviewFormGroup.controls['star_rating'].value < rating ? 'star_border' : 'star'"
                 aria-label="star icon"></mat-icon>
         </button>
     </div>
+
+    <mat-form-field class="comment-form-field">
+        <textarea rows="3" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="7" matInput formControlName="comment"
+            placeholder="Write a review"></textarea>
+
+        <mat-error *ngIf="reviewFormGroup.get(['comment'])?.hasError('minlength')">
+            Minimum of 3 characters required
+        </mat-error>
+    </mat-form-field>
+
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
+    <!-- TODO: Add save draft button here. -->
     <button type="button" mat-button (click)="close()">Cancel</button>
-    <button type="button" mat-button [mat-dialog-close]="reviewFormGroup.value" cdkFocusInitial>Post</button>
+    <button [disabled]="emptyReview" type="button" mat-button mat-raised-button color="primary" (click)="saveReview()"
+        cdkFocusInitial>Review</button>
 </div>

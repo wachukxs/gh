@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 
 @Component({
@@ -14,10 +14,11 @@ export class LeaveReviewComponent {
     ) {}
 
     reviewFormGroup: FormGroup = new FormGroup({
-        comment: new FormControl(''),
+        comment: new FormControl('', [Validators.minLength(3)]),
         star_rating: new FormControl(0),
-        ppa_id: new FormControl(this.data.ppa.id)
+        ppa_id: new FormControl(this.data.ppa.id),
     })
+
     ngOnInit(): void {
         console.log('review for', this.data)
 
@@ -44,7 +45,20 @@ export class LeaveReviewComponent {
         }
     }
 
+    saveReview() {
+        if (this.reviewFormGroup.valid) {
+            this.dialogRef.close(this.reviewFormGroup.value)
+        }
+    }
+
     close() {
         this.dialogRef.close()
+    }
+
+    get emptyReview(): boolean {
+        return (
+            !this.reviewFormGroup.get(['comment'])?.value &&
+            !this.reviewFormGroup.get(['star_rating'])?.value
+        )
     }
 }
