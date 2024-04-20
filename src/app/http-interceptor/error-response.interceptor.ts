@@ -29,7 +29,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
           
           this.router.navigate(['/login']) // TODO: is this okay to do? should it be in a route guard instead?
   
-          return EMPTY // stop request.
+          // return EMPTY // stop request.
         }
 
         return throwError(error); // need it for method response type (TS)
