@@ -69,7 +69,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
 import { corpMemberReducer } from './ngrx-store/reducers/corp-member.reducer';
-import { AuthInterceptorInterceptor } from './auth-interceptor.interceptor';
+import { AuthInterceptor } from './http-interceptor/auth.interceptor';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { corpMemberFeatureKey } from './ngrx-store/selectors/corp.selectors';
 import { _FEATURE_EFFECTS } from '@ngrx/effects/src/tokens';
@@ -79,6 +79,7 @@ import { SalesFeedComponent } from './sales-feed/sales-feed.component';
 import { AddNewPlaceDialogComponent } from './add-new-place-dialog/add-new-place-dialog.component';
 import { AllPpasComponent } from './all-ppas/all-ppas.component';
 import { LeaveReviewComponent } from './dialogs/leave-review/leave-review.component';
+import { ErrorResponseInterceptor } from './http-interceptor/error-response.interceptor';
 
 const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member`, options: {
   transports: ["websocket", "polling"],
@@ -176,7 +177,10 @@ const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member
     },
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, // https://stackoverflow.com/a/62839144/9259701
     {
-      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorInterceptor, multi: true
+      provide: HTTP_INTERCEPTORS, useClass: ErrorResponseInterceptor, multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
     },
   ],
   bootstrap: [AppComponent]
