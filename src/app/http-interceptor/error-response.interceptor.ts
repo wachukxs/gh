@@ -11,11 +11,12 @@ import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CallerService } from '../services/caller.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class ErrorResponseInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router, private callerService: CallerService) {}
+  constructor(private router: Router, private callerService: CallerService, private dialog: MatDialog) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // return next.handle(request);
@@ -27,9 +28,11 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
           this.callerService.showNotification("Unauthorized. Please login to continue.", undefined, "OK" , "bottom")
           console.log('auth route to login...');
           
+          // close all open dialogs if any.
+          this.dialog.closeAll()
           this.router.navigate(['/login']) // TODO: is this okay to do? should it be in a route guard instead?
   
-          // return EMPTY // stop request.
+          return EMPTY // stop request.
         }
 
         return throwError(error); // need it for method response type (TS)
