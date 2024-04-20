@@ -69,7 +69,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
 import { corpMemberReducer } from './ngrx-store/reducers/corp-member.reducer';
-import { BaseInterceptorInterceptor } from './base-interceptor.interceptor';
+import { AuthInterceptorInterceptor } from './auth-interceptor.interceptor';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { corpMemberFeatureKey } from './ngrx-store/selectors/corp.selectors';
 import { _FEATURE_EFFECTS } from '@ngrx/effects/src/tokens';
@@ -176,7 +176,7 @@ const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member
     },
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, // https://stackoverflow.com/a/62839144/9259701
     {
-      provide: HTTP_INTERCEPTORS, useClass: BaseInterceptorInterceptor, multi: true
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorInterceptor, multi: true
     },
   ],
   bootstrap: [AppComponent]

@@ -13,7 +13,7 @@ import { Router, UrlTree } from '@angular/router';
 import { CallerService } from './services/caller.service';
 
 @Injectable()
-export class BaseInterceptorInterceptor implements HttpInterceptor {
+export class AuthInterceptorInterceptor implements HttpInterceptor {
 
   constructor(private router: Router, private callerService: CallerService) {}
 
