@@ -69,8 +69,9 @@ export class LoginComponent implements OnInit {
 
                     console.log('login res', res)
                     if (res.status === HttpStatusCode.Ok) {
-                        localStorage.setItem('online-corper', JSON.stringify(res.body.data));
-                        sessionStorage.setItem('_online', res.body.token);
+                        // TODO: Do we need to use localStorage for corper details??
+                        localStorage.setItem(this.callerService.LOCAL_STORAGE_DATA_KEY, JSON.stringify(res.body.data));
+                        sessionStorage.setItem(this.callerService.SESSION_STORAGE_DATA_KEY, res.body.token);
                         this.callerService._store.dispatch(setCorpMemberProfileData({data: res.body.data}))
                         this.router.navigate(['/']); // '/dashboard' for agents
                     } else {

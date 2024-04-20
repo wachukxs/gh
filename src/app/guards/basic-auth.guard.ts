@@ -14,7 +14,7 @@ export class BasicAuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       console.log('authenticating');
 
-      const corpMemberLocal = localStorage.getItem('online-corper')
+      const corpMemberLocal = localStorage.getItem(this.callerService.LOCAL_STORAGE_DATA_KEY)
       if (corpMemberLocal) {
         const foundData = JSON.parse(corpMemberLocal);
         /**

@@ -12,6 +12,9 @@ import { selectFeatureCorpMember, selectStateCorpMember } from '../ngrx-store/se
 })
 export class BaseService {
 
+  public LOCAL_STORAGE_DATA_KEY: string = 'online-corper'
+  public SESSION_STORAGE_DATA_KEY: string = '_online'
+
   _store: Store<AppState> = this.store // TODO: can't we do this better?
 
   corpMember$!: Observable<CorpMemberState>
@@ -102,8 +105,8 @@ export class BaseService {
   states_long:Array<string> = ['ABIA', 'ADAMAWA', 'AKWA IBOM', 'ANAMBRA', 'BAUCHI', 'BAYELSA', 'BENUE', 'BORNO', 'CROSS RIVER', 'DELTA', 'EBONYI', 'EDO', 'EKITI', 'ENUGU', 'FCT - ABUJA', 'GOMBE', 'IMO', 'JIGAWA', 'KADUNA', 'KANO', 'KASTINA', 'KEBBI', 'KOGI', 'KWARA', 'LAGOS', 'NASSARAWA', 'NIGER', 'OGUN', 'ONDO', 'OSUN', 'OYO', 'PLATEAU', 'RIVERS', 'SOKOTO', 'TARABA', 'YOBE', 'ZAMFARA'];
 
   years = parseInt( new Date( Date.now() ).getFullYear().toFixed().slice( 2, 4 ) );
-  yearrange = '(' + ( this.years - 1 ).toString() + '|' + this.years.toString() + ')';
-  servingCorpMemberStateCodeRegex = new RegExp(`(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/${ this.yearrange }[abc]\\/[0-9]{4,5}`, 'i')
+  yearRange = '(' + ( this.years - 1 ).toString() + '|' + this.years.toString() + ')';
+  servingCorpMemberStateCodeRegex = new RegExp(`(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/${ this.yearRange }[abc]\\/[0-9]{4,5}`, 'i')
 
   corpMemberStateCodeRegex = /(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\/\d\d[abc]\/[0-9]{4,5}/i
 }

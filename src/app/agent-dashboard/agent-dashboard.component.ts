@@ -42,7 +42,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
 
   dev = isDevMode();
 
-  theAgent: string = ''
+  theAgent: any = {}
 
   baseUrl: string =  environment.baseurl;
 
@@ -58,6 +58,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
               public dialog: MatDialog,
               private formBuilder: FormBuilder) {
 
+                // This key needs to be replaced, but this whole component isn't used.
                 let agnt = localStorage.getItem('online-corper')
                 if (agnt) {
                   this.theAgent = agnt // TODO: we aren't using agent.

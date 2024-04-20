@@ -18,7 +18,7 @@ export class BaseInterceptorInterceptor implements HttpInterceptor {
   constructor(private router: Router, private callerService: CallerService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request instanceof HttpResponse) { // It's never going to be this.
+    if (request instanceof HttpResponse) {
       if (request.status === HttpStatusCode.Unauthorized) {
         // route to login
         this.callerService.showNotification("Session Expired. Login.", undefined, "OK" , "bottom")

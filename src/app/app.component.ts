@@ -12,7 +12,7 @@ import { setCorpMemberProfileData } from './ngrx-store/actions/corp-member.actio
 })
 export class AppComponent {
   constructor(private callerService: CallerService) {
-    const corpMemberLocal = localStorage.getItem('online-corper')
+    const corpMemberLocal = localStorage.getItem(callerService.LOCAL_STORAGE_DATA_KEY)
 
     if (corpMemberLocal) {
         const savedSessionData = JSON.parse(corpMemberLocal)
