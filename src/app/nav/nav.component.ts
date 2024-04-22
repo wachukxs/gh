@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { CreateNewAccommodationComponent } from '../create-new-accommodation/create-new-accommodation.component';
+import { CreateNewAccommodationComponent } from '../dialogs/create-new-accommodation/create-new-accommodation.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateNewSaleComponent } from '../create-new-sale/create-new-sale.component';
-import { AddNewPlaceDialogComponent } from '../add-new-place-dialog/add-new-place-dialog.component';
+import { CreateNewSaleComponent } from '../dialogs/create-new-sale/create-new-sale.component';
+import { AddNewPlaceDialogComponent } from '../dialogs/add-new-place-dialog/add-new-place-dialog.component';
 
 @Component({
   selector: 'app-nav',

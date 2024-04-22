@@ -10,7 +10,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatChip, MatChipSelectionChange } from '@angular/material/chips';
 import { CdkStepper } from '@angular/cdk/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HouseDetailDialogComponent } from '../house-detail-dialog/house-detail-dialog.component';
+import { HouseDetailDialogComponent } from '../dialogs/house-detail-dialog/house-detail-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {
   trigger,

@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
-import { CallerService } from '../services/caller.service'
+import { CallerService } from '../../services/caller.service'
 import { HttpStatusCode } from '@angular/common/http'
-import { SocketIoService } from '../services/socket-io.service'
+import { SocketIoService } from '../../services/socket-io.service'
 
 interface ImagePreview {
     name: string

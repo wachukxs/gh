@@ -4,7 +4,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { ExitConfirmationDialogComponent } from '../exit-confirmation-dialog/exit-confirmation-dialog.component';
+import { ExitConfirmationDialogComponent } from '../dialogs/exit-confirmation-dialog/exit-confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CanExit } from '../services/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
