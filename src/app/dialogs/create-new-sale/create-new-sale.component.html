@@ -13,7 +13,7 @@
 
             <mat-form-field class="">
                 <mat-label>Item name</mat-label>
-                <input formControlName="item_name" matInput placeholder="Bucket">
+                <input formControlName="item_name" autocomplete="off" matInput placeholder="Bucket">
                 <mat-error *ngIf="saleFormGroup.get(['item_name'])?.hasError('required')">
                     Item name is <strong>required</strong>
                 </mat-error>
@@ -75,8 +75,8 @@
         </div>
 
         <div class="action-buttons">
-            <button (click)="submit()" mat-raised-button color="primary">Post</button>
-            <button mat-stroked-button (click)="saveDraft()">Save as draft</button>
+            <app-progress-button (click)="submit()" buttonText="Post" [loading]="submittingSale"></app-progress-button>
+            <button type="button" mat-stroked-button (click)="saveDraft()">Save as draft</button>
         </div>
     </section>
 </div>

@@ -1,0 +1,11 @@
+button {
+    margin: 2px auto;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-none {
+    display: none;
+}

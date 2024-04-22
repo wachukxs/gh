@@ -18,6 +18,8 @@ interface ImagePreview {
     styleUrls: ['./create-new-sale.component.css'],
 })
 export class CreateNewSaleComponent implements OnInit, AfterViewInit {
+
+    submittingSale: boolean = false;
     // TODO: NOT WORKING
     @ViewChild('imgFileInput', { read: HTMLInputElement, static: true })
     imgFileInput!: HTMLInputElement
@@ -181,6 +183,7 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
             console.log('submitting...')
             this.populateFormData()
 
+            this.submittingSale = true
             // TODO: check that this.createNewSalePost is valid
             this.callerService
                 .createNewSalePost(this.salePostFormData)
@@ -202,6 +205,9 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
                         console.log('err', err)
                         this.callerService.showNotification('An error occurred')
                     },
+                    complete: () => {
+                        this.submittingSale = false
+                    }
                 })
         } else {
             this.callerService.showNotification('Please fix invalid fields')
