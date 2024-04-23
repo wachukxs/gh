@@ -116,6 +116,11 @@ const routes: Routes = [
         title: 'Welcome! Join our wait list.',
         component: WaitlistComponent,
     },
+    {
+        path: 'waitlist',
+        title: 'Welcome! Join our wait list.',
+        component: WaitlistComponent,
+    },
     { path: '**', redirectTo: '' },
 ]
 

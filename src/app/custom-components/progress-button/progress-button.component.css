@@ -1,5 +1,7 @@
 button {
     margin: 2px auto;
+
+    width: -webkit-fill-available;
 }
 
 .d-block {
