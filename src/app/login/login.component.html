@@ -12,7 +12,7 @@
     
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>State code or Email</mat-label>
-          <input autocomplete="username" matInput formControlName="username" placeholder="">
+          <input title="email or NYSC state code" autocomplete="username" matInput formControlName="username" placeholder="">
           <mat-error *ngIf="loginForm.controls['username'].hasError('minlength') && !loginForm.controls['username'].hasError('required')">
             Please enter a valid state code or email
           </mat-error>
@@ -37,10 +37,7 @@
           </mat-error>
         </mat-form-field>
     
-        <button role="button" (click)="login()" class="login-button" [disabled]="loginForm.invalid" mat-raised-button color="primary">
-          <span [style.display]="hideLoginText ? 'block' : 'none'" >Login</span>
-          <mat-spinner [style.display]="hideLoginMatSpinner ? 'block' : 'none'" style="margin: 2px auto;" diameter="35" color="warn"></mat-spinner>
-        </button>
+        <app-progress-button (click)="login()" buttonText="Login" [loading]="isLoggingIn" [disabled]="loginForm.invalid"></app-progress-button>
         
     </form>
 

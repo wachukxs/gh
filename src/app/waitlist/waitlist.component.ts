@@ -1,12 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { JoinWaitlistSuccessDialogComponent } from '../dialogs/join-waitlist-success-dialog/join-waitlist-success-dialog.component';
-import { JoinWaitlistSuccessBottomsheetComponent } from '../join-waitlist-success-bottomsheet/join-waitlist-success-bottomsheet.component';
 import { CallerService } from '../services/caller.service';
 
 @Component({
@@ -16,9 +13,7 @@ import { CallerService } from '../services/caller.service';
 })
 export class WaitlistComponent implements OnInit {
 
-  @ViewChild('waitlistjoinbutton') waitListBtn: MatButton | undefined;
-  hideJoinMatSpinner: boolean = false;
-  hideJoinText: boolean = true;
+  submittingWaitlist: boolean = false
 
   constructor(private _formBuilder: FormBuilder, private callerService: CallerService, 
     public dialog: MatDialog,
@@ -52,8 +47,8 @@ export class WaitlistComponent implements OnInit {
     console.log('valid?', this.waitListForm.valid, 'value:', this.waitListForm.value);
 
     if (this.waitListForm.valid) {
-      this.hideJoinMatSpinner = !this.hideJoinMatSpinner
-      this.hideJoinText = !this.hideJoinText
+
+      this.submittingWaitlist = true
 
       this.callerService.joinWaitList(this.waitListForm.value).subscribe({
         next: (res: any) => {
@@ -87,9 +82,6 @@ export class WaitlistComponent implements OnInit {
 
           this.callerService.showNotification("Great! We'll holla at you in a bit.")
 
-          this.hideJoinMatSpinner = !this.hideJoinMatSpinner
-          this.hideJoinText = !this.hideJoinText
-
           // this.dialog.open(JoinWaitlistSuccessDialogComponent, {
           //   width: '100%',
           //   height: '100%',
@@ -116,8 +108,9 @@ export class WaitlistComponent implements OnInit {
             this.callerService.showNotification('An error occurred. Maybe try again.')
           }
 
-          this.hideJoinMatSpinner = !this.hideJoinMatSpinner
-          this.hideJoinText = !this.hideJoinText
+        },
+        complete: () => {
+          this.submittingWaitlist = false
         }
       })
     } else {

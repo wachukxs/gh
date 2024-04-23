@@ -56,7 +56,7 @@
               <div class="add-house">
                 <mat-form-field>
                   <mat-label>Places like:</mat-label>
-                  <mat-select role="listbox" 
+                  <mat-select title="list of places" role="listbox" 
                     [formControl]="propertyForm.controls.house_type" 
                     required>
                     <mat-option role="option" *ngFor="let houseType of houseTypes"

@@ -32,8 +32,7 @@ declare interface PostResponse {
 export class LoginComponent implements OnInit {
     @ViewChild('passwordInput') passwordInput!: ElementRef
 
-    hideLoginMatSpinner: boolean = false
-    hideLoginText: boolean = true
+    isLoggingIn: boolean = false
 
     passwordInputIcon: string = 'visibility'
 
@@ -59,13 +58,10 @@ export class LoginComponent implements OnInit {
     login() {
         console.log(this.loginForm.value)
         if (this.loginForm.valid) {
-            this.hideLoginText = !this.hideLoginText
-            this.hideLoginMatSpinner = !this.hideLoginMatSpinner
+            this.isLoggingIn = true
 
             this.callerService.corpMemberLogIn(this.loginForm.value).subscribe({
                 next: (res: HttpResponse<any>) => {
-                    this.hideLoginText = !this.hideLoginText
-                    this.hideLoginMatSpinner = !this.hideLoginMatSpinner
 
                     console.log('login res', res)
                     if (res.status === HttpStatusCode.Ok) {
@@ -85,8 +81,6 @@ export class LoginComponent implements OnInit {
                 },
                 error: (err) => {
                     console.log('login err', err);
-                    this.hideLoginText = !this.hideLoginText
-                    this.hideLoginMatSpinner = !this.hideLoginMatSpinner
 
                     this.callerService.showNotification(
                         err?.error?.message ?? 'Try that again please, an error occurred',
@@ -94,6 +88,9 @@ export class LoginComponent implements OnInit {
                         'Close',
                     )
                 },
+                complete: () => {
+                    this.isLoggingIn = false
+                }
             })
         } else {
             // tell the user

@@ -59,10 +59,7 @@
         <mat-hint>Optional</mat-hint>
       </mat-form-field>
 
-      <button #waitlistjoinbutton (click)="joinWaitList()" mat-raised-button color="primary">
-        <span [style.display]="hideJoinText ? 'block' : 'none'">Join</span>
-        <mat-spinner [style.display]="hideJoinMatSpinner ? 'block' : 'none'" #signUpMatSpinner style="margin: 2px auto;" diameter="35" color="warn"></mat-spinner>
-      </button>
+      <app-progress-button (click)="joinWaitList()" [loading]="submittingWaitlist" buttonText="Join"></app-progress-button>
     </form>
 
   </div>
