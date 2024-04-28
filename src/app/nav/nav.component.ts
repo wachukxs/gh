@@ -101,11 +101,12 @@ export class NavComponent {
      * should refresh the page if you're in the home page (/).
      * Using this.router.navigate(['']) or '/', if you're in the / home page, won't navigate since the url doesn't change.
      */
-    if (this.router.url === '/') {
-      window.location.reload()
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.router.navigate(['/login']); // just take them to login
+    // if (this.router.url === '/') {
+    //   window.location.reload()
+    // } else {
+    //   this.router.navigate(['/login']);
+    // }
   }
 
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private dialog: MatDialog,) {}

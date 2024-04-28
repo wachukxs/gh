@@ -136,6 +136,9 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
 
         // reset the form after filling it
         this.saleFormGroup.reset()
+        for (let _control in this.saleFormGroup.controls) {
+            this.saleFormGroup.controls[_control].setErrors(null)
+        }
 
         this.saleImagesPreview = []
     }

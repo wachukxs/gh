@@ -55,9 +55,9 @@ mat-radio-button > .mdc-form-field > label {
     flex-direction: row;
 }
 
-/**
-    custom file input styling via https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ 
-**/
+/*
+ * custom file input styling via https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ 
+ */
 .custom-file-input {
     color: transparent;
 }

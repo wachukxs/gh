@@ -4,6 +4,13 @@ import { MatDialogRef } from '@angular/material/dialog'
 import { CallerService } from '../../services/caller.service'
 import { HttpResponse } from '@angular/common/http'
 
+interface ImagePreview {
+    name: string
+    dataUrl: string
+    lastModified: number
+    size: number
+}
+
 @Component({
     selector: 'app-add-new-place-dialog',
     templateUrl: './add-new-place-dialog.component.html',
@@ -13,6 +20,8 @@ export class AddNewPlaceDialogComponent implements OnInit {
     ng_states: any[] = []
 
     ng_states_lgas: any[] = []
+
+    saleImagesPreview: Array<ImagePreview> = []
 
     constructor(
         private newPpaDialogRef: MatDialogRef<AddNewPlaceDialogComponent>,
@@ -91,12 +100,7 @@ export class AddNewPlaceDialogComponent implements OnInit {
                         this.callerService.showNotification('PPA added!') // show link to the PPA? For them to also share in groups, PPA should have directions on how to find it??
                         // TODO: reset form properly?
 
-                        this.newPlaceForm.reset()
-                        for (let _control in this.newPlaceForm.controls) {
-                            this.newPlaceForm.controls[_control].setErrors(null)
-                        }
-
-                        this.ppaFormData = new FormData() // Should this be done like this??
+                        this.clearFormDataAndImages()
                     } else {
                         // else show error message?
                     }
@@ -107,6 +111,78 @@ export class AddNewPlaceDialogComponent implements OnInit {
             })
         } else {
             // todo: ??
+        }
+    }
+
+    /**
+     * Also removes images.
+     */
+    clearFormDataAndImages(): void {
+        this.ppaFormData = new FormData() // reset
+
+        /**
+         * reset the input form, so if you select the same file again it'll work
+         * TODO: bug, imgFileInput is turning up null.
+         */
+        // this.imgFileInput.value = ''
+
+        // reset the form after filling it
+        this.newPlaceForm.reset()
+        for (let _control in this.newPlaceForm.controls) {
+            this.newPlaceForm.controls[_control].setErrors(null)
+        }
+
+        this.saleImagesPreview = []
+    }
+
+    processImage(file: File) {
+        const reader = new FileReader() // do we wanna define this every time the function is called?
+
+        reader.onerror = function () {
+            console.log('FileReader Err:', reader.error)
+        }
+
+        reader.onload = (e: any) => {
+            console.log('e', e) // e.target.result
+            this.saleImagesPreview.push({
+                dataUrl: e.target.result,
+                lastModified: file.lastModified,
+                name: file.name,
+                size: file.size,
+            })
+        }
+
+        reader.readAsDataURL(file)
+        this.ppaFormData.set(
+            `ppa-media-${file.lastModified}-${file.size}-${file.name}`,
+            file,
+        ) // setting individually so it's easier to delete.
+    }
+
+    /**
+     * TODO: Use the ViewChild instance instead of passing the file instance to this removePreviewImage() method.
+     * do same in CreateNewAccommodation Component.
+     * @param ifi
+     * @param i
+     */
+    removePreviewImage(imageFileInput: HTMLInputElement, i: number) {
+        this.saleImagesPreview.splice(i, 1)
+
+        // clear the input. (incase the same file is deleted and selected again)
+        imageFileInput.value = ''
+    }
+
+    onFileSelected(event: Event): void {
+        console.log('evt', event)
+
+        console.log('UI', (event.target as HTMLInputElement)?.files)
+        const target = event.target as HTMLInputElement
+        const files = target.files
+
+        if (files && files.length) {
+            for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
+                this.processImage(files[fileIndex])
+            }
         }
     }
 }

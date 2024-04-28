@@ -49,6 +49,7 @@
                 </mat-error>
             </mat-form-field>
 
+            <!-- TODO: Maybe make this a component for all file input across the app -->
             <!-- should images be required???? -->
             <input title="Select media" #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                 type="file">
@@ -56,7 +57,7 @@
             <div class="images-preview">
                 <div *ngFor="let image of saleImagesPreview; let imgIndex = index">
                     <mat-card>
-                        <button class="del-img" (click)="removePreviewImage(this.imgFileInput, imgIndex)" mat-icon-button aria-label="Delete image" color="warn">
+                        <button type="button" class="del-img" (click)="removePreviewImage(this.imgFileInput, imgIndex)" mat-icon-button aria-label="Delete image" color="warn">
                             <mat-icon>delete</mat-icon>
                         </button>
                         <img [src]="image.dataUrl" mat-card-image alt="A supposed image of the item for sale">
