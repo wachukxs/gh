@@ -36,7 +36,7 @@
               </mat-form-field>
 
               <mat-form-field>
-                <!-- Should be pre-filled with their state of registration & LGA -->
+                <!-- TODO: Should be pre-filled with their state of registration & LGA -->
                 <mat-label>State</mat-label>
                 <mat-select formControlName="state_id">
                   <mat-option *ngFor="let state of ng_states" [value]="state?.id">
@@ -75,9 +75,10 @@
                 </div>
             </div>
 
-            <button type="submit" mat-button mat-raised-button>
-              Add
-            </button>
+            <div class="action-buttons">
+              <app-progress-button type="submit" buttonText="Add" [loading]="addingPPA"></app-progress-button>
+              <button type="button" mat-stroked-button (click)="saveDraft()">Save as draft</button>
+            </div>
         </form>
     </section>
 </div>

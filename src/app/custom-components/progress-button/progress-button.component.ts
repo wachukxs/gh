@@ -14,4 +14,5 @@ export class ProgressButtonComponent {
   @Input() loading: boolean = false;
   @Input() buttonText: string = 'Save';
   @Input() disabled: boolean = false;
+  @Input() type: string = 'button'
 }

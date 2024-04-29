@@ -23,6 +23,8 @@ export class AddNewPlaceDialogComponent implements OnInit {
 
     saleImagesPreview: Array<ImagePreview> = []
 
+    addingPPA: boolean = false
+
     constructor(
         private newPpaDialogRef: MatDialogRef<AddNewPlaceDialogComponent>,
         private callerService: CallerService,
@@ -90,6 +92,8 @@ export class AddNewPlaceDialogComponent implements OnInit {
         // TODO: convert to form data to allow upload of images/videos??
 
         if (this.newPlaceForm.valid) {
+
+            this.addingPPA = true
             this.populateFormData()
 
             // TODO: check that this.accommodationPostFormData is valid
@@ -108,6 +112,9 @@ export class AddNewPlaceDialogComponent implements OnInit {
                 error: (err) => {
                     console.log('err', err)
                 },
+                complete: () => {
+                    this.addingPPA = false
+                }
             })
         } else {
             // todo: ??
@@ -185,4 +192,6 @@ export class AddNewPlaceDialogComponent implements OnInit {
             }
         }
     }
+
+    saveDraft() {}
 }

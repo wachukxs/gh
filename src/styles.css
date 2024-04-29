@@ -55,6 +55,18 @@ mat-radio-button > .mdc-form-field > label {
     flex-direction: row;
 }
 
+.action-buttons > div {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons {
+    padding-top: 25px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
 /*
  * custom file input styling via https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ 
  */

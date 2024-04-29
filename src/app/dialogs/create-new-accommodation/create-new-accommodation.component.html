@@ -66,7 +66,7 @@
                     </div>
                     <div class="action-buttons">
                         <div>
-                            <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                            <button type="button" mat-stroked-button color="primary" matStepperNext>Next</button>
                         </div>
                     </div>
                 </ng-container>
@@ -95,8 +95,8 @@
     
                     <div class="action-buttons">
                         <div>
-                            <button mat-stroked-button matStepperPrevious>Back</button>
-                            <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                            <button type="button" mat-stroked-button matStepperPrevious>Back</button>
+                            <button type="button" mat-stroked-button color="primary" matStepperNext>Next</button>
                         </div>
                     </div>
                 </div>
@@ -123,10 +123,10 @@
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <!-- <button class="hide-mobile" (click)="removePreviewImage(imgIndex)" mat-stroked-button color="warn" aria-label="Delete image">
+                                    <!-- <button type="button" class="hide-mobile" (click)="removePreviewImage(imgIndex)" mat-stroked-button color="warn" aria-label="Delete image">
                                         Delete
                                     </button> -->
-                                    <button (click)="removePreviewImage(this.imgFileInput, imgIndex)" mat-icon-button aria-label="Delete image" color="warn">
+                                    <button type="button" (click)="removePreviewImage(this.imgFileInput, imgIndex)" mat-icon-button aria-label="Delete image" color="warn">
                                         <mat-icon>delete</mat-icon>
                                     </button>
                                 </mat-card-actions>
@@ -138,8 +138,8 @@
 
                 <div class="action-buttons">
                     <div>
-                        <button mat-stroked-button matStepperPrevious>Back</button>
-                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                        <button type="button" mat-stroked-button matStepperPrevious>Back</button>
+                        <button type="button" mat-stroked-button color="primary" matStepperNext>Next</button>
                     </div>
                 </div>
             </mat-step>
@@ -190,8 +190,8 @@
 
                 <div class="action-buttons">
                     <div>
-                        <button mat-stroked-button matStepperPrevious>Back</button>
-                        <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                        <button type="button" mat-stroked-button matStepperPrevious>Back</button>
+                        <button type="button" mat-stroked-button color="primary" matStepperNext>Next</button>
                     </div>
                 </div>
             </mat-step>
@@ -232,8 +232,6 @@
                     <div>
                         <button type="button" mat-button>Save as draft</button>
                     </div>
-
-
                 </div>
 
             </mat-step>
@@ -243,14 +241,14 @@
                 <p>You are now done.</p>
                 <div class="action-buttons">
                     <div>
-                        <button mat-button matStepperPrevious>Back</button>
+                        <button type="button" mat-button matStepperPrevious>Back</button>
                     </div>
 
                     <div>
-                        <button mat-button>Save as draft</button>
+                        <button type="button" mat-button>Save as draft</button>
 
-                        <button (click)="submit()" mat-raised-button color="primary">Post</button>
-                        <button class="d-none" mat-button (click)="stepper.reset()">Reset</button>
+                        <button type="button" (click)="submit()" mat-raised-button color="primary">Post</button>
+                        <button type="button" class="d-none" mat-button (click)="stepper.reset()">Reset</button>
                     </div>
                 </div>
             </mat-step> -->
