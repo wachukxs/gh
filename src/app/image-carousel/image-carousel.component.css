@@ -39,15 +39,16 @@ Width must be same with [house] css rules in feed.component.css
     width: 350px;
   }
 }
-/**small mobile view rules*/
+/** small mobile view rules */
 @media only screen 
   and (min-device-width: 320px) 
   and (max-device-width: 425px)  { 
     .nav-button-container {
-      width: 95%;
+      /* Must be same with [house] width for mobile too */
+      width: 85%;
     }
 }
-/**large mobile view rules*/
+/** large mobile view rules */
 @media only screen 
   and (min-device-width: 426px) 
   and (max-device-width: 768px)  { 
