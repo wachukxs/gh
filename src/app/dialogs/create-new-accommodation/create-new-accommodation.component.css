@@ -41,7 +41,11 @@ section[body] {
     margin-inline: auto;
 }
 
-.accommodation-form {
+.form-step {
+    max-width: 600px;
+}
+
+.form-step {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -51,6 +55,7 @@ section[body] {
 section[body] {
     height: calc(100vh - 59.5px);
 }
+
 .top-div button {
     margin: 0 20px;
 }

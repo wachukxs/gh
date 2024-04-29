@@ -4,10 +4,20 @@
     align-items: center;
 }
 
+.top-div button {
+    margin: 0 20px;
+}
+
 .new-place-form {
     display: flex;
 
     flex-direction: column;
+}
+
+/* TODO: Maybe do this for other input modals? */
+[form-section] {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 [form-section] {
