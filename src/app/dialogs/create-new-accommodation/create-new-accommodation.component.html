@@ -108,7 +108,7 @@
                     <input title="Select files" #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                         type="file">
 
-                    <div class="images-preview">
+                    <div *ngIf="accommodationImagesPreview.length" class="images-preview">
                         <ng-container *ngFor="let image of accommodationImagesPreview; let imgIndex = index">
                             <mat-card>
                                 <img [src]="image.dataUrl" mat-card-image alt="A supposed image of the apartment">

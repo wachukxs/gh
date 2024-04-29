@@ -8,7 +8,7 @@
         </button>
     </section>
 
-    <section>
+    <section form-section>
         <form class="new-place-form" [formGroup]="newPlaceForm" (ngSubmit)="postNewPlace()">
 
             <mat-form-field>
@@ -64,7 +64,7 @@
               <input title="Select media" #imgFileInput class="custom-file-input" accept="image/*,video/*" multiple (change)="onFileSelected($event)"
                 type="file">
 
-            <div class="images-preview">
+            <div *ngIf="saleImagesPreview.length" class="images-preview">
                 <div *ngFor="let image of saleImagesPreview; let imgIndex = index">
                     <mat-card>
                         <button type="button" class="del-img" (click)="removePreviewImage(this.imgFileInput, imgIndex)" mat-icon-button aria-label="Delete image" color="warn">

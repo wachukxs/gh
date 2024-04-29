@@ -60,6 +60,8 @@ mat-radio-button > .mdc-form-field > label {
  */
 .custom-file-input {
     color: transparent;
+
+    padding-bottom: 25px;
 }
 .custom-file-input::-webkit-file-upload-button {
     visibility: hidden;

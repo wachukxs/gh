@@ -9,3 +9,24 @@
 
     flex-direction: column;
 }
+
+[form-section] {
+    padding: 0 30px;
+}
+
+.images-preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    gap: 40px;
+
+    padding-bottom: 25px;
+}
+
+.images-preview img {
+    height: 200px;
+    width: auto;
+    object-fit: cover;
+}
