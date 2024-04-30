@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 import { CallerService } from '../../services/caller.service'
 import { HttpResponse } from '@angular/common/http'
+import { filter } from 'rxjs/operators'
 
 interface ImagePreview {
     name: string
@@ -59,22 +60,23 @@ export class AddNewPlaceDialogComponent implements OnInit {
             },
         })
 
-        this.newPlaceForm.get(['state_id'])?.valueChanges.subscribe({
-            next: (value) => {
-                console.log('new state value', value)
+        this.newPlaceForm.get(['state_id'])?.valueChanges
+            .pipe(filter((_v) => !!_v)) // when the form resets, value is null, and we want to not make an api call.
+            .subscribe({
+                next: (value) => {
+                    console.log('new state value', value)
+                    this.callerService.fetchNigeriaStateLGAs(value).subscribe({
+                        next: (res: HttpResponse<any>) => {
+                            console.log('data', res)
 
-                this.callerService.fetchNigeriaStateLGAs(value).subscribe({
-                    next: (res: HttpResponse<any>) => {
-                        console.log('data', res)
-
-                        this.ng_states_lgas = res.body?.lgas
-                    },
-                    error: (err) => {
-                        this.callerService.showNotification('Failed...')
-                    },
-                })
-            },
-        })
+                            this.ng_states_lgas = res.body?.lgas
+                        },
+                        error: (err) => {
+                            this.callerService.showNotification('Failed...')
+                        },
+                    })
+                },
+            })
     }
 
     populateFormData(): void {
@@ -107,14 +109,15 @@ export class AddNewPlaceDialogComponent implements OnInit {
                         this.clearFormDataAndImages()
                     } else {
                         // else show error message?
+                        console.log('here??', res);
                     }
+
+                    this.addingPPA = false
                 },
                 error: (err) => {
                     console.log('err', err)
-                },
-                complete: () => {
                     this.addingPPA = false
-                }
+                },
             })
         } else {
             // todo: ??

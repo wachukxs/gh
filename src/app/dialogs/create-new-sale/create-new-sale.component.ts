@@ -203,14 +203,14 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
                                 'An error occurred',
                             )
                         }
+
+                        this.submittingSale = false
                     },
                     error: (err) => {
                         console.log('err', err)
+                        this.submittingSale = false
                         this.callerService.showNotification('An error occurred')
                     },
-                    complete: () => {
-                        this.submittingSale = false
-                    }
                 })
         } else {
             this.callerService.showNotification('Please fix invalid fields')

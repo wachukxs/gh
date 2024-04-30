@@ -54,8 +54,9 @@ export class WaitlistComponent implements OnInit {
         next: (res: any) => {
           console.log('who joined?', res);
 
-          let _firstname = this.waitListForm.get('first_name')?.value
+          let _first_name = this.waitListForm.get('first_name')?.value
 
+          this.submittingWaitlist = false
           this.waitListForm.reset({
             serving_state: '',
             first_name: '',
@@ -102,6 +103,7 @@ export class WaitlistComponent implements OnInit {
         error: (err: any) => {
           console.log('why NOT joined?', err);
 
+          this.submittingWaitlist = false
           if (err.status == 400) { // we sent bad data
             this.callerService.showNotification(err.error.error || err.error.message || err.error.error.message, 1500)
           } else {
@@ -109,9 +111,6 @@ export class WaitlistComponent implements OnInit {
           }
 
         },
-        complete: () => {
-          this.submittingWaitlist = false
-        }
       })
     } else {
       console.log(this.waitListForm.get('email')?.errors);

@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit {
                 next: (res: HttpResponse<any>) => {
 
                     console.log('login res', res)
+
+                    this.isLoggingIn = false
                     if (res.status === HttpStatusCode.Ok) {
                         // TODO: Do we need to use localStorage for corper details??
                         localStorage.setItem(this.callerService.LOCAL_STORAGE_DATA_KEY, JSON.stringify(res.body.data));
@@ -82,15 +84,13 @@ export class LoginComponent implements OnInit {
                 error: (err) => {
                     console.log('login err', err);
 
+                    this.isLoggingIn = false
                     this.callerService.showNotification(
                         err?.error?.message ?? 'Try that again please, an error occurred',
                         4000,
                         'Close',
                     )
                 },
-                complete: () => {
-                    this.isLoggingIn = false
-                }
             })
         } else {
             // tell the user
