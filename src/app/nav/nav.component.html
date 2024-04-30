@@ -21,7 +21,7 @@
 
     <button type="button" class="hide-mobile" color="accent" mat-stroked-button [matMenuTriggerFor]="menu">Menu</button>
     
-    <button type="button" mat-icon-button (menuOpened)="menuOpen()" (menuClosed)="menuClose()" [matMenuTriggerFor]="menu" class="hide-desktop">
+    <button type="button" mat-icon-button (menuOpened)="toggleMenuState()" (menuClosed)="toggleMenuState()" [matMenuTriggerFor]="menu" class="hide-desktop">
       <mat-icon class="nav-icon" aria-label="menu icon">menu{{ menuState }}</mat-icon>
     </button>
 

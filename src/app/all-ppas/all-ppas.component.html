@@ -3,9 +3,17 @@
         <mat-toolbar-row>
             <span class="app-name-header" routerLink="/home">Corpers NG</span>
             <span class="toolbar-spacer"></span>
-            <button type="button" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-                <mat-icon>menu</mat-icon>
-            </button>
+
+
+            <button type="button" mat-icon-button (menuOpened)="toggleMenuState()" (menuClosed)="toggleMenuState()" [matMenuTriggerFor]="menu" class="hide-desktop" aria-label="Menu icon button">
+                <mat-icon class="nav-icon" aria-label="menu icon">menu{{ menuState }}</mat-icon>
+              </button>
+          
+              <mat-menu #menu="matMenu" class="menu-list">
+                <button type="button" mat-menu-item [routerLink]="['/home']">Home</button>
+                <button type="button" mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
+                <button type="button" mat-menu-item [routerLink]="['/profile']">Profile</button>
+              </mat-menu>
         </mat-toolbar-row>
 
     </mat-toolbar>

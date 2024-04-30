@@ -30,6 +30,12 @@ export class AllPpasComponent implements OnInit {
         this.searchInput.setValue('')
     }
 
+    menuState = ''
+
+    toggleMenuState(): void {
+        this.menuState = this.menuState == '' ? '_open' : ''
+    }
+
     ngOnInit(): void {
         this.callerService.getAllPPAs().subscribe({
             next: (res: HttpResponse<any>) => {
