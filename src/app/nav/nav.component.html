@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
 
   <mat-toolbar-row>
-    <span class="app-name-header" routerLink="/">Corpers NG</span>
+    <span class="app-name-header" routerLink="/home">Corpers NG</span>
     <span class="toolbar-spacer"></span>
 
     <button type="button" class="hide-mobile" mat-button (click)="openAddNewPPADialog()">Add PPA</button>
@@ -26,7 +26,7 @@
     </button>
 
     <mat-menu #menu="matMenu" class="menu-list">
-      <button type="button" mat-menu-item [routerLink]="['/']">Home</button>
+      <button type="button" mat-menu-item [routerLink]="['/home']">Home</button>
       <button type="button" mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
       <button type="button" mat-menu-item [routerLink]="['/profile']">Profile</button>
       <button type="button" mat-menu-item [routerLink]="['/ppas']">Find a PPA</button>

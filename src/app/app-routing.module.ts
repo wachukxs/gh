@@ -27,26 +27,33 @@ import { AllPpasComponent } from './all-ppas/all-ppas.component'
 const routes: Routes = [
     {
         path: '',
-        title: 'Home',
+        title: 'Welcome! Join our wait list.',
+        component: WaitlistComponent,
+    },
+    {
+        path: 'waitlist',
+        title: 'Welcome! Join our wait list.',
+        component: WaitlistComponent,
+    },
+    {
+        path: '',
         component: NavComponent,
+        canActivate: [BasicAuthGuard],
         children: [
             {
-                path: '',
+                path: 'home',
                 title: 'Your feed',
                 component: FeedComponent,
-                canActivate: [BasicAuthGuard],
             },
             {
                 path: 'houses',
                 title: 'Your feed',
                 component: FeedComponent,
-                canActivate: [BasicAuthGuard],
             },
             {
                 path: 'sales',
                 title: 'Your feed',
                 component: SalesFeedComponent,
-                canActivate: [BasicAuthGuard],
             },
             { path: 'profile', title: 'Profile', component: ProfileComponent },
             {
@@ -75,13 +82,12 @@ const routes: Routes = [
         path: 'ppa',
         title: 'PPAs',
         component: AllPpasComponent,
-        // canActivate: [InLocalGuard], // TODO: should they be signed in to view?
     },
     {
         path: 'ppas',
         title: 'PPAs',
         component: AllPpasComponent,
-        // canActivate: [InLocalGuard],  // TODO: should they be signed in to view? Maybe they won't be able to comment or leave a review if not signed in.
+        // TODO: they won't be able to comment or leave a review if not signed in.
     },
     {
         path: 'status',
@@ -110,16 +116,6 @@ const routes: Routes = [
         title: 'A sample Form Page.',
         component: SampleFormComponent,
         canActivate: [InLocalGuard],
-    },
-    {
-        path: '',
-        title: 'Welcome! Join our wait list.',
-        component: WaitlistComponent,
-    },
-    {
-        path: 'waitlist',
-        title: 'Welcome! Join our wait list.',
-        component: WaitlistComponent,
     },
     { path: '**', redirectTo: '' },
 ]

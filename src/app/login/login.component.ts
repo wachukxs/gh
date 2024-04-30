@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem(this.callerService.LOCAL_STORAGE_DATA_KEY, JSON.stringify(res.body.data));
                         sessionStorage.setItem(this.callerService.SESSION_STORAGE_DATA_KEY, res.body.token);
                         this.callerService._store.dispatch(setCorpMemberProfileData({data: res.body.data}))
-                        this.router.navigate(['/']); // '/dashboard' for agents
+                        this.router.navigate(['/home']); // '/dashboard' for agents
                     } else {
                         // TODO: show error message if available
                         this.callerService.showNotification(

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 /**
  * TODO:
  * we should redirect the user to the url they wanted to go to, ... after they login
+ * This might be a duplicate service. The basic auth route guard already does this.
  */
 // from https://www.agiratech.com/how-to-use-angular-route-guards-angular-authentication/
 @Injectable({
@@ -29,7 +30,7 @@ export class AuthenticationService implements CanActivate, CanLoad {
     if (localStorage.getItem('online-corper')) {
       return true;
     } else {
-        // this.router.navigateByUrl('/user/login');
+        // this.router.navigateByUrl('/login');
         this.router.navigate(['/login']);
         return false;
     }
