@@ -12,13 +12,27 @@ import { io, Socket } from 'socket.io-client'
 import { map } from 'rxjs/operators'
 import { Observable, Observer } from 'rxjs'
 
-/** Your events enum */
+/** Your events enum, should also be same on server */
 export enum IOEventName {
     HI = "hi",
     NEW_SALE = "new_sale",
     NEW_ACCOMMODATION = "new_accommodation",
-    BROADCAST_MESSAGE = "broadcast_message"
+    BROADCAST_MESSAGE = "broadcast_message",
+    CONNECT = "connect",
+    CONNECTION = "connection",
+    DISCONNECT = "disconnect",
 }
+
+/**
+ * TODO: when we'd be creating a new service for a different namespace,
+ * We'll reuse an existing socket connection or "manager" https://socket.io/docs/v4/client-options/#multiplex
+ */
+export enum IOEventRoutes {
+    BASE = "/",
+    CHAT = "/chat",
+    MAP = "/map",
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -33,31 +47,37 @@ export class SocketIoService
     private socket: Socket
 
     constructor(
-        http: HttpClient,
-        snackBar: MatSnackBar,
-        breakpointObserver: BreakpointObserver,
-        store: Store<AppState>,
+        public http: HttpClient,
+        public store: Store<AppState>,
     ) {
-        // super(snackBar, breakpointObserver, store)
 
-        // this._store.pipe(select('corper')).subscribe({
-        //     next: (value) => {
-        //         // console.log('eagles', value)
-        //         this.corpMember = value
-        //     },
-        // })
+        this.store.pipe(select('corper')).subscribe({
+            next: (value) => {
+                this.corpMember = value
+            },
+        })
 
         // `${environment.basehost}${environment.CORP_MEMBER_SOCKET_ENDPOINT}`
         this.socket = io('http://localhost:3051/', {
-            transports: ['websocket', 'polling']
+            transports: ['websocket', 'polling'],
+            query: {
+                state_code: this.corpMember.state_code
+            }
         })
 
         // Optional: You can handle events, errors, etc.
-        this.socket.on('connect', () => {
+        this.socket.on(IOEventName.CONNECT, () => {
             console.log('Connected to Socket.IO');
         });
+
+        this.socket.on(IOEventName.CONNECTION, (_s: any) => {
+            console.log('Connected to BACKEND...');
+
+            // _s.join(this.corpMember?.state_code?.substring(0, 2))
+            console.log('joined...', this.corpMember?.state_code?.substring(0, 2));
+        });
     
-        this.socket.on('disconnect', () => {
+        this.socket.on(IOEventName.DISCONNECT, () => {
             // TODO: is it possible to prevent logging connection errors??
             console.log('Disconnected from Socket.IO');
         });

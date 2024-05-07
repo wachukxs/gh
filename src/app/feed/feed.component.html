@@ -70,10 +70,10 @@
 
         <!-- based on the distance, filter the available places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
 
-        <mat-toolbar-row style="padding: 0px; align-items: start;">
+        <mat-toolbar-row class="places-toolbar-row">
           <mat-form-field [hidden]="hidePlacesSelect">
             <mat-label>Places like:</mat-label>
-            <mat-select role="listbox" [formControl]="places" multiple [disabled]="!proximityDisabled">
+            <mat-select title="Filter by places" role="listbox" [formControl]="places" multiple [disabled]="!proximityDisabled">
               <!-- <mat-optgroup *ngFor="let places of placesGroup" [label]="places.distace + ' meters from you'">
                 <mat-option *ngFor="let place of places.place" [value]="place.value">
                   {{place.viewValue}}
@@ -110,15 +110,16 @@
 
         <div class="spacer"></div>
 
+        <!-- We might not need sales-feed.component, we can use Angular transclusion (https://angular.io/guide/content-projection) and use this next buttons to select what users view.-->
         <!-- Maybe uncomment when we're ready to change layouts -->
-        <!-- <mat-button-toggle-group appearance="standard" name="fontStyle" aria-label="Font Style" multiple="false" vertical="false">
+        <mat-button-toggle-group appearance="standard" name="fontStyle" aria-label="Font Style" multiple="false" vertical="false">
           <mat-button-toggle value="extended" aria-label="Show houses in extended view">
             <mat-icon >format_align_left</mat-icon>
           </mat-button-toggle>
           <mat-button-toggle value="compact" aria-label="Show houses in compact view">
             <mat-icon>format_align_center</mat-icon>
           </mat-button-toggle>
-        </mat-button-toggle-group> -->
+        </mat-button-toggle-group>
       </div>
       <!-- show number of available properties, and the filter criteria the user has chosen -->
     </mat-toolbar>
@@ -166,7 +167,7 @@
     <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="scroller">
 
 
-      <ng-container *cdkVirtualFor="let item of placesList;
+      <ng-container *cdkVirtualFor="let feed of feedData;
         let index = index;
         let count = count;
         let first = first;
@@ -216,26 +217,26 @@
               </section>
 
               <section class="post-buttons">
-                <button mat-raised-button [matMenuTriggerFor]="chatMenuBig">More</button>
-                <button [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button
+                <button type="button" mat-raised-button [matMenuTriggerFor]="chatMenuBig">More</button>
+                <button type="button" [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button
                   color="primary" aria-label="Save this post">
                   <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
                 </button>
-                <button [@iconChangeAnimation]="toggleFavouriteIcon" (click)="favouritePost()" mat-icon-button
+                <button type="button" [@iconChangeAnimation]="toggleFavouriteIcon" (click)="favouritePost()" mat-icon-button
                   color="primary" aria-label="Like this post">
                   <mat-icon [fontIcon]="toggleFavouriteIcon"></mat-icon>
                 </button>
 
                 <mat-menu #chatMenuBig="matMenu" yPosition="above">
-                  <button mat-menu-item (click)="copyAgentPhoneNumber()">
+                  <button type="button" mat-menu-item (click)="copyAgentPhoneNumber()">
                     <mat-icon>phone</mat-icon>
                     <span>Copy phone number</span>
                   </button>
-                  <button mat-menu-item disabled>
+                  <button type="button" mat-menu-item disabled>
                     <mat-icon>chat</mat-icon>
                     <span>Chat agent</span>
                   </button>
-                  <button mat-menu-item (click)="seeHouseDetails()">
+                  <button type="button" mat-menu-item (click)="seeHouseDetails()">
                     <mat-icon>info</mat-icon>
                     <span>View details</span>
                   </button>

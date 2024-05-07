@@ -38,5 +38,6 @@
 .images-preview img {
     height: 200px;
     width: auto;
-    object-fit: cover;
+    object-fit: contain;
+    max-width: 250px;
 }

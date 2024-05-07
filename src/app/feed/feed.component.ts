@@ -158,8 +158,6 @@ export class FeedComponent implements OnInit {
     }
   ];
 
-
-
   /**
    * it's important that codeRef is same with filterForm.houseType...
    */
@@ -194,7 +192,6 @@ export class FeedComponent implements OnInit {
     }),
   });
 
-
   public slides = [
     { src: 'assets/images/r2.png' },
     { src: 'assets/images/k2.png' },
@@ -219,6 +216,36 @@ export class FeedComponent implements OnInit {
   protected get toggleFavouriteIcon(): 'favorite_border' | 'favorite' {
     return this.favouriteState ? 'favorite_border' : 'favorite';
   }
+
+  feedData = [1, 2, 3, {
+    "_price": "423,244",
+    "_age": "a few seconds ago",
+    "last_updated_age": "a few seconds ago",
+    "_type": "sale",
+    "id": 5,
+    "corp_member_id": 2,
+    "text": "Blueyuyy",
+    "item_name": "Hello",
+    "price": 423244,
+    "Media": [
+        {
+            "id": 4,
+            "url": "https://chuks.name.ng/chuks.name.ng/corpers_ng_data/f5287e2ed12d19cb25deeadc9b014e9abe74c987.png",
+            "sale_id": 5,
+            "updated_at": "2024-05-03T07:14:32.103Z",
+            "created_at": "2024-05-03T07:14:32.103Z"
+        },
+        {
+            "id": 5,
+            "url": "https://chuks.name.ng/chuks.name.ng/corpers_ng_data/89e1e5d3ae0fe38a08e1203d306652a479131730.png",
+            "sale_id": 5,
+            "updated_at": "2024-05-03T07:14:32.104Z",
+            "created_at": "2024-05-03T07:14:32.104Z"
+        }
+    ],
+    "updated_at": "2024-05-03T07:14:31.978Z",
+    "created_at": "2024-05-03T07:14:31.978Z"
+}]
 
   constructor(private breakpointObserver: BreakpointObserver,
               private dialog: MatDialog,
@@ -246,13 +273,16 @@ export class FeedComponent implements OnInit {
     
     // this.isTablet$.subscribe(value => console.log('is tablet', value));
 
-
     this.socketIoService.onEvent(IOEventName.HI).subscribe(data => {
       console.log('new hi data:', data);
     })
 
-    this.socketIoService.onEvent(IOEventName.BROADCAST_MESSAGE).subscribe(data => {
+    this.socketIoService.onEvent(IOEventName.BROADCAST_MESSAGE).subscribe((data: any) => {
       console.log('new bc data:', data);
+
+      if (data?.post?.[0]?._type === 'sale') {
+        this.feedData = [...this.feedData, ...data?.post]
+      }
     })
 
     

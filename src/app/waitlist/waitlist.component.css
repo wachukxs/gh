@@ -13,10 +13,11 @@ form {
 
 div.second-part {
     text-align: center;
-}
 
-div.second-part p {
-    padding: 0 20%;
+    padding: 0 10%;
+
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 /*
@@ -26,10 +27,6 @@ div.second-part p {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    div.second-part p {
-        padding: 0 10%;
-    }
-
     form {
         max-width: 250px;
     }

@@ -52,7 +52,7 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
         this.saleFormGroup
             .get(['is_item_negotiable'])
             ?.valueChanges.subscribe((value: boolean) => {
-                console.log('new is_item_negotiable value', value)
+                // console.log('new is_item_negotiable value', value)
                 if (value) {
                     this.saleFormGroup
                         .get(['minimum_price'])
@@ -83,7 +83,7 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
             })
 
         this.saleFormGroup.get(['price'])?.valueChanges.subscribe((value) => {
-            console.log('price value', value)
+            // console.log('price value', value)
 
             if (this.saleFormGroup.get(['is_item_negotiable'])?.value) {
                 this.saleFormGroup
@@ -192,7 +192,7 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
                 .createNewSalePost(this.salePostFormData)
                 .subscribe({
                     next: (res) => {
-                        console.log('res', res)
+                        console.log('res body', res.body)
                         if (res.status === HttpStatusCode.Ok) {
                             this.callerService.showNotification('Sale posted')
                             
@@ -215,12 +215,12 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
         } else {
             this.callerService.showNotification('Please fix invalid fields')
 
-            console.log('form value', this.saleFormGroup.value)
+            // console.log('form value', this.saleFormGroup.value)
 
-            console.log(
-                'saleFormGroup ish',
-                this.saleFormGroup.get(['minimum_price']),
-            )
+            // console.log(
+            //     'saleFormGroup ish',
+            //     this.saleFormGroup.get(['minimum_price']),
+            // )
 
             this.saleFormGroup.markAllAsTouched()
             this.saleFormGroup.updateValueAndValidity()
