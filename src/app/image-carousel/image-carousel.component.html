@@ -1,13 +1,7 @@
 <div class="img-gallery-container">
   <swiper [config]="swiperConfig" class="custom-swiper-class" #swiper>
-    <ng-template swiperSlide>
-      <img class="img" mat-card-image src="assets/images/r2.png" alt="Photo of the appropriate room" />
-    </ng-template>
-    <ng-template swiperSlide>
-      <img class="img" mat-card-image src="assets/images/k2.png" alt="Photo of the appropriate room" />
-    </ng-template>
-    <ng-template swiperSlide>
-      <img class="img" mat-card-image src="assets/images/yes.jpg" alt="Photo of the appropriate room" />
+    <ng-template swiperSlide *ngFor="let image of images">
+      <img class="img" mat-card-image [src]="image.url" alt="Photo of an item" />
     </ng-template>
   </swiper>
   

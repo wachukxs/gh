@@ -21,7 +21,8 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
     @ViewChild('rightButton', { static: false, read: ElementRef }) rightButton?: HTMLButtonElement
     @ViewChild('leftButton', { static: false, read: ElementRef }) leftButton?: HTMLButtonElement
 
-    @Input() displayIndex!: number // should be sth unique.
+    @Input() images!: Array<any>
+    @Input() displayIndex!: number // should be unique.
 
     swiperConfig: SwiperOptions = {
         zoom: true,
