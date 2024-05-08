@@ -81,6 +81,8 @@ import { AllPpasComponent } from './all-ppas/all-ppas.component';
 import { LeaveReviewComponent } from './dialogs/leave-review/leave-review.component';
 import { ErrorResponseInterceptor } from './http-interceptor/error-response.interceptor';
 import { ProgressButtonComponent } from './custom-components/progress-button/progress-button.component';
+import { FeedSaleContentComponent } from './feed-sale-content/feed-sale-content.component';
+import { FeedAccommodationContentComponent } from './feed-accommodation-content/feed-accommodation-content.component';
 
 const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member`, options: {
   transports: ["websocket", "polling"],
@@ -115,7 +117,9 @@ const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member
     AddNewPlaceDialogComponent,
     AllPpasComponent,
     LeaveReviewComponent,
-    ProgressButtonComponent
+    ProgressButtonComponent,
+    FeedSaleContentComponent,
+    FeedAccommodationContentComponent
   ],
   imports: [
     MatNativeDateModule,

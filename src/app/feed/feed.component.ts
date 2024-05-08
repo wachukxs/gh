@@ -10,7 +10,6 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle'
 import { MatChip, MatChipSelectionChange } from '@angular/material/chips'
 import { CdkStepper } from '@angular/cdk/stepper'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { HouseDetailDialogComponent } from '../dialogs/house-detail-dialog/house-detail-dialog.component'
 import {
     MatDialog,
     MatDialogRef,
@@ -211,25 +210,6 @@ export class FeedComponent implements OnInit {
         { src: 'assets/images/yes.jpg' },
     ]
 
-    likeState = false
-    bookmarkState = false
-    favouriteState = false
-
-    /**
-     * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
-     */
-    protected get toggleLikeState(): '_border' | '' {
-        return this.likeState ? '_border' : ''
-    }
-
-    protected get toggleBookmarkIcon(): 'bookmark_border' | 'bookmark' {
-        return this.bookmarkState ? 'bookmark_border' : 'bookmark'
-    }
-
-    protected get toggleFavouriteIcon(): 'favorite_border' | 'favorite' {
-        return this.favouriteState ? 'favorite_border' : 'favorite'
-    }
-
     feedData = [{}, {}, {}, {}].fill(
         {
             _price: '423,244',
@@ -296,8 +276,9 @@ export class FeedComponent implements OnInit {
             .subscribe((data: any) => {
                 console.log('new bc data:', data)
 
+                // TODO: only handling sale for now. (remove later)
                 if (data?.post?.[0]?._type === 'sale') {
-                    this.feedData = [...this.feedData, ...data?.post]
+                    this.feedData = [...data?.post, ...this.feedData]
                 }
             })
     }
@@ -306,14 +287,6 @@ export class FeedComponent implements OnInit {
         // testing
 
         this.socketIoService.sendEvent(IOEventName.HI, 'sth')
-    }
-
-    bookmarkPost() {
-        this.bookmarkState = !this.bookmarkState
-    }
-
-    favouritePost() {
-        this.favouriteState = !this.favouriteState
     }
 
     /**
@@ -412,35 +385,6 @@ export class FeedComponent implements OnInit {
       location.unsubscribe();
     }, 10 * 1000);
   } */
-
-    seeHouseDetails(): void {
-        const dialogRef = this.dialog.open(HouseDetailDialogComponent, {
-            width: '100%',
-            height: '100%',
-            maxWidth: '100vw',
-            maxHeight: '100vh',
-            data: {},
-            ariaLabel: 'Details of the house you just clicked',
-        })
-
-        /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log('The dialog was closed')
-        })
-    }
-
-    copyAgentPhoneNumber(): void {
-        const copy = this.clipboard.copy('080 564 23456')
-        if (copy) {
-            this.snackBar.open('Copied phone number.', 'Good', {
-                duration: 2000,
-            })
-        } else {
-            this.snackBar.open('Copying failed. Try again?', 'Close', {
-                duration: 2000,
-            })
-        }
-    }
 
     ngOnDestroy() {
         this.socketIoService.destroy()

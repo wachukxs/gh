@@ -27,10 +27,10 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
     swiperConfig: SwiperOptions = {
         zoom: true,
         pagination: { clickable: true, dynamicBullets: true },
-        // navigation: {
-        //     nextEl: '.right-btn-' + this.displayIndex,
-        //     prevEl: '.left-btn-' + this.displayIndex,
-        // }
+        navigation: {
+            nextEl: '.right-btn',
+            prevEl: '.left-btn',
+        }
     }
 
     isSmallScreen$: Observable<boolean> = this.baseService.isSmallScreen$()
@@ -43,12 +43,7 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
 
     constructor(private baseService: BaseService) {}
 
-    ngOnInit(): void {
-        this.swiperConfig.navigation = {
-            nextEl: '.right-btn-' + this.displayIndex,
-            prevEl: '.left-btn-' + this.displayIndex,
-        }
-    }
+    ngOnInit(): void {}
 
     ngAfterViewInit(): void {}
 

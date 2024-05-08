@@ -1,0 +1,143 @@
+.amenity {
+    display: flex;
+    flex-direction: column;
+
+    /* padding-right: 15px; */
+    align-items: center;
+}
+
+.amenity .mat-caption {
+    text-align: center;
+}
+
+.top-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.other-details {
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.room-number {
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+[house] {
+    height: min-content;
+}
+
+[long-house] {
+    display: flex;
+
+    max-width: 800px;
+}
+
+[long-house], [house] {
+    margin: 35px auto;
+}
+
+[long-house] img,
+[long-house] app-image-carousel {
+    width: 350px;
+    flex-basis: 350px; /* This doesn't work as I expect */
+}
+
+[long-house] mat-card-content {
+    width: inherit;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr 40px;
+}
+
+[long-house] .post-info-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+[long-house] .post-amenities {
+    display: flex;
+    align-items: center;
+
+    column-gap: 15px;
+}
+
+[long-house] .post-buttons {
+    display: flex;
+    align-items: center;
+}
+
+[long-house] .post-amenities span:not(:last-child) {
+    padding-right: 10px;
+}
+
+[long-house] .content {
+    flex-grow: 1;
+}
+
+[house] .top-details {
+    padding-top: 16px;
+}
+
+[house] .post-amenities {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+[house] .post-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+[house] {
+    width: 450px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    /* cool box-shadow here https://codepen.io/chriscoyier/pen/KKwNLyL */
+}
+
+/*
+    Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+    Place media queries after other queries
+*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    [house] {
+        width: 85%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    [house] {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    [long-house] {
+        display: none;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    [house] {
+        display: none;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

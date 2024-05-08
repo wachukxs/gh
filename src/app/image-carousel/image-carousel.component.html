@@ -6,12 +6,12 @@
   </swiper>
   
   <div class="nav-button-container"> <!-- TODO: Use better css for positioning the buttons. Be careful (can be time consuming.) -->
-    <button type="button" #leftButton [ngClass]="['left-btn-' + displayIndex, 'lb']" left-btn mat-icon-button color="primary" aria-label="Previous image"
+    <button type="button" #leftButton [ngClass]="['left-btn', 'lb']" left-btn mat-icon-button color="primary" aria-label="Previous image"
       class="nav-button">
       <mat-icon>chevron_left</mat-icon>
     </button>
   
-    <button type="button" #rightButton [ngClass]="['right-btn-' + displayIndex, 'rb']" right-btn mat-icon-button color="primary" aria-label="Next image"
+    <button type="button" #rightButton [ngClass]="['right-btn', 'rb']" right-btn mat-icon-button color="primary" aria-label="Next image"
       class="nav-button">
       <mat-icon>chevron_right</mat-icon>
     </button>

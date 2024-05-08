@@ -1,317 +1,178 @@
 cdk-virtual-scroll-viewport {
-  height: calc(100vh - (64px + 64px));
+    height: calc(100vh - (64px + 64px));
 
-  width: 100%;
+    width: 100%;
 
-  background-color: #EEF2F7;
+    background-color: #eef2f7;
 }
 @media only screen and (max-device-width: 960px) {
-  cdk-virtual-scroll-viewport {
-    height: calc(100vh - (56px + 56px));
-  }
-}
-
-[long-house] {
-  display: flex;
-
-  max-width: 800px;
-}
-
-.scroller [long-house], .scroller [house] {
-  margin: 35px auto;
-}
-
-[long-house] img, [long-house] app-image-carousel {
-  width: 350px;
-  flex-basis: 350px; /* This doesn't work as I expect */
-}
-
-[long-house] mat-card-content {
-  width: inherit;
-
-  display: grid;
-  grid-template-rows: 1fr 1fr 40px;
-}
-
-[long-house] .post-info-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-[long-house] .post-amenities {
-  display: flex;
-  align-items: center;
-
-  column-gap: 15px;
-}
-
-[long-house] .post-buttons {
-  display: flex;
-  align-items: center;
-}
-
-[long-house] .post-amenities span:not(:last-child) {
-  padding-right: 10px;
-}
-
-[long-house] .content {
-  flex-grow: 1;
-}
-
-.amenity {
-  display: flex;
-  flex-direction: column;
-
-  /* padding-right: 15px; */
-  align-items: center;
-}
-
-.top-details {
-  display: flex;
-  justify-content: space-between;
-}
-
-[house] .top-details {
-  padding-top: 16px;
-}
-
-[house] .post-amenities {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-[house] .post-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+    cdk-virtual-scroll-viewport {
+        height: calc(100vh - (56px + 56px));
+    }
 }
 
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-[house] {
-  width: 450px;
-
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-  /* cool box-shadow here https://codepen.io/chriscoyier/pen/KKwNLyL */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .filters {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .margin-up-down {
-  margin: 15px 0px 15px 0px;
+    margin: 15px 0px 15px 0px;
 }
 
 .margin-top-bottom {
-  margin-top: 20px;
-  margin-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 5px;
 }
 
 /* fairly Stable CSS */
 
 .example-spacer {
-  flex: 1 1 auto;
-}
-
-.long-image {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+    flex: 1 1 auto;
 }
 
 .byside {
-  padding: 0px 16px;
+    padding: 0px 16px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .content {
-  padding-top: 16px;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  background: white;
+    padding-top: 16px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: white;
 
-  /* try to use the scss variable for the value of this box-shadow */
-  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+    /* try to use the scss variable for the value of this box-shadow */
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+        0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
 
 mat-sidenav {
-  width: min-content;
-}
-
-[house] {
-  height: min-content;
+    width: min-content;
 }
 
 .places-toolbar-row {
-  padding: 0px;
-  align-items: start;
+    padding: 0px;
+    align-items: start;
 }
 
 /**small mobile view rules*/
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 425px)  { 
-    mat-sidenav {
-        width: 75%;
-    }
-    
-    [house] {
-      width: 85%;
-    }
-}
-/**large mobile view rules*/
-@media only screen 
-  and (min-device-width: 426px) 
-  and (max-device-width: 768px)  { 
-    /* mat-sidenav {
-        width: 35%;
-    } */
-
-    [house] {
-      width: 70%;
-    }
+@media only screen and (min-device-width: 320px) and (max-device-width: 425px) {
 }
 
-/** --- */
 .mat-mdc-card-actions {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 mat-grid-list {
-  width: 75%;
+    width: 75%;
 }
 
 /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 .mat-card-in-tile {
-  width: -moz-available;
-  width: -webkit-fill-available;
-  height: 70%;
-  border-radius: 1px !important;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    height: 70%;
+    border-radius: 1px !important;
 }
-
 
 /* ??? */
 @media only screen and (max-device-width: 1280px) {
-  span.room-number {
-    padding-right: 15px;
-  }
-
+    span.room-number {
+        padding-right: 15px;
+    }
 }
 
 .price-area {
-  text-align: end;
+    text-align: end;
 }
 
 .price-area div:nth-child(1) {
-  font-size: larger;
+    font-size: larger;
 }
 
 .price-area div:nth-child(2) {
-  font-size: small;
-}
-
-.room-number {
-  padding-top: 5px;
-  padding-right: 10px;
+    font-size: small;
 }
 
 .mat-card-in-tile mat-card-subtitle {
-  display: inline-block;
-}
-
-.other-details {
-  font-size: 14px;
-  font-weight: bolder;
+    display: inline-block;
 }
 
 #under-mat-card-title {
-  font-size: medium;
-  margin-top: -10px;
-  display: block;
-}
-
-.house-img { /** https://stackoverflow.com/a/38810343 */
-  position: absolute; /* or display: block **/
-  min-width: 100%;
-  min-height: 100%;
-  width: -webkit-fill-available;
-  width: -moz-available;
+    font-size: medium;
+    margin-top: -10px;
+    display: block;
 }
 
 /**
   * https://stackoverflow.com/a/59205966
   */
-:host ::ng-deep cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper {
-  width: -moz-available !important;
-  width: -webkit-fill-available !important;
+:host
+    ::ng-deep
+    cdk-virtual-scroll-viewport
+    .cdk-virtual-scroll-content-wrapper {
+    width: -moz-available !important;
+    width: -webkit-fill-available !important;
 }
 
 .feed-header {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 
-  width: inherit;
+    width: inherit;
 }
 
 .spacer {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 mat-grid-list mat-grid-tile:nth-child(1) {
-  cursor: pointer;
-  border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    border-radius: 4px 0 0 4px;
 }
 
 mat-grid-list mat-grid-tile:nth-child(3) {
-  border-radius: 0 4px 0 0;
+    border-radius: 0 4px 0 0;
 }
 
 mat-grid-list mat-grid-tile:nth-child(5) {
-  border-radius: 0 0 4px 0;
+    border-radius: 0 0 4px 0;
 }
 
 mat-grid-list:nth-child(1) {
-  margin-top: 40px;
+    margin-top: 40px;
 }
 
 mat-grid-list {
-  margin-top: 20px;
-  margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /*TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-actions button[mattooltip] mat-icon {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .straighten-text {
-  display: flex;
-  align-items: center;
-  column-gap: 2px;
+    display: flex;
+    align-items: center;
+    column-gap: 2px;
 }
 
 .dashboard-card {
-  width: 500px;
-}
-
-.amenity .mat-caption {
-  text-align: center;
+    width: 500px;
 }
 
 /** horizontal scroll => https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
-
 
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
@@ -320,30 +181,23 @@ mat-card-actions button[mattooltip] mat-icon {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
-
+@media only screen and (min-width: 768px) {
+}
 
 @media only screen and (max-width: 992px) {
-  [long-house] {
-    display: none;
-  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  [house] {
-    display: none;
-  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+}
