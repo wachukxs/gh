@@ -24,6 +24,9 @@ export class WaitlistComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value || '')),
     );
+
+    // hi the server...
+    this.callerService.sayHi().subscribe()
   }
 
   filteredOptions: Observable<string[]> | undefined;

@@ -84,6 +84,13 @@ export class CallerService extends BaseService {
         return throwError(error)
     }
 
+    sayHi() {
+        return this.http.get(
+            environment.baseurl + URLPaths.sayHi,
+            this.JSONHttpOptions
+        )
+    }
+
     updateProfileBio(data: any) {
         console.log(
             'calling via',

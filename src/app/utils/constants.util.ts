@@ -22,4 +22,6 @@ export enum URLPaths {
 
     getNgStates = '/ng-states',
     getNgStateLGAs = '/ng-states/:state_id/lgas',
+
+    sayHi = '/hi',
 }
