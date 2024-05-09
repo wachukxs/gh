@@ -18,28 +18,20 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
     // is a stepper
     @ViewChild('swiper', { static: false }) swiper?: SwiperComponent
 
-    @ViewChild('rightButton', { static: false, read: ElementRef }) rightButton?: HTMLButtonElement
-    @ViewChild('leftButton', { static: false, read: ElementRef }) leftButton?: HTMLButtonElement
-
     @Input() images!: Array<any>
-    @Input() displayIndex!: number // should be unique.
+
+    uniqueClass: string = Math.random().toString().substring(2)
 
     swiperConfig: SwiperOptions = {
         zoom: true,
         pagination: { clickable: true, dynamicBullets: true },
         navigation: {
-            nextEl: '.right-btn',
-            prevEl: '.left-btn',
+            nextEl: '.next-button-' + this.uniqueClass,
+            prevEl: '.prev-button-' + this.uniqueClass,
         }
     }
 
     isSmallScreen$: Observable<boolean> = this.baseService.isSmallScreen$()
-
-    onClick(index: number): void {}
-
-    // from hammerjs, not used - swiper has same/similar event methods we can use
-    onSwipeRight(event: any): void {}
-    onSwipeLeft(event: any): void {}
 
     constructor(private baseService: BaseService) {}
 
@@ -53,4 +45,7 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
     swipeNext() {
         // this.swiper?.swiperRef.slideNext();
     }
+    // from hammerjs, not used - swiper has same/similar event methods we can use
+    onSwipeRight(event: any): void {}
+    onSwipeLeft(event: any): void {}
 }

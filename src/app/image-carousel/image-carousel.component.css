@@ -2,17 +2,24 @@
 @import 'node_modules/swiper/modules/navigation/navigation.min.css';
 @import 'node_modules/swiper/modules/pagination/pagination.min.css';
 
-.img-gallery-container, app-image-carousel {
-    width: 100%;
+.img-gallery-container {
+    position: relative;
 }
 
-.nav-button {
-    top: -180px;
+.right-btn {
+    right: 0px;
+}
+
+.move-button {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    cursor: pointer;
 }
 
 .custom-swiper-class {
-  /* If the image doesn't cover the whole space, put a background color - can/shd replace with sth else. */
-  background-color: cadetblue;
+    /* If the image doesn't cover the whole space, put a background color - can/shd replace with sth else. */
+    background-color: cadetblue;
 }
 
 .img {
@@ -24,49 +31,13 @@
     min-height: 300px;
 }
 
-/**
-Width must be same with [house] css rules in feed.component.css
-*/
-.nav-button-container {
-    position: fixed;
-    z-index: 10;
-    width: inherit; /* inherit isn't working */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.nav-button-container {
-  /* This should be same as [long-house] */
-  width: 450px;
-}
+@media only screen and (min-width: 992px) {}
 
-@media only screen and (min-width: 992px) {
-  .nav-button-container {
-    /* This should be same as [long-house] */
-    width: 350px;
-  }
-}
 /** small mobile view rules */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 425px)  { 
-    .nav-button-container {
-      /* Must be same with [house] width for mobile too */
-      width: 85%;
-    }
-}
-/** large mobile view rules */
-@media only screen 
-  and (min-device-width: 426px) 
-  and (max-device-width: 768px)  { 
-    .nav-button-container {
-      width: 70%;
-    }
-}
+@media only screen and (min-device-width: 320px) and (max-device-width: 425px) {}
 
-@media only screen and (max-width: 600px) {
-    .nav-button {
-        top: -155px;
-    }
-}
+/** large mobile view rules */
+@media only screen and (min-device-width: 426px) and (max-device-width: 768px) {}
+
+@media only screen and (max-width: 600px) {}
