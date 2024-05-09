@@ -29,8 +29,8 @@
           <!-- TODO: Change the max value from 200000 -->
           <mat-slider [disabled]="!budgetDisabled" [displayWith]="formatBudgetSliderLabel" showTickMarks discrete
             min="20000" step="25000" max="200000">
-            <input value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
-            <input value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
+            <input title="Min value" value="100000" (valueChange)="budgetMinSliderChange($event)" matSliderStartThumb>
+            <input title="Max value" value="175000" (valueChange)="budgetMaxSliderChange($event)" matSliderEndThumb>
           </mat-slider>
         </div>
   
@@ -46,7 +46,7 @@
         <div class="byside">
           <mat-slider [disabled]="!proximityDisabled" [displayWith]="formatProximitySliderLabel" showTickMarks discrete
             step="500" min="100" max="3500">
-            <input matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
+            <input title="proximity distance" matSliderThumb value="1000" (valueChange)="proximitySliderChange($event)">
           </mat-slider>
   
           <!-- based on the distance, filter the available places, the logic for replacing places when there's geo data is to replace the data source of the form element, not the html itself -->
@@ -165,7 +165,7 @@
                 If you click image, it should open seeSaleDetails() right to images section.
               -->
             <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
-            <app-image-carousel [displayIndex]="index + count"></app-image-carousel>
+            <app-image-carousel [images]="item?.Media"></app-image-carousel>
   
             <mat-card-content class="dashboard-card-content">
               <mat-card-title>
