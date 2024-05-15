@@ -1,9 +1,31 @@
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
+
+/**
+    Trying to change the color of toggle buttons https://stackoverflow.com/a/48159346
+ */
+@import '~@angular/material/theming';
+
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
 @use 'sass:map';
+
+@mixin app-toggle-btn-theme($app-theme) {
+
+  .mat-button-toggle {
+    background-color: mat.get-theme-color($theme, accent, 300);
+    color: mat.get-theme-color($theme, primary, 500);
+  }
+
+  .mat-button-toggle-checked {
+    background-color: mat.get-theme-color($theme, accent, 300);
+    color: mat.get-theme-color($theme, primary, 500);
+  }
+}
+
+// Include the mixin
+@include app-toggle-btn-theme($app-theme);
 
 
 /// Defines a collection of typography levels to configure typography for an application.
