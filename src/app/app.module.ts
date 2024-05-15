@@ -83,6 +83,7 @@ import { ErrorResponseInterceptor } from './http-interceptor/error-response.inte
 import { ProgressButtonComponent } from './custom-components/progress-button/progress-button.component';
 import { FeedSaleContentComponent } from './feed-sale-content/feed-sale-content.component';
 import { FeedAccommodationContentComponent } from './feed-accommodation-content/feed-accommodation-content.component';
+import { FeedContentComponent } from './feed-content/feed-content.component';
 
 const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member`, options: {
   transports: ["websocket", "polling"],
@@ -119,7 +120,8 @@ const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member
     LeaveReviewComponent,
     ProgressButtonComponent,
     FeedSaleContentComponent,
-    FeedAccommodationContentComponent
+    FeedAccommodationContentComponent,
+    FeedContentComponent
   ],
   imports: [
     MatNativeDateModule,
