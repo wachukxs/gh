@@ -46,6 +46,9 @@
     * [keen-slider](https://keen-slider.io/examples)
     * [SwiperJS](https://swiperjs.com/angular) - we're going with this.
 
+## Notes
+* This [commit](https://github.com/wachukxs/gh/commit/f435a1222fe57cce3413661fe288754ba9b4dfda) contains designs for [long-house] design.
+
 ## We're Using Material Design!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.

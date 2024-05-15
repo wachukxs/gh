@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
-import { AppState, CorpMemberState } from '../app.state'
+import { AppState, CorpMemberState, FeedDataType } from '../app.state'
 
 export const corpMemberFeatureKey = 'corper'
 export const feedFeatureKey = 'feed'
@@ -18,7 +18,7 @@ export const selectFeatureCorpMemberPpaId = createSelector(
 )
 
 export const selectFeatureFeed =
-    createFeatureSelector<any>('feed')
+    createFeatureSelector<Array<FeedDataType>>('feed')
 
 export const selectFeatureMessages =
     createFeatureSelector<any>('messages')

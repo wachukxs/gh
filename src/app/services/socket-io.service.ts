@@ -57,6 +57,8 @@ export class SocketIoService
             },
         })
 
+        // TODO: get last post.
+
         // `${environment.basehost}${environment.CORP_MEMBER_SOCKET_ENDPOINT}`
         this.socket = io('http://localhost:3051/', {
             transports: ['websocket', 'polling'],

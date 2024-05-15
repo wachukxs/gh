@@ -30,9 +30,11 @@ export interface CorpMemberState {
     bio: null | string
 }
 
+export type FeedDataType = SaleType | any // TODO: AccommodationType
+
 export interface AppState {
     corper: CorpMemberState
-    feed: Array<any>
+    feed: Array<FeedDataType>
     messages: Array<any>
 }
 
@@ -58,6 +60,37 @@ export interface LocationModel {
     "created_at": string,
     "updated_at": string,
     "CorpMemberId": null | number
+}
+
+export interface MediaType {
+    id: number,
+    url: string,
+    sale_id: number,
+    updated_at: string,
+    created_at: string,
+}
+
+export interface SaleType {
+    _price: string, // parsable to number
+    _age: string,
+    last_updated_age: string,
+    _type: 'sale',
+    id: 5,
+    corp_member_id: 2,
+    text: string,
+    item_name: string,
+    price: number,
+    Media: Array<MediaType>,
+    updated_at: string,
+    created_at: string,
+
+    CorpMember?: {
+        first_name: string,
+        nickname: null | string,
+        service_state: string,
+        state_code: string,
+        _location: string,
+    }
 }
 
 export const initialCorpMemberState: CorpMemberState = {

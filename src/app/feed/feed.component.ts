@@ -25,12 +25,6 @@ import { newFeedData } from '../ngrx-store/actions/corp-member.actions'
 
 // https://stackoverflow.com/questions/52566563/how-to-use-socket-io-in-angular-with-node-js
 
-export interface Fact {
-    // change to property
-    text?: string
-    date?: string
-}
-
 interface Place {
     value: string
     viewValue: string
