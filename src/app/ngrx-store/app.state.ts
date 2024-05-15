@@ -32,6 +32,10 @@ export interface CorpMemberState {
 
 export interface AppState {
     corper: CorpMemberState
+
+    feed: Array<any>
+
+    messages: Array<any>
 }
 
 export interface PpaModel {
@@ -90,4 +94,6 @@ export const initialCorpMemberState: CorpMemberState = {
 
 export const initialState: AppState = {
     corper: initialCorpMemberState,
+    feed: [],
+    messages: [],
 }
