@@ -1,1 +1,51 @@
-<p>feed-sale-content works!</p>
+<mat-card-content house>
+
+    <div class="top-details">
+        <section>
+            <mat-card-subtitle>
+                <!-- or [dateTime]="..." -->
+                <time [attr.datetime]="sale.created_at" >{{sale._age}}</time>, by {{ sale.CorpMember?.nickname ?? sale.CorpMember?.first_name ?? "Chuks Jr."}}</mat-card-subtitle>
+            <mat-card-title>{{sale.item_name}}</mat-card-title>
+        </section>
+        <section>
+            <span>&#8358; {{sale._price}}</span>
+        </section>
+    </div>
+    <div>
+        <section>
+            {{sale.text}}
+        </section>
+    </div>
+    <div>
+
+        <section class="post-buttons">
+            <button type="button" [@iconChangeAnimation]="toggleFavoriteIcon" (click)="favoritePost()" mat-icon-button
+                color="primary" aria-label="Like this post">
+                <mat-icon [fontIcon]="toggleFavoriteIcon"></mat-icon>
+            </button>
+            <button type="button" [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button
+                color="primary" aria-label="Save this post">
+                <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
+            </button>
+
+            <!-- TODO: We don't really need this more button for now. -->
+            <button type="button" mat-raised-button [matMenuTriggerFor]="chatMenuSmall">More</button>
+            <mat-menu #chatMenuSmall="matMenu" yPosition="above">
+                <button type="button" mat-menu-item (click)="copyAgentPhoneNumber()">
+                    <mat-icon>phone</mat-icon>
+                    <span>Copy phone number</span>
+                </button>
+                <button type="button" mat-menu-item disabled>
+                    <mat-icon>chat</mat-icon>
+                    <span>Chat agent</span>
+                </button>
+                <button type="button" mat-menu-item (click)="seeHouseDetails()">
+                    <mat-icon>info</mat-icon>
+                    <span>View details</span>
+                </button>
+            </mat-menu>
+        </section>
+
+    </div>
+
+</mat-card-content>

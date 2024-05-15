@@ -254,6 +254,12 @@ export class FeedComponent implements OnInit {
         private locationService: LocationService,
     ) {}
 
+    feedViewControl = new FormControl<'sale' | 'accommodation'>('sale');
+
+    protected get currentViewing(): 'sale items' | 'accommodations' {
+        return this.feedViewControl.value === 'sale' ? 'sale items' : 'accommodations'
+    }
+
     onSwipeRight(event: any): void {}
 
     onSwipeLeft(event: any): void {}

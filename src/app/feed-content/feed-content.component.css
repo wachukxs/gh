@@ -1,35 +1,5 @@
-.amenity {
-    display: flex;
-    flex-direction: column;
-
-    /* padding-right: 15px; */
-    align-items: center;
-}
-
-.amenity .mat-caption {
-    text-align: center;
-}
-
-.top-details {
-    display: flex;
-    justify-content: space-between;
-}
-
-.other-details {
-    font-size: 14px;
-    font-weight: bolder;
-}
-
-.room-number {
-    padding-top: 5px;
-    padding-right: 10px;
-}
-
-
-.post-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.content {
+    margin: 35px auto;
 }
 
 /*
@@ -39,7 +9,9 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-
+    .content {
+        width: 85%;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -48,17 +20,18 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-
+    .content {
+        width: 70%;
+    }
 }
 
 @media only screen and (max-width: 992px) {
-
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+}

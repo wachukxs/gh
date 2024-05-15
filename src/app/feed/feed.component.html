@@ -106,18 +106,17 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <div class="feed-header">
-        <span>Browse houses</span>
+        <span>Browsing {{currentViewing}}</span>
 
         <div class="spacer"></div>
 
         <!-- We might not need sales-feed.component, we can use Angular transclusion (https://angular.io/guide/content-projection) and use this next buttons to select what users view.-->
-        <!-- Maybe uncomment when we're ready to change layouts -->
-        <mat-button-toggle-group appearance="standard" name="fontStyle" aria-label="Font Style" multiple="false" vertical="false">
-          <mat-button-toggle value="extended" aria-label="Show houses in extended view">
-            <mat-icon >format_align_left</mat-icon>
+        <mat-button-toggle-group [formControl]="feedViewControl" appearance="standard" name="current viewing" aria-label="Current viewing" multiple="false" vertical="false">
+          <mat-button-toggle value="sale" aria-label="Show items for sale">
+            <mat-icon >sell</mat-icon>
           </mat-button-toggle>
-          <mat-button-toggle value="compact" aria-label="Show houses in compact view">
-            <mat-icon>format_align_center</mat-icon>
+          <mat-button-toggle value="accommodation" aria-label="Show houses for rent">
+            <mat-icon>bed</mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
@@ -175,7 +174,14 @@
         let even = even;
         let odd = odd;">
 
-      <app-feed-accommodation-content [accommodation]="feed"></app-feed-accommodation-content>
+      <app-feed-content [post]="feed">
+
+        <app-feed-accommodation-content *ngIf="feedViewControl.value === 'accommodation'" [accommodation]="feed"></app-feed-accommodation-content>
+
+        <app-feed-sale-content *ngIf="feedViewControl.value === 'sale'" [sale]="feed"></app-feed-sale-content>
+        
+        <!-- Switch statement doesn't work -->
+      </app-feed-content>
 
       </ng-container>
 

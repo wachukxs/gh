@@ -14,11 +14,11 @@ export class FeedAccommodationContentComponent {
     @Input() accommodation: any // TODO: Define accommodation Type
 
     constructor(
-      private dialog: MatDialog,
-      private clipboard: Clipboard,
-      private snackBar: MatSnackBar,
-      public callerService: CallerService,
-  ) {}
+        private dialog: MatDialog,
+        private clipboard: Clipboard,
+        private snackBar: MatSnackBar,
+        public callerService: CallerService,
+    ) {}
 
     likeState = false
     bookmarkState = false
@@ -38,7 +38,7 @@ export class FeedAccommodationContentComponent {
     protected get toggleFavouriteIcon(): 'favorite_border' | 'favorite' {
         return this.favouriteState ? 'favorite_border' : 'favorite'
     }
-    
+
     bookmarkPost() {
         this.bookmarkState = !this.bookmarkState
     }
@@ -48,31 +48,31 @@ export class FeedAccommodationContentComponent {
     }
 
     seeHouseDetails(): void {
-      const dialogRef = this.dialog.open(HouseDetailDialogComponent, {
-          width: '100%',
-          height: '100%',
-          maxWidth: '100vw',
-          maxHeight: '100vh',
-          data: {},
-          ariaLabel: 'Details of the house you just clicked',
-      })
+        const dialogRef = this.dialog.open(HouseDetailDialogComponent, {
+            width: '100%',
+            height: '100%',
+            maxWidth: '100vw',
+            maxHeight: '100vh',
+            data: {},
+            ariaLabel: 'Details of the house you just clicked',
+        })
 
-      /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
-      dialogRef.afterClosed().subscribe((result) => {
-          console.log('The dialog was closed')
-      })
-  }
+        /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('The dialog was closed')
+        })
+    }
 
-  copyAgentPhoneNumber(): void {
-      const copy = this.clipboard.copy('080 564 23456')
-      if (copy) {
-          this.snackBar.open('Copied phone number.', 'Good', {
-              duration: 2000,
-          })
-      } else {
-          this.snackBar.open('Copying failed. Try again?', 'Close', {
-              duration: 2000,
-          })
-      }
-  }
+    copyAgentPhoneNumber(): void {
+        const copy = this.clipboard.copy('080 564 23456')
+        if (copy) {
+            this.snackBar.open('Copied phone number.', 'Good', {
+                duration: 2000,
+            })
+        } else {
+            this.snackBar.open('Copying failed. Try again?', 'Close', {
+                duration: 2000,
+            })
+        }
+    }
 }

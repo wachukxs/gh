@@ -64,10 +64,6 @@ mat-sidenav {
     align-items: start;
 }
 
-/**small mobile view rules*/
-@media only screen and (min-device-width: 320px) and (max-device-width: 425px) {
-}
-
 .mat-mdc-card-actions {
     margin-bottom: 0px;
 }
