@@ -3,7 +3,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections'
 import { BehaviorSubject, Subscription, Observable } from 'rxjs'
 import { Clipboard } from '@angular/cdk/clipboard'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
-import { map, shareReplay } from 'rxjs/operators'
+import { filter, map, shareReplay } from 'rxjs/operators'
 import { LocationService } from '../services/location.service'
 import { FormControl, FormGroup } from '@angular/forms'
 import { MatSlideToggleChange } from '@angular/material/slide-toggle'
@@ -19,6 +19,9 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ImageCarouselComponent } from '../image-carousel/image-carousel.component'
 import { IOEventName, SocketIoService } from '../services/socket-io.service'
 import { CallerService } from '../services/caller.service'
+import { Store, select } from '@ngrx/store'
+import { AppState } from '../ngrx-store/app.state'
+import { newFeedData } from '../ngrx-store/actions/corp-member.actions'
 
 // https://stackoverflow.com/questions/52566563/how-to-use-socket-io-in-angular-with-node-js
 
@@ -210,39 +213,7 @@ export class FeedComponent implements OnInit {
         { src: 'assets/images/yes.jpg' },
     ]
 
-    feedData = [{}, {}, {}, {}].fill(
-        {
-            _price: '423,244',
-            _age: 'a few seconds ago',
-            last_updated_age: 'a few seconds ago',
-            _type: 'sale',
-            id: 5,
-            corp_member_id: 2,
-            text: 'Blueyuyy',
-            item_name: 'Hello',
-            price: 423244,
-            Media: [
-                {
-                    id: 4,
-                    url: 'https://chuks.name.ng/chuks.name.ng/corpers_ng_data/f5287e2ed12d19cb25deeadc9b014e9abe74c987.png',
-                    sale_id: 5,
-                    updated_at: '2024-05-03T07:14:32.103Z',
-                    created_at: '2024-05-03T07:14:32.103Z',
-                },
-                {
-                    id: 5,
-                    url: 'https://chuks.name.ng/chuks.name.ng/corpers_ng_data/89e1e5d3ae0fe38a08e1203d306652a479131730.png',
-                    sale_id: 5,
-                    updated_at: '2024-05-03T07:14:32.104Z',
-                    created_at: '2024-05-03T07:14:32.104Z',
-                },
-            ],
-            updated_at: '2024-05-03T07:14:31.978Z',
-            created_at: '2024-05-03T07:14:31.978Z',
-        },
-        0,
-        4,
-    )
+    feedData: any[] = []
 
     constructor(
         private breakpointObserver: BreakpointObserver,
@@ -252,6 +223,8 @@ export class FeedComponent implements OnInit {
         public callerService: CallerService,
         private socketIoService: SocketIoService,
         private locationService: LocationService,
+
+        public store: Store<AppState>,
     ) {}
 
     feedViewControl = new FormControl<'sale' | 'accommodation'>('sale');
@@ -265,13 +238,19 @@ export class FeedComponent implements OnInit {
     onSwipeLeft(event: any): void {}
 
     ngOnInit() {
-        /* this.breakpointObserver.observe(Breakpoints.Handset).subscribe(result => {
-      console.log('brek pnt', result);
-    }); */
 
-        // this.isPortraitHandset$.subscribe(value => console.log('is portrait handset', value));
-
-        // this.isTablet$.subscribe(value => console.log('is tablet', value));
+        this.store
+        .pipe(
+            select('feed'),
+        )
+        .subscribe({
+            next: (value) => {
+                console.log('new feed value???', value);
+                
+                // TODO: optionally filter out only feedData that are of type _sale.
+                this.feedData = value
+            },
+        })
 
         this.socketIoService.onEvent(IOEventName.HI).subscribe((data) => {
             console.log('new hi data:', data)
@@ -282,10 +261,8 @@ export class FeedComponent implements OnInit {
             .subscribe((data: any) => {
                 console.log('new bc data:', data)
 
-                // TODO: only handling sale for now. (remove later)
-                if (data?.post?.[0]?._type === 'sale') {
-                    this.feedData = [...data?.post, ...this.feedData]
-                }
+                // send to the app state.
+                this.store.dispatch(newFeedData({data: data?.post}))
             })
     }
 

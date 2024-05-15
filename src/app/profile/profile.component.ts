@@ -6,7 +6,7 @@ import { CallerService } from '../services/caller.service';
 import { CorpMemberState } from '../ngrx-store/app.state';
 import { select } from '@ngrx/store';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
-import { profileUpdateSuccess, setCorpMemberProfileData } from '../ngrx-store/actions/corp-member.actions';
+import { profileUpdateSuccess } from '../ngrx-store/actions/corp-member.actions';
 
 @Component({
   selector: 'app-profile',

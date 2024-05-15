@@ -14,3 +14,14 @@ export const updateCorpMemberProfile = createAction(
 
 export const profileUpdateSuccess = createAction('[CorpMember] Profile Update Success', props<{data: any | CorpMemberState}>());
 export const profileUpdateError = createAction('[CorpMember] Profile Update Error');
+
+
+export const newFeedData = createAction(
+  '[Feed] New Feed Post',
+  props<{ data: any[] }>()
+);
+
+export const newMessage = createAction(
+  '[Feed] New Message',
+  props<{ data: any[] }>()
+);

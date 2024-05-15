@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store'
-import { profileUpdateSuccess, setCorpMemberProfileData } from '../actions/corp-member.actions'
+import { newFeedData, newMessage, profileUpdateSuccess, setCorpMemberProfileData } from '../actions/corp-member.actions'
 import { AppState, CorpMemberState, initialCorpMemberState, initialState } from '../app.state'
 
 export const corpMemberReducer = createReducer(
@@ -10,4 +10,20 @@ export const corpMemberReducer = createReducer(
      * Update part of the corper state
      */
     on(profileUpdateSuccess, (state: CorpMemberState, { data }) => ({ ...state, ...data })),
+)
+
+export const feedReducer = createReducer(
+    initialState.feed, // initial state should be the feed from the whole app state
+    on(newFeedData, (state: any, { data }) => {
+        console.log('just got', data, state);
+        
+        return [...data, ...state]
+    }),
+
+)
+
+export const messagesReducer = createReducer(
+    initialState.messages, // initial state should be the messages from the whole app state
+    on(newMessage, (state: any, { data }) => [data, ... state]),
+
 )

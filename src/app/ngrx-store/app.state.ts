@@ -32,9 +32,7 @@ export interface CorpMemberState {
 
 export interface AppState {
     corper: CorpMemberState
-
     feed: Array<any>
-
     messages: Array<any>
 }
 
@@ -92,8 +90,42 @@ export const initialCorpMemberState: CorpMemberState = {
     bio: null,
 }
 
+const testData = [{}, {}, {}, {}].fill(
+    {
+        _price: '423,244',
+        _age: 'a few seconds ago',
+        last_updated_age: 'a few seconds ago',
+        _type: 'sale',
+        id: 5,
+        corp_member_id: 2,
+        text: 'Blueyuyy',
+        item_name: 'Hello',
+        price: 423244,
+        Media: [
+            {
+                id: 4,
+                url: 'https://chuks.name.ng/chuks.name.ng/corpers_ng_data/f5287e2ed12d19cb25deeadc9b014e9abe74c987.png',
+                sale_id: 5,
+                updated_at: '2024-05-03T07:14:32.103Z',
+                created_at: '2024-05-03T07:14:32.103Z',
+            },
+            {
+                id: 5,
+                url: 'https://chuks.name.ng/chuks.name.ng/corpers_ng_data/89e1e5d3ae0fe38a08e1203d306652a479131730.png',
+                sale_id: 5,
+                updated_at: '2024-05-03T07:14:32.104Z',
+                created_at: '2024-05-03T07:14:32.104Z',
+            },
+        ],
+        updated_at: '2024-05-03T07:14:31.978Z',
+        created_at: '2024-05-03T07:14:31.978Z',
+    },
+    0,
+    4,
+)
+
 export const initialState: AppState = {
     corper: initialCorpMemberState,
-    feed: [],
+    feed: testData ?? [],
     messages: [],
 }

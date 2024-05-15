@@ -7,8 +7,6 @@ import {
     HttpStatusCode,
 } from '@angular/common/http'
 import { Router } from '@angular/router'
-import { environment } from '../../environments/environment'
-import { MatSnackBar } from '@angular/material/snack-bar'
 import { CallerService } from '../services/caller.service'
 import { setCorpMemberProfileData } from '../ngrx-store/actions/corp-member.actions'
 

@@ -68,10 +68,10 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { EffectsModule } from '@ngrx/effects';
 import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
-import { corpMemberReducer } from './ngrx-store/reducers/corp-member.reducer';
+import { corpMemberReducer, feedReducer, messagesReducer } from './ngrx-store/reducers/corp-member.reducer';
 import { AuthInterceptor } from './http-interceptor/auth.interceptor';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { corpMemberFeatureKey } from './ngrx-store/selectors/corp.selectors';
+import { corpMemberFeatureKey, feedFeatureKey, messagesFeatureKey } from './ngrx-store/selectors/corp.selectors';
 import { _FEATURE_EFFECTS } from '@ngrx/effects/src/tokens';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
@@ -169,7 +169,11 @@ const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member
     MatFormFieldModule,
     TextFieldModule,
     EffectsModule.forRoot([CorpMemberEffects]),
-    StoreModule.forRoot({[corpMemberFeatureKey]: corpMemberReducer}), // {corper: corpMemberReducer} // {[corpMemberFeatureKey]: corpMemberReducer}
+    StoreModule.forRoot({
+      [corpMemberFeatureKey]: corpMemberReducer, // or corper: corpMemberReducer
+      [feedFeatureKey]: feedReducer,
+      [messagesFeatureKey]: messagesReducer,
+    }),
     SocketIoModule.forRoot(socketIoConfig),
   ],
   providers: [
