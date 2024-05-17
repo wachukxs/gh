@@ -60,7 +60,7 @@ export class SocketIoService
         // TODO: get last post.
 
         // `${environment.basehost}${environment.CORP_MEMBER_SOCKET_ENDPOINT}`
-        this.socket = io('http://localhost:3051/', {
+        this.socket = io(environment.basehost, {
             transports: ['websocket', 'polling'],
             query: {
                 state_code: this.corpMember.state_code

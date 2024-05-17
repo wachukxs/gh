@@ -84,8 +84,9 @@ import { ProgressButtonComponent } from './custom-components/progress-button/pro
 import { FeedSaleContentComponent } from './feed-sale-content/feed-sale-content.component';
 import { FeedAccommodationContentComponent } from './feed-accommodation-content/feed-accommodation-content.component';
 import { FeedContentComponent } from './feed-content/feed-content.component';
+import { environment } from 'src/environments/environment';
 
-const socketIoConfig: SocketIoConfig = { url: `http://localhost:3051/corp-member`, options: {
+const socketIoConfig: SocketIoConfig = { url: `${environment.basehost}/corp-member`, options: {
   transports: ["websocket", "polling"],
 } };
 
