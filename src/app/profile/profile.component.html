@@ -21,7 +21,7 @@
     <!-- TODO: LGA should update with options when you select a state -->
     <mat-form-field class="half-width">
       <mat-label>LGA</mat-label>
-      <input matInput formControlName="lga">
+      <input title="LGA" matInput formControlName="lga">
       <mat-error *ngIf="serviceDetailsFormGroup?.get(['lga'])?.hasError('required')">
         LGA is <strong>required</strong>
       </mat-error>
@@ -29,7 +29,7 @@
 
     <mat-form-field class="full-width">
       <mat-label>City or Town</mat-label>
-      <input matInput formControlName="city_or_town">
+      <input title="City or Town" matInput formControlName="city_or_town">
       <mat-error *ngIf="serviceDetailsFormGroup?.get(['city_or_town'])?.hasError('required')">
         City or Town is <strong>required</strong>
       </mat-error>
@@ -65,7 +65,7 @@
       <mat-label>Type of Institution</mat-label>
       <!-- TODO: should be like a dropdown or have suggestions list -->
       <mat-hint>eg. School, Bank, Hospital, Gov. Institution, etc.</mat-hint>
-      <input formControlName="type_of_institution" matInput>
+      <input title="Type of Institution" formControlName="type_of_institution" matInput>
     </mat-form-field>
 
     <mat-form-field class="half-width">
@@ -101,7 +101,7 @@
     <mat-form-field class="half-width">
       <mat-label>Origin city or town</mat-label>
       <mat-hint>Optional</mat-hint>
-      <input matInput formControlName="origin_city_or_town">
+      <input title="Origin city or town" matInput formControlName="origin_city_or_town">
     </mat-form-field>
 
     <mat-form-field class="full-width">
@@ -152,22 +152,22 @@
 
     <mat-form-field class="full-width">
       <mat-label>Do you have a nickname you go by?</mat-label>
-      <input matInput formControlName="nickname" placeholder="">
+      <input title="Nickname" matInput formControlName="nickname" placeholder="">
       <mat-hint>A more common name other corp members around you might know you by, or you want them to know you by.</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="half-width">
       <mat-label>Profile</mat-label>
       <!-- TODO: should we change the label from profile? to something better descriptive? -->
-      <textarea matInput #profile maxlength="50" formControlName="bio" rows="5"
+      <textarea matInput #profile maxlength="500" formControlName="bio" rows="5"
         placeholder="I'm a graphic designer. Get in touch if you like to travel. I'm your plug for all things phones. I'd love to visit Idanre hills before service year is over, who's in?"></textarea>
       <mat-hint>What do you want other corp members to know about you?</mat-hint>
-      <mat-hint align="end">{{profile.value.length}} / 50</mat-hint>
+      <mat-hint align="end">{{profile.value.length}} / 500</mat-hint>
     </mat-form-field>
 
     <div class="custom-file-form-field">
       <label for="profile_photo">Public photo:</label>
-      <input name="profile_photo" type="file" class="" onchange="">
+      <input title="Upload profile photo" name="profile_photo" type="file" class="" onchange="">
     </div>
 
   </form>
