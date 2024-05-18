@@ -135,24 +135,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
   }
 
   loadHousesData() {
-    this.httpClient.get(`${environment.baseurl}/api/v1/houses/`).subscribe((res: any) => {
-      this.houses = res.objects;
-      // stop the loader
-      this.httpClient.get(`${environment.baseurl}/api/v1/media/`).subscribe((resp: any) => {
-        this.houseImages = resp.objects;
-        console.log(this.houseImages); // this.houseImages.place == this.houses.resource_uri
-      });
-      console.log(this.houses);
-    }, err => {
-      // tell them we couldn't load houses. try again.
-      // after 5 tries, we tell them sth's really up.
-      // then probably give them the option of tryin again themselves
-      if (this.loadingHouseDataTries < 6) {
-        this.loadHousesData();
-        this.loadingHouseDataTries++ ;
-      } else {
-      }
-    });
+
   }
 
   aHouseImages(houseURI: string): Array<any> {
@@ -177,9 +160,6 @@ export class AgentDashboardComponent implements OnInit, CanExit {
   houseMedia(event: any, houseID: number): void {
     console.log('house media', event.target.files);
 
-    this.houseFormData.append('images', event.target.files[0]);
-    this.houseFormData.append('place', `/api/v1/houses/${houseID}/`);
-
     // this.propertyForm.controls.graphics.setValue(event.target.files); // not files[0]
     /* for (let i = 0, numFiles = event.target.files.length; i < numFiles; i++) {
       // do sth with the files
@@ -187,26 +167,8 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     } */
   }
 
-  updateHouseInfo(): void { // media files goes to http://localhost:8000/media/images/15.jpg
-    this.httpClient.post(`${environment.baseurl}/api/v1/media/`, this.houseFormData)
-      .subscribe((res: any) => {
-        console.log('good?', res);
-        this.houseImages.push(res); // update the current list
-        this.houseFormData = new FormData(); // reset if successful
-        // reset the input file form
-        // add the picture to the house
-        this.propertyForm.reset(); // reset the form
-        this.snackBar.open('Listing successfully updated', 'Close', {
-          duration: 4000,
-        });
-    }, (err: any) => {
-      console.error('update house err', err);
-      this.snackBar.open('Try again, something went wrong', 'Close', {
-        duration: 4000,
-      });
-    }, () => {
-      // console.log('we\'re done did try.');
-    });
+  updateHouseInfo(): void {
+    
   }
 
   postHouse() {
@@ -217,15 +179,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
       this.houseFormData.append(value[0], value[1]);
     }); */
 
-    // previously 'http://localhost:8083/greenhomes/php/api/houses/create.php'
-    this.httpClient.post(`${environment.baseurl}/api/v1/houses/`, this.propertyForm.value/* this.houseFormData */).subscribe((res: any) => {
-      console.log('post good response', res);
-      this.houses.push(res);
-      // if they clicked save draft, the post form like that and reset houseFormData variable
-    }, (err: any) => {
-      console.log('post err response', err);
-      console.warn(err.error.error_message);
-    });
+
   }
 
   canDeactivate(): Promise<any> | boolean {
