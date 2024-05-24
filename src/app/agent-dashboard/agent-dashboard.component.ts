@@ -38,6 +38,10 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     })
   );
 
+  selectedChat: FormControl = new FormControl('')
+
+  testChats = ['Marie Barbossa', 'Sarie Fada', 'Lukman Sally']
+
   you: any;
 
   dev = isDevMode();
@@ -59,7 +63,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
               private formBuilder: FormBuilder) {
 
                 // This key needs to be replaced, but this whole component isn't used.
-                let agnt = localStorage.getItem('online-corper')
+                const agnt = localStorage.getItem('online-corper')
                 if (agnt) {
                   this.theAgent = agnt // TODO: we aren't using agent.
                 }
@@ -132,6 +136,11 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     // this.propertyForm.controls.by.patchValue
 
     this.loadHousesData();
+
+    this.selectedChat?.valueChanges
+            .subscribe((value) => {
+                console.log('selected chat...', value)
+            })
   }
 
   loadHousesData() {

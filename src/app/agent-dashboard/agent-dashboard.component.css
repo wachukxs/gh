@@ -3,9 +3,9 @@
 }
 
 .parent-chat {
-  margin: 20px;
-  display: flex;
-  height: calc(100vh - 64px - 48px - 40px);
+    margin: 20px;
+    display: flex;
+    height: calc(100vh - 64px - 48px - 40px);
 }
 
 .dashboard-card {
@@ -53,11 +53,22 @@ div.add-house-buttons button {
     margin: 10px;
 }
 
+/* TODO: might need to amend this */
 .chat-list {
-    flex-basis: 350px;
-}
-.chat-box {
+    /* flex-basis: 35%; */
     flex-grow: 1;
+
+    max-width: 350px;
+}
+.chats-listing {
+    /* width: 35%; */
+    overflow-x: hidden;
+}
+
+.chat-box {
+    flex-grow: 4;
+
+    background-color: #8080801c;
 }
 
 .inner-chat-box {
@@ -82,6 +93,7 @@ div.add-house-buttons button {
 
 .chat-card {
     padding: 5px;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -120,6 +132,14 @@ div.add-house-buttons button {
     margin-bottom: 22px;
 }
 
+.no-selected-chat {
+    text-align: center;
+    padding-top: 10%;
+}
+
+.no-chat-icon {
+    transform: scale(2);
+}
 
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
@@ -128,35 +148,33 @@ div.add-house-buttons button {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .chat-box {
-    flex-basis: 0px; /** not working */
-    flex-grow: 0; /** not working */
+    .chat-box {
+        flex-basis: 0px; /** not working */
+        flex-grow: 0; /** not working */
 
-    display: none;
-  }
-  .parent-chat {
-    margin: 0;
-    height: calc(100vh - 64px - 48px);
-  }
+        display: none;
+    }
+    .parent-chat {
+        margin: 0;
+        height: calc(100vh - 64px - 48px);
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
-
+@media only screen and (min-width: 768px) {
+}
 
 @media only screen and (max-width: 992px) {
-  
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+}

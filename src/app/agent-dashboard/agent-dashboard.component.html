@@ -1,4 +1,72 @@
 <mat-tab-group mat-stretch-tabs color="primary" backgroundColor="accent">
+  <mat-tab label="Messages">
+    <div class="parent-chat">
+      <div class="chat-list">
+
+        <div mat-subheader>Chats</div>
+        <mat-selection-list class="chats-listing" #chatsListing [multiple]="false" [formControl]="selectedChat">
+          <mat-list-option *ngFor="let chat of testChats" [value]="chat">
+            <img matListItemAvatar class="profile-image"
+              src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Profile pic" />
+            <div matListItemTitle>{{chat}}</div>
+            <div matListItemLine>{{chat.repeat(5)}}</div>
+          </mat-list-option>
+        </mat-selection-list>
+
+      </div>
+
+      <div class="chat-box">
+        <ng-container *ngIf="selectedChat.value?.[0]; else noSelectedChat">
+          <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="inner-chat-box">
+            <div *cdkVirtualFor="
+                              let item of randomNumber;
+                              let index = index;
+                              let count = count;
+                              let first = first;
+                              let last = last;
+                              let even = even;
+                              let odd = odd
+                          " class="msg-row" [ngClass]="{ sender: even, receiver: odd }">
+              <div class="spacer"></div>
+              <mat-card class="chat-card">
+                <div *ngIf="even">
+                  The Shiba Inu is the smallest of the six
+                  original and distinct spitz breeds of dog from
+                  Japan. A small, agile dog that copes very well
+                  with mountainous terrain, the Shiba Inu was
+                  originally bred for hunting.
+                </div>
+                <div *ngIf="odd">A shorter text.</div>
+
+                <span>4:45PM</span>
+              </mat-card>
+            </div>
+          </cdk-virtual-scroll-viewport>
+
+          <div class="d-flex">
+            <mat-form-field class="msg-input">
+              <mat-label>Your message</mat-label>
+              <textarea title="Message" [formControl]="chatMessage" matInput cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+            <!-- TODO: send button should also be disabled if there is no internet connection -->
+            <button type="button" class="send-message-button" [disabled]="!chatMessage.value" mat-icon-button
+              color="primary" aria-label="Send message icon" (click)="sendMessage()">
+              <mat-icon>send</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-template #noSelectedChat>
+          <div class="no-selected-chat">
+            <h3>Select or start a chat</h3>
+
+            <mat-icon color="primary" class="no-chat-icon">forum</mat-icon>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </mat-tab>
   <mat-tab label="Add place">
     <div class="grid-container">
       <h1 class="mat-h1">Add an apartment</h1>
@@ -56,8 +124,7 @@
               <div class="add-house">
                 <mat-form-field>
                   <mat-label>Places like:</mat-label>
-                  <mat-select title="list of places" role="listbox" 
-                    [formControl]="propertyForm.controls.house_type" 
+                  <mat-select title="list of places" role="listbox" [formControl]="propertyForm.controls.house_type"
                     required>
                     <mat-option role="option" *ngFor="let houseType of houseTypes"
                       [value]="houseType">{{ houseType }}</mat-option>
@@ -149,10 +216,8 @@
 
                   <!-- TODO: Maybe fix this by adding "mat-button mat-raised-button" to <input> -->
                   <button type="button" mat-button mat-raised-button>
-                    <input title="Select file" type="file" 
-                    accept="image/*" required multiple 
-                    (change)="houseMedia($event, house.id)"
-                    />
+                    <input title="Select file" type="file" accept="image/*" required multiple
+                      (change)="houseMedia($event, house.id)" />
                   </button>
                 </div>
 
@@ -182,17 +247,13 @@
               <mat-divider class="mb"></mat-divider>
 
               <mat-grid-list cols="2" gutterSize="10px" rowHeight="6:4">
-                <mat-grid-tile *ngFor="
-                                        let image of aHouseImages(
+                <mat-grid-tile *ngFor="let image of aHouseImages(
                                             house.resource_uri
-                                        )
-                                    ">
+                                        )">
                   <img class="house-image" mat-card-image [src]="baseUrl + image.images"
                     alt="A photo of a room in this house" />
                   <mat-grid-tile-footer>
-                    <button (click)="
-                                                deleteHouseImage(image.images)
-                                            " mat-icon-button color="basic"
+                    <button type="button" (click)="deleteHouseImage(image.images)" mat-icon-button color="basic"
                       aria-label="Delete this picture of this house">
                       <mat-icon>delete</mat-icon>
                     </button>
@@ -204,7 +265,7 @@
               <button type="button" mat-button mat-raised-button (click)="updateHouseInfo()">
                 Update
               </button>
-              <button mat-button color="primary" (click)="nextStep()">
+              <button type="button" mat-button color="primary" (click)="nextStep()">
                 Next
               </button>
             </mat-action-row>
@@ -236,7 +297,7 @@
                 <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
                   alt="A photo of a room in this house" />
                 <mat-grid-tile-footer>
-                  <button mat-icon-button color="basic" aria-label="Delete this picture of this house">
+                  <button type="button" mat-icon-button color="basic" aria-label="Delete this picture of this house">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </mat-grid-tile-footer>
@@ -256,7 +317,7 @@
             </mat-grid-list>
 
             <mat-action-row>
-              <button mat-button color="primary" (click)="nextStep()">
+              <button type="button" mat-button color="primary" (click)="nextStep()">
                 Next
               </button>
             </mat-action-row>
@@ -277,10 +338,10 @@
             </mat-form-field>
 
             <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">
+              <button type="button" mat-button color="warn" (click)="prevStep()">
                 Previous
               </button>
-              <button mat-button color="primary" (click)="nextStep()">
+              <button type="button" mat-button color="primary" (click)="nextStep()">
                 Next
               </button>
             </mat-action-row>
@@ -302,95 +363,15 @@
             <mat-datepicker #picker></mat-datepicker>
 
             <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">
+              <button type="button" mat-button color="warn" (click)="prevStep()">
                 Previous
               </button>
-              <button mat-button color="primary" (click)="nextStep()">
+              <button type="button" mat-button color="primary" (click)="nextStep()">
                 End
               </button>
             </mat-action-row>
           </mat-expansion-panel>
         </mat-accordion>
-      </div>
-    </div>
-  </mat-tab>
-  <mat-tab label="Messages">
-    <div class="parent-chat">
-      <div class="chat-list">
-        <mat-list role="directory">
-          <!-- <div mat-subheader>Folders</div>
-          <ng-container *ngFor="let folder of folders">
-            <mat-list-item>
-              <mat-icon matListItemIcon>folder</mat-icon>
-              <div matListItemTitle> {{folder.name}} </div>
-              <div matListItemLine> {{folder.updated | date}} </div>
-            </mat-list-item>
-          </ng-container>
-          <mat-divider></mat-divider> -->
-          <div mat-subheader>Chats</div>
-          <mat-divider></mat-divider>
-          <ng-container *ngFor="let note of notes">
-            <!-- TODO: maybe later, if possible, use only mat list components here -->
-            <mat-list-item>
-              <div class="person-msg-intro">
-                <img class="profile-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                  alt="Profile pic" />
-                <div>
-                  <div>{{ note.name }}</div>
-                  <div>{{ note.updated | date }}</div>
-                </div>
-              </div>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </ng-container>
-          
-        </mat-list>
-      </div>
-
-      <div class="chat-box">
-        <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="inner-chat-box">
-          <div *cdkVirtualFor="
-                            let item of randomNumber;
-                            let index = index;
-                            let count = count;
-                            let first = first;
-                            let last = last;
-                            let even = even;
-                            let odd = odd
-                        " class="msg-row" [ngClass]="{ sender: even, receiver: odd }">
-            <div class="spacer"></div>
-            <mat-card class="chat-card">
-              <div *ngIf="even">
-                The Shiba Inu is the smallest of the six
-                original and distinct spitz breeds of dog from
-                Japan. A small, agile dog that copes very well
-                with mountainous terrain, the Shiba Inu was
-                originally bred for hunting.
-              </div>
-              <div *ngIf="odd">A shorter text.</div>
-
-              <span>4:45PM</span>
-            </mat-card>
-          </div>
-        </cdk-virtual-scroll-viewport>
-
-        <div class="d-flex align-items-end">
-          <mat-form-field class="msg-input">
-            <mat-label>Your message</mat-label>
-            <textarea 
-            title="Message"
-            [formControl]="chatMessage"
-            matInput 
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"></textarea>
-          </mat-form-field>
-          <!-- TODO: send button should also be disabled if there is no internet connection -->
-          <button class="send-message-button" [disabled]="!chatMessage.value" mat-icon-button color="primary" aria-label="Send message icon" (click)="sendMessage()">
-            <mat-icon>send</mat-icon>
-          </button>
-        </div>
       </div>
     </div>
   </mat-tab>
