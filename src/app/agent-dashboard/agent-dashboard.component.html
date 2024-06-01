@@ -1,73 +1,8 @@
 <mat-tab-group mat-stretch-tabs color="primary" backgroundColor="accent">
-  <mat-tab label="Messages">
-    <div class="parent-chat">
-      <div class="chat-list">
-
-        <div mat-subheader>Chats</div>
-        <mat-selection-list class="chats-listing" #chatsListing [multiple]="false" [formControl]="selectedChat">
-          <mat-list-option *ngFor="let chat of testChats" [value]="chat">
-            <img matListItemAvatar class="profile-image"
-              src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Profile pic" />
-            <div matListItemTitle>{{chat}}</div>
-            <div matListItemLine>{{chat.repeat(5)}}</div>
-          </mat-list-option>
-        </mat-selection-list>
-
-      </div>
-
-      <div class="chat-box">
-        <ng-container *ngIf="selectedChat.value?.[0]; else noSelectedChat">
-          <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="inner-chat-box">
-            <div *cdkVirtualFor="
-                              let item of randomNumber;
-                              let index = index;
-                              let count = count;
-                              let first = first;
-                              let last = last;
-                              let even = even;
-                              let odd = odd
-                          " class="msg-row" [ngClass]="{ sender: even, receiver: odd }">
-              <div class="spacer"></div>
-              <mat-card class="chat-card">
-                <div *ngIf="even">
-                  The Shiba Inu is the smallest of the six
-                  original and distinct spitz breeds of dog from
-                  Japan. A small, agile dog that copes very well
-                  with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </div>
-                <div *ngIf="odd">A shorter text.</div>
-
-                <span>4:45PM</span>
-              </mat-card>
-            </div>
-          </cdk-virtual-scroll-viewport>
-
-          <div class="d-flex">
-            <mat-form-field class="msg-input">
-              <mat-label>Your message</mat-label>
-              <textarea title="Message" [formControl]="chatMessage" matInput cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-            </mat-form-field>
-            <!-- TODO: send button should also be disabled if there is no internet connection -->
-            <button type="button" class="send-message-button" [disabled]="!chatMessage.value" mat-icon-button
-              color="primary" aria-label="Send message icon" (click)="sendMessage()">
-              <mat-icon>send</mat-icon>
-            </button>
-          </div>
-        </ng-container>
-
-        <ng-template #noSelectedChat>
-          <div class="no-selected-chat">
-            <h3>Select or start a chat</h3>
-
-            <mat-icon color="primary" class="no-chat-icon">forum</mat-icon>
-          </div>
-        </ng-template>
-      </div>
-    </div>
+  <mat-tab label="Alerts? Stats?">
+    Sth else...
   </mat-tab>
-  <mat-tab label="Add place">
+  <mat-tab label="Bookmarks & Likes">
     <div class="grid-container">
       <h1 class="mat-h1">Add an apartment</h1>
 
@@ -190,7 +125,7 @@
       </mat-card>
     </div>
   </mat-tab>
-  <mat-tab label="Your listings">
+  <mat-tab label="Post history">
     <div class="listing-parent">
       <div class="grid-container">
         <h1 class="mat-h1">Edit house details</h1>
@@ -247,13 +182,11 @@
               <mat-divider class="mb"></mat-divider>
 
               <mat-grid-list cols="2" gutterSize="10px" rowHeight="6:4">
-                <mat-grid-tile *ngFor="let image of aHouseImages(
-                                            house.resource_uri
-                                        )">
-                  <img class="house-image" mat-card-image [src]="baseUrl + image.images"
+                <mat-grid-tile *ngFor="let image of [1,2,3]">
+                  <img class="house-image" mat-card-image src="https://placehold.co/500x250?text=corpers.ng&font=roboto"
                     alt="A photo of a room in this house" />
                   <mat-grid-tile-footer>
-                    <button type="button" (click)="deleteHouseImage(image.images)" mat-icon-button color="basic"
+                    <button type="button" (click)="deleteHouseImage()" mat-icon-button color="basic"
                       aria-label="Delete this picture of this house">
                       <mat-icon>delete</mat-icon>
                     </button>
@@ -294,7 +227,7 @@
 
             <mat-grid-list cols="2" gutterSize="10px" rowHeight="6:4">
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                <img class="house-image" mat-card-image src="https://placehold.co/500x250?text=corpers.ng&font=roboto"
                   alt="A photo of a room in this house" />
                 <mat-grid-tile-footer>
                   <button type="button" mat-icon-button color="basic" aria-label="Delete this picture of this house">
@@ -303,15 +236,15 @@
                 </mat-grid-tile-footer>
               </mat-grid-tile>
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                <img class="house-image" mat-card-image src="https://placehold.co/500x250?text=corpers.ng&font=roboto"
                   alt="A photo of a room in this house" />
               </mat-grid-tile>
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                <img class="house-image" mat-card-image src="https://placehold.co/500x250?text=corpers.ng&font=roboto"
                   alt="A photo of a room in this house" />
               </mat-grid-tile>
               <mat-grid-tile>
-                <img class="house-image" mat-card-image [src]="baseUrl + '/media/images/15.jpg'"
+                <img class="house-image" mat-card-image src="https://placehold.co/500x250?text=corpers.ng&font=roboto"
                   alt="A photo of a room in this house" />
               </mat-grid-tile>
             </mat-grid-list>

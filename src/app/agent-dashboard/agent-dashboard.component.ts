@@ -38,20 +38,13 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     })
   );
 
-  selectedChat: FormControl = new FormControl('')
-
-  testChats = ['Marie Barbossa', 'Sarie Fada', 'Lukman Sally']
-
   you: any;
 
   dev = isDevMode();
 
   theAgent: any = {}
 
-  baseUrl: string =  environment.baseurl;
-
   houses: Array<any> = []; // get data type of houses
-  houseImages: Array<any> = []; //
   houseTypes: Array<string> = [
     'Duplex', 'Bongalow', 'Flat', 'Skyscrapper', 'Dungeon', 'Castle'
   ];
@@ -86,13 +79,9 @@ export class AgentDashboardComponent implements OnInit, CanExit {
 
   houseFormData = new FormData();
 
-  chatMessage = new FormControl({value: '', disabled: false});
-
   step = 0;
 
   loadingHouseDataTries = 0;
-
-  randomNumber: Array<string> = Array.from('af2389dsjfas3433fjdsakfal34335klsfdas')
 
   folders: any[] = [
     {
@@ -137,43 +126,22 @@ export class AgentDashboardComponent implements OnInit, CanExit {
 
     this.loadHousesData();
 
-    this.selectedChat?.valueChanges
-            .subscribe((value) => {
-                console.log('selected chat...', value)
-            })
   }
 
   loadHousesData() {
 
   }
 
-  aHouseImages(houseURI: string): Array<any> {
-    return this.houseImages.filter(hI => hI.place === houseURI);
+  aHouseImages(): void {
+    
   }
 
-  deleteHouseImage(imageURI: string): void {
-    this.httpClient.delete(`${environment.baseurl}${imageURI}`).subscribe((res: any) => {
-      // good, remove the image, pop it out from array
-      this.houseImages = this.houseImages.filter(item => item.images !== imageURI);
-      this.snackBar.open('Image successfully deleted', 'Close', {
-        duration: 4000,
-      });
-    }, err => {
-      // bad, tell them to try again
-      this.snackBar.open('We couldn\'t delete that', 'Try again', {
-        duration: 4000,
-      });
-    });
+  deleteHouseImage(): void {
+
   }
 
   houseMedia(event: any, houseID: number): void {
     console.log('house media', event.target.files);
-
-    // this.propertyForm.controls.graphics.setValue(event.target.files); // not files[0]
-    /* for (let i = 0, numFiles = event.target.files.length; i < numFiles; i++) {
-      // do sth with the files
-      const file = event.target.files[i];
-    } */
   }
 
   updateHouseInfo(): void {
@@ -216,8 +184,6 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     }
   }
 
-  sendMessage() {
-
-  }
+  
 
 }

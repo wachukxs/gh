@@ -1,0 +1,103 @@
+/* TODO: might need to amend this */
+.chat-list {
+    /* flex-basis: 35%; */
+    flex-grow: 1;
+
+    max-width: 350px;
+}
+
+.chats-listing {
+    /* width: 35%; */
+    overflow-x: hidden;
+}
+
+.parent-chat {
+    margin: 50px;
+    display: flex;
+    height: calc(100vh - 64px - 48px - 40px);
+}
+
+.chat-card {
+    padding: 5px;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.chat-box {
+    flex-grow: 4;
+
+    background-color: #8080801c;
+}
+
+.inner-chat-box {
+    height: calc(100% - 80px);
+    border: 1px solid black;
+}
+
+.sender {
+    flex-direction: row;
+    text-align: right;
+}
+
+.person-msg-intro {
+    display: flex;
+    align-items: center;
+}
+
+.spacer {
+    flex-basis: 20%;
+}
+
+.receiver {
+    flex-direction: row-reverse;
+    text-align: left;
+}
+
+.msg-row .spacer {
+    flex-grow: 1;
+}
+
+.msg-row {
+    display: flex;
+
+    margin: 15px 0px;
+}
+
+.msg-input {
+    width: calc(100% - 50px);
+}
+
+/* 
+    margin so it's on same level as message box 
+*/
+.send-message-button {
+    margin-bottom: 22px;
+}
+
+.no-selected-chat {
+    text-align: center;
+    padding-top: 150px;
+}
+
+.no-chat-icon {
+    transform: scale(2);
+}
+
+/*
+    Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+    Place media queries after other queries
+*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .chat-box {
+        flex-basis: 0px; /** not working */
+        flex-grow: 0; /** not working */
+
+        display: none;
+    }
+    .parent-chat {
+        margin: 0;
+        height: calc(100vh - 64px - 48px);
+    }
+}
