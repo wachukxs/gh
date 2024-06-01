@@ -4,7 +4,7 @@
         <section>
             <mat-card-subtitle>
                 <!-- or [dateTime]="..." -->
-                <time [attr.datetime]="sale.created_at" >{{sale._age}}</time>, by {{ sale.CorpMember?.nickname ?? sale.CorpMember?.first_name ?? "Chuks Jr."}}</mat-card-subtitle>
+                <time [attr.datetime]="sale.created_at" >{{sale._age}}</time>, by {{ salePosterDisplayName }}</mat-card-subtitle>
             <mat-card-title>{{sale.item_name}}</mat-card-title>
         </section>
         <section>
@@ -28,17 +28,20 @@
                 <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
             </button>
 
-            <!-- TODO: We don't really need this more button for now. -->
+            <!--
+                TODO: We don't really need this more button for now.
+                2. No need to show this when it's your post.
+            -->
             <button type="button" mat-raised-button [matMenuTriggerFor]="chatMenuSmall">More</button>
             <mat-menu #chatMenuSmall="matMenu" yPosition="above">
                 <button type="button" mat-menu-item (click)="copyAgentPhoneNumber()">
                     <mat-icon>phone</mat-icon>
                     <span>Copy phone number</span>
                 </button>
-                <button type="button" mat-menu-item disabled>
+                <a [routerLink]="['/messages']" [queryParams]="{s: sale.CorpMember?.state_code}" mat-menu-item [disabled]="false">
                     <mat-icon>chat</mat-icon>
-                    <span>Chat agent</span>
-                </button>
+                    <span>Chat {{salePosterDisplayName}}</span>
+                </a>
                 <button type="button" mat-menu-item (click)="seeHouseDetails()">
                     <mat-icon>info</mat-icon>
                     <span>View details</span>

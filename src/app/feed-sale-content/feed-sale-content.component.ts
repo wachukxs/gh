@@ -41,6 +41,10 @@ export class FeedSaleContentComponent {
         return this.favoriteState ? 'favorite' : 'favorite_border'
     }
 
+    get salePosterDisplayName(): string {
+        return this.sale.CorpMember?.nickname ?? this.sale.CorpMember?.first_name ?? "Chuks Jr."
+    }
+
     bookmarkPost() {
         this.bookmarkState = !this.bookmarkState
     }
