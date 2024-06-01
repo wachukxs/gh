@@ -47,6 +47,14 @@
       </mat-error>
     </mat-form-field>
 
+    <mat-form-field appearance="fill">
+      <mat-label>State code</mat-label>
+      <input title="State code" matInput formControlName="state_code">
+      <mat-error *ngIf="serviceDetailsFormGroup?.get(['state_code'])?.hasError('required')">
+        State code is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
   </form>
 
   <mat-divider></mat-divider>

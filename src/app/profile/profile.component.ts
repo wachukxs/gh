@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
     lga: new FormControl(this.callerService.corpMember?.lga),
     city_or_town: new FormControl(this.callerService.corpMember?.city_or_town),
     stream: new FormControl(this.callerService.corpMember?.stream),
+    state_code: new FormControl(this.callerService.corpMember?.state_code),
   })
 
   otherDetailsFormGroup: FormGroup = new FormGroup({
