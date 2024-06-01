@@ -23,6 +23,7 @@ import { CreateNewAccommodationComponent } from './dialogs/create-new-accommodat
 import { PublicProfileComponent } from './public-profile/public-profile.component'
 import { SalesFeedComponent } from './sales-feed/sales-feed.component'
 import { AllPpasComponent } from './all-ppas/all-ppas.component'
+import { MessagesComponent } from './messages/messages.component'
 
 const routes: Routes = [
     {
@@ -56,6 +57,7 @@ const routes: Routes = [
                 component: SalesFeedComponent,
             },
             { path: 'profile', title: 'Profile', component: ProfileComponent },
+            { path: 'messages', title: 'Messages', component: MessagesComponent },
             {
                 path: 'dashboard',
                 title: 'Dashboard',
