@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, forkJoin } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import { CallerService } from '../services/caller.service';
 import { CorpMemberState } from '../ngrx-store/app.state';
 import { select } from '@ngrx/store';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { profileUpdateSuccess } from '../ngrx-store/actions/corp-member.actions';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,9 +16,14 @@ import { profileUpdateSuccess } from '../ngrx-store/actions/corp-member.actions'
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private _formBuilder: FormBuilder, private callerService: CallerService) { }
+  constructor(private _formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private callerService: CallerService) { }
 
-  filteredOptions: Observable<string[]> | undefined;
+  filteredOptions: Observable<any[]> | undefined;
+  filteredOptions_2: Observable<any[]> | undefined;
+
+  ng_states: any[] = []
+  ng_states_and_lgas: any[] = []
+  selected_state_lgas: any[] = []
 
   serviceDetailsFormGroup: FormGroup = new FormGroup({
     service_state: new FormControl(this.callerService.corpMember?.service_state),
@@ -56,22 +62,35 @@ export class ProfileComponent implements OnInit {
     serviceDetails: this.serviceDetailsFormGroup,
   })
 
-  // not using.
-  // profileForm:FormGroup = this._formBuilder.group({
-  //   servingstate: ['', [Validators.required]],
-  // });
-
   serviceStreams: Array<string> = ['1', '2', '3']
 
   ngOnInit(): void {
-    this.filteredOptions = this.serviceDetailsFormGroup.get('service_state')?.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    
+
+    this.activatedRoute.data.subscribe(({ res }) => {
+      // do something with your resolved data ...
+      console.log('2nd resolved data', res);
+      
+      if (res.status === HttpStatusCode.Ok) {
+        this.ng_states_and_lgas = res.body?.states_and_lgas
+
+        this.ng_states = this.ng_states_and_lgas.map((s, i) => ({index: i, id: s.id, name: s.name}))
+        
+      }
+    })
 
     this.serviceDetailsFormGroup.valueChanges.subscribe({
       next: (values) => {
-        // console.log('values', values);
+        // console.log('service details values', values);
+      }
+    })
+
+    this.serviceDetailsFormGroup.get(['service_state'])
+    ?.valueChanges.subscribe({
+      next: (values) => {
+        console.log('new service state', values);
+        // clear lga value on service state change.
+        this.serviceDetailsFormGroup.get(['lga'])?.setValue('')
       }
     })
 
@@ -83,13 +102,10 @@ export class ProfileComponent implements OnInit {
 
     console.log('hey, this is me', this.callerService.corpMember);
     
-    
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.callerService.states_long.filter(option => option.toLowerCase().includes(filterValue));
+  setSelectedStatesLGA(event: any, value: any) {
+    this.selected_state_lgas = this.ng_states_and_lgas?.[value.index]?.StateLGAs
   }
 
   /**

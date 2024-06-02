@@ -273,6 +273,13 @@ export class CallerService extends BaseService {
         )
     }
 
+    fetchAllNigeriaStatesAndLGAs() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getNgStateAndLGAs,
+            this.JSONHttpOptions
+        )
+    }
+
     fetchNigeriaStateLGAs(stateId: number) {
         return this.http.get(
             environment.baseurl + URLPaths.getNgStateLGAs.replace(':state_id', `${stateId}`),

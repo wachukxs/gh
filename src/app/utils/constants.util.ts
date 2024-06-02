@@ -21,6 +21,7 @@ export enum URLPaths {
     corpMemberProfilePhotoUpdate = '/profile/profile-photo',
 
     getNgStates = '/ng-states',
+    getNgStateAndLGAs = '/ng-state-and-lgas',
     getNgStateLGAs = '/ng-states/:state_id/lgas',
 
     sayHi = '/hi',

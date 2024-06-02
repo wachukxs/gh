@@ -109,4 +109,9 @@ export class BaseService {
   servingCorpMemberStateCodeRegex = new RegExp(`(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/${ this.yearRange }[abc]\\/[0-9]{4,5}`, 'i')
 
   corpMemberStateCodeRegex = /(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\/\d\d[abc]\/[0-9]{4,5}/i
+
+  /**
+   * for getting valid/allowed state codes within the current year.
+   */
+  state_code_regex = new RegExp(`(ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/(${this.years - 1}|${this.years})[abc]\\/[0-9]{4}`, 'i')
 }

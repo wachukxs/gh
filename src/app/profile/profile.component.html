@@ -5,14 +5,12 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Serving state</mat-label>
-      <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="service_state"
-        [matAutocomplete]="auto">
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <!-- <mat-option value="">Choose</mat-option> -->
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
+
+      <mat-select formControlName="service_state">
+        <mat-option *ngFor="let option of ng_states" [value]="option.name" (onSelectionChange)="setSelectedStatesLGA($event, option)">
+          {{option.name}}
         </mat-option>
-      </mat-autocomplete>
+      </mat-select>
       <mat-error *ngIf="serviceDetailsFormGroup?.get(['service_state'])?.hasError('required')">
         Serving state is <strong>required</strong>
       </mat-error>
@@ -21,7 +19,12 @@
     <!-- TODO: LGA should update with options when you select a state -->
     <mat-form-field class="half-width">
       <mat-label>LGA</mat-label>
-      <input title="LGA" matInput formControlName="lga">
+
+      <mat-select formControlName="lga">
+        <mat-option *ngFor="let option of selected_state_lgas" [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-select>
       <mat-error *ngIf="serviceDetailsFormGroup?.get(['lga'])?.hasError('required')">
         LGA is <strong>required</strong>
       </mat-error>

@@ -24,6 +24,7 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
 import { SalesFeedComponent } from './sales-feed/sales-feed.component'
 import { AllPpasComponent } from './all-ppas/all-ppas.component'
 import { MessagesComponent } from './messages/messages.component'
+import { ProfilePageResolver } from './resolvers/profile-page.resolver'
 
 const routes: Routes = [
     {
@@ -56,7 +57,9 @@ const routes: Routes = [
                 title: 'Your feed',
                 component: SalesFeedComponent,
             },
-            { path: 'profile', title: 'Profile', component: ProfileComponent },
+            { path: 'profile', title: 'Profile', component: ProfileComponent, resolve: {
+                res: ProfilePageResolver
+            } },
             { path: 'messages', title: 'Messages', component: MessagesComponent },
             {
                 path: 'dashboard',

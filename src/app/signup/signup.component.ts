@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CallerService } from '../services/caller.service';
@@ -14,8 +14,6 @@ export class SignupComponent implements OnInit {
 
   constructor(private callerService: CallerService, private router: Router) { }
 
-  years = parseInt( new Date( Date.now() ).getFullYear().toFixed().slice( 2, 4 ) );
-  yearrange = '(' + ( this.years - 1 ).toString() + '|' + this.years.toString() + ')';
 
   signupForm = new FormGroup({
     email: new FormControl('', [
@@ -24,7 +22,8 @@ export class SignupComponent implements OnInit {
     ]),
     state_code: new FormControl('', [
       Validators.required,
-      Validators.pattern(`(AB|AD|AK|AN|BA|BY|BN|BO|CR|DT|EB|ED|EK|EN|FC|GM|IM|JG|KD|KN|KT|KB|KG|KW|LA|NS|NG|OG|OD|OS|OY|PL|RV|SO|TR|YB|ZM|ab|ad|ak|an|ba|by|bn|bo|cr|dt|eb|ed|ek|en|fc|gm|im|jg|kd|kn|kt|kb|kg|kw|la|ns|ng|og|od|os|oy|pl|rv|so|tr|yb|zm)\\/${ this.yearrange }[abcACB]\\/[0-9]{4}`)
+      Validators.pattern(this.callerService.state_code_regex)
+     
     ]),
     password: new FormControl('', [
       Validators.required,
@@ -56,8 +55,9 @@ export class SignupComponent implements OnInit {
         console.log('result', res);
         localStorage.setItem(this.callerService.LOCAL_STORAGE_DATA_KEY, JSON.stringify(res));
         this.router.navigate(['/home']);
-      }, err => {
+      }, (err: HttpErrorResponse) => {
         console.log('err', err);
+        this.callerService.showNotification(err?.error?.message ?? "An error occurred")
       }, () => {
         console.log('completed the http signup');
       });

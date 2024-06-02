@@ -56,7 +56,7 @@ export class AddNewPlaceDialogComponent implements OnInit {
                 this.ng_states = res.body?.states
             },
             error: (err) => {
-                this.callerService.showNotification('Failed...')
+                this.callerService.showNotification('Failed to load States data')
             },
         })
 
@@ -72,7 +72,7 @@ export class AddNewPlaceDialogComponent implements OnInit {
                             this.ng_states_lgas = res.body?.lgas
                         },
                         error: (err) => {
-                            this.callerService.showNotification('Failed...')
+                            this.callerService.showNotification('Failed to load States data')
                         },
                     })
                 },
