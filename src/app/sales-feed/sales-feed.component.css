@@ -226,21 +226,6 @@ mat-grid-list {
     width: -moz-available;
 }
 
-/**
-    * https://stackoverflow.com/a/59205966
-    */
-:host ::ng-deep
-  cdk-virtual-scroll-viewport
-  .cdk-virtual-scroll-content-wrapper {
-  width: -moz-available !important;
-  width: -webkit-fill-available !important;
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
 .feed-header {
     display: flex;
     align-items: center;

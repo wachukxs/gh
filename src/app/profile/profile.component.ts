@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit {
   filteredOptions: Observable<any[]> | undefined;
   filteredOptions_2: Observable<any[]> | undefined;
 
+  stateCodeInputDisabled = false
+
   ng_states: any[] = []
   ng_states_and_lgas: any[] = []
   selected_state_lgas: any[] = []
@@ -31,6 +33,12 @@ export class ProfileComponent implements OnInit {
     city_or_town: new FormControl(this.callerService.corpMember?.city_or_town),
     stream: new FormControl(this.callerService.corpMember?.stream),
     state_code: new FormControl(this.callerService.corpMember?.state_code),
+  })
+
+  personalDetailsFormGroup: FormGroup = new FormGroup({
+    first_name: new FormControl(this.callerService.corpMember?.first_name),
+    last_name: new FormControl(this.callerService.corpMember?.last_name),
+    nickname: new FormControl(this.callerService.corpMember?.nickname),
   })
 
   otherDetailsFormGroup: FormGroup = new FormGroup({
@@ -60,6 +68,7 @@ export class ProfileComponent implements OnInit {
     ppaDetails: this.ppaDetailsFormGroup,
     otherDetails: this.otherDetailsFormGroup,
     serviceDetails: this.serviceDetailsFormGroup,
+    personalDetails: this.personalDetailsFormGroup,
   })
 
   serviceStreams: Array<string> = ['1', '2', '3']
@@ -108,18 +117,17 @@ export class ProfileComponent implements OnInit {
     this.selected_state_lgas = this.ng_states_and_lgas?.[value.index]?.StateLGAs
   }
 
+  toggleStateCodeInputDisabled() {
+    this.stateCodeInputDisabled = !this.stateCodeInputDisabled
+  }
+
   /**
    * Depreciated
+   * 
+   * Missing personalDetailsFormGroup values
    */
   updateCorpMemberProfile(): void {
     console.log('clicked Update!');
-
-    console.table([
-      ['this.serviceDetailsFormGroup', this.serviceDetailsFormGroup.pristine],
-      ['this.bioDetailsFormGroup', this.bioDetailsFormGroup.pristine],
-      ['this.ppaDetailsFormGroup', this.ppaDetailsFormGroup.pristine],
-      ['this.otherDetailsFormGroup', this.otherDetailsFormGroup.pristine],
-    ])
     
     // check this.serviceDetailsFormGroup.pristine
     if (this.serviceDetailsFormGroup.pristine) {
@@ -173,6 +181,8 @@ export class ProfileComponent implements OnInit {
    * 
    * update with ~Promise.all~ forkJoin()
    * Create ngrx actions to cater for this.
+   * 
+   * Missing personalDetailsFormGroup values
    */
   updateEverything(): void {
     // trying formgroup of formgroups
@@ -217,7 +227,8 @@ export class ProfileComponent implements OnInit {
       ...this.serviceDetailsFormGroup.value,
       ...this.bioDetailsFormGroup.value,
       ...this.ppaDetailsFormGroup.value,
-      ...this.otherDetailsFormGroup.value
+      ...this.otherDetailsFormGroup.value,
+      ...this.personalDetailsFormGroup.value,
     }).subscribe({
       next: (res: HttpResponse<any>) => {
         console.log('updated profile', res);

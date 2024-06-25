@@ -109,17 +109,6 @@ mat-grid-list {
     display: block;
 }
 
-/**
-  * https://stackoverflow.com/a/59205966
-  */
-:host
-    ::ng-deep
-    cdk-virtual-scroll-viewport
-    .cdk-virtual-scroll-content-wrapper {
-    width: -moz-available !important;
-    width: -webkit-fill-available !important;
-}
-
 .feed-header {
     display: flex;
     align-items: center;

@@ -67,6 +67,15 @@ mat-radio-button > .mdc-form-field > label {
     justify-content: space-between;
 }
 
+/**
+ * https://stackoverflow.com/a/67000769/9259701
+ * to make the inner div fit parent
+ */
+.cdk-virtual-scroll-content-wrapper {
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
 /*
  * custom file input styling via https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ 
  */

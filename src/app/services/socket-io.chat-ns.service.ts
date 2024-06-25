@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment'
 import { AppState } from '../ngrx-store/app.state'
 import { selectFeatureCorpMember } from '../ngrx-store/selectors/corp.selectors'
 import { BaseService } from './base.service'
-import { CorpMemberState } from '../../app/ngrx-store/app.state'
+import { CorpMemberState } from '../ngrx-store/app.state'
 import { io, Socket } from 'socket.io-client'
 import { map } from 'rxjs/operators'
 import { Observable, Observer } from 'rxjs'
@@ -18,6 +18,7 @@ export enum IOEventName {
     NEW_SALE = "new_sale",
     NEW_ACCOMMODATION = "new_accommodation",
     BROADCAST_MESSAGE = "broadcast_message",
+    CHAT_MESSAGE = "chat_message",
     CONNECT = "connect",
     CONNECTION = "connection",
     DISCONNECT = "disconnect",
@@ -25,7 +26,7 @@ export enum IOEventName {
 
 /**
  * TODO: when we'd be creating a new service for a different namespace,
- * We'll reuse an existing socket connection or "manager" https://socket.io/docs/v4/client-options/#multiplex
+ * ~We'll reuse an existing socket connection or "manager" https://socket.io/docs/v4/client-options/#multiplex~
  */
 export enum IOEventRoutes {
     BASE = "/",
@@ -36,7 +37,7 @@ export enum IOEventRoutes {
 @Injectable({
     providedIn: 'root',
 })
-export class SocketIoService 
+export class SocketIoChatNamespaceService 
 // extends BaseService 
 {
     // TODO: To Read: https://github.com/ShemiNechmad/websockets/blob/master/src/app/websocket.service.ts
@@ -60,7 +61,7 @@ export class SocketIoService
         // TODO: get last post.
 
         // `${environment.basehost}${environment.CORP_MEMBER_SOCKET_ENDPOINT}`
-        this.socket = io(environment.basehost, {
+        this.socket = io(environment.basehost + IOEventRoutes.CHAT, {
             transports: ['websocket', 'polling'],
             query: {
                 state_code: this.corpMember.state_code
@@ -69,11 +70,11 @@ export class SocketIoService
 
         // Optional: You can handle events, errors, etc.
         this.socket.on(IOEventName.CONNECT, () => {
-            console.log('Connected to Socket.IO');
+            console.log('Connected to Socket.IO/chat');
         });
 
         this.socket.on(IOEventName.CONNECTION, (_s: any) => {
-            console.log('Connected to BACKEND...');
+            console.log('Connected to /chat BACKEND...');
 
             // _s.join(this.corpMember?.state_code?.substring(0, 2))
             console.log('joined...', this.corpMember?.state_code?.substring(0, 2));
@@ -81,10 +82,16 @@ export class SocketIoService
     
         this.socket.on(IOEventName.DISCONNECT, () => {
             // TODO: is it possible to prevent logging connection errors??
-            console.log('Disconnected from Socket.IO');
+            console.log('Disconnected from Socket.IO/chat');
+            // this.socket.removeAllListeners()
         });
     }
 
+    /**
+     * you need to call this and pass the name of the event you want to listen to.
+     * @param event 
+     * @returns 
+     */
     public onEvent<T>(event: IOEventName): Observable<T | Array<T>> {
         return new Observable<T>((observer) => {
             this.socket.on(event, (data: T) => observer.next(data))
@@ -106,6 +113,25 @@ export class SocketIoService
         })
     }
 
+    /**
+     * TODO: maybe pass the callback as an optional argument here.
+     * then call it in a different component.
+     * @param data any
+     */
+    public sendChatMessage(data: {
+        message: string,
+        message_to: string,
+        message_from: string,
+        room?: string | null, // no need for room
+    }) {
+        console.log('trying to send chat message');
+        
+        this.socket.emit(IOEventName.CHAT_MESSAGE, data, (v: any) => {
+            // show notification - confirmation from server.
+            console.log('got confirmation from serve - msg got', v);
+        })
+    }
+
     public destroy() {
         if (this.socket) {
             this.socket.removeAllListeners()
@@ -119,9 +145,4 @@ export class SocketIoService
             console.log('ack from server');
         })
     }
-
-    receivedNewAccommodation() {
-    }
-
-    sendNewSale() {}
 }

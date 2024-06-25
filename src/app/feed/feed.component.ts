@@ -20,7 +20,7 @@ import { ImageCarouselComponent } from '../image-carousel/image-carousel.compone
 import { IOEventName, SocketIoService } from '../services/socket-io.service'
 import { CallerService } from '../services/caller.service'
 import { Store, select } from '@ngrx/store'
-import { AppState } from '../ngrx-store/app.state'
+import { AppState, CorpMemberState } from '../ngrx-store/app.state'
 import { newFeedData } from '../ngrx-store/actions/corp-member.actions'
 
 // https://stackoverflow.com/questions/52566563/how-to-use-socket-io-in-angular-with-node-js
@@ -221,10 +221,12 @@ export class FeedComponent implements OnInit {
         public store: Store<AppState>,
     ) {}
 
-    feedViewControl = new FormControl<'sale' | 'accommodation'>('sale');
+    feedViewControl = new FormControl<'sale' | 'accommodation'>('sale')
 
     protected get currentViewing(): 'sale items' | 'accommodations' {
-        return this.feedViewControl.value === 'sale' ? 'sale items' : 'accommodations'
+        return this.feedViewControl.value === 'sale'
+            ? 'sale items'
+            : 'accommodations'
     }
 
     onSwipeRight(event: any): void {}
@@ -232,15 +234,10 @@ export class FeedComponent implements OnInit {
     onSwipeLeft(event: any): void {}
 
     ngOnInit() {
-
-        this.store
-        .pipe(
-            select('feed'),
-        )
-        .subscribe({
+        this.store.pipe(select('feed')).subscribe({
             next: (value) => {
-                console.log('new feed value???', value);
-                
+                console.log('new feed value???', value)
+
                 // TODO: optionally filter out only feedData that are of type _sale.
                 this.feedData = value
             },
@@ -256,7 +253,7 @@ export class FeedComponent implements OnInit {
                 console.log('new bc data:', data)
 
                 // send to the app state.
-                this.store.dispatch(newFeedData({data: data?.post}))
+                this.store.dispatch(newFeedData({ data: data?.post }))
             })
     }
 

@@ -38,10 +38,11 @@
                     <mat-icon>phone</mat-icon>
                     <span>Copy phone number</span>
                 </button>
-                <a [routerLink]="['/messages']" [queryParams]="{s: sale.CorpMember?.state_code}" mat-menu-item [disabled]="false">
+                <!-- TODO: skip if the current user posted this item -->
+                <button type="button" *ngIf="callerService.corpMember?.state_code !== sale.CorpMember?.state_code" (click)="chatWithSalePoster()" mat-menu-item [disabled]="false">
                     <mat-icon>chat</mat-icon>
                     <span>Chat {{salePosterDisplayName}}</span>
-                </a>
+                </button>
                 <button type="button" mat-menu-item (click)="seeHouseDetails()">
                     <mat-icon>info</mat-icon>
                     <span>View details</span>

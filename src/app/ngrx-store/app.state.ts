@@ -32,64 +32,91 @@ export interface CorpMemberState {
 
 export type FeedDataType = SaleType | any // TODO: AccommodationType
 
+export type ChatMessage = { 
+    age: string
+    created_at: string
+    id?: number
+    message: string
+    message_from: string
+    message_sent: boolean
+    message_to: string
+    read_by_to: boolean
+    room: string
+    updated_at: string
+    _time_read: string
+  }
+
+export type AppMessages = Map<
+    string,
+    {
+        texts: Array<ChatMessage>
+        unread_messages?: number
+        recipient_name?: string // full name | nickname
+    }
+>
+
 export interface AppState {
     corper: CorpMemberState
     feed: Array<FeedDataType>
-    messages: Array<any>
+
+    /**
+     * A Map of strings (state codes), and an object of properties, and the text messages.
+     */
+    messages: AppMessages
 }
 
 export interface PpaModel {
-    "id": Number,
-    "name": String,
-    "type_of_ppa": String,
-    "created_at": String,
-    "updated_at": String,
+    id: Number
+    name: String
+    type_of_ppa: String
+    created_at: String
+    updated_at: String
     Locations?: Array<LocationModel>
 }
 
 export interface LocationModel {
-    "type": string,
-    "id": number,
-    "ppa_id": number,
-    "accommodation_id": null | number,
-    "directions": null | number,
-    "address": string,
-    "state_lga_id": number,
-    "state_id": number,
-    "corp_member_id": null | number,
-    "created_at": string,
-    "updated_at": string,
-    "CorpMemberId": null | number
+    type: string
+    id: number
+    ppa_id: number
+    accommodation_id: null | number
+    directions: null | number
+    address: string
+    state_lga_id: number
+    state_id: number
+    corp_member_id: null | number
+    created_at: string
+    updated_at: string
+    CorpMemberId: null | number
 }
 
 export interface MediaType {
-    id: number,
-    url: string,
-    sale_id: number,
-    updated_at: string,
-    created_at: string,
+    id: number
+    url: string
+    sale_id: number
+    updated_at: string
+    created_at: string
 }
 
 export interface SaleType {
-    _price: string, // parsable to number
-    _age: string,
-    last_updated_age: string,
-    _type: 'sale',
-    id: 5,
-    corp_member_id: 2,
-    text: string,
-    item_name: string,
-    price: number,
-    Media: Array<MediaType>,
-    updated_at: string,
-    created_at: string,
+    _price: string // parsable to number
+    _age: string
+    last_updated_age: string
+    _type: 'sale'
+    id: 5
+    corp_member_id: 2
+    text: string
+    item_name: string
+    price: number
+    Media: Array<MediaType>
+    updated_at: string
+    created_at: string
 
     CorpMember?: {
-        first_name: string,
-        nickname: null | string,
-        service_state: string,
-        state_code: string,
-        _location: string,
+        first_name: string
+        nickname: null | string
+        service_state: string
+        state_code: string
+        _location: string
     }
 }
 
@@ -160,5 +187,5 @@ const testData = [{}, {}, {}, {}].fill(
 export const initialState: AppState = {
     corper: initialCorpMemberState,
     feed: testData ?? [],
-    messages: [],
+    messages: new Map(),
 }

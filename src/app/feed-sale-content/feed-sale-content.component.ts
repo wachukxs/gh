@@ -5,6 +5,8 @@ import { CallerService } from '../services/caller.service'
 import { HouseDetailDialogComponent } from '../dialogs/house-detail-dialog/house-detail-dialog.component'
 import { Clipboard } from '@angular/cdk/clipboard'
 import { SaleType } from '../ngrx-store/app.state'
+import { newMessage } from '../ngrx-store/actions/corp-member.actions'
+import { Router } from '@angular/router'
 
 
 @Component({
@@ -18,6 +20,7 @@ export class FeedSaleContentComponent {
         private clipboard: Clipboard,
         private snackBar: MatSnackBar,
         public callerService: CallerService,
+        private router: Router,
     ) {}
 
     @Input() sale!: SaleType;
@@ -79,6 +82,30 @@ export class FeedSaleContentComponent {
             this.snackBar.open('Copying failed. Try again?', 'Close', {
                 duration: 2000,
             })
+        }
+    }
+
+    /**
+     * chatee = Message receiver
+     * 
+     * Update the app state;
+     * Use effects to fetch the details of the "chatee";
+     * Move the "chatee" to the top of the queue;
+     * The navigate to /messages;
+     * All the while showing a loader?
+     */
+    chatWithSalePoster(): void {
+        if (this.sale.CorpMember?.state_code) {
+            // Start a new message.
+            this.callerService._store.dispatch(newMessage({state_code: this.sale.CorpMember?.state_code}))
+            /**
+             * Then navigate to messages, after successful dispatch (all the while showing a loader?)
+             * TODO: Can we wait till the dispatch is done? Or no need (works now though)?
+             */
+
+            this.router.navigate(['/messages'])
+        } else {
+            this.callerService.showNotification("Sorry, we couldn't find the seller.")
         }
     }
 }

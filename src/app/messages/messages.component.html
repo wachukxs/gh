@@ -1,41 +1,66 @@
 <div class="parent-chat">
     <div class="chat-list">
-
         <div mat-subheader>Chats</div>
-        <mat-selection-list class="chats-listing" #chatsListing [multiple]="false" [formControl]="selectedChat">
-            <mat-list-option *ngFor="let chat of testChats" [value]="chat">
+        <!-- TODO: Show "No chats" if chat list it empty -->
+        <mat-selection-list
+            class="chats-listing"
+            #chatsListing
+            [multiple]="false"
+            [formControl]="selectedChat"
+        >
+            <!-- <mat-list-option *ngFor="let chat of testChats" [value]="chat">
                 <img matListItemAvatar class="profile-image"
                     src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Profile pic" />
                 <div matListItemTitle>{{chat}}</div>
                 <div matListItemLine>{{chat.repeat(5)}}</div>
+            </mat-list-option> -->
+
+            <!-- TODO: Move inversely -->
+            <mat-list-option
+                *ngFor="let _chat of appStateChats | keyvalue"
+                [value]="_chat?.key"
+            >
+                <img
+                    matListItemAvatar
+                    class="profile-image"
+                    src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                    alt="Profile pic"
+                />
+                <div matListItemTitle>
+                    {{ _chat?.value?.recipient_name || _chat.key }}
+                </div>
+                <div matListItemLine>
+                    {{_chat?.value?.texts?.at(-1)?.message ?? 'Start new chat...'}}
+                </div>
             </mat-list-option>
         </mat-selection-list>
-
     </div>
 
     <div class="chat-box">
         <ng-container *ngIf="selectedChat.value?.[0]; else noSelectedChat">
-            <cdk-virtual-scroll-viewport itemSize="10" orientation="horizontal" class="inner-chat-box">
-                <div *cdkVirtualFor="
-                            let item of randomNumbers;
-                            let index = index;
-                            let count = count;
-                            let first = first;
-                            let last = last;
-                            let even = even;
-                            let odd = odd
-                        " class="msg-row" [ngClass]="{ sender: even, receiver: odd }">
+            <cdk-virtual-scroll-viewport
+                itemSize="10"
+                orientation="horizontal"
+                class="inner-chat-box"
+            >
+                <div
+                    *cdkVirtualFor="
+                        let item of appStateChats.get(selectedChat.value?.[0])?.texts;
+                        let index = index;
+                        let count = count;
+                        let first = first;
+                        let last = last;
+                        let even = even;
+                        let odd = odd
+                    "
+                    class="msg-row"
+                    [ngClass]="item.message_from === state_code ? 'sender' : 'receiver'"
+                >
                     <div class="spacer"></div>
                     <mat-card class="chat-card">
-                        <div *ngIf="even">
-                            The Shiba Inu is the smallest of the six
-                            original and distinct spitz breeds of dog from
-                            Japan. A small, agile dog that copes very well
-                            with mountainous terrain, the Shiba Inu was
-                            originally bred for hunting.
+                        <div>
+                            {{item.message}}
                         </div>
-                        <div *ngIf="odd">A shorter text.</div>
-
                         <span>4:45PM</span>
                     </mat-card>
                 </div>
@@ -44,12 +69,26 @@
             <div class="d-flex">
                 <mat-form-field class="msg-input">
                     <mat-label>Your message</mat-label>
-                    <textarea title="Message" [formControl]="chatMessage" matInput cdkTextareaAutosize
-                        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                    <textarea
+                        title="Message"
+                        [formControl]="chatMessage"
+                        matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                    ></textarea>
                 </mat-form-field>
                 <!-- TODO: send button should also be disabled if there is no internet connection -->
-                <button type="button" class="send-message-button" [disabled]="!chatMessage.value" mat-icon-button
-                    color="primary" aria-label="Send message icon" (click)="sendMessage()">
+                <button
+                    type="button"
+                    class="send-message-button"
+                    [disabled]="!chatMessage.value"
+                    mat-icon-button
+                    color="primary"
+                    aria-label="Send message icon"
+                    (click)="sendMessage()"
+                >
                     <mat-icon>send</mat-icon>
                 </button>
             </div>
@@ -58,7 +97,6 @@
         <ng-template #noSelectedChat>
             <div class="no-selected-chat">
                 <h3>Select or start a chat</h3>
-
                 <mat-icon color="primary" class="no-chat-icon">forum</mat-icon>
             </div>
         </ng-template>
