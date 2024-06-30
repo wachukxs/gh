@@ -117,6 +117,11 @@ export class SocketIoChatNamespaceService {
     public sendEvent(eventName: IOEventName, data: any) {
         console.log('trying sendEvent')
 
+        if (this.socket.disconnected) {
+            this.socket.connect()
+            // todo: can we wait till after connection??
+        }
+
         this.socket.emit(eventName, data, (v: any) => {
             // show notification - confirmation from server.
             console.log('some ack from server', v)
@@ -130,9 +135,9 @@ export class SocketIoChatNamespaceService {
      */
     public sendChatMessage(data: {
         message: string
-        message_to?: string | number
-        message_from: string | number
-        room?: string | undefined // no need for room if new chat
+        message_to?: number
+        message_from: number
+        room?: string
     }) {
         console.log('trying to send chat message')
 

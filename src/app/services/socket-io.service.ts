@@ -101,6 +101,11 @@ export class SocketIoService
      */
     public sendEvent(eventName: IOEventName, data: any) {
         console.log('trying sendEvent');
+
+        if (this.socket.disconnected) {
+            this.socket.connect()
+            // todo: can we wait till after connection??
+        }
         
         this.socket.emit(eventName, data, (v: any) => {
             // show notification - confirmation from server.

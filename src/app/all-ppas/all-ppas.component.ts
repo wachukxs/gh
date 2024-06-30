@@ -39,7 +39,7 @@ export class AllPpasComponent implements OnInit {
     ngOnInit(): void {
         this.callerService.getAllPPAs().subscribe({
             next: (res: HttpResponse<any>) => {
-                console.log('data', res)
+                console.log('ppas data', res)
                 if (res.status === HttpStatusCode.Ok) {
                     this.ppas = res.body.ppas
                 } // TODO: need else block?

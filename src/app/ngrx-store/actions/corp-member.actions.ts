@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AppMessageValue, ChatMessage, CorpMemberState } from '../app.state';
+import { AppMessageValue, AppMessages, ChatMessage, CorpMemberState } from '../app.state';
 
 export const setCorpMemberProfileData = createAction(
   '[CorpMember] Set CorpMember Success',
@@ -19,6 +19,14 @@ export const profileUpdateError = createAction('[CorpMember] Profile Update Erro
 export const newFeedData = createAction(
   '[Feed] New Feed Post',
   props<{ data: any[] }>()
+);
+
+/**
+ * Only pass the state code of who you want to start the message with.
+ */
+export const initializeMessages = createAction(
+  '[Chat] Initialize New Message',
+  props<any | AppMessages>(), // we can omit texts & unread_messages, since it's a new message - it's gonna be empty.
 );
 
 /**

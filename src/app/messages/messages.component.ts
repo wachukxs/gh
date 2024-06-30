@@ -13,6 +13,7 @@ import {
     IOEventName,
     SocketIoChatNamespaceService,
 } from '../services/socket-io.chat-ns.service'
+import { HttpResponse, HttpStatusCode } from '@angular/common/http'
 
 /**
  * TODO: we need a route guard to fetch all the messages;
@@ -117,11 +118,20 @@ export class MessagesComponent implements OnInit {
 
         const selectedRoom = this.selectedChat.value?.[0]
 
-        const messageTo =
+        let messageTo =
             this.appStateChats.get(selectedRoom)?.recipient_id !==
             this.callerService.corpMember.id
                 ? this.appStateChats.get(selectedRoom)?.recipient_id
                 : this.appStateChats.get(selectedRoom)?.initiator_id
+    
+        // if it's not a new chat
+        if (!messageTo) {
+            const _chat = this.appStateChats.get(selectedRoom)?.texts?.[0]
+            messageTo = _chat?.message_from === this.callerService.corpMember.id
+                ? _chat?.ToCorpMember.id
+                : _chat?.FromCorpMember.id
+        }
+        
         const _msg = {
             message: this.chatMessage.value,
             message_to: messageTo,
@@ -139,7 +149,7 @@ export class MessagesComponent implements OnInit {
     }
 
     /**
-     * TODO: should we add initiator_name??
+     * need to optimize this. - end goal is not to use it.
      * @param chat - should be AppMessageValue?
      */
     getChatDisplayName(chat: any): string {

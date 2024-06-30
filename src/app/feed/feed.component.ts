@@ -21,7 +21,8 @@ import { IOEventName, SocketIoService } from '../services/socket-io.service'
 import { CallerService } from '../services/caller.service'
 import { Store, select } from '@ngrx/store'
 import { AppState, CorpMemberState } from '../ngrx-store/app.state'
-import { newFeedData } from '../ngrx-store/actions/corp-member.actions'
+import { initializeMessages, newFeedData } from '../ngrx-store/actions/corp-member.actions'
+import { HttpResponse, HttpStatusCode } from '@angular/common/http'
 
 // https://stackoverflow.com/questions/52566563/how-to-use-socket-io-in-angular-with-node-js
 
@@ -255,11 +256,26 @@ export class FeedComponent implements OnInit {
                 // send to the app state.
                 this.store.dispatch(newFeedData({ data: data?.post }))
             })
+
+
+            // get all the chat messages...
+            this.callerService.getAllChats()
+            .subscribe({
+                next: (res: HttpResponse<any>) => {
+                    console.log('chats data', res.body)
+                    if (res.status === HttpStatusCode.Ok) {
+                        // update  with .results
+                        this.store.dispatch(initializeMessages(res.body.results))
+                    } // TODO: need else block?
+                },
+                error: (err) => {
+                    this.callerService.showNotification('Failed to retrieve chats')
+                },
+            })
     }
 
     resetFilters() {
         // testing
-
         this.socketIoService.sendEvent(IOEventName.HI, 'sth')
     }
 

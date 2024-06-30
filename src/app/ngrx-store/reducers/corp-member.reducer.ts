@@ -1,5 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store'
 import {
+    initializeMessages,
     newChatMessage,
     newFeedData,
     newMessage,
@@ -46,6 +47,9 @@ export const feedReducer = createReducer(
  */
 export const messagesReducer = createReducer(
     initialState.messages, // initial state should be the messages from the whole app state
+    on(initializeMessages, (state, { type, ...data }) => {
+        return new Map(Object.entries(data))
+    }),
     on(
         newMessage,
         (state: AppMessages, { room, recipient_id, initiator_name, initiator_id, recipient_name }) =>

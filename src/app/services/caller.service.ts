@@ -303,6 +303,13 @@ export class CallerService extends BaseService {
         )
     }
 
+    getAllChats() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getAllChats,
+            this.JSONHttpOptions
+        )
+    }
+
     addNewPpaReview(data: FormData) {
         return this.http.post(
             environment.baseurl + URLPaths.createNewPpaReview,
