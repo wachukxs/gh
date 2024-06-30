@@ -67,34 +67,6 @@ export class MessagesComponent implements OnInit {
             console.log('selected chat...', value)
         })
 
-        /* this.socketIoChatNsService
-        .onEvent(IOEventName.CHAT_MESSAGE)
-        .subscribe((data: any) => {
-            console.log('new chat message data:', data)
-            this.store.dispatch(newChatMessage(data))
-
-            // TODO: maybe clear the input here???
-        })
-
-        this.socketIoChatNsService
-        .onEvent(IOEventName.ERROR)
-        .subscribe((data: any) => {
-            console.log('failed to send new chat message:', data)
-            this.callerService.showNotification("Failed to deliver message")
-
-            // Restore the message that failed to send.
-            this.chatMessage.setValue(data?.message)
-        }) */
-
-        this.socketIoChatNsService.socket.on(
-            IOEventName.CHAT_MESSAGE,
-            (data) => {
-                console.log('??new chat??', data)
-                // to === state_code ??
-                this.store.dispatch(newChatMessage(data))
-            },
-        )
-
         this.socketIoChatNsService.socket.on(IOEventName.ERROR, (data) => {
             console.log('failed to send new chat message:', data)
             this.callerService.showNotification('Failed to deliver message')

@@ -11,6 +11,7 @@ import { CorpMemberState } from '../ngrx-store/app.state'
 import { io, Socket } from 'socket.io-client'
 import { map } from 'rxjs/operators'
 import { Observable, Observer } from 'rxjs'
+import { newChatMessage } from '../ngrx-store/actions/corp-member.actions'
 
 /** Your events enum, should also be same on server */
 export enum IOEventName {
@@ -86,6 +87,15 @@ export class SocketIoChatNamespaceService {
             console.log('Disconnected from Socket.IO/chat')
             // this.socket.removeAllListeners()
         })
+
+        // This could be in socketIoChatNsService (here) so it connects any it's initialized
+        this.socket.on(
+            IOEventName.CHAT_MESSAGE,
+            (data) => {
+                console.log('??new chat??', data)
+                this.store.dispatch(newChatMessage(data))
+            },
+        )
 
         // force emit an event to force connection
         this.tester()
