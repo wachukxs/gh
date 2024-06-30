@@ -14,14 +14,15 @@ import { Observable, Observer } from 'rxjs'
 
 /** Your events enum, should also be same on server */
 export enum IOEventName {
-    HI = "hi",
-    NEW_SALE = "new_sale",
-    NEW_ACCOMMODATION = "new_accommodation",
-    BROADCAST_MESSAGE = "broadcast_message",
-    CHAT_MESSAGE = "chat_message",
-    CONNECT = "connect",
-    CONNECTION = "connection",
-    DISCONNECT = "disconnect",
+    HI = 'hi',
+    NEW_SALE = 'new_sale',
+    NEW_ACCOMMODATION = 'new_accommodation',
+    BROADCAST_MESSAGE = 'broadcast_message',
+    CHAT_MESSAGE = 'chat_message',
+    CONNECT = 'connect',
+    ERROR = "error",
+    CONNECT_ERROR = 'connect_error',
+    DISCONNECT = 'disconnect',
 }
 
 /**
@@ -29,29 +30,24 @@ export enum IOEventName {
  * ~We'll reuse an existing socket connection or "manager" https://socket.io/docs/v4/client-options/#multiplex~
  */
 export enum IOEventRoutes {
-    BASE = "/",
-    CHAT = "/chat",
-    MAP = "/map",
+    BASE = '/',
+    CHAT = '/chat',
+    MAP = '/map',
 }
 
 @Injectable({
     providedIn: 'root',
 })
-export class SocketIoChatNamespaceService 
-// extends BaseService 
-{
+// extends BaseService
+export class SocketIoChatNamespaceService {
     // TODO: To Read: https://github.com/ShemiNechmad/websockets/blob/master/src/app/websocket.service.ts
     // https://deepinder.me/creating-a-real-time-app-with-angular-8-and-socket-io-with-nodejs
 
     corpMember!: CorpMemberState
 
-    private socket: Socket
+    socket: Socket // private?
 
-    constructor(
-        public http: HttpClient,
-        public store: Store<AppState>,
-    ) {
-
+    constructor(public http: HttpClient, public store: Store<AppState>) {
         this.store.pipe(select('corper')).subscribe({
             next: (value) => {
                 this.corpMember = value
@@ -60,44 +56,58 @@ export class SocketIoChatNamespaceService
 
         // TODO: get last post.
 
-        // `${environment.basehost}${environment.CORP_MEMBER_SOCKET_ENDPOINT}`
         this.socket = io(environment.basehost + IOEventRoutes.CHAT, {
             transports: ['websocket', 'polling'],
             query: {
-                state_code: this.corpMember.state_code
-            }
+                state_code: this.corpMember.state_code,
+                id: this.corpMember.id,
+            },
         })
 
         // Optional: You can handle events, errors, etc.
         this.socket.on(IOEventName.CONNECT, () => {
-            console.log('Connected to Socket.IO/chat');
-        });
+            console.log('Connected to Socket.IO/chat')
+        })
 
-        this.socket.on(IOEventName.CONNECTION, (_s: any) => {
-            console.log('Connected to /chat BACKEND...');
+        this.socket.on(IOEventName.CONNECT_ERROR, (error) => {
+            if (this.socket.active) {
+                // TODO: show a message.
+                // temporary failure, the socket will automatically try to reconnect
+            } else {
+                // the connection was denied by the server
+                // in that case, `socket.connect()` must be manually called in order to reconnect
+                
+            }
+            console.log(error.message)
+        })
 
-            // _s.join(this.corpMember?.state_code?.substring(0, 2))
-            console.log('joined...', this.corpMember?.state_code?.substring(0, 2));
-        });
-    
         this.socket.on(IOEventName.DISCONNECT, () => {
             // TODO: is it possible to prevent logging connection errors??
-            console.log('Disconnected from Socket.IO/chat');
+            console.log('Disconnected from Socket.IO/chat')
             // this.socket.removeAllListeners()
-        });
+        })
+
+        // force emit an event to force connection
+        this.tester()
     }
 
     /**
+     * @ignore - has bug
+     *
      * you need to call this and pass the name of the event you want to listen to.
-     * @param event 
-     * @returns 
+     * This has a bug where the event is emitted twice. will fix later
+     * @param event
+     * @returns
      */
     public onEvent<T>(event: IOEventName): Observable<T | Array<T>> {
         return new Observable<T>((observer) => {
             this.socket.on(event, (data: T) => observer.next(data))
 
             // Optional: Clean up on unsubscribe
-            return () => this.socket.off(event);
+            return () => {
+                // this.socket.off(event)
+                // this.socket.disconnect()
+            }
         })
     }
 
@@ -105,11 +115,11 @@ export class SocketIoChatNamespaceService
      * May use this to send a custom event???
      */
     public sendEvent(eventName: IOEventName, data: any) {
-        console.log('trying sendEvent');
-        
+        console.log('trying sendEvent')
+
         this.socket.emit(eventName, data, (v: any) => {
             // show notification - confirmation from server.
-            console.log('some ack from server', v);
+            console.log('some ack from server', v)
         })
     }
 
@@ -119,16 +129,21 @@ export class SocketIoChatNamespaceService
      * @param data any
      */
     public sendChatMessage(data: {
-        message: string,
-        message_to: string,
-        message_from: string,
-        room?: string | null, // no need for room
+        message: string
+        message_to?: string | number
+        message_from: string | number
+        room?: string | undefined // no need for room if new chat
     }) {
-        console.log('trying to send chat message');
-        
+        console.log('trying to send chat message')
+
+        if (this.socket.disconnected) {
+            this.socket.connect()
+            // todo: can we wait till after connection??
+        }
+
         this.socket.emit(IOEventName.CHAT_MESSAGE, data, (v: any) => {
             // show notification - confirmation from server.
-            console.log('got confirmation from serve - msg got', v);
+            console.log('got confirmation from serve - msg got', v)
         })
     }
 
@@ -142,7 +157,7 @@ export class SocketIoChatNamespaceService
 
     tester() {
         this.socket.emit('hi', 'TEST send DATA', (v: any) => {
-            console.log('ack from server');
+            console.log('ack from server')
         })
     }
 }

@@ -19,6 +19,7 @@ export enum IOEventName {
     NEW_ACCOMMODATION = "new_accommodation",
     BROADCAST_MESSAGE = "broadcast_message",
     CONNECT = "connect",
+    ERROR = "error",
     CONNECTION = "connection",
     DISCONNECT = "disconnect",
 }
@@ -63,7 +64,8 @@ export class SocketIoService
         this.socket = io(environment.basehost, {
             transports: ['websocket', 'polling'],
             query: {
-                state_code: this.corpMember.state_code
+                state_code: this.corpMember.state_code,
+                id: this.corpMember.id
             }
         })
 

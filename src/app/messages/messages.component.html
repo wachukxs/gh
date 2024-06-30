@@ -27,7 +27,7 @@
                     alt="Profile pic"
                 />
                 <div matListItemTitle>
-                    {{ _chat?.value?.recipient_name || _chat.key }}
+                    {{ getChatDisplayName(_chat)  }}
                 </div>
                 <div matListItemLine>
                     {{_chat?.value?.texts?.at(-1)?.message ?? 'Start new chat...'}}
@@ -54,7 +54,7 @@
                         let odd = odd
                     "
                     class="msg-row"
-                    [ngClass]="item.message_from === state_code ? 'sender' : 'receiver'"
+                    [ngClass]="item.message_from === callerService.corpMember.id ? 'sender' : 'receiver'"
                 >
                     <div class="spacer"></div>
                     <mat-card class="chat-card">

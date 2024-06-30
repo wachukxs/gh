@@ -48,15 +48,18 @@ export const messagesReducer = createReducer(
     initialState.messages, // initial state should be the messages from the whole app state
     on(
         newMessage,
-        (state: AppMessages, { state_code, recipient_name }) =>
+        (state: AppMessages, { room, recipient_id, initiator_name, initiator_id, recipient_name }) =>
             new Map([
                 ...state,
                 [
-                    state_code,
-                    state.get(state_code) ?? {
+                    room,
+                    {
                         texts: [],
-                        recipient_name: recipient_name || state_code,
                         unread_messages: 0,
+                        recipient_name,
+                        initiator_name,
+                        recipient_id,
+                        initiator_id,
                     },
                 ],
             ]),
@@ -67,10 +70,10 @@ export const messagesReducer = createReducer(
             return new Map([
                 ...state,
                 [
-                    chatMessage.message_to,
+                    chatMessage.room,
                     {
-                        ...state.get(chatMessage.message_to) ?? { unread_messages: 0, recipient_name: chatMessage.message_to },
-                        texts: [...state.get(chatMessage.message_to)?.texts ?? [], chatMessage]
+                        ...state.get(chatMessage.room),
+                        texts: [...state.get(chatMessage.room)?.texts ?? [], chatMessage]
                     },
                 ],
             ])

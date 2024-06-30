@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ChatMessage, CorpMemberState } from '../app.state';
+import { AppMessageValue, ChatMessage, CorpMemberState } from '../app.state';
 
 export const setCorpMemberProfileData = createAction(
   '[CorpMember] Set CorpMember Success',
@@ -26,7 +26,7 @@ export const newFeedData = createAction(
  */
 export const newMessage = createAction(
   '[Chat] Start New Message',
-  props<{ state_code: string, recipient_name?: string }>()
+  props<Omit<AppMessageValue, 'texts' | 'unread_messages'>>(), // we can omit texts & unread_messages, since it's a new message - it's gonna be empty.
 );
 
 /**

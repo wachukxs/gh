@@ -97,7 +97,13 @@ export class FeedSaleContentComponent {
     chatWithSalePoster(): void {
         if (this.sale.CorpMember?.state_code) {
             // Start a new message.
-            this.callerService._store.dispatch(newMessage({state_code: this.sale.CorpMember?.state_code}))
+            this.callerService._store.dispatch(newMessage({
+                room: window.crypto.randomUUID(),
+                recipient_id: this.sale.CorpMember?.id,
+                recipient_name: this.sale.CorpMember.first_name ?? this.sale.CorpMember.nickname,
+                initiator_name: this.callerService.corpMember.first_name,
+                initiator_id: this.callerService.corpMember.id,
+            }))
             /**
              * Then navigate to messages, after successful dispatch (all the while showing a loader?)
              * TODO: Can we wait till the dispatch is done? Or no need (works now though)?

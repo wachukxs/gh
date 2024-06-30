@@ -4,7 +4,7 @@ export interface CorpMemberState {
     time_with_us: string
     service_state: string
     _location: string
-    id?: number
+    id: number
     travel_from_city: null | string
     travel_from_state: null | string
     accommodation_location: null | string
@@ -19,7 +19,7 @@ export interface CorpMemberState {
     updated_at: string
     media_id: null | number // why?
     ppa_id: null | number
-    password?: null | string // would be better if not here.
+    password?: string // would be better if not here.
     middle_name: string // usually an empty string
     first_name: string
     last_name: string
@@ -30,29 +30,44 @@ export interface CorpMemberState {
     bio: null | string
 }
 
+export type PublicCorpMember = Pick<CorpMemberState, 'state_code' | 'nickname' | 'first_name' | 'id'>
+
 export type FeedDataType = SaleType | any // TODO: AccommodationType
 
 export type ChatMessage = { 
     age: string
     created_at: string
-    id?: number
+    id: number | string
     message: string
-    message_from: string
+    message_from: number
     message_sent: boolean
-    message_to: string
+    message_to: number
     read_by_to: boolean
     room: string
     updated_at: string
     _time_read: string
-  }
+    FromCorpMember: PublicCorpMember
+    ToCorpMember: PublicCorpMember
+}
 
+export type AppMessageValue = {
+    texts: Array<ChatMessage>
+    unread_messages?: number
+    initiator_name?: string
+    recipient_name?: string // full name | nickname | state_code
+    recipient_id?: number
+    initiator_id?: number
+    room?: string
+}
+
+/**
+ * Should the map key be the room??? No cause what about new messages? And how would we save drafts?
+ * Map keys should be the other participant in the chat?
+ * No, room key should be generated from the client device?
+ */
 export type AppMessages = Map<
-    string,
-    {
-        texts: Array<ChatMessage>
-        unread_messages?: number
-        recipient_name?: string // full name | nickname
-    }
+    string | number | undefined,
+    AppMessageValue
 >
 
 export interface AppState {
@@ -66,11 +81,11 @@ export interface AppState {
 }
 
 export interface PpaModel {
-    id: Number
-    name: String
-    type_of_ppa: String
-    created_at: String
-    updated_at: String
+    id: number
+    name: string
+    type_of_ppa: string
+    created_at: string
+    updated_at: string
     Locations?: Array<LocationModel>
 }
 
@@ -102,8 +117,8 @@ export interface SaleType {
     _age: string
     last_updated_age: string
     _type: 'sale'
-    id: 5
-    corp_member_id: 2
+    id: number
+    corp_member_id: number
     text: string
     item_name: string
     price: number
@@ -117,6 +132,7 @@ export interface SaleType {
         service_state: string
         state_code: string
         _location: string
+        id: number
     }
 }
 
@@ -124,7 +140,7 @@ export const initialCorpMemberState: CorpMemberState = {
     time_with_us: '',
     service_state: '',
     _location: '',
-    // id: 0, // set to 0 cause it really should never be, better still -1
+    id: 0, // 0 since it's initial state
     travel_from_city: null,
     travel_from_state: null,
     accommodation_location: null,
@@ -139,7 +155,7 @@ export const initialCorpMemberState: CorpMemberState = {
     updated_at: '',
     media_id: null, // why?
     ppa_id: null,
-    password: null, // would be better if not here.
+    password: undefined, // would be better if not here.
     middle_name: '', // usually an empty string
     first_name: '',
     last_name: '',

@@ -5,8 +5,14 @@ import { CallerService } from '../services/caller.service'
 import { AppMessages, AppState } from '../ngrx-store/app.state'
 import { Store, select } from '@ngrx/store'
 import { selectFeatureMessages } from '../ngrx-store/selectors/corp.selectors'
-import { newChatMessage, newMessage } from '../ngrx-store/actions/corp-member.actions'
-import { IOEventName, SocketIoChatNamespaceService } from '../services/socket-io.chat-ns.service'
+import {
+    newChatMessage,
+    newMessage,
+} from '../ngrx-store/actions/corp-member.actions'
+import {
+    IOEventName,
+    SocketIoChatNamespaceService,
+} from '../services/socket-io.chat-ns.service'
 
 /**
  * TODO: we need a route guard to fetch all the messages;
@@ -24,11 +30,12 @@ export class MessagesComponent implements OnInit {
         private router: Router,
         private socketIoChatNsService: SocketIoChatNamespaceService,
         public store: Store<AppState>,
-        private callerService: CallerService) {}
+        public callerService: CallerService,
+    ) {}
 
     testChats = ['Marie Barbossa', 'Sarie Fada', 'Lukman Sally']
     appStateChats: AppMessages = new Map()
-    
+
     // Is a one item array of the selected chat.
     selectedChat: FormControl = new FormControl()
     randomNumbers: Array<string> = Array.from(
@@ -37,34 +44,21 @@ export class MessagesComponent implements OnInit {
     chatMessage = new FormControl({ value: '', disabled: false })
 
     ngOnInit() {
-        console.log('?who?', this.callerService.corpMember.state_code);
-        
+        console.log('?who?', this.callerService.corpMember.state_code)
+
         this.store
-        .pipe(
-            select(selectFeatureMessages), // or select('messages')
-        )
-        .subscribe({
-            next: (value: any) => {
-                console.log('new appStateChats', value);
-                this.appStateChats = value
-                // TODO: If it's a new chat, we need to select that new chat, and open it.
-                // How do we know it's a new chat?
-            },
-        })
-        const chatWithStateCode = this.route.snapshot.queryParamMap.get('s');
-        console.log('chatWithStateCode?', chatWithStateCode);
-        /**
-         * TODO: Fetch the chat with this state code and remove it from the url.
-         * Maybe move this to a route resolver.
-         * 
-         * 0. If state code is invalid, show error message.
-         * 1. Next, check if chat is in state, then bring it to the top.
-         * 2. If it's a new chat, create new chat at the top.
-         */
-        
-        if (chatWithStateCode && !this.callerService.state_code_regex.test(chatWithStateCode)) {
-            
-        }
+            .pipe(
+                select(selectFeatureMessages), // or select('messages')
+            )
+            .subscribe({
+                next: (value: any) => {
+                    console.log('new appStateChats', value)
+                    this.appStateChats = value
+                    // TODO: If it's a new chat, we need to select that new chat, and open it.
+                    // How do we know it's a new chat?
+                },
+            })
+        // const chatWithStateCode = this.route.snapshot.queryParamMap.get('s');
 
         // TODO: if no previous chat.
         // TODO: fetch the chat details. (get the new chat name from the sale post. Pick it from the state.) so there's no extra call.
@@ -72,39 +66,98 @@ export class MessagesComponent implements OnInit {
             console.log('selected chat...', value)
         })
 
-        this.socketIoChatNsService
+        /* this.socketIoChatNsService
         .onEvent(IOEventName.CHAT_MESSAGE)
         .subscribe((data: any) => {
             console.log('new chat message data:', data)
-
-            // send to the app state.
             this.store.dispatch(newChatMessage(data))
+
+            // TODO: maybe clear the input here???
+        })
+
+        this.socketIoChatNsService
+        .onEvent(IOEventName.ERROR)
+        .subscribe((data: any) => {
+            console.log('failed to send new chat message:', data)
+            this.callerService.showNotification("Failed to deliver message")
+
+            // Restore the message that failed to send.
+            this.chatMessage.setValue(data?.message)
+        }) */
+
+        this.socketIoChatNsService.socket.on(
+            IOEventName.CHAT_MESSAGE,
+            (data) => {
+                console.log('??new chat??', data)
+                // to === state_code ??
+                this.store.dispatch(newChatMessage(data))
+            },
+        )
+
+        this.socketIoChatNsService.socket.on(IOEventName.ERROR, (data) => {
+            console.log('failed to send new chat message:', data)
+            this.callerService.showNotification('Failed to deliver message')
+
+            // Restore the message that failed to send.
+            this.chatMessage.setValue(data?.message)
         })
     }
 
     sendMessage() {
-        console.log('will send', this.chatMessage.value);
+        console.log('will send', this.chatMessage.value)
 
         if (!this.chatMessage.value) {
             this.callerService.showNotification('Please enter a message')
             return
         }
 
-        // should be id?
+        /**
+         * If it's a new chat, we take recipient_id, else ...
+         */
+
+        const selectedRoom = this.selectedChat.value?.[0]
+
+        const messageTo =
+            this.appStateChats.get(selectedRoom)?.recipient_id !==
+            this.callerService.corpMember.id
+                ? this.appStateChats.get(selectedRoom)?.recipient_id
+                : this.appStateChats.get(selectedRoom)?.initiator_id
         const _msg = {
             message: this.chatMessage.value,
-            message_to: this.selectedChat.value?.[0],
-            message_from: this.callerService.corpMember.state_code,
-            // room: window.crypto.randomUUID(), // https://stackoverflow.com/a/27747377/9259701
+            message_to: messageTo,
+            message_from: this.callerService.corpMember.id,
+            room: selectedRoom ?? this.appStateChats.get(selectedRoom)?.room, // window.crypto.randomUUID(), // https://stackoverflow.com/a/27747377/9259701
         }
         // Then clear the input after sending message.
-        // Use websockets...
+        // Use web sockets...
 
         // should be passing an optional callback (will show notification - message sent?)
         this.socketIoChatNsService.sendChatMessage(_msg)
 
         // clear message after sending...
         this.chatMessage.setValue('')
-        
+    }
+
+    /**
+     * TODO: should we add initiator_name??
+     * @param chat - should be AppMessageValue?
+     */
+    getChatDisplayName(chat: any): string {
+        // console.log('looking for name', chat)
+        // whoever sent the first message is the room creator ~This is just to get a working draft/version~
+        if (Array.isArray(chat.value?.texts) && chat.value?.texts?.[0]) {
+            const _chat = chat.value?.texts?.[0]
+            return _chat.message_from === this.callerService.corpMember.id
+                ? _chat.ToCorpMember.first_name
+                : _chat.FromCorpMember.first_name
+        }
+
+        return chat?.value?.initiator_id === this.callerService.corpMember.id
+            ? chat?.value?.recipient_name
+            : chat?.value?.initiator_name
+    }
+
+    ngOnDestroy() {
+        this.socketIoChatNsService.destroy()
     }
 }
