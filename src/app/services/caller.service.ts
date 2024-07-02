@@ -325,4 +325,32 @@ export class CallerService extends BaseService {
             this.JSONHttpOptions
         )
     }
+
+    bookmarkSale(saleId: number) {
+        return this.http.put(
+            environment.baseurl + URLPaths.saleBookmark + saleId,
+            this.JSONHttpOptions
+        )
+    }
+
+    unBookmarkSale(saleId: number) {
+        return this.http.delete(
+            environment.baseurl + URLPaths.saleBookmark + saleId,
+            this.JSONHttpOptions
+        )
+    }
+
+    likeSale(saleId: number) {
+        return this.http.put(
+            environment.baseurl + URLPaths.saleLike + saleId,
+            this.JSONHttpOptions
+        )
+    }
+
+    unLikeSale(saleId: number) {
+        return this.http.delete(
+            environment.baseurl + URLPaths.saleLike + saleId,
+            this.JSONHttpOptions
+        )
+    }
 }

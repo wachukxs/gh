@@ -27,4 +27,7 @@ export enum URLPaths {
     sayHi = '/hi',
 
     getAllChats = '/chat',
+
+    saleBookmark = '/sale/bookmark/',
+    saleLike = '/sale/like/',
 }

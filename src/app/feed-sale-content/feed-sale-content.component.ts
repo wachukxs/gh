@@ -49,11 +49,47 @@ export class FeedSaleContentComponent {
     }
 
     bookmarkPost() {
-        this.bookmarkState = !this.bookmarkState
+        console.log('bookmarking', this.sale.id);
+
+        if (this.bookmarkState) {
+            this.callerService.unBookmarkSale(this.sale.id).subscribe((res) => {
+                console.log('unBookmarkSale res', res);
+                this.bookmarkState = !this.bookmarkState
+            }, (err) => {
+                console.log('ERR unbokrm', err);
+                this.callerService.showNotification(err?.error?.message ?? "Failed to remove bookmark item")
+            })
+        } else {
+            this.callerService.bookmarkSale(this.sale.id).subscribe((res) => {
+                console.log('bookmarkSale res', res);
+                this.bookmarkState = !this.bookmarkState
+            }, (err) => {
+                console.log('ERR bkmk', err);
+                this.callerService.showNotification(err?.error?.message ?? "Failed to bookmark item")
+            })
+        }
     }
 
     favoritePost() {
-        this.favoriteState = !this.favoriteState
+        console.log('liking', this.sale.id);
+
+        if (this.favoriteState) {
+            this.callerService.unLikeSale(this.sale.id).subscribe((res) => {
+                console.log('unLikeSale res', res);
+                this.favoriteState = !this.favoriteState
+            }, (err) => {
+                console.log('ERR unlike', err);
+                this.callerService.showNotification(err?.error?.message ?? "Failed to unlike item")
+            })
+        } else {
+            this.callerService.likeSale(this.sale.id).subscribe((res) => {
+                console.log('likeSale res', res);
+                this.favoriteState = !this.favoriteState
+            }, (err) => {
+                console.log('ERR like', err);
+                this.callerService.showNotification(err?.error?.message ?? "Failed to like item")
+            })
+        }
     }
 
     seeHouseDetails(): void {

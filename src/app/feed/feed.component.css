@@ -57,6 +57,8 @@ cdk-virtual-scroll-viewport {
 
 mat-sidenav {
     width: min-content;
+
+    min-width: 300px;
 }
 
 .places-toolbar-row {

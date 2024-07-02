@@ -248,6 +248,10 @@ export class FeedComponent implements OnInit {
             },
         })
 
+        this.filterForm.valueChanges.subscribe((data) => {
+            console.log('new form data', data);    
+        })
+
         this.socketIoService.onEvent(IOEventName.HI).subscribe((data) => {
             console.log('new hi data:', data)
         })
