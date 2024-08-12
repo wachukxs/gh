@@ -12,6 +12,7 @@
   * Not bad [animation](https://zoaibkhan.com/blog/add-spring-animations-to-your-angular-app-with-popmotion/)
 * Do cost of living for corpers.online (like [numbeo](https://www.numbeo.com/cost-of-living/)) in various Nigerian states/cities/ and places.
 * Use [Transclusion](https://daily-dev-tips.com/posts/angular-10-transclusion-when-and-why-youll-need-it/) in Angular
+* How do we really MAP Nigeria - better than the Postal service. Like the APIs [here](https://github.com/public-apis/public-apis?tab=readme-ov-file#tracking).
 
 ## Considerations, and things we might want to use
 * ~~[HammerJS Directive](http://ryanmullins.github.io/angular-hammer/) as a fallback plan~~

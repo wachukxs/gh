@@ -84,7 +84,6 @@ export class ProfileComponent implements OnInit {
         this.ng_states_and_lgas = res.body?.states_and_lgas
 
         this.ng_states = this.ng_states_and_lgas.map((s, i) => ({index: i, id: s.id, name: s.name}))
-        
       }
     })
 

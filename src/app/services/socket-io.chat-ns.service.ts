@@ -153,7 +153,7 @@ export class SocketIoChatNamespaceService {
 
         if (this.socket.disconnected) {
             this.socket.connect()
-            // todo: can we wait till after connection??
+            // TODO: can we wait till after connection??
         }
 
         this.socket.emit(IOEventName.CHAT_MESSAGE, data, (v: any) => {

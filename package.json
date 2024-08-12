@@ -7,6 +7,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration=local-serve --open --watch --port=4006",
+    "dev": "ng serve --configuration=local-serve --open --watch --port=4006",
     "build": "ng build --output-hashing=all",
     "build:prod": "ng build --configuration=production --optimization=true --aot=true --output-hashing=all",
     "show-ipaddr": "echo Open http://`ipconfig getifaddr en0`:4006 in your browser\n\n",

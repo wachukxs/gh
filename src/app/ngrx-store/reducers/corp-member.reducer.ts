@@ -44,6 +44,7 @@ export const feedReducer = createReducer(
 
 /**
  * If there's no new message before; initialize a new one.
+ * TODO: update local storage with new states?
  */
 export const messagesReducer = createReducer(
     initialState.messages, // initial state should be the messages from the whole app state

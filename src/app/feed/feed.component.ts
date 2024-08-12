@@ -266,15 +266,16 @@ export class FeedComponent implements OnInit {
             })
 
 
-            // get all the chat messages...
+            /**
+             * get all the chat messages...
+             */
             this.callerService.getAllChats()
             .subscribe({
                 next: (res: HttpResponse<any>) => {
                     console.log('chats data', res.body)
                     if (res.status === HttpStatusCode.Ok) {
-                        // update  with .results
                         this.store.dispatch(initializeMessages(res.body.results))
-                    } // TODO: need else block?
+                    }
                 },
                 error: (err) => {
                     this.callerService.showNotification('Failed to retrieve chats')

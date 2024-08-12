@@ -6,6 +6,7 @@ import { AppMessages, AppState } from '../ngrx-store/app.state'
 import { Store, select } from '@ngrx/store'
 import { selectFeatureMessages } from '../ngrx-store/selectors/corp.selectors'
 import {
+    initializeMessages,
     newChatMessage,
     newMessage,
 } from '../ngrx-store/actions/corp-member.actions'
@@ -46,6 +47,15 @@ export class MessagesComponent implements OnInit {
 
     ngOnInit() {
         console.log('?who?', this.callerService.corpMember.state_code)
+
+        this.route.data.subscribe(({res}) => {
+            // do something with your resolved data ...
+            console.log('messages resolved data', res);
+            
+            if (res.status === HttpStatusCode.Ok) {
+                this.store.dispatch(initializeMessages(res.body.results))
+            }
+          })
 
         this.store
             .pipe(
