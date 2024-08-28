@@ -1,5 +1,7 @@
 <div class="parent-chat">
     <div class="chat-list">
+        <div *ngIf="selectedChat.value?.[0]">Selected</div>
+        <div *ngIf="!selectedChat.value?.[0]">NOT Selected</div>
         <div mat-subheader>Chats</div>
         <!-- TODO: Show "No chats" if chat list it empty -->
         <mat-selection-list
@@ -37,32 +39,37 @@
     </div>
 
     <div class="chat-box">
-        <ng-container *ngIf="selectedChat.value?.[0]; else noSelectedChat">
+        <!-- *ngIf="selectedChat.value?.[0]; else noSelectedChat" -->
+        <div class="chat-div" [class.d-none]="!selectedChat.value?.[0]">
             <cdk-virtual-scroll-viewport
-                itemSize="10"
-                orientation="horizontal"
+                #scrollViewPort
+                itemSize="48"
                 class="inner-chat-box"
             >
+                <!-- let item of selectedChatMessages | async; -->
+                <!-- let item of appStateChats.get(selectedChat.value?.[0])?.texts; -->
                 <div
                     *cdkVirtualFor="
-                        let item of appStateChats.get(selectedChat.value?.[0])?.texts;
+                        let item of ds;
                         let index = index;
                         let count = count;
                         let first = first;
                         let last = last;
                         let even = even;
-                        let odd = odd
+                        let odd = odd;
                     "
                     class="msg-row"
-                    [ngClass]="item.message_from === callerService.corpMember.id ? 'sender' : 'receiver'"
+                    [ngClass]="item?.message_from === callerService.corpMember.id ? 'sender' : 'receiver'"
                 >
                     <div class="spacer"></div>
                     <mat-card class="chat-card">
                         <div>
-                            {{item.message}}
+                            {{item?.message}} - [{{index}}]
                         </div>
-                        <span>4:45PM</span>
+                        <span>{{item?.created_at | date:"dd/MM/yyyy h:mm a"}}</span>
                     </mat-card>
+                    <!-- https://stackoverflow.com/a/49926783/9259701 -->
+                    <!-- {{last ? scrollToBottomOfChatBox() : ''}} -->
                 </div>
             </cdk-virtual-scroll-viewport>
 
@@ -92,13 +99,13 @@
                     <mat-icon>send</mat-icon>
                 </button>
             </div>
-        </ng-container>
+        </div>
 
-        <ng-template #noSelectedChat>
-            <div class="no-selected-chat">
+        <!-- <ng-template #noSelectedChat> -->
+            <div [class.d-none]="selectedChat.value?.[0]" class="no-selected-chat">
                 <h3>Select or start a chat</h3>
                 <mat-icon color="primary" class="no-chat-icon">forum</mat-icon>
             </div>
-        </ng-template>
+        <!-- </ng-template> -->
     </div>
 </div>

@@ -1,9 +1,13 @@
-/* TODO: might need to amend this */
+/* TODO: needs to be a fixed width */
 .chat-list {
     /* flex-basis: 35%; */
     flex-grow: 1;
 
     max-width: 350px;
+}
+
+.chat-div {
+    height: -webkit-fill-available;
 }
 
 .chats-listing {
