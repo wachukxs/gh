@@ -3,11 +3,3 @@ button {
 
     width: -webkit-fill-available;
 }
-
-.d-block {
-    display: block;
-}
-
-.d-none {
-    display: none;
-}
