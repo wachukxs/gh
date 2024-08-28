@@ -20,6 +20,7 @@
 * [Google Codelabs](https://codelabs.developers.google.com/)
 * Can we use AI to auto give directions
 * Implement [these best practices for our scrolling](https://climbtheladder.com/10-angular-cdk-virtual-scroll-best-practices/)
+* [Angular Azure Maps - 6 yrs old](https://github.com/acaisoft/angular-azure-maps?tab=readme-ov-file)
 
 ## Reference Links
 * Using [ngrx](https://inveritasoft.com/blog/angular-using-ngrx-schematics-and-ngrx-entity-to-speed-up-your-startup)
