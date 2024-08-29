@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { CallerService } from '../services/caller.service'
-import { AppMessages, AppState } from '../ngrx-store/app.state'
+import { AppMessages, AppState, ChatMessage } from '../ngrx-store/app.state'
 import { Store, select } from '@ngrx/store'
 import { selectFeatureMessages } from '../ngrx-store/selectors/corp.selectors'
 import {
@@ -17,7 +17,7 @@ import {
 import { HttpResponse, HttpStatusCode } from '@angular/common/http'
 import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/overlay';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { filter } from 'rxjs/operators'
 import { CollectionViewer, DataSource } from '@angular/cdk/collections'
 
@@ -35,7 +35,6 @@ export class MessagesComponent implements OnInit, AfterViewInit {
     innerChatBoxElement!: ElementRef
 
     @ViewChild(CdkVirtualScrollViewport, {static: false})
-    // @ViewChild('scrollViewPort', {static: false})
     public viewPort?: CdkVirtualScrollViewport;
 
     // public viewPort?: CdkVirtualScrollViewport;
@@ -88,29 +87,25 @@ export class MessagesComponent implements OnInit, AfterViewInit {
                 select(selectFeatureMessages), // or select('messages')
             )
             .subscribe({
-                next: (value: any) => {
+                next: (value: AppMessages) => {
                     console.log('new appStateChats', value)
                     this.appStateChats = value
                 },
             })
-        // const chatWithStateCode = this.route.snapshot.queryParamMap.get('s');
+        
+        this.ds = new MyDataSource(this.store, this.selectedChat)
 
-        // will only emit if it's a message in the current room.
-        this.socketIoChatNamespaceService.onEvent(IOEventName.CHAT_MESSAGE)
-        .pipe(filter((chat: any) => chat?.room === this.selectedChat.value?.[0]))
-        .subscribe((data) => {
-            console.log('new room chat???', data);
-            // ???
-            this.updateChatMessages()
+        this.ds.newDataUpdate.subscribe((value: any) => {
+            this.scrollToBottomOfChatBox()
         })
+
+        // const chatWithStateCode = this.route.snapshot.queryParamMap.get('s');
 
 
         // TODO: if no previous chat.
         // TODO: fetch the chat details. (get the new chat name from the sale post. Pick it from the state.) so there's no extra call.
         this.selectedChat?.valueChanges.subscribe((value) => {
             console.log('selected chat...', value?.[0])
-
-            this.initializeChatMessages()
         })
 
         const testMsg = {
@@ -153,36 +148,6 @@ export class MessagesComponent implements OnInit, AfterViewInit {
         
     }
 
-    initializeChatMessages() {
-        // TODO: If it's a new chat, we need to select that new chat, and open it.
-        // How do we know it's a new chat?
-        if (this.appStateChats.get(this.selectedChat.value?.[0])) {
-            console.log('should update')
-            this.ds = new MyDataSource([...this.appStateChats.get(this.selectedChat.value?.[0])!.texts])
-        } else {
-            this.ds = new MyDataSource([])
-        }
-
-        // then scroll
-        this.scrollToBottomOfChatBox()
-    }
-
-    updateChatMessages() {
-        // TODO: If it's a new chat, we need to select that new chat, and open it.
-        // How do we know it's a new chat?
-
-        // no need for this if check - overkill
-        if (this.appStateChats.get(this.selectedChat.value?.[0])) {
-            console.log('should update')
-            this.ds?.loadMessages(this.appStateChats.get(this.selectedChat.value?.[0])!.texts)
-        } else {
-            this.ds?.loadMessages([])
-        }
-
-        // then scroll
-        this.scrollToBottomOfChatBox()
-    }
-
     ngAfterViewInit() {
         console.log('view port', this.viewPort);
         
@@ -191,27 +156,17 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
     // https://stackoverflow.com/a/45367387/9259701
     scrollToBottomOfChatBox() {
-        console.log('will scroll', this.viewPort?.getDataLength()); // this.innerChatBoxElement.nativeElement.children.length
-        
-        // this.viewPort?.scrollToIndex(this.viewPort?.getDataLength(), 'smooth')
 
-        this.viewPort?.scrollTo({
-            bottom: 0,
-            behavior: 'smooth'
-        })
+        // todo: only scroll when they're at the bottom of the page.
 
-        // console.log('?inner', this.innerChatBoxElement.nativeElement.children);
-        if (this.innerChatBoxElement.nativeElement.children?.length > 1) {
-            // this.innerChatBoxElement.nativeElement.children[0].scrollTop = this.innerChatBoxElement.nativeElement?.children?.[0]?.scrollHeight
-            
-            // or
+        // this.viewPort?.scrollTo({
+        //     bottom: 0,
+        //     behavior: 'smooth'
+        // })
 
-            // this.innerChatBoxElement?.nativeElement?.children?.[0]?.scrollTo({
-            //     top: this.innerChatBoxElement.nativeElement?.children?.[0]?.scrollHeight,
-            //     left: 0,
-            //     behavior: 'smooth' // should we use a smooth scroll?
-            // })
-        }
+        // or
+
+        this.viewPort?.scrollToIndex(this.viewPort?.getDataLength() - 1, 'smooth')
 
     }
 
@@ -294,25 +249,62 @@ export class MessagesComponent implements OnInit, AfterViewInit {
  */
 export class MyDataSource extends DataSource<object | undefined> {
     
+
+    /**
+     * idea from https://blog.angular-university.io/angular-material-data-table/
+     */
+    public newDataUpdate = new Subject()
+
+    // kinda hate that this is duplicated
+    private appMessage: AppMessages = new Map()
     constructor(
-        private messages: Array<object> = []
+        public store: Store<AppState>,
+        public selectedChat: FormControl
     ) {
-        super()
+        super() // todo: use these from the parent?? instead of passing down? Possible??
+
+        this.selectedChat?.valueChanges.subscribe((value) => {
+            console.log('new selected chat in ds')
+            this.loadMessages()
+        })
+
+        // don't need this???
+        this.store
+        .pipe(
+            select(selectFeatureMessages), // or select('messages')
+        )
+        .subscribe({
+            next: (value: AppMessages) => {
+                console.log('new appStateChats in ds')
+                this.appMessage = value
+                this.loadMessages()
+            },
+        })
     }
     
-    private dataStream = new BehaviorSubject<(object | undefined)[]>(this.messages);
+    private dataStream = new BehaviorSubject<ChatMessage[]>([]);
   
     /**
      * called once by the cdkScrollable to get the observable that will contain the data
      * @param collectionViewer 
      * @returns 
      */
-    connect(collectionViewer: CollectionViewer): Observable<(object | undefined)[]> {
+    connect(collectionViewer: CollectionViewer): Observable<ChatMessage[]> {
       return this.dataStream;
     }
 
-    loadMessages(data: Array<object>): void {
-        this.dataStream.next(data)
+    private loadMessages(): void {
+        // if there are new message, update the data stream
+        if (this.selectedChat.value?.[0]
+            && this.appMessage.has(this.selectedChat.value?.[0])
+            && this.appMessage.get(this.selectedChat.value?.[0])!.texts.length > this.dataStream.getValue().length
+        ) {
+            this.dataStream.next(this.appMessage.get(this.selectedChat.value?.[0])!.texts)
+
+            this.newDataUpdate.next(true)
+        } else {
+            this.dataStream.next([])
+        }
     }
   
     disconnect(): void {
