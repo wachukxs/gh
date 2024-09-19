@@ -20,12 +20,19 @@
 .custom-swiper-class {
     /* If the image doesn't cover the whole space, put a background color - can/shd replace with sth else. */
     background-color: cadetblue;
+    width: 300px;
+    height: 300px;
+
+    /* very important attribute */
+    max-width: 500px;
 }
 
 .img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+    /* temp... */
+    /* max-width: 500px; */
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
 
     /* To prevent re-draw */
     min-height: 300px;

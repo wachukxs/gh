@@ -132,10 +132,20 @@
 
     <!-- Add Content Here -->
 
-    <cdk-virtual-scroll-viewport itemSize="5" orientation="horizontal" class="scroller">
+    <div class="new-scroller">
+      <app-feed-content *ngFor="let feed of feedData" [post]="feed">
 
+        <app-feed-accommodation-content *ngIf="feedViewControl.value === 'accommodation'" [accommodation]="feed"></app-feed-accommodation-content>
 
-      <ng-container *cdkVirtualFor="let feed of feedData;
+        <app-feed-sale-content *ngIf="feedViewControl.value === 'sale'" [sale]="feed"></app-feed-sale-content>
+        
+        <!-- switch statement doesn't work -->
+      </app-feed-content>
+    </div>
+
+    <!-- <cdk-virtual-scroll-viewport itemSize="625" class="scroller" orientation="vertical">
+
+      <div class="feed-row" *cdkVirtualFor="let feeds of feedData;
         let index = index;
         let count = count;
         let first = first;
@@ -143,16 +153,24 @@
         let even = even;
         let odd = odd;">
 
-      <app-feed-content [post]="feed">
+      <div class="col-3" *ngFor="let feed of feeds">
+        <app-feed-content [post]="feed">
 
-        <app-feed-accommodation-content *ngIf="feedViewControl.value === 'accommodation'" [accommodation]="feed"></app-feed-accommodation-content>
+          <app-feed-accommodation-content *ngIf="feedViewControl.value === 'accommodation'" [accommodation]="feed"></app-feed-accommodation-content>
+  
+          <app-feed-sale-content *ngIf="feedViewControl.value === 'sale'" [sale]="feed"></app-feed-sale-content>
+          
+          
+        </app-feed-content>
+      </div>
 
-        <app-feed-sale-content *ngIf="feedViewControl.value === 'sale'" [sale]="feed"></app-feed-sale-content>
-        
-        <!-- Switch statement doesn't work -->
-      </app-feed-content>
+    </div>
 
-      </ng-container>
+    </cdk-virtual-scroll-viewport> -->
+        <!--
+            switch statement doesn't work in app-feed-content
+            when switching between displaying app-feed-accommodation-content & app-feed-sale-content
+          -->
 
       <!-- https://stackblitz.com/edit/angular-material2-list-of-cards?file=app%2Fapp.component.html -->
 
@@ -160,8 +178,6 @@
       <!-- show only if user at bottom of page & in view -->
       <!-- <mat-spinner class="center margin-top-bottom" mode="indeterminate" aria-label="loading more content">
       </mat-spinner> -->
-
-    </cdk-virtual-scroll-viewport>
 
     <!-- Stop Add Content Here -->
   </mat-sidenav-content>

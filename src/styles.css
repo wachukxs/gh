@@ -19,6 +19,10 @@ mat-radio-button > .mdc-form-field > label {
     cursor: pointer;
 }
 
+.v-hidden {
+    visibility: hidden;
+}
+
 .d-none {
     display: none;
 }

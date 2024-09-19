@@ -241,9 +241,16 @@ export class FeedComponent implements OnInit {
     ngOnInit() {
         this.store.pipe(select('feed')).subscribe({
             next: (value) => {
-                console.log('new feed value???', value)
+                console.log('feedData.length:', value.length)
 
                 // TODO: optionally filter out only feedData that are of type _sale.
+
+                // let i: number, j: number, temporary: any[][] = [], chunk = 2;
+                // for (i = 0, j = value.length; i < j; i += chunk) {
+                //     temporary.push(value.slice(i, i + chunk));
+                // }
+                // this.feedData = temporary;
+                // console.log('new feed value???', this.feedData)
                 this.feedData = value
             },
         })

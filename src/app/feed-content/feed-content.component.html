@@ -1,12 +1,11 @@
 <mat-card class="content">
-  <!--
+    <!--
       If you click image, it should open seeHouseDetails() right to images section.
     -->
-  <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
-  <app-image-carousel [images]="post?.Media"></app-image-carousel>
-  <!-- 
-    Temporary, but this/[house] can be used for both sales&accommodations, [long-house] for map accommodation.
+    <!-- <img mat-card-image src="assets/images/yes.jpg" alt="Photo of a Shiba Inu"> -->
+    <app-image-carousel [images]="post?.Media"></app-image-carousel>
+    <!-- 
+      Temporary, but this/[house] can be used for both sales&accommodations, [long-house] for map accommodation.
    -->
-
-  <ng-content></ng-content>
+    <ng-content></ng-content>
 </mat-card>

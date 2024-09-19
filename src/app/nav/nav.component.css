@@ -32,6 +32,10 @@ mat-toolbar {
 
 app-feed {
     background-color: white;
+
+    display: block;
+    /* 64px is the height of the toolbar */
+    height: calc(100% - 64px);
 }
 
 .menu-list {

@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private _formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private callerService: CallerService) { }
+  constructor(private _formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, public callerService: CallerService) { }
 
   filteredOptions: Observable<any[]> | undefined;
   filteredOptions_2: Observable<any[]> | undefined;

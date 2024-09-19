@@ -68,7 +68,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { EffectsModule } from '@ngrx/effects';
 import { CorpMemberEffects } from './ngrx-store/effects/corp-member.effects';
 import { StoreModule } from '@ngrx/store';
-import { corpMemberReducer, feedReducer, messagesReducer } from './ngrx-store/reducers/corp-member.reducer';
+import { corpMemberReducer, feedReducer, messagesReducer, metaReducers } from './ngrx-store/reducers/corp-member.reducer';
 import { AuthInterceptor } from './http-interceptor/auth.interceptor';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { corpMemberFeatureKey, feedFeatureKey, messagesFeatureKey } from './ngrx-store/selectors/corp.selectors';
@@ -176,7 +176,7 @@ const socketIoConfig: SocketIoConfig = { url: `${environment.basehost}/corp-memb
       [corpMemberFeatureKey]: corpMemberReducer, // or corper: corpMemberReducer
       [feedFeatureKey]: feedReducer,
       [messagesFeatureKey]: messagesReducer,
-    }),
+    }, {metaReducers: metaReducers}),
     SocketIoModule.forRoot(socketIoConfig),
   ],
   providers: [
