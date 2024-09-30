@@ -1,6 +1,8 @@
 # Current New corpers.online front-end
 
 ## TODOs... well, a lot.
+- When you post an item, it doesn't go to the top of the post lists.
+- You must post with pictures.
 * ~~link to our backend.~~ ✅
 * They should invite their friends after joining our waitlist
 * Implement [animated icons](https://material.io/design/iconography/animated-icons.html#usage)

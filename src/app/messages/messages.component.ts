@@ -153,6 +153,14 @@ export class MessagesComponent implements OnInit, AfterViewInit {
         this.viewPort?.renderedRangeStream.subscribe((newValue) => {
             console.log('new renderedRangeStream value??', newValue)
         })
+
+        this.socketIoChatNamespaceService.socket.on(
+            IOEventName.CHAT_MESSAGE,
+            (data) => {
+                console.log('##new chat:', data)
+                this.store.dispatch(newChatMessage(data))
+            },
+        )
         
     }
 

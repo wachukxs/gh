@@ -68,14 +68,6 @@ export class SocketIoChatNamespaceService {
 
         // force emit an event to force connection
         this.tester()
-
-        this.socket.on(
-            IOEventName.CHAT_MESSAGE,
-            (data) => {
-                console.log('##new chat:', data)
-                this.store.dispatch(newChatMessage(data))
-            },
-        )
     }
 
     /**
