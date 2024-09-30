@@ -7,7 +7,7 @@
     <p>We are a service for corp members to find accommodation, and house hold items so they can easily settle in their serving state. And more to come.</p>
     <form [formGroup]="waitListForm" class="example-form">
 
-      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="input-field" appearance="fill">
         <mat-label>First name</mat-label>
         <input formControlName="first_name" matInput placeholder="Idris">
         <mat-error *ngIf="waitListForm?.get(['first_name'])?.hasError('required')">
@@ -16,19 +16,19 @@
       </mat-form-field>
 
       <!-- No need to ask for middle name -->
-      <!-- <mat-form-field class="example-full-width" appearance="fill">
+      <!-- <mat-form-field class="input-field" appearance="fill">
         <mat-label>Middle name</mat-label>
         <input formControlName="middle_name" matInput placeholder="Akin">
         <mat-hint>Optional</mat-hint>
       </mat-form-field> -->
 
-      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="input-field" appearance="fill">
         <mat-label>Last name</mat-label>
         <input formControlName="last_name" matInput placeholder="Uzo">
         <mat-hint>Optional</mat-hint>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="input-field" appearance="fill">
         <mat-label>Email</mat-label>
         <input formControlName="email" matInput placeholder="name@email.com" autocomplete="email">
         <mat-error *ngIf="waitListForm?.get(['email'])?.hasError('required')">
@@ -40,7 +40,7 @@
       </mat-form-field>
 
       <!-- TODO: Add a clear button inside the text input to clear an input after selecting one. -->
-      <mat-form-field class="example-full-width" appearance="fill">
+      <mat-form-field class="input-field" appearance="fill">
         <mat-label>Serving state</mat-label>
         <input type="text" placeholder="Delta" aria-label="Serving state" matInput formControlName="serving_state" [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -54,7 +54,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field color="primary" class="example-full-width" appearance="fill">
+      <mat-form-field color="primary" class="input-field" appearance="fill">
         <mat-label>Leave a comment</mat-label>
         <textarea formControlName="comment" matInput placeholder="Anything. A question, comment, an expectation or nothing." matAutosizeMaxRows="5" matTextareaAutosize rows="3"></textarea>
         <mat-hint>Optional</mat-hint>

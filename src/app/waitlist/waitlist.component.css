@@ -11,6 +11,10 @@ form {
     padding-bottom: 50px;
 }
 
+.input-field {
+    width: 270px;
+}
+
 div.second-part {
     text-align: center;
 
