@@ -85,14 +85,19 @@ app-feed-content {
 }
 
 .new-scroller {
+    padding: 20px;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-
     align-items: center;
+    gap: 35px;
 
+    /* 64px is height of the toolbars */
     height: calc(100vh - 64px - 64px);
+
+    overflow: auto;
 
 }
 

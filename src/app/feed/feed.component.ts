@@ -17,13 +17,14 @@ import {
 } from '@angular/material/dialog'
 import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ImageCarouselComponent } from '../image-carousel/image-carousel.component'
-import { IOEventName, SocketIoService } from '../services/socket-io.service'
+import { SocketIoService } from '../services/socket-io.service'
 import { CallerService } from '../services/caller.service'
 import { Store, select } from '@ngrx/store'
 import { AppState, CorpMemberState } from '../ngrx-store/app.state'
 import { initializeMessages, newFeedData } from '../ngrx-store/actions/corp-member.actions'
 import { HttpResponse, HttpStatusCode } from '@angular/common/http'
 import { SocketIoChatNamespaceService } from '../services/socket-io.chat-ns.service'
+import { IOEventName } from '../utils/types'
 
 // https://stackoverflow.com/questions/52566563/how-to-use-socket-io-in-angular-with-node-js
 
