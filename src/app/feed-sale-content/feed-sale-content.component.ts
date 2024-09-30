@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { AfterContentInit, AfterViewChecked, Component, Input } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { CallerService } from '../services/caller.service'
@@ -7,6 +7,7 @@ import { Clipboard } from '@angular/cdk/clipboard'
 import { SaleType } from '../ngrx-store/app.state'
 import { newMessage } from '../ngrx-store/actions/corp-member.actions'
 import { Router } from '@angular/router'
+import { HttpResponse, HttpStatusCode } from '@angular/common/http'
 
 
 @Component({
@@ -14,7 +15,7 @@ import { Router } from '@angular/router'
     templateUrl: './feed-sale-content.component.html',
     styleUrls: ['./feed-sale-content.component.css'],
 })
-export class FeedSaleContentComponent {
+export class FeedSaleContentComponent implements AfterContentInit, AfterViewChecked {
     constructor(
         private dialog: MatDialog,
         private clipboard: Clipboard,
@@ -25,23 +26,29 @@ export class FeedSaleContentComponent {
 
     @Input() sale!: SaleType;
 
-    likeState = false
-    bookmarkState = false
-    favoriteState = false
+    likeState: boolean = false
+    bookmarkState: boolean = false
+
+    ngAfterContentInit(): void {
+        // in ngAfterContentInit, because it'll be initialized only once!
+        
+        this.likeState = !!this.sale?.SaleLikes?.[0]?.id
+        this.bookmarkState = !!this.sale?.SaleBookmarks?.[0]?.id
+    }
+
+    ngAfterViewChecked(): void {
+
+    }
 
     /**
      * copied from https://github.com/angular/components/issues/15578#issuecomment-475792789
      */
-    protected get toggleLikeState(): '_border' | '' {
-        return this.likeState ? '' : '_border'
-    }
-
     protected get toggleBookmarkIcon(): 'bookmark_border' | 'bookmark' {
         return this.bookmarkState ? 'bookmark' : 'bookmark_border'
     }
 
-    protected get toggleFavoriteIcon(): 'favorite_border' | 'favorite' {
-        return this.favoriteState ? 'favorite' : 'favorite_border'
+    protected get toggleLikeIcon(): 'favorite_border' | 'favorite' {
+        return this.likeState ? 'favorite' : 'favorite_border'
     }
 
     get salePosterDisplayName(): string {
@@ -55,17 +62,29 @@ export class FeedSaleContentComponent {
             this.callerService.unBookmarkSale(this.sale.id).subscribe((res) => {
                 console.log('unBookmarkSale res', res);
                 this.bookmarkState = !this.bookmarkState
+                this.callerService.showNotification("Bookmark removed!")
             }, (err) => {
                 console.log('ERR unbokrm', err);
                 this.callerService.showNotification(err?.error?.message ?? "Failed to remove bookmark item")
             })
         } else {
-            this.callerService.bookmarkSale(this.sale.id).subscribe((res) => {
-                console.log('bookmarkSale res', res);
-                this.bookmarkState = !this.bookmarkState
-            }, (err) => {
-                console.log('ERR bkmk', err);
-                this.callerService.showNotification(err?.error?.message ?? "Failed to bookmark item")
+            /* What if after we bookmark, we return the whole sale object from db, and replace it in state. */
+            this.callerService.bookmarkSale(this.sale.id)
+            .subscribe({
+                next: (res: any) => {
+                    // we need to be returning http status code, maybe .PUT isn't what we should use here?
+                    console.log('bookmarked sale data', res)
+                    if (res?.message) {
+                        this.callerService.showNotification(res.message)
+                    } else if (res.data?.id) {
+                        this.bookmarkState = !this.bookmarkState
+                        this.callerService.showNotification("Bookmarked!")
+                    } // TODO: need else block?
+                },
+                error: (err) => {
+                    console.log('ERR bookmarking', err);
+                    this.callerService.showNotification(err?.error?.message ?? "Failed to bookmark item")
+                },
             })
         }
     }
@@ -73,10 +92,11 @@ export class FeedSaleContentComponent {
     favoritePost() {
         console.log('liking', this.sale.id);
 
-        if (this.favoriteState) {
+        if (this.likeState) {
             this.callerService.unLikeSale(this.sale.id).subscribe((res) => {
                 console.log('unLikeSale res', res);
-                this.favoriteState = !this.favoriteState
+                this.likeState = !this.likeState
+                this.callerService.showNotification("Like removed!")
             }, (err) => {
                 console.log('ERR unlike', err);
                 this.callerService.showNotification(err?.error?.message ?? "Failed to unlike item")
@@ -84,7 +104,8 @@ export class FeedSaleContentComponent {
         } else {
             this.callerService.likeSale(this.sale.id).subscribe((res) => {
                 console.log('likeSale res', res);
-                this.favoriteState = !this.favoriteState
+                this.likeState = !this.likeState
+                this.callerService.showNotification("Liked!")
             }, (err) => {
                 console.log('ERR like', err);
                 this.callerService.showNotification(err?.error?.message ?? "Failed to like item")
@@ -133,6 +154,8 @@ export class FeedSaleContentComponent {
     chatWithSalePoster(): void {
         if (this.sale.CorpMember?.state_code) {
             // Start a new message.
+            // TODO: how do you handle a chat with someone you already have existing chat with?
+            // TODO: if you've chatted with this person before, we should also load the sale with the room id of your chat.
             this.callerService._store.dispatch(newMessage({
                 room: window.crypto.randomUUID(),
                 recipient_id: this.sale.CorpMember?.id,
