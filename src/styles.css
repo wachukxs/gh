@@ -5,8 +5,16 @@
 html, body {
     height: 100%;
 }
+/**
+ * from https://css-tricks.com/almanac/properties/b/box-sizing/
+ * and somewhere else.
+ */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 body {
     margin: 0;
+    /* padding: 0; */
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 

@@ -11,28 +11,7 @@ import { CorpMemberState } from '../../app/ngrx-store/app.state'
 import { io, Socket } from 'socket.io-client'
 import { map } from 'rxjs/operators'
 import { Observable, Observer } from 'rxjs'
-
-/** Your events enum, should also be same on server */
-export enum IOEventName {
-    HI = "hi",
-    NEW_SALE = "new_sale",
-    NEW_ACCOMMODATION = "new_accommodation",
-    BROADCAST_MESSAGE = "broadcast_message",
-    CONNECT = "connect",
-    ERROR = "error",
-    CONNECTION = "connection",
-    DISCONNECT = "disconnect",
-}
-
-/**
- * TODO: when we'd be creating a new service for a different namespace,
- * We'll reuse an existing socket connection or "manager" https://socket.io/docs/v4/client-options/#multiplex
- */
-export enum IOEventRoutes {
-    BASE = "/",
-    CHAT = "/chat",
-    MAP = "/map",
-}
+import { IOEventName } from '../utils/types'
 
 @Injectable({
     providedIn: 'root',
@@ -72,13 +51,6 @@ export class SocketIoService
         // Optional: You can handle events, errors, etc.
         this.socket.on(IOEventName.CONNECT, () => {
             console.log('Connected to Socket.IO');
-        });
-
-        this.socket.on(IOEventName.CONNECTION, (_s: any) => {
-            console.log('Connected to BACKEND...');
-
-            // _s.join(this.corpMember?.state_code?.substring(0, 2))
-            console.log('joined...', this.corpMember?.state_code?.substring(0, 2));
         });
     
         this.socket.on(IOEventName.DISCONNECT, () => {

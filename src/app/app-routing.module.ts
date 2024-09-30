@@ -26,6 +26,7 @@ import { AllPpasComponent } from './all-ppas/all-ppas.component'
 import { MessagesComponent } from './messages/messages.component'
 import { ProfilePageResolver } from './resolvers/profile-page.resolver'
 import { MessagesResolver } from './resolvers/messages.resolver'
+import { SearchPageComponent } from './search-page/search-page.component'
 
 const routes: Routes = [
     {
@@ -38,6 +39,7 @@ const routes: Routes = [
         title: 'Welcome! Join our wait list.',
         component: WaitlistComponent,
     },
+    // TODO: create a holder component, and use nav and router there. So we can use nav in other places.
     {
         path: '',
         component: NavComponent,
@@ -95,6 +97,12 @@ const routes: Routes = [
         path: 'ppas',
         title: 'PPAs',
         component: AllPpasComponent,
+        // TODO: they won't be able to comment or leave a review if not signed in.
+    },
+    {
+        path: 'search',
+        title: 'Search', //  items and PPAs
+        component: SearchPageComponent,
         // TODO: they won't be able to comment or leave a review if not signed in.
     },
     {

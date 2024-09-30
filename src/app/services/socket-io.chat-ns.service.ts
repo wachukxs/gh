@@ -12,29 +12,7 @@ import { io, Socket } from 'socket.io-client'
 import { map } from 'rxjs/operators'
 import { Observable, Observer } from 'rxjs'
 import { newChatMessage } from '../ngrx-store/actions/corp-member.actions'
-
-/** Your events enum, should also be same on server */
-export enum IOEventName {
-    HI = 'hi',
-    NEW_SALE = 'new_sale',
-    NEW_ACCOMMODATION = 'new_accommodation',
-    BROADCAST_MESSAGE = 'broadcast_message',
-    CHAT_MESSAGE = 'chat_message',
-    CONNECT = 'connect',
-    ERROR = "error",
-    CONNECT_ERROR = 'connect_error',
-    DISCONNECT = 'disconnect',
-}
-
-/**
- * TODO: when we'd be creating a new service for a different namespace,
- * ~We'll reuse an existing socket connection or "manager" https://socket.io/docs/v4/client-options/#multiplex~
- */
-export enum IOEventRoutes {
-    BASE = '/',
-    CHAT = '/chat',
-    MAP = '/map',
-}
+import { IOEventName, IOEventRoutes } from '../utils/types'
 
 @Injectable({
     providedIn: 'root',
@@ -88,17 +66,16 @@ export class SocketIoChatNamespaceService {
             // this.socket.removeAllListeners()
         })
 
-        // This could be in socketIoChatNsService (here) so it connects any it's initialized
+        // force emit an event to force connection
+        this.tester()
+
         this.socket.on(
             IOEventName.CHAT_MESSAGE,
             (data) => {
-                console.log('??new chat??', data)
+                console.log('##new chat:', data)
                 this.store.dispatch(newChatMessage(data))
             },
         )
-
-        // force emit an event to force connection
-        this.tester()
     }
 
     /**
@@ -152,6 +129,8 @@ export class SocketIoChatNamespaceService {
         console.log('trying to send chat message')
 
         if (this.socket.disconnected) {
+            console.log('io was disconnected');
+            
             this.socket.connect()
             // TODO: can we wait till after connection??
         }
