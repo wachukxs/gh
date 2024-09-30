@@ -11,6 +11,12 @@ export enum URLPaths {
     getAllPPAs = '/ppas',
     searchPPAs = '/ppas/search',
 
+    getAllItems = '/all-items',
+
+    getAllBookmarkedItems = '/profile/bookmarks',
+    getAllLikedItems = '/profile/likes',
+    getAllPostedItems = '/profile/posts',
+
     createNewPpaReview = '/ppa/review',
 
     corpMemberProfileUpdate = '/profile',

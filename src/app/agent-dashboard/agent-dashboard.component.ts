@@ -2,12 +2,13 @@ import { Component, OnInit, isDevMode } from '@angular/core'
 import { map } from 'rxjs/operators'
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout'
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http'
 import { environment } from '../../environments/environment'
 import { ExitConfirmationDialogComponent } from '../dialogs/exit-confirmation-dialog/exit-confirmation-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
 import { CanExit } from '../services/authentication.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { CallerService } from '../services/caller.service'
 
 @Component({
     selector: 'app-agent-dashboard',
@@ -40,6 +41,15 @@ export class AgentDashboardComponent implements OnInit, CanExit {
 
     you: any
 
+    /* All user's bookmarked items */
+    allBookmarks: any[] = []
+
+    /* All user's bookmarked items */
+    allLikes: any[] = []
+
+    /* All user's items they've posted */
+    allPosts: any[] = []
+
     dev = isDevMode()
 
     theAgent: any = {}
@@ -55,8 +65,7 @@ export class AgentDashboardComponent implements OnInit, CanExit {
     ]
 
     constructor(
-        private snackBar: MatSnackBar,
-        private httpClient: HttpClient,
+        private callerService: CallerService,
         private breakpointObserver: BreakpointObserver,
         public dialog: MatDialog,
         private formBuilder: FormBuilder,
@@ -134,6 +143,52 @@ export class AgentDashboardComponent implements OnInit, CanExit {
         // this.propertyForm.controls.by.patchValue
 
         this.loadHousesData()
+
+        this.fetchAllBookmarks()
+        this.fetchAllLikes()
+        this.fetchAllPosts()
+    }
+
+    fetchAllBookmarks() {
+      this.callerService.getAllBookmarkedItems().subscribe({
+          next: (res: HttpResponse<any>) => {
+              console.log('bookmarked data', res)
+              if (res.status === HttpStatusCode.Ok) {
+                  this.allBookmarks = res.body.data
+              } // TODO: need else block?
+          },
+          error: (err) => {
+              this.callerService.showNotification('Failed to retrieve bookmarks')
+          },
+      })
+    }
+
+    fetchAllLikes() {
+      this.callerService.getAllLikedItems().subscribe({
+          next: (res: HttpResponse<any>) => {
+              console.log('liked data', res)
+              if (res.status === HttpStatusCode.Ok) {
+                  this.allLikes = res.body.data
+              } // TODO: need else block?
+          },
+          error: (err) => {
+              this.callerService.showNotification('Failed to retrieve likes')
+          },
+      })
+    }
+
+    fetchAllPosts() {
+      this.callerService.getAllPostedItems().subscribe({
+          next: (res: HttpResponse<any>) => {
+              console.log('all posted data', res)
+              if (res.status === HttpStatusCode.Ok) {
+                  this.allPosts = res.body.data
+              } // TODO: need else block?
+          },
+          error: (err) => {
+              this.callerService.showNotification('Failed to retrieve likes')
+          },
+      })
     }
 
     loadHousesData() {}

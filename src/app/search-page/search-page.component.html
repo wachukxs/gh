@@ -1,0 +1,75 @@
+<div class="wrapper">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span class="app-name-header" routerLink="/home">Corpers NG</span>
+            <span class="toolbar-spacer"></span>
+
+
+            <button type="button" mat-icon-button (menuOpened)="toggleMenuState()" (menuClosed)="toggleMenuState()" [matMenuTriggerFor]="menu" class="hide-desktop" aria-label="Menu icon button">
+                <mat-icon class="nav-icon" aria-label="menu icon">menu{{ menuState }}</mat-icon>
+              </button>
+          
+              <mat-menu #menu="matMenu" class="menu-list">
+                <button type="button" mat-menu-item [routerLink]="['/home']">Home</button>
+                <button type="button" mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
+                <button type="button" mat-menu-item [routerLink]="['/profile']">Profile</button>
+              </mat-menu>
+        </mat-toolbar-row>
+
+    </mat-toolbar>
+
+    <section class="d-flex search-bar-section">
+        <mat-form-field class="form-field-full-width">
+            <mat-label>Search items for sale</mat-label>
+            <input [formControl]="searchInput" matInput placeholder="St. Mary's School" autocomplete="off">
+            <button type="button" *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear search text"
+                (click)="clearSearchInput()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <!-- Don't need button click. -->
+        <!-- <button type="button" mat-icon-button color="secondary" aria-label="Search button">
+            <mat-icon>search</mat-icon>
+        </button> -->
+    </section>
+
+    <section>
+        <div class="ppas-list">
+            <ng-container *ngFor="let result of results">
+                <ng-container [ngSwitch]="result._type">
+
+                    <mat-card *ngSwitchCase="'sale'">
+                        <mat-card-header>
+                            <mat-card-title>{{ result.item_name }}</mat-card-title>
+                            <mat-card-subtitle>{{ result.price }}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content *ngIf="result.text">
+                            {{result.text}}
+                        </mat-card-content>
+        
+                        <mat-card-actions align="end">
+                            <button type="button" mat-button>Bookmark</button>
+                        </mat-card-actions>
+                    </mat-card>
+
+
+                    <mat-card *ngSwitchCase="'accommodation'">
+                        <mat-card-header>
+                            <mat-card-title>{{ result.accommodation_type }}</mat-card-title>
+                            <mat-card-subtitle>{{ result._rent }} &middot; {{result.rent_interval}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content *ngIf="result.available_rooms">
+                            Room: {{result.available_rooms}}
+                        </mat-card-content>
+        
+                        <mat-card-actions align="end">
+                            <button type="button" mat-button>Bookmark</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </ng-container>
+
+            </ng-container>
+        </div>
+    </section>
+</div>

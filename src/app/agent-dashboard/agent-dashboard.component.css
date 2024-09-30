@@ -1,5 +1,12 @@
-.grid-container {
-    margin: 20px;
+.container {
+    padding: 20px;
+
+    height: calc(100vh - 64px - 48px);
+}
+
+.container .content {
+    display: flex;
+    gap: 30px;
 }
 
 .dashboard-card {
@@ -42,17 +49,17 @@ div.add-house-buttons button {
     margin: 0 10px 0 0;
 }
 
+.centered-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: -webkit-fill-available;
+}
+
 .inner-update-form > mat-form-field,
 .add-house > mat-form-field {
     margin: 10px;
 }
-
-
-
-
-
-
-
 
 /*
     Source: https://www.w3schools.com/css/css_rwd_mediaqueries.asp

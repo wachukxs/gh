@@ -1,135 +1,182 @@
 <mat-tab-group mat-stretch-tabs color="primary" backgroundColor="accent">
-  <mat-tab label="Alerts? Stats?">
-    Sth else...
-  </mat-tab>
-  <mat-tab label="Bookmarks & Likes">
-    <div class="grid-container">
-      <h1 class="mat-h1">Add an apartment</h1>
+    <mat-tab label="Bookmarks">
+        <div class="container">
+            <ng-container *ngIf="allBookmarks.length > 0; else noBookmarks">
+                <h1 class="mat-h1">Bookmarks</h1>
+                <div class="content">
+                    <app-feed-content
+                        *ngFor="let feed of allBookmarks"
+                        [post]="feed"
+                    >
+                        <app-feed-accommodation-content
+                            *ngIf="feed._type === 'accommodation'"
+                            [accommodation]="feed"
+                        ></app-feed-accommodation-content>
 
-      <mat-card appearance="outlined">
-        <form [formGroup]="propertyForm" (ngSubmit)="postHouse()">
-          <mat-vertical-stepper [linear]="true" #stepper>
-            <mat-step [stepControl]="
-                                propertyForm.controls.number &&
-                                propertyForm.controls.street &&
-                                propertyForm.controls.city_or_town &&
-                                propertyForm.controls.state
-                            ">
-              <ng-template matStepLabel>Fill out the house address</ng-template>
-              <!--Intentionally did not put the exact flat because some Nigerians are dubious-->
-              <div class="add-house">
-                <mat-form-field>
-                  <mat-label>House number</mat-label>
-                  <input matInput placeholder="Flat 10A" formControlName="number" required />
-                </mat-form-field>
+                        <app-feed-sale-content
+                            *ngIf="feed._type === 'sale'"
+                            [sale]="feed"
+                        ></app-feed-sale-content>
 
-                <mat-form-field>
-                  <mat-label>Street</mat-label>
-                  <input matInput placeholder="Eforo street" formControlName="street" required />
-                </mat-form-field>
+                        <!-- switch statement doesn't work -->
+                    </app-feed-content>
+                </div>
+            </ng-container>
+            <ng-template #noBookmarks>
+                <p class="centered-text">
+                    You haven't bookmarked anything yet.
+                </p>
+            </ng-template>
+        </div>
+    </mat-tab>
+    <mat-tab label="Likes">
+        <div class="container">
+            <ng-container *ngIf="allLikes.length > 0; else noLikes">
+                <h1 class="mat-h1">Likes</h1>
+                <div class="content">
+                    <app-feed-content
+                        *ngFor="let feed of allLikes"
+                        [post]="feed"
+                    >
+                        <app-feed-accommodation-content
+                            *ngIf="feed._type === 'accommodation'"
+                            [accommodation]="feed"
+                        ></app-feed-accommodation-content>
 
-                <mat-form-field>
-                  <mat-label>City or Town</mat-label>
-                  <input matInput placeholder="Umuahia" formControlName="city_or_town" required />
-                </mat-form-field>
+                        <app-feed-sale-content
+                            *ngIf="feed._type === 'sale'"
+                            [sale]="feed"
+                        ></app-feed-sale-content>
 
-                <mat-form-field>
-                  <mat-label>State</mat-label>
-                  <input matInput placeholder="Jigawa" formControlName="state" required />
-                </mat-form-field>
-              </div>
+                        <!-- switch statement doesn't work -->
+                    </app-feed-content>
+                </div>
+            </ng-container>
+            <ng-template #noLikes>
+                <p class="centered-text">You haven't liked anything yet.</p>
+            </ng-template>
+        </div>
+    </mat-tab>
+    <mat-tab label="Post history">
+        <div class="container">
+            <ng-container *ngIf="allPosts.length > 0; else noPosts">
+                <h1 class="mat-h1">Your posts</h1>
+                <div class="content">
+                    <app-feed-content
+                        *ngFor="let feed of allPosts"
+                        [post]="feed"
+                    >
+                        <app-feed-accommodation-content
+                            *ngIf="feed._type === 'accommodation'"
+                            [accommodation]="feed"
+                        ></app-feed-accommodation-content>
 
-              <div class="add-house-buttons">
-                <!-- add "Save draft" button to this and other group? -->
-                <button type="button" mat-button mat-raised-button matStepperNext>
-                  Next
-                </button>
-              </div>
-            </mat-step>
-            <mat-step [stepControl]="
-                                propertyForm.controls.house_type &&
-                                propertyForm.controls.bedrooms &&
-                                propertyForm.controls.kitchen &&
-                                propertyForm.controls.toilet &&
-                                propertyForm.controls.bathrooms
-                            ">
-              <ng-template matStepLabel>Fill out the house details</ng-template>
-              <!--type, price, rooms, floor types, probably wall type?? [should this all be together in a section?]-->
+                        <app-feed-sale-content
+                            *ngIf="feed._type === 'sale'"
+                            [sale]="feed"
+                        ></app-feed-sale-content>
 
-              <div class="add-house">
-                <mat-form-field>
-                  <mat-label>Places like:</mat-label>
-                  <mat-select title="list of places" role="listbox" [formControl]="propertyForm.controls.house_type"
-                    required>
-                    <mat-option role="option" *ngFor="let houseType of houseTypes"
-                      [value]="houseType">{{ houseType }}</mat-option>
-                  </mat-select>
-                  <mat-hint>How would you best say the house is?
-                    Flat, Self-contain, etc.</mat-hint>
-                </mat-form-field>
+                        <!-- switch statement doesn't work -->
+                    </app-feed-content>
+                </div>
+            </ng-container>
+            <ng-template #noPosts>
+                <p class="centered-text">
+                    You haven't posted anything yet. Post something.
+                </p>
+            </ng-template>
+        </div>
+    </mat-tab>
+</mat-tab-group>
 
-                <mat-form-field>
-                  <mat-label>Bathrooms</mat-label>
-                  <input matInput placeholder="1" formControlName="bathrooms" required />
-                </mat-form-field>
+<!--
+  style input button 
+  https://stackoverflow.com/questions/572768/styling-an-input-type-file-button 
+  from https://stackoverflow.com/questions/47974175/how-do-i-style-a-file-upload-button
+-->
+<!-- <mat-step [stepControl]="propertyForm.controls.graphics">
 
-                <mat-form-field>
-                  <mat-label>Toilet</mat-label>
-                  <input matInput placeholder="8" formControlName="toilet" required />
-                </mat-form-field>
+          <ng-template matStepLabel>Media of the house details</ng-template>
 
-                <mat-form-field>
-                  <mat-label>Bedrooms</mat-label>
-                  <input matInput placeholder="15" formControlName="bedrooms" required />
-                </mat-form-field>
+          <mat-label>Add media files</mat-label>
+          
+          <button type="button" mat-button mat-raised-button>
+            <input type="file" accept="image/*" multiple required (change)="houseMedia($event)">
+          </button>
 
-                <mat-form-field>
-                  <mat-label>Kitchen</mat-label>
-                  <input matInput formControlName="graphics" placeholder="Shared" formControlName="kitchen" required />
-                </mat-form-field>
-              </div>
-              <div class="add-house-buttons">
-                <button type="button" mat-button mat-raised-button matStepperPrevious>
-                  Back
-                </button>
-                <button type="button" mat-button mat-raised-button matStepperNext>
-                  Next
-                </button>
-              </div>
-            </mat-step>
+          <div>
+            <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
+            <button type="button" mat-button mat-raised-button matStepperNext>Save draft</button>
+            <button type="button" mat-button mat-raised-button matStepperNext>Next</button>
+          </div>
 
-            <mat-step [stepControl]="propertyForm.controls.price">
-              <ng-template matStepLabel>Done</ng-template>
-              <!-- <p>Is price is bargainable?</p> -->
-              <div class="add-house">
-                <mat-form-field>
-                  <mat-label>Price</mat-label>
-                  <input matInput placeholder="₦75,000" formControlName="price" required />
-                </mat-form-field>
-              </div>
+        </mat-step> -->
 
-              <div class="add-house-buttons">
-                <button type="button" mat-button mat-raised-button matStepperPrevious>
-                  Back
-                </button>
-                <button type="button" mat-button mat-raised-button (click)="stepper.reset()">
-                  Reset
-                </button>
-                <button type="submit" mat-button mat-raised-button type="submit">
-                  Submit
-                </button>
-              </div>
-            </mat-step>
-          </mat-vertical-stepper>
+<!-- 
+  <mat-card>
+    <mat-vertical-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          </mat-form-field>
+          <div>
+            <button mat-button mat-raised-button matStepperNext>Next</button>
+          </div>
         </form>
-      </mat-card>
-    </div>
-  </mat-tab>
-  <mat-tab label="Post history">
-    <div class="listing-parent">
-      <div class="grid-container">
-        <h1 class="mat-h1">Edit house details</h1>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-button mat-raised-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done. Submit?</p>
+        <div>
+          <button mat-button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-button mat-raised-button (click)="stepper.reset()">Reset</button>
+          <button mat-button mat-raised-button >Submit</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card>
+ -->
 
+<!-- <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Card Content Here</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list> -->
+
+<!--
         <mat-accordion class="headers-align">
           <mat-expansion-panel *ngFor="let house of houses" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header>
@@ -149,7 +196,6 @@
                   <mat-label>Add media files</mat-label>
                   <br />
 
-                  <!-- TODO: Maybe fix this by adding "mat-button mat-raised-button" to <input> -->
                   <button type="button" mat-button mat-raised-button>
                     <input title="Select file" type="file" accept="image/*" required multiple
                       (change)="houseMedia($event, house.id)" />
@@ -304,95 +350,122 @@
               </button>
             </mat-action-row>
           </mat-expansion-panel>
-        </mat-accordion>
-      </div>
-    </div>
-  </mat-tab>
-</mat-tab-group>
-
-<!--
-            style input button 
-            https://stackoverflow.com/questions/572768/styling-an-input-type-file-button 
-            from https://stackoverflow.com/questions/47974175/how-do-i-style-a-file-upload-button
-          -->
-<!-- <mat-step [stepControl]="propertyForm.controls.graphics">
-
-          <ng-template matStepLabel>Media of the house details</ng-template>
-
-          <mat-label>Add media files</mat-label>
-          
-          <button type="button" mat-button mat-raised-button>
-            <input type="file" accept="image/*" multiple required (change)="houseMedia($event)">
-          </button>
-
-          <div>
-            <button type="button" mat-button mat-raised-button matStepperPrevious>Back</button>
-            <button type="button" mat-button mat-raised-button matStepperNext>Save draft</button>
-            <button type="button" mat-button mat-raised-button matStepperNext>Next</button>
-          </div>
-
-        </mat-step> -->
+        </mat-accordion>  
+-->
 
 <!-- 
-  <mat-card>
-    <mat-vertical-stepper #stepper>
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Fill out your name</ng-template>
-          <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-          </mat-form-field>
-          <div>
-            <button mat-button mat-raised-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Fill out your address</ng-template>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
-            <button mat-button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-button mat-raised-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done. Submit?</p>
-        <div>
-          <button mat-button mat-raised-button matStepperPrevious>Back</button>
-          <button mat-button mat-raised-button (click)="stepper.reset()">Reset</button>
-          <button mat-button mat-raised-button >Submit</button>
-        </div>
-      </mat-step>
-    </mat-vertical-stepper>
-  </mat-card>
- -->
+<mat-card appearance="outlined">
+        <form [formGroup]="propertyForm" (ngSubmit)="postHouse()">
+          <mat-vertical-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="
+                                propertyForm.controls.number &&
+                                propertyForm.controls.street &&
+                                propertyForm.controls.city_or_town &&
+                                propertyForm.controls.state
+                            ">
+              <ng-template matStepLabel>Fill out the house address</ng-template>
+              <div class="add-house">
+                <mat-form-field>
+                  <mat-label>House number</mat-label>
+                  <input matInput placeholder="Flat 10A" formControlName="number" required />
+                </mat-form-field>
 
-<!-- <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-        </mat-card-content>
+                <mat-form-field>
+                  <mat-label>Street</mat-label>
+                  <input matInput placeholder="Eforo street" formControlName="street" required />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>City or Town</mat-label>
+                  <input matInput placeholder="Umuahia" formControlName="city_or_town" required />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <input matInput placeholder="Jigawa" formControlName="state" required />
+                </mat-form-field>
+              </div>
+
+              <div class="add-house-buttons">
+                
+                <button type="button" mat-button mat-raised-button matStepperNext>
+                  Next
+                </button>
+              </div>
+            </mat-step>
+            <mat-step [stepControl]="
+                                propertyForm.controls.house_type &&
+                                propertyForm.controls.bedrooms &&
+                                propertyForm.controls.kitchen &&
+                                propertyForm.controls.toilet &&
+                                propertyForm.controls.bathrooms
+                            ">
+              <ng-template matStepLabel>Fill out the house details</ng-template>
+
+              <div class="add-house">
+                <mat-form-field>
+                  <mat-label>Places like:</mat-label>
+                  <mat-select title="list of places" role="listbox" [formControl]="propertyForm.controls.house_type"
+                    required>
+                    <mat-option role="option" *ngFor="let houseType of houseTypes"
+                      [value]="houseType">{{ houseType }}</mat-option>
+                  </mat-select>
+                  <mat-hint>How would you best say the house is?
+                    Flat, Self-contain, etc.</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Bathrooms</mat-label>
+                  <input matInput placeholder="1" formControlName="bathrooms" required />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Toilet</mat-label>
+                  <input matInput placeholder="8" formControlName="toilet" required />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Bedrooms</mat-label>
+                  <input matInput placeholder="15" formControlName="bedrooms" required />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Kitchen</mat-label>
+                  <input matInput formControlName="graphics" placeholder="Shared" formControlName="kitchen" required />
+                </mat-form-field>
+              </div>
+              <div class="add-house-buttons">
+                <button type="button" mat-button mat-raised-button matStepperPrevious>
+                  Back
+                </button>
+                <button type="button" mat-button mat-raised-button matStepperNext>
+                  Next
+                </button>
+              </div>
+            </mat-step>
+
+            <mat-step [stepControl]="propertyForm.controls.price">
+              <ng-template matStepLabel>Done</ng-template>
+              <div class="add-house">
+                <mat-form-field>
+                  <mat-label>Price</mat-label>
+                  <input matInput placeholder="₦75,000" formControlName="price" required />
+                </mat-form-field>
+              </div>
+
+              <div class="add-house-buttons">
+                <button type="button" mat-button mat-raised-button matStepperPrevious>
+                  Back
+                </button>
+                <button type="button" mat-button mat-raised-button (click)="stepper.reset()">
+                  Reset
+                </button>
+                <button type="submit" mat-button mat-raised-button type="submit">
+                  Submit
+                </button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </form>
       </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list> -->
+     -->

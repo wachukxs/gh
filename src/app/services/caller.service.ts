@@ -303,6 +303,34 @@ export class CallerService extends BaseService {
         )
     }
 
+    getAllItems() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getAllItems,
+            this.JSONHttpOptions
+        )
+    }
+
+    getAllBookmarkedItems() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getAllBookmarkedItems,
+            this.JSONHttpOptions
+        )
+    }
+
+    getAllLikedItems() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getAllLikedItems,
+            this.JSONHttpOptions
+        )
+    }
+
+    getAllPostedItems() {
+        return this.http.get(
+            environment.baseurl + URLPaths.getAllLikedItems,
+            this.JSONHttpOptions
+        )
+    }
+
     getAllChats() {
         return this.http.get(
             environment.baseurl + URLPaths.getAllChats,
