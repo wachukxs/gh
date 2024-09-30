@@ -22,7 +22,7 @@ export const newFeedData = createAction(
 );
 
 /**
- * Only pass the state code of who you want to start the message with.
+ * Set the whole AppMessages state
  */
 export const initializeMessages = createAction(
   '[Chat] Initialize New Message',
@@ -30,6 +30,15 @@ export const initializeMessages = createAction(
 );
 
 /**
+ * Update part (or probably whole) of the AppMessages state
+ */
+export const updateMessages = createAction(
+  '[Chat] Update App Messages',
+  props<object | AppMessages>(),
+);
+
+/**
+ * Starting a new chat that didn't exist before
  * Only pass the state code of who you want to start the message with.
  */
 export const newMessage = createAction(
@@ -38,7 +47,7 @@ export const newMessage = createAction(
 );
 
 /**
- * Only pass the state code of who you want to start the message with.
+ * New message in an existing chat.
  */
 export const newChatMessage = createAction(
   '[Chat] New Chat Message',

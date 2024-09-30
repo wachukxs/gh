@@ -1,46 +1,51 @@
 <div class="parent-chat">
     <div class="chat-list">
-        <div *ngIf="selectedChat.value?.[0]">Selected</div>
-        <div *ngIf="!selectedChat.value?.[0]">NOT Selected</div>
-        <div mat-subheader>Chats</div>
-        <!-- TODO: Show "No chats" if chat list it empty -->
-        <mat-selection-list
-            class="chats-listing"
-            #chatsListing
-            [multiple]="false"
-            [formControl]="selectedChat"
-        >
-            <!-- <mat-list-option *ngFor="let chat of testChats" [value]="chat">
-                <img matListItemAvatar class="profile-image"
-                    src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Profile pic" />
-                <div matListItemTitle>{{chat}}</div>
-                <div matListItemLine>{{chat.repeat(5)}}</div>
-            </mat-list-option> -->
+        <!-- <div *ngIf="selectedChat.value?.[0]">Selected</div>
+        <div *ngIf="!selectedChat.value?.[0]">NOT Selected</div> -->
 
-            <!-- TODO: Move inversely -->
-            <mat-list-option
-                *ngFor="let _chat of appStateChats | keyvalue"
-                [value]="_chat?.key"
+        <div mat-subheader>Chats</div>
+        <ng-container *ngIf="appStateChats.size > 0; else noChatList">
+            <mat-selection-list
+                class="chats-listing"
+                #chatsListing
+                [multiple]="false"
+                [formControl]="selectedChat"
             >
-                <img
-                    matListItemAvatar
-                    class="profile-image"
-                    src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                    alt="Profile pic"
-                />
-                <div matListItemTitle>
-                    {{ getChatDisplayName(_chat)  }}
-                </div>
-                <div matListItemLine>
-                    {{_chat?.value?.texts?.at(-1)?.message ?? 'Start new chat...'}}
-                </div>
-            </mat-list-option>
-        </mat-selection-list>
+                <!-- <mat-list-option *ngFor="let chat of testChats" [value]="chat">
+                    <img matListItemAvatar class="profile-image"
+                        src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Profile pic" />
+                    <div matListItemTitle>{{chat}}</div>
+                    <div matListItemLine>{{chat.repeat(5)}}</div>
+                </mat-list-option> -->
+
+                <!-- TODO: Move inversely -->
+                <mat-list-option
+                    *ngFor="let _chat of appStateChats | keyvalue"
+                    [value]="_chat?.key"
+                >
+                    <img
+                        matListItemAvatar
+                        class="profile-image"
+                        src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                        alt="Profile pic"
+                    />
+                    <div matListItemTitle>
+                        {{ getChatDisplayName(_chat)  }}
+                    </div>
+                    <div matListItemLine>
+                        {{_chat?.value?.texts?.at(-1)?.message ?? 'Start new chat...'}}
+                    </div>
+                </mat-list-option>
+            </mat-selection-list>
+        </ng-container>
+
+        <ng-template #noChatList>
+            <p>No chats.</p>
+        </ng-template>
     </div>
 
     <div class="chat-box">
-        <!-- *ngIf="selectedChat.value?.[0]; else noSelectedChat" -->
-        <div class="chat-div" [class.d-none]="!selectedChat.value?.[0]">
+        <div class="chat-div" [class.v-hidden]="!selectedChat.value?.[0]">
             <cdk-virtual-scroll-viewport
                 #scrollViewPort
                 itemSize="48"
@@ -101,11 +106,9 @@
             </div>
         </div>
 
-        <!-- <ng-template #noSelectedChat> -->
-            <div [class.d-none]="selectedChat.value?.[0]" class="no-selected-chat">
-                <h3>Select or start a chat</h3>
-                <mat-icon color="primary" class="no-chat-icon">forum</mat-icon>
-            </div>
-        <!-- </ng-template> -->
+        <div [class.d-none]="selectedChat.value?.[0]" class="no-selected-chat">
+            <h3>Select or start a chat</h3>
+            <mat-icon color="primary" class="no-chat-icon">forum</mat-icon>
+        </div>
     </div>
 </div>

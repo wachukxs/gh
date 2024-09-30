@@ -134,6 +134,22 @@ export interface SaleType {
         _location: string
         id: number
     }
+
+    SaleLikes?: {
+        corp_member_id: number
+        created_at: string
+        id: number
+        sale_id: number
+        updated_at: string
+    }[]
+
+    SaleBookmarks?: {
+        corp_member_id: number
+        created_at: string
+        id: number
+        sale_id: number
+        updated_at: string
+    }[]
 }
 
 export const initialCorpMemberState: CorpMemberState = {

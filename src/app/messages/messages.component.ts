@@ -9,9 +9,9 @@ import {
     initializeMessages,
     newChatMessage,
     newMessage,
+    updateMessages,
 } from '../ngrx-store/actions/corp-member.actions'
 import {
-    IOEventName,
     SocketIoChatNamespaceService,
 } from '../services/socket-io.chat-ns.service'
 import { HttpResponse, HttpStatusCode } from '@angular/common/http'
@@ -20,6 +20,13 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { filter } from 'rxjs/operators'
 import { CollectionViewer, DataSource } from '@angular/cdk/collections'
+import { IOEventName } from '../utils/types'
+
+/**
+ * BUG
+ * 1. Chatting with someone you already had a chat with starts a different new chat?
+ * 2. Chatting with a new person doesn't start a new chat??
+ *  */
 
 /**
  * TODO: we need a route guard to fetch all the messages;
@@ -78,7 +85,8 @@ export class MessagesComponent implements OnInit, AfterViewInit {
             console.log('messages resolved data', res);
             
             if (res.status === HttpStatusCode.Ok) {
-                this.store.dispatch(initializeMessages(res.body.results))
+                // should not initialize ... what if we are coming to start a new chat
+                this.store.dispatch(updateMessages(res.body.results))
             }
           })
 
@@ -159,24 +167,25 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
         // todo: only scroll when they're at the bottom of the page.
 
-        // this.viewPort?.scrollTo({
-        //     bottom: 0,
-        //     behavior: 'smooth'
-        // })
+        console.log('will scroll.')
+        this.viewPort?.scrollTo({
+            bottom: 0,
+            behavior: 'smooth'
+        })
 
         // or
 
-        this.viewPort?.scrollToIndex(this.viewPort?.getDataLength() - 1, 'smooth')
+        // this.viewPort?.scrollToIndex(this.viewPort?.getDataLength() - 1, 'smooth')
 
     }
 
     sendMessage() {
-        console.log('will send', this.chatMessage.value)
-
+        
         if (!this.chatMessage.value) {
             this.callerService.showNotification('Please enter a message')
             return
         }
+        console.log('will send', this.chatMessage.value)
 
         /**
          * If it's a new chat, we take recipient_id, else ...
@@ -261,8 +270,18 @@ export class MyDataSource extends DataSource<object | undefined> {
         public store: Store<AppState>,
         public selectedChat: FormControl
     ) {
-        super() // todo: use these from the parent?? instead of passing down? Possible??
-
+        super()
+    }
+    
+    private dataStream = new BehaviorSubject<ChatMessage[]>([]);
+  
+    /**
+     * called once by the cdkScrollable to get the observable that will contain the data
+     * @param collectionViewer 
+     * @returns 
+     */
+    connect(collectionViewer: CollectionViewer): Observable<ChatMessage[]> {
+        // could also be in constructor.
         this.selectedChat?.valueChanges.subscribe((value) => {
             console.log('new selected chat in ds')
             this.loadMessages()
@@ -280,17 +299,8 @@ export class MyDataSource extends DataSource<object | undefined> {
                 this.loadMessages()
             },
         })
-    }
-    
-    private dataStream = new BehaviorSubject<ChatMessage[]>([]);
-  
-    /**
-     * called once by the cdkScrollable to get the observable that will contain the data
-     * @param collectionViewer 
-     * @returns 
-     */
-    connect(collectionViewer: CollectionViewer): Observable<ChatMessage[]> {
-      return this.dataStream;
+
+        return this.dataStream;
     }
 
     private loadMessages(): void {

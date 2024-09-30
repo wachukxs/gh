@@ -29,8 +29,9 @@
 
 .chat-box {
     flex-grow: 4;
-
     background-color: #8080801c;
+
+    position: relative;
 }
 
 .inner-chat-box {
@@ -80,7 +81,16 @@
 
 .no-selected-chat {
     text-align: center;
-    padding-top: 150px;
+
+    margin: 0 auto;
+
+    position: absolute;
+    z-index: 10;
+
+    /* partly from https://stackoverflow.com/a/16804179/9259701 */
+    right: 0;
+    left: 0;
+    top: 40%;
 }
 
 .no-chat-icon {
