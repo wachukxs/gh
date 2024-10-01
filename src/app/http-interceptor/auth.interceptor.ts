@@ -18,9 +18,9 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router, private callerService: CallerService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request instanceof HttpResponse) {
-      
-      
+    // Ignore if it's from login or sign up
+    if ((request.url.endsWith('/login') || request.url.endsWith('/signup')) && request.method === "POST") {
+      return next.handle(request);
     }
 
     // console.log('req', request);

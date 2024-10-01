@@ -24,7 +24,10 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         
-        // TODO: Ignore if it's not from login or sign up
+        // Ignore if it's from login or sign up
+        if ((request.url.endsWith('/login') || request.url.endsWith('/signup')) && request.method === "POST") {
+          return next.handle(request);
+        }
         if (error.status === HttpStatusCode.Unauthorized) {
           // route to login
           this.callerService.showNotification("Unauthorized. Please login to continue.", undefined, "OK" , "bottom")

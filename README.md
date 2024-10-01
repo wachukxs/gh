@@ -3,7 +3,7 @@
 ## TODOs... well, a lot.
 - When you post an item, it doesn't go to the top of the post lists.
 - You must post with pictures.
-- Display proper error message when you try to login - and acct. is not found; and other scenario - check BE err messages.
+- ~~Display proper error message when you try to login - and acct. is not found; and other scenario - check BE err messages.~~
 - Show ellipsis for very long text descriptions
 - Placeholder images - and lazy loading images / media
 * ~~link to our backend.~~ ✅
