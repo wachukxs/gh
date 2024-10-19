@@ -1,5 +1,4 @@
 button {
     margin: 2px auto;
-
-    width: -webkit-fill-available;
+    min-width: 36px; /** ideal width for a 4 word button text like "Save" */
 }

@@ -1,4 +1,15 @@
-<button [disabled]="disabled" [type]="type" role="button" mat-raised-button color="primary">
-    <span [style.display]="!loading ? 'block' : 'none'">{{buttonText}}</span>
-    <mat-spinner [style.display]="loading ? 'block' : 'none'" diameter="35" color="warn"></mat-spinner>
+<button
+    [disabled]="disabled"
+    [type]="type"
+    role="button"
+    mat-raised-button
+    color="primary"
+    [class]="buttonClass"
+>
+    <span [style.display]="!loading ? 'block' : 'none'">{{ buttonText }}</span>
+    <mat-spinner
+        [style.display]="loading ? 'block' : 'none'"
+        diameter="35"
+        color="warn"
+    ></mat-spinner>
 </button>

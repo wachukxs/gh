@@ -12,13 +12,22 @@
         </section>
     </div>
     <div>
-        <section>
+        <section class="two-line-description">
             {{sale.text}}
         </section>
     </div>
     <div>
 
         <section class="post-buttons">
+            <ng-container *ngIf="showDeleteOption">
+                <button type="button" (click)="deletePost()" mat-icon-button
+                color="warn" aria-label="Delete this post">
+                <mat-icon fontIcon="delete"></mat-icon>
+            </button>
+
+            <div class="flex-spacer"></div>
+            </ng-container>
+
             <button type="button" [@iconChangeAnimation]="toggleLikeIcon" (click)="favoritePost()" mat-icon-button
                 color="primary" aria-label="Like this post">
                 <mat-icon [fontIcon]="toggleLikeIcon"></mat-icon>
@@ -39,7 +48,7 @@
                     <span>Copy phone number</span>
                 </button>
                 <!-- TODO: skip if the current user posted this item -->
-                <button type="button" *ngIf="callerService.corpMember?.state_code !== sale.CorpMember?.state_code" (click)="chatWithSalePoster()" mat-menu-item [disabled]="false">
+                <button type="button" *ngIf="callerService.corpMember?.id !== sale.corp_member_id" (click)="chatWithSalePoster()" mat-menu-item [disabled]="false">
                     <mat-icon>chat</mat-icon>
                     <span>Chat {{salePosterDisplayName}}</span>
                 </button>

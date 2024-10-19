@@ -25,6 +25,7 @@ export class FeedSaleContentComponent implements AfterContentInit, AfterViewChec
     ) {}
 
     @Input() sale!: SaleType;
+    @Input() showDeleteOption: boolean = false;
 
     likeState: boolean = false
     bookmarkState: boolean = false
@@ -171,6 +172,23 @@ export class FeedSaleContentComponent implements AfterContentInit, AfterViewChec
             this.router.navigate(['/messages'])
         } else {
             this.callerService.showNotification("Sorry, we couldn't find the seller.")
+        }
+    }
+
+    deletePost() {
+        // TODO: extra check, (here in FE), that they made this post.
+        // TODO: have a confirmation modal
+        if (this.sale.corp_member_id === this.callerService.corpMember.id) {
+            this.callerService.deletePostedItem({id: this.sale.id, type: 'sale'})
+            .subscribe((res) => {
+                console.log('delete sale res', res);
+                this.callerService.showNotification("Sale deleted!")
+            }, (err) => {
+                console.log('ERR deleting sale', err);
+                this.callerService.showNotification(err?.error?.message ?? "Failed to delete sale")
+            })
+        } else {
+            this.callerService.showNotification("Sale is not yours to delete")
         }
     }
 }

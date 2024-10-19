@@ -92,6 +92,14 @@ mat-radio-button > .mdc-form-field > label {
     width: -webkit-fill-available;
 }
 
+.width-fill {
+    width: -webkit-fill-available;
+}
+
+.width-fit {
+    width: fit-content;
+}
+
 /*
  * custom file input styling via https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ 
  */

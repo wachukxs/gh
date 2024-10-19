@@ -1,7 +1,37 @@
 # Current New corpers.online front-end
 
 ## TODOs... well, a lot.
+
+```
+> EVERYTHING SHOULD BE WORKING
+
+1. Streamline our services - spell it out on the home page (optionally put a demo or screenshot of these functionality)
+
+2. With direct links to these functionality.
+
+Goal: as simple and functional as possible.
+
+PPA Reviews: Put up a location of the place they want to review. You can only review the PPA you stay at. Star review. Clickable profiles of the reviewer (you can see the reviewer). Anyone can add comments to a review. Add room for a thread of comments on a review.
+
+Easily sell an item; To sell an item;
+1. Very easy for an item to be posted
+2. Display location of the poster of an item for sale.
+3. (For now, until we're big enough) - Show every item from every state.
+4. Should be able to take down the post.
+
+Search should have filter; search by state and lga, and even price, etc.
+Anyone should be able to search.
+
+Add option to view posts in other states. Same for search.
+
+Unique nicknames. Option to add WhatsApp number.
+
+Add notifications for messages. start with emails, then web notifications later.
+
+```
 - When you post an item, it doesn't go to the top of the post lists.
+- Fix time and name text overflow in posts
+- Fix the "More" modal
 - You must post with pictures.
 - ~~Display proper error message when you try to login - and acct. is not found; and other scenario - check BE err messages.~~
 - Show ellipsis for very long text descriptions

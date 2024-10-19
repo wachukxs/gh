@@ -15,4 +15,5 @@ export class ProgressButtonComponent {
   @Input() buttonText: string = 'Save';
   @Input() disabled: boolean = false;
   @Input() type: string = 'button'
+  @Input() buttonClass: string = 'width-fill'
 }

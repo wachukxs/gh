@@ -355,12 +355,5 @@
     <mat-divider></mat-divider>
 
     <!-- prev. (click)="updateCorpMemberProfile()" after that updateEverything() -->
-    <button
-        type="button"
-        (click)="updateProfile()"
-        mat-raised-button
-        color="primary"
-    >
-        Update details
-    </button>
+    <app-progress-button buttonClass="width-fit" (click)="updateProfile()" buttonText="Update details" [loading]="isUpdatingProfile" [disabled]="isUpdatingProfile"></app-progress-button>
 </section>

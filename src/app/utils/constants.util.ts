@@ -17,6 +17,8 @@ export enum URLPaths {
     getAllLikedItems = '/profile/likes',
     getAllPostedItems = '/profile/posts',
 
+    deletePostedItem = '/profile/post',
+
     createNewPpaReview = '/ppa/review',
 
     corpMemberProfileUpdate = '/profile',

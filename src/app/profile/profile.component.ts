@@ -23,6 +23,8 @@ export class ProfileComponent implements OnInit {
 
   stateCodeInputDisabled = false
 
+  isUpdatingProfile = false
+
   ng_states: any[] = []
   ng_states_and_lgas: any[] = []
   selected_state_lgas: any[] = []
@@ -222,6 +224,7 @@ export class ProfileComponent implements OnInit {
    * Upgrade from updateEverything().
    */
   updateProfile(): void {
+    this.isUpdatingProfile = true
     this.callerService.updateProfile({
       ...this.serviceDetailsFormGroup.value,
       ...this.bioDetailsFormGroup.value,
@@ -241,6 +244,9 @@ export class ProfileComponent implements OnInit {
         console.log('NOT updated profile', err);
           this.callerService.showNotification(err?.error?.message ?? 'Failed to update profile')
       },
+      complete: () => {
+        this.isUpdatingProfile = false
+      }
     })
   }
 }

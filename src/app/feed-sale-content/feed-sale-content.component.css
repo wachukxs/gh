@@ -25,6 +25,25 @@
     padding-right: 10px;
 }
 
+.flex-spacer {
+    /* creates a space between elements in a flex box, from https://v16.material.angular.io/components/toolbar/examples#toolbar-basic */
+    flex: 1 1 auto;
+}
+
+
+.two-line-description {
+    /**
+     * from https://stackoverflow.com/a/13924997/9259701
+     * after two lines, show ellipsis
+     */
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+    /* line-height: 19px, x2 */
+    min-height: 38px;
+}
 
 .post-buttons {
     display: flex;

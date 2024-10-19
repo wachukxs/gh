@@ -326,7 +326,7 @@ export class CallerService extends BaseService {
 
     getAllPostedItems() {
         return this.http.get(
-            environment.baseurl + URLPaths.getAllLikedItems,
+            environment.baseurl + URLPaths.getAllPostedItems,
             this.JSONHttpOptions
         )
     }
@@ -379,6 +379,16 @@ export class CallerService extends BaseService {
         return this.http.delete(
             environment.baseurl + URLPaths.saleLike + saleId,
             this.JSONHttpOptions
+        )
+    }
+
+    deletePostedItem(body: { id: number, type: string }) {
+        return this.http.delete(
+            environment.baseurl + URLPaths.deletePostedItem,
+            {
+                body,
+                ...this.JSONHttpOptions
+            }
         )
     }
 }
