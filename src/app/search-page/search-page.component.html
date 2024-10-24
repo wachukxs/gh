@@ -21,7 +21,9 @@
     <section class="d-flex search-bar-section">
         <mat-form-field class="form-field-full-width">
             <mat-label>Search items for sale</mat-label>
-            <input [formControl]="searchInput" matInput placeholder="St. Mary's School" autocomplete="off">
+            <input [formControl]="searchInput" 
+            
+            matInput placeholder="St. Mary's School" autocomplete="off">
             <button type="button" *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear search text"
                 (click)="clearSearchInput()">
                 <mat-icon>close</mat-icon>
@@ -35,7 +37,7 @@
     </section>
 
     <section>
-        <div class="ppas-list">
+        <div class="ppas-list" *ngIf="results.length > 0; else noResults">
             <ng-container *ngFor="let result of results">
                 <ng-container [ngSwitch]="result._type">
 
@@ -71,5 +73,8 @@
 
             </ng-container>
         </div>
+        <ng-template #noResults>
+            <p class="no-results">No results... yet.</p>
+        </ng-template>
     </section>
 </div>

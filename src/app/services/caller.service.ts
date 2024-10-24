@@ -354,6 +354,14 @@ export class CallerService extends BaseService {
         )
     }
 
+    search(data: object) {
+        return this.http.post(
+            environment.baseurl + URLPaths.search,
+            data,
+            this.JSONHttpOptions
+        )
+    }
+
     bookmarkSale(saleId: number) {
         return this.http.put(
             environment.baseurl + URLPaths.saleBookmark + saleId,

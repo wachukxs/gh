@@ -11,6 +11,8 @@ export enum URLPaths {
     getAllPPAs = '/ppas',
     searchPPAs = '/ppas/search',
 
+    search = '/search',
+
     getAllItems = '/all-items',
 
     getAllBookmarkedItems = '/profile/bookmarks',

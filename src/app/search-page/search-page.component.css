@@ -21,7 +21,12 @@
 
 /**
   * TODO: this class is repeated elsewhere, move to main css?
-*/
+  */
 .app-name-header {
     cursor: pointer;
+}
+
+.no-results {
+    text-align: center;
+    padding-top: 30%;
 }
