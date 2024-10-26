@@ -1,7 +1,18 @@
-.ppas-list {
+.results-list {
+    padding: 20px;
+
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+
+    /* calculate height of everything above */
+    height: calc(100vh - 150px);
+
+    overflow: auto;
+
 }
 
 /* TODO: take to main.css, it's repeated elsewhere */

@@ -8,6 +8,7 @@ import { SaleType } from '../ngrx-store/app.state'
 import { newMessage } from '../ngrx-store/actions/corp-member.actions'
 import { Router } from '@angular/router'
 import { HttpResponse, HttpStatusCode } from '@angular/common/http'
+import { LoginSignupPromptComponent } from '../dialogs/login-signup-prompt/login-signup-prompt.component'
 
 
 @Component({
@@ -29,6 +30,12 @@ export class FeedSaleContentComponent implements AfterContentInit, AfterViewChec
 
     likeState: boolean = false
     bookmarkState: boolean = false
+
+    // TODO: needs to be better??
+    isLoggedIn = this.callerService.corpMember?.id
+
+    // ~show if the current user is logged in and isn't the poster of this item.~ we'll make them login
+    // showChatOption = this.isLoggedIn && this.callerService.corpMember?.id !== this.sale?.corp_member_id
 
     ngAfterContentInit(): void {
         // in ngAfterContentInit, because it'll be initialized only once!
@@ -53,7 +60,7 @@ export class FeedSaleContentComponent implements AfterContentInit, AfterViewChec
     }
 
     get salePosterDisplayName(): string {
-        return this.sale.CorpMember?.nickname ?? this.sale.CorpMember?.first_name ?? "Chuks Jr."
+        return this.sale.CorpMember?.nickname ?? this.sale.CorpMember?.first_name ?? "seller"
     }
 
     bookmarkPost() {
@@ -153,7 +160,10 @@ export class FeedSaleContentComponent implements AfterContentInit, AfterViewChec
      * All the while showing a loader?
      */
     chatWithSalePoster(): void {
-        if (this.sale.CorpMember?.state_code) {
+        // TODO: show a login prompt if they're not logged in.
+        if (!this.isLoggedIn) {
+            this.openLoginOrSignIn()
+        } else if (this.sale.CorpMember?.state_code) {
             // Start a new message.
             // TODO: how do you handle a chat with someone you already have existing chat with?
             // TODO: if you've chatted with this person before, we should also load the sale with the room id of your chat.
@@ -175,10 +185,27 @@ export class FeedSaleContentComponent implements AfterContentInit, AfterViewChec
         }
     }
 
+    openLoginOrSignIn(): void {
+        const confirm = this.dialog.open(LoginSignupPromptComponent, {
+            maxWidth: '360px',
+            data: {},
+        })
+
+        confirm.afterClosed().subscribe(
+            (res: any) => {
+                console.log('closed review modal', res)
+            },
+            (err: any) => {
+                // might never get here, to err
+                console.log(`exit confirmation Dialog error:`, err)
+            },
+        )
+    }
+
     deletePost() {
         // TODO: extra check, (here in FE), that they made this post.
         // TODO: have a confirmation modal
-        if (this.sale.corp_member_id === this.callerService.corpMember.id) {
+        if (this.sale?.corp_member_id === this.callerService.corpMember.id) {
             this.callerService.deletePostedItem({id: this.sale.id, type: 'sale'})
             .subscribe((res) => {
                 console.log('delete sale res', res);

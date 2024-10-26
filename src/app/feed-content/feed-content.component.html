@@ -7,5 +7,8 @@
     <!-- 
       Temporary, but this/[house] can be used for both sales&accommodations, [long-house] for map accommodation.
    -->
-    <ng-content></ng-content>
+   <app-feed-accommodation-content *ngIf="post._type === 'accommodation'" [accommodation]="post"></app-feed-accommodation-content>
+        
+   <app-feed-sale-content *ngIf="post._type === 'sale'" [sale]="post"></app-feed-sale-content>
+   
 </mat-card>

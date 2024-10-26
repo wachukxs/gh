@@ -69,9 +69,9 @@
                     <div class="spacer"></div>
                     <mat-card class="chat-card">
                         <div>
-                            {{item?.message}} - [{{index}}]
+                            {{item?.message}}
                         </div>
-                        <span>{{item?.created_at | date:"dd/MM/yyyy h:mm a"}}</span>
+                        <span class="message-time">{{item?.created_at | date:"dd/MM/yyyy h:mm a"}}</span>
                     </mat-card>
                     <!-- https://stackoverflow.com/a/49926783/9259701 -->
                     <!-- {{last ? scrollToBottomOfChatBox() : ''}} -->

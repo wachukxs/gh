@@ -28,34 +28,40 @@
             <div class="flex-spacer"></div>
             </ng-container>
 
-            <button type="button" [@iconChangeAnimation]="toggleLikeIcon" (click)="favoritePost()" mat-icon-button
+            <button *ngIf="isLoggedIn" type="button" [@iconChangeAnimation]="toggleLikeIcon" (click)="favoritePost()" mat-icon-button
                 color="primary" aria-label="Like this post">
                 <mat-icon [fontIcon]="toggleLikeIcon"></mat-icon>
             </button>
-            <button type="button" [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button
+            <button *ngIf="isLoggedIn" type="button" [@iconChangeAnimation]="toggleBookmarkIcon" (click)="bookmarkPost()" mat-icon-button
                 color="primary" aria-label="Save this post">
                 <mat-icon [fontIcon]="toggleBookmarkIcon"></mat-icon>
             </button>
 
             <!--
-                TODO: We don't really need this more button for now.
+                TODO:
+                1. We don't really need this more button for now.
                 2. No need to show this when it's your post.
             -->
             <button type="button" mat-raised-button [matMenuTriggerFor]="chatMenuSmall">More</button>
             <mat-menu #chatMenuSmall="matMenu" yPosition="above">
-                <button type="button" mat-menu-item (click)="copyAgentPhoneNumber()">
+                
+                <!-- TODO: show this when we're ready for this feature. -->
+                <!-- <button type="button" mat-menu-item (click)="copyAgentPhoneNumber()">
                     <mat-icon>phone</mat-icon>
                     <span>Copy phone number</span>
-                </button>
+                </button> -->
+
                 <!-- TODO: skip if the current user posted this item -->
-                <button type="button" *ngIf="callerService.corpMember?.id !== sale.corp_member_id" (click)="chatWithSalePoster()" mat-menu-item [disabled]="false">
+                <button type="button" (click)="chatWithSalePoster()" mat-menu-item [disabled]="false">
                     <mat-icon>chat</mat-icon>
                     <span>Chat {{salePosterDisplayName}}</span>
                 </button>
-                <button type="button" mat-menu-item (click)="seeHouseDetails()">
+
+                <!-- TODO: uncomment this when we're ready for this feature. -->
+                <!-- <button type="button" mat-menu-item (click)="seeHouseDetails()">
                     <mat-icon>info</mat-icon>
                     <span>View details</span>
-                </button>
+                </button> -->
             </mat-menu>
         </section>
 

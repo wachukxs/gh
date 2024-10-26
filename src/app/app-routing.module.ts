@@ -60,12 +60,22 @@ const routes: Routes = [
                 title: 'Your feed',
                 component: SalesFeedComponent,
             },
-            { path: 'profile', title: 'Profile', component: ProfileComponent, resolve: {
-                res: ProfilePageResolver
-            } },
-            { path: 'messages', title: 'Messages', component: MessagesComponent, resolve: {
-                res: MessagesResolver
-            } },
+            {
+                path: 'profile',
+                title: 'Profile',
+                component: ProfileComponent,
+                resolve: {
+                    res: ProfilePageResolver,
+                },
+            },
+            {
+                path: 'messages',
+                title: 'Messages',
+                component: MessagesComponent,
+                resolve: {
+                    res: MessagesResolver,
+                },
+            },
             {
                 path: 'dashboard',
                 title: 'Dashboard',
@@ -84,7 +94,7 @@ const routes: Routes = [
                     //     title: 'Testing new accommodation dialog',
                     //     component: CreateNewAccommodationComponent,
                     // },
-                ]
+                ],
             },
         ],
     },

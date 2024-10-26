@@ -2,7 +2,6 @@
 .chat-list {
     /* flex-basis: 35%; */
     flex-grow: 1;
-
     max-width: 350px;
 }
 
@@ -30,7 +29,6 @@
 .chat-box {
     flex-grow: 4;
     background-color: #8080801c;
-
     position: relative;
 }
 
@@ -95,6 +93,13 @@
 
 .no-chat-icon {
     transform: scale(2);
+}
+
+.message-time {
+    font-size: 10px;
+    color: #888;
+    text-align: right;
+    margin-top: 5px;
 }
 
 /*

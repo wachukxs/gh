@@ -15,7 +15,7 @@ export class BasicAuthGuard implements CanActivate {
       console.log('authenticating');
 
       const corpMemberLocal = localStorage.getItem(this.callerService.LOCAL_STORAGE_DATA_KEY)
-      if (corpMemberLocal) {
+      if (corpMemberLocal && this.callerService.corpMember.id) {
         const foundData = JSON.parse(corpMemberLocal);
         /**
          * we don't need only corp members from current year and last year.

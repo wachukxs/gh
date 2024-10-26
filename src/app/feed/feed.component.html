@@ -134,12 +134,6 @@
 
     <div class="new-scroller">
       <app-feed-content *ngFor="let feed of feedData" [post]="feed">
-
-        <app-feed-accommodation-content *ngIf="feedViewControl.value === 'accommodation'" [accommodation]="feed"></app-feed-accommodation-content>
-
-        <app-feed-sale-content *ngIf="feedViewControl.value === 'sale'" [sale]="feed"></app-feed-sale-content>
-        
-        <!-- switch statement doesn't work -->
       </app-feed-content>
     </div>
 
@@ -156,11 +150,6 @@
       <div class="col-3" *ngFor="let feed of feeds">
         <app-feed-content [post]="feed">
 
-          <app-feed-accommodation-content *ngIf="feedViewControl.value === 'accommodation'" [accommodation]="feed"></app-feed-accommodation-content>
-  
-          <app-feed-sale-content *ngIf="feedViewControl.value === 'sale'" [sale]="feed"></app-feed-sale-content>
-          
-          
         </app-feed-content>
       </div>
 

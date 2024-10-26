@@ -37,41 +37,9 @@
     </section>
 
     <section>
-        <div class="ppas-list" *ngIf="results.length > 0; else noResults">
-            <ng-container *ngFor="let result of results">
-                <ng-container [ngSwitch]="result._type">
-
-                    <mat-card *ngSwitchCase="'sale'">
-                        <mat-card-header>
-                            <mat-card-title>{{ result.item_name }}</mat-card-title>
-                            <mat-card-subtitle>{{ result.price }}</mat-card-subtitle>
-                        </mat-card-header>
-                        <mat-card-content *ngIf="result.text">
-                            {{result.text}}
-                        </mat-card-content>
-        
-                        <mat-card-actions align="end">
-                            <button type="button" mat-button>Bookmark</button>
-                        </mat-card-actions>
-                    </mat-card>
-
-
-                    <mat-card *ngSwitchCase="'accommodation'">
-                        <mat-card-header>
-                            <mat-card-title>{{ result.accommodation_type }}</mat-card-title>
-                            <mat-card-subtitle>{{ result._rent }} &middot; {{result.rent_interval}}</mat-card-subtitle>
-                        </mat-card-header>
-                        <mat-card-content *ngIf="result.available_rooms">
-                            Room: {{result.available_rooms}}
-                        </mat-card-content>
-        
-                        <mat-card-actions align="end">
-                            <button type="button" mat-button>Bookmark</button>
-                        </mat-card-actions>
-                    </mat-card>
-                </ng-container>
-
-            </ng-container>
+        <div class="results-list" *ngIf="results.length > 0; else noResults">
+            <app-feed-content *ngFor="let result of results" [post]="result">
+              </app-feed-content>
         </div>
         <ng-template #noResults>
             <p class="no-results">No results... yet.</p>

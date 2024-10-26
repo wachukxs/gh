@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Login or sign up to continue</h1>
+<div mat-dialog-content>It'll only take a minute.</div>
+<div mat-dialog-actions align="end">
+    <!-- <button type="button" mat-button (click)="close()">Close</button> -->
+
+    <!-- No cancel?? -->
+    <button type="button" cdkFocusInitial mat-button mat-dialog-close (click)="goLogin()">
+        Login
+    </button>
+    <button type="button" mat-button mat-dialog-close (click)="goSignUp()">
+        Sign up
+    </button>
+</div>

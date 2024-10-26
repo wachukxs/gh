@@ -87,6 +87,7 @@ import { FeedContentComponent } from './feed-content/feed-content.component';
 import { environment } from 'src/environments/environment';
 import { MessagesComponent } from './messages/messages.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { LoginSignupPromptComponent } from './dialogs/login-signup-prompt/login-signup-prompt.component';
 
 const socketIoConfig: SocketIoConfig = { url: `${environment.basehost}/corp-member`, options: {
   transports: ["websocket", "polling"],
@@ -126,7 +127,8 @@ const socketIoConfig: SocketIoConfig = { url: `${environment.basehost}/corp-memb
     FeedAccommodationContentComponent,
     FeedContentComponent,
     MessagesComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    LoginSignupPromptComponent
   ],
   imports: [
     MatNativeDateModule,

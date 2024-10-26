@@ -8,16 +8,6 @@
                         *ngFor="let feed of allBookmarks"
                         [post]="feed"
                     >
-                        <app-feed-accommodation-content
-                            *ngIf="feed._type === 'accommodation'"
-                            [accommodation]="feed"
-                        ></app-feed-accommodation-content>
-
-                        <app-feed-sale-content
-                            *ngIf="feed._type === 'sale'"
-                            [sale]="feed"
-                        ></app-feed-sale-content>
-
                         <!-- switch statement doesn't work -->
                     </app-feed-content>
                 </div>
@@ -38,16 +28,6 @@
                         *ngFor="let feed of allLikes"
                         [post]="feed"
                     >
-                        <app-feed-accommodation-content
-                            *ngIf="feed._type === 'accommodation'"
-                            [accommodation]="feed"
-                        ></app-feed-accommodation-content>
-
-                        <app-feed-sale-content
-                            *ngIf="feed._type === 'sale'"
-                            [sale]="feed"
-                        ></app-feed-sale-content>
-
                         <!-- switch statement doesn't work -->
                     </app-feed-content>
                 </div>
@@ -66,17 +46,6 @@
                         *ngFor="let feed of allPosts"
                         [post]="feed"
                     >
-                        <app-feed-accommodation-content
-                            *ngIf="feed._type === 'accommodation'"
-                            [accommodation]="feed"
-                        ></app-feed-accommodation-content>
-
-                        <app-feed-sale-content
-                            *ngIf="feed._type === 'sale'"
-                            [sale]="feed"
-                            [showDeleteOption]="true"
-                        ></app-feed-sale-content>
-
                         <!-- switch statement doesn't work -->
                     </app-feed-content>
                 </div>
