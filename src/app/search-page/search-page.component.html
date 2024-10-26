@@ -4,28 +4,55 @@
             <span class="app-name-header" routerLink="/home">Corpers NG</span>
             <span class="toolbar-spacer"></span>
 
+            <button
+                type="button"
+                mat-icon-button
+                (menuOpened)="toggleMenuState()"
+                (menuClosed)="toggleMenuState()"
+                [matMenuTriggerFor]="menu"
+                class="hide-desktop"
+                aria-label="Menu icon button"
+            >
+                <mat-icon class="nav-icon" aria-label="menu icon"
+                    >menu{{ menuState }}</mat-icon
+                >
+            </button>
 
-            <button type="button" mat-icon-button (menuOpened)="toggleMenuState()" (menuClosed)="toggleMenuState()" [matMenuTriggerFor]="menu" class="hide-desktop" aria-label="Menu icon button">
-                <mat-icon class="nav-icon" aria-label="menu icon">menu{{ menuState }}</mat-icon>
-              </button>
-          
-              <mat-menu #menu="matMenu" class="menu-list">
-                <button type="button" mat-menu-item [routerLink]="['/home']">Home</button>
-                <button type="button" mat-menu-item [routerLink]="['/dashboard']">Dashboard</button>
-                <button type="button" mat-menu-item [routerLink]="['/profile']">Profile</button>
-              </mat-menu>
+            <mat-menu #menu="matMenu" class="menu-list">
+                <button type="button" mat-menu-item [routerLink]="['/home']">
+                    Home
+                </button>
+                <button
+                    type="button"
+                    mat-menu-item
+                    [routerLink]="['/dashboard']"
+                >
+                    Dashboard
+                </button>
+                <button type="button" mat-menu-item [routerLink]="['/profile']">
+                    Profile
+                </button>
+            </mat-menu>
         </mat-toolbar-row>
-
     </mat-toolbar>
 
     <section class="d-flex search-bar-section">
         <mat-form-field class="form-field-full-width">
             <mat-label>Search items for sale</mat-label>
-            <input [formControl]="searchInput" 
-            
-            matInput placeholder="St. Mary's School" autocomplete="off">
-            <button type="button" *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear search text"
-                (click)="clearSearchInput()">
+            <input
+                [formControl]="searchInput"
+                matInput
+                placeholder="St. Mary's School"
+                autocomplete="off"
+            />
+            <button
+                type="button"
+                *ngIf="searchInput.value"
+                matSuffix
+                mat-icon-button
+                aria-label="Clear search text"
+                (click)="clearSearchInput()"
+            >
                 <mat-icon>close</mat-icon>
             </button>
         </mat-form-field>
@@ -37,12 +64,25 @@
     </section>
 
     <section>
-        <div class="results-list" *ngIf="results.length > 0; else noResults">
-            <app-feed-content *ngFor="let result of results" [post]="result">
-              </app-feed-content>
-        </div>
-        <ng-template #noResults>
-            <p class="no-results">No results... yet.</p>
+        <ng-container *ngIf="isFetchingResults; else doneLoading">
+            <div class="centered">
+                <mat-spinner diameter="35" color="warn"></mat-spinner>
+            </div>
+        </ng-container>
+        <ng-template #doneLoading>
+            <div
+                class="results-list"
+                *ngIf="results.length > 0; else noResults"
+            >
+                <app-feed-content
+                    *ngFor="let result of results"
+                    [post]="result"
+                >
+                </app-feed-content>
+            </div>
+            <ng-template #noResults>
+                <p class="no-results">No results... yet.</p>
+            </ng-template>
         </ng-template>
     </section>
 </div>

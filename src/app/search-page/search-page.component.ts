@@ -12,6 +12,8 @@ import { debounceTime, filter } from 'rxjs/operators'
 })
 export class SearchPageComponent implements OnInit {
     results: Array<any> = []
+
+    isFetchingResults: boolean = false
     constructor(
         private callerService: CallerService,
         public dialog: MatDialog,
@@ -19,6 +21,7 @@ export class SearchPageComponent implements OnInit {
 
     ngOnInit() {
         // todo, don't call all items, maybe just the most searched ones (first 20).
+        this.isFetchingResults = true
         this.callerService.getAllItems().subscribe({
             next: (res: HttpResponse<any>) => {
                 console.log('items data', res)
@@ -29,6 +32,9 @@ export class SearchPageComponent implements OnInit {
             error: (err) => {
                 this.callerService.showNotification('Failed to retrieve PPAs')
             },
+            complete: () => {
+                this.isFetchingResults = false
+            }
         })
 
         this.searchInput.valueChanges.subscribe((value: string) => {

@@ -39,5 +39,11 @@
 
 .no-results {
     text-align: center;
-    padding-top: 30%;
+    padding-top: 200px;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
