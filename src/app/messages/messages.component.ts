@@ -44,6 +44,8 @@ export class MessagesComponent implements OnInit, AfterViewInit {
     @ViewChild(CdkVirtualScrollViewport, {static: false})
     public viewPort?: CdkVirtualScrollViewport;
 
+    @ViewChild('scroller', {read: ElementRef}) private scrollContainer!: ElementRef;
+
     // public viewPort?: CdkVirtualScrollViewport;
 
     // @ViewChild(CdkVirtualScrollViewport)
@@ -55,6 +57,7 @@ export class MessagesComponent implements OnInit, AfterViewInit {
     // }
 
     state_code: string = this.callerService.corpMember.state_code
+    isSendingMessage = false
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -114,6 +117,9 @@ export class MessagesComponent implements OnInit, AfterViewInit {
         // TODO: fetch the chat details. (get the new chat name from the sale post. Pick it from the state.) so there's no extra call.
         this.selectedChat?.valueChanges.subscribe((value) => {
             console.log('selected chat...', value?.[0])
+
+            // TODO: scroll after view is done rendering or we're done showing all the messages.
+            this.scrollToBottomOfChatBox()
         })
 
         const testMsg = {
@@ -165,9 +171,12 @@ export class MessagesComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        console.log('view port', this.viewPort);
         
-        // console.log('on after view init', this.innerChatBoxElement);
+    }
+
+    ngAfterViewChecked() {
+        // only scroll when this child view in done initializing.
+        // this.scrollToBottomOfChatBox()
     }
 
     // https://stackoverflow.com/a/45367387/9259701
@@ -175,15 +184,26 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
         // todo: only scroll when they're at the bottom of the page.
 
-        console.log('will scroll.')
-        this.viewPort?.scrollTo({
-            bottom: 0,
-            behavior: 'smooth'
-        })
+        // this.viewPort?.scrollTo({
+        //     bottom: 0,
+        //     behavior: 'smooth'
+        // })
 
         // or
 
         // this.viewPort?.scrollToIndex(this.viewPort?.getDataLength() - 1, 'smooth')
+
+        if (this.scrollContainer?.nativeElement) {
+            console.log('will scroll.', this.scrollContainer?.nativeElement?.scrollHeight)
+            // doesn't work
+            // this.scrollContainer.nativeElement.scrollTop = this.scrollContainer?.nativeElement?.scrollHeight || 0;
+
+            // this works sometimes... but not on the first try
+            this.scrollContainer.nativeElement.scrollTo(0, this.scrollContainer?.nativeElement?.scrollHeight || 0)
+            
+            // (seems) this doesn't work
+            // this.scrollContainer.nativeElement.scrollTo({ bottom: 0 })
+        }
 
     }
 
@@ -194,6 +214,7 @@ export class MessagesComponent implements OnInit, AfterViewInit {
             return
         }
         console.log('will send', this.chatMessage.value)
+        this.isSendingMessage = true
 
         /**
          * If it's a new chat, we take recipient_id, else ...
@@ -229,6 +250,8 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
         // clear message after sending...
         this.chatMessage.setValue('')
+
+        this.isSendingMessage = false
     }
 
     /**

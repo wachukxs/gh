@@ -1,41 +1,36 @@
 <div class="parent-chat">
     <div class="chat-list">
-        <!-- <div *ngIf="selectedChat.value?.[0]">Selected</div>
-        <div *ngIf="!selectedChat.value?.[0]">NOT Selected</div> -->
-
         <div mat-subheader>Chats</div>
         <ng-container *ngIf="appStateChats.size > 0; else noChatList">
             <mat-selection-list
-                class="chats-listing"
                 #chatsListing
                 [multiple]="false"
                 [formControl]="selectedChat"
             >
-                <!-- <mat-list-option *ngFor="let chat of testChats" [value]="chat">
-                    <img matListItemAvatar class="profile-image"
-                        src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Profile pic" />
-                    <div matListItemTitle>{{chat}}</div>
-                    <div matListItemLine>{{chat.repeat(5)}}</div>
-                </mat-list-option> -->
-
-                <!-- TODO: Move inversely -->
-                <mat-list-option
-                    *ngFor="let _chat of appStateChats | keyvalue"
-                    [value]="_chat?.key"
-                >
-                    <img
-                        matListItemAvatar
-                        class="profile-image"
-                        src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-                        alt="Profile pic"
-                    />
-                    <div matListItemTitle>
-                        {{ getChatDisplayName(_chat)  }}
-                    </div>
-                    <div matListItemLine>
-                        {{_chat?.value?.texts?.at(-1)?.message ?? 'Start new chat...'}}
-                    </div>
-                </mat-list-option>
+                <mat-divider></mat-divider>
+                <ng-container *ngFor="let _chat of appStateChats | keyvalue">
+                    <mat-list-option
+                        [value]="_chat?.key"
+                        class="chat-list-option"
+                    >
+                        <img
+                            matListItemAvatar
+                            class="profile-image"
+                            src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                            alt="Profile pic"
+                        />
+                        <div matListItemTitle>
+                            {{ getChatDisplayName(_chat) }}
+                        </div>
+                        <div matListItemLine>
+                            {{
+                                _chat?.value?.texts?.at(-1)?.message ??
+                                    'Start new chat...'
+                            }}
+                        </div>
+                    </mat-list-option>
+                    <mat-divider></mat-divider>
+                </ng-container>
             </mat-selection-list>
         </ng-container>
 
@@ -45,70 +40,89 @@
     </div>
 
     <div class="chat-box">
-        <div class="chat-div" [class.v-hidden]="!selectedChat.value?.[0]">
-            <cdk-virtual-scroll-viewport
-                #scrollViewPort
-                itemSize="48"
-                class="inner-chat-box"
-            >
-                <!-- let item of selectedChatMessages | async; -->
-                <!-- let item of appStateChats.get(selectedChat.value?.[0])?.texts; -->
-                <div
-                    *cdkVirtualFor="
-                        let item of ds;
-                        let index = index;
-                        let count = count;
-                        let first = first;
-                        let last = last;
-                        let even = even;
-                        let odd = odd;
-                    "
-                    class="msg-row"
-                    [ngClass]="item?.message_from === callerService.corpMember.id ? 'sender' : 'receiver'"
-                >
-                    <div class="spacer"></div>
-                    <mat-card class="chat-card">
-                        <div>
-                            {{item?.message}}
+        <!-- *ngIf="selectedChat.value?.[0]; else noSelectedChat" -->
+        <ng-container>
+            <mat-card>
+                <mat-card-header class="chat-header">
+                    {{ appStateChats.get(selectedChat.value?.[0])?.recipient_name }}
+                </mat-card-header>
+
+                <mat-card-content class="chats-content" #scroller>
+                    <!-- *ngIf="(messages$ | async) as messages; else loading" -->
+                    <ng-container>
+                        <div class="chats-list">
+                            <mat-card
+                                class="message-card"
+                                *ngFor="let message of appStateChats.get(selectedChat.value?.[0])?.texts"
+                                [ngClass]="{
+                                    'sender-chat-message':
+                                        message?.message_from ===
+                                        callerService.corpMember.id,
+                                    'recipient-chat-message':
+                                        message?.message_from !==
+                                        callerService.corpMember.id
+                                }"
+                            >
+                                <mat-card-content>
+                                    {{ message.message }}
+                                </mat-card-content>
+
+                                <mat-card-footer class="message-date">
+                                    {{
+                                        message.created_at
+                                            | date : 'd/M/yy, h:mm a'
+                                    }}
+                                </mat-card-footer>
+                            </mat-card>
                         </div>
-                        <span class="message-time">{{item?.created_at | date:"dd/MM/yyyy h:mm a"}}</span>
-                    </mat-card>
-                    <!-- https://stackoverflow.com/a/49926783/9259701 -->
-                    <!-- {{last ? scrollToBottomOfChatBox() : ''}} -->
-                </div>
-            </cdk-virtual-scroll-viewport>
+                    </ng-container>
+                </mat-card-content>
 
-            <div class="d-flex">
-                <mat-form-field class="msg-input">
-                    <mat-label>Your message</mat-label>
-                    <textarea
-                        title="Message"
-                        [formControl]="chatMessage"
-                        matInput
-                        cdkTextareaAutosize
-                        #autosize="cdkTextareaAutosize"
-                        cdkAutosizeMinRows="1"
-                        cdkAutosizeMaxRows="5"
-                    ></textarea>
-                </mat-form-field>
-                <!-- TODO: send button should also be disabled if there is no internet connection -->
-                <button
-                    type="button"
-                    class="send-message-button"
-                    [disabled]="!chatMessage.value"
-                    mat-icon-button
-                    color="primary"
-                    aria-label="Send message icon"
-                    (click)="sendMessage()"
-                >
-                    <mat-icon>send</mat-icon>
-                </button>
-            </div>
-        </div>
+                <mat-card-footer class="d-flex chat-footer">
+                    <mat-form-field class="msg-input">
+                        <mat-label>Your message</mat-label>
+                        <textarea
+                            title="Message"
+                            [formControl]="chatMessage"
+                            matInput
+                            cdkTextareaAutosize
+                            #autosize="cdkTextareaAutosize"
+                            cdkAutosizeMinRows="1"
+                            cdkAutosizeMaxRows="5"
+                        ></textarea>
+                    </mat-form-field>
+                    <!-- TODO: send button should also be disabled if there is no internet connection -->
+                    <button
+                        type="button"
+                        class="send-message-button"
+                        [disabled]="!chatMessage.value"
+                        mat-icon-button
+                        color="primary"
+                        aria-label="Send message icon"
+                        (click)="sendMessage()"
+                    >
+                        <mat-icon>send</mat-icon>
+                    </button>
 
-        <div [class.d-none]="selectedChat.value?.[0]" class="no-selected-chat">
+                    
+                </mat-card-footer>
+                <mat-card-footer *ngIf="isSendingMessage">
+                    <!-- show progress of sending message -->
+                    <mat-progress-bar
+                    mode="indeterminate"
+                    ></mat-progress-bar>
+                </mat-card-footer>
+
+                <!-- <mat-card-actions></mat-card-actions> -->
+            </mat-card>
+        </ng-container>
+
+        <div class="no-selected-chat" [class.above]="!selectedChat.value?.[0]">
             <h3>Select or start a chat</h3>
             <mat-icon color="primary" class="no-chat-icon">forum</mat-icon>
         </div>
+        <!-- <ng-template #noSelectedChat >
+            
+        </ng-template> -->
     </div>
 </div>

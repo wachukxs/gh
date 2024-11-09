@@ -37,7 +37,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { StatusComponent } from './status/status.component';
 import { CartComponent } from './cart/cart.component';
 import { ScrollingModule} from '@angular/cdk/scrolling';
@@ -169,6 +170,7 @@ const socketIoConfig: SocketIoConfig = { url: `${environment.basehost}/corp-memb
     MatRippleModule,
     MatTooltipModule,
     MatDialogModule,
+    MatProgressBarModule,
     ClipboardModule,
     HammerModule,
     MatBadgeModule,

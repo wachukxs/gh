@@ -1,23 +1,40 @@
-/* TODO: needs to be a fixed width */
+.parent-chat {
+    --chat-box-height: calc(100vh - 64px - 48px - 40px);
+
+    margin: 50px;
+    display: flex;
+    height: var(--chat-box-height);
+
+    position: relative;
+}
+
+.message-date {
+    font-size: 10px;
+    padding: 0 5px;
+    color: #101010;
+}
+
 .chat-list {
-    /* flex-basis: 35%; */
-    flex-grow: 1;
-    max-width: 350px;
+    flex-basis: 350px;
+    /* width: 350px; */
+
+    /* flex: 1; */
 }
 
 .chat-div {
     height: -webkit-fill-available;
 }
 
-.chats-listing {
-    /* width: 35%; */
-    overflow-x: hidden;
+.sender-chat-message {
+    text-align: end;
+
+    margin-left: auto;
+    background-color: #b9f3bb;
 }
 
-.parent-chat {
-    margin: 50px;
-    display: flex;
-    height: calc(100vh - 64px - 48px - 40px);
+.recipient-chat-message {
+    text-align: start;
+    background-color: #e1f3fb;
 }
 
 .chat-card {
@@ -26,15 +43,51 @@
     width: fit-content;
 }
 
+.chat-header {
+    border-bottom: 1px solid;
+}
+
+.chat-footer {
+    padding: 10px 10px 0 10px;
+    border-top: 1px solid;
+}
+
 .chat-box {
-    flex-grow: 4;
+    flex: 4;
     background-color: #8080801c;
     position: relative;
 }
 
-.inner-chat-box {
-    height: calc(100% - 80px);
-    border: 1px solid black;
+.chat-box > mat-card {
+    height: var(--chat-box-height);
+
+    z-index: 10;
+}
+
+.chats-content {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.message-card {
+    width: fit-content;
+    max-width: 75%;
+}
+
+.chats-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    width: 100%;
+    overflow-y: auto;
+
+    gap: 10px;
+
+    padding: 10px 0; /* extra space at the end & beginning of the message */
+}
+
+mat-card-actions {
+    max-height: 134px;
 }
 
 .sender {
@@ -51,11 +104,6 @@
     flex-basis: 20%;
 }
 
-.receiver {
-    flex-direction: row-reverse;
-    text-align: left;
-}
-
 .msg-row .spacer {
     flex-grow: 1;
 }
@@ -66,8 +114,12 @@
     margin: 15px 0px;
 }
 
+/**
+ * TODO: work on responsiveness. Open dev tools in bottom bar and see.
+ */
 .msg-input {
     width: calc(100% - 50px);
+    flex: 1;
 }
 
 /* 
@@ -77,18 +129,29 @@
     margin-bottom: 22px;
 }
 
+.above {
+    z-index: 55;
+}
+
 .no-selected-chat {
     text-align: center;
 
     margin: 0 auto;
 
     position: absolute;
-    z-index: 10;
+    /* z-index: 10; */
 
     /* partly from https://stackoverflow.com/a/16804179/9259701 */
     right: 0;
     left: 0;
-    top: 40%;
+    top: 0;
+
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: var(--chat-box-height);
 }
 
 .no-chat-icon {
