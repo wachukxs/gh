@@ -91,7 +91,7 @@ export class CreateNewAccommodationComponent implements OnInit {
     stepperOrientation: StepperOrientation = 'vertical'
 
     ngOnInit(): void {
-        this.callerService.isSmallScreen$().subscribe({
+        this.callerService.isSmallScreen$.subscribe({
             next: (value) => {
                 // TODO: do we wanna pipe() instead?
                 if (value) {

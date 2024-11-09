@@ -61,14 +61,13 @@ export class BaseService {
     .isMatched('(max-width: 600px)') // eventually use this, and depreciate isHandset$
   }
 
-  isSmallScreen$(): Observable<boolean> {
-    return this.breakpointObserver
+  isSmallScreen$: Observable<boolean> = this.breakpointObserver
     .observe('(max-width: 600px)') // needs work??
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
-  }
+  
 
   isPortraitHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.HandsetPortrait)
   .pipe(

@@ -1,5 +1,6 @@
 .parent-chat {
     --chat-box-height: calc(100vh - 64px - 48px - 40px);
+    --chat-box-height-mobile: calc(100vh - 56px);
 
     margin: 50px;
     display: flex;
@@ -12,13 +13,6 @@
     font-size: 10px;
     padding: 0 5px;
     color: #101010;
-}
-
-.chat-list {
-    flex-basis: 350px;
-    /* width: 350px; */
-
-    /* flex: 1; */
 }
 
 .chat-div {
@@ -59,7 +53,7 @@
 }
 
 .chat-box > mat-card {
-    height: var(--chat-box-height);
+    height: -webkit-fill-available;
 
     z-index: 10;
 }
@@ -151,7 +145,7 @@ mat-card-actions {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: var(--chat-box-height);
+    height: -webkit-fill-available;
 }
 
 .no-chat-icon {
@@ -172,14 +166,11 @@ mat-card-actions {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    .chat-box {
-        flex-basis: 0px; /** not working */
-        flex-grow: 0; /** not working */
-
-        display: none;
-    }
     .parent-chat {
         margin: 0;
-        height: calc(100vh - 64px - 48px);
+        height: var(--chat-box-height-mobile);
     }
 }
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}

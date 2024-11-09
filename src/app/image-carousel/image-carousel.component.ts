@@ -31,8 +31,6 @@ export class ImageCarouselComponent implements OnInit, AfterViewInit {
         }
     }
 
-    isSmallScreen$: Observable<boolean> = this.baseService.isSmallScreen$()
-
     constructor(private baseService: BaseService) {}
 
     ngOnInit(): void {}
