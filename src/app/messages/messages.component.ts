@@ -292,6 +292,8 @@ export class MyDataSource extends DataSource<object | undefined> {
 
     /**
      * idea from https://blog.angular-university.io/angular-material-data-table/
+     * 
+     * use format from https://github.com/angular/components/blob/main/src/material/table/table-data-source.ts
      */
     public newDataUpdate = new Subject()
 

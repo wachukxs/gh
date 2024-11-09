@@ -19,10 +19,16 @@
                             src="https://material.angular.io/assets/img/examples/shiba1.jpg"
                             alt="Profile pic"
                         />
-                        <div matListItemTitle *ngIf="!(callerService.isSmallScreen$ | async)">
+                        <div
+                            matListItemTitle
+                            *ngIf="!(callerService.isSmallScreen$ | async)"
+                        >
                             {{ getChatDisplayName(_chat) }}
                         </div>
-                        <div matListItemLine *ngIf="!(callerService.isSmallScreen$ | async)">
+                        <div
+                            matListItemLine
+                            *ngIf="!(callerService.isSmallScreen$ | async)"
+                        >
                             {{
                                 _chat?.value?.texts?.at(-1)?.message ??
                                     'Start new chat...'
@@ -78,7 +84,7 @@
                     </ng-container>
                 </mat-card-content>
 
-                <mat-card-footer class="d-flex chat-footer">
+                <mat-card-footer class="flex chat-footer">
                     <mat-form-field class="msg-input">
                         <mat-label>Your message</mat-label>
                         <textarea
@@ -103,14 +109,10 @@
                     >
                         <mat-icon>send</mat-icon>
                     </button>
-
-                    
                 </mat-card-footer>
                 <mat-card-footer *ngIf="isSendingMessage">
                     <!-- show progress of sending message -->
-                    <mat-progress-bar
-                    mode="indeterminate"
-                    ></mat-progress-bar>
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                 </mat-card-footer>
 
                 <!-- <mat-card-actions></mat-card-actions> -->

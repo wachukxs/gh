@@ -44,10 +44,6 @@ mat-radio-button > .mdc-form-field > label {
     display: block;
 }
 
-.d-flex {
-    display: flex;
-}
-
 .d-grid {
     display: grid;
 }
