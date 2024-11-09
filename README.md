@@ -1,5 +1,7 @@
 # Current New corpers.online front-end
 
+> https://m1.material.io/material-design/introduction.html
+
 ## TODOs... well, a lot.
 
 ```
@@ -82,6 +84,8 @@ Add notifications for messages. start with emails, then web notifications later.
 * For our image sliders
     * [keen-slider](https://keen-slider.io/examples)
     * [SwiperJS](https://swiperjs.com/angular) - we're going with this.
+* Tailwind.
+    * Added by https://tailwindcss.com/docs/guides/angular
 
 ## Notes
 * This [commit](https://github.com/wachukxs/gh/commit/f435a1222fe57cce3413661fe288754ba9b4dfda) contains designs for [long-house] design.

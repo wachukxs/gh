@@ -2,6 +2,11 @@
 
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+/* https://stackoverflow.com/a/73204599/9259701 */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 html, body {
     height: 100%;
 }
