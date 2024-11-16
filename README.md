@@ -1,5 +1,14 @@
 # Current New corpers.online front-end
 
+Search should have filter; search by state and lga, and even price, etc.
+Anyone should be able to search.
+
+Add option to view posts in other states. Same for search.
+
+Unique nicknames. Option to add WhatsApp number.
+
+Add notifications for messages. start with emails, then web notifications later.
+
 > https://m1.material.io/material-design/introduction.html
 
 ## TODOs... well, a lot.
@@ -29,6 +38,9 @@ Add option to view posts in other states. Same for search.
 Unique nicknames. Option to add WhatsApp number.
 
 Add notifications for messages. start with emails, then web notifications later.
+
+Do we need mat-* classes?
+  Use `mat-elevation-z4` and see the list of other available mat classes? So there's consistency of usage across our app.
 
 ```
 - When you post an item, it doesn't go to the top of the post lists.

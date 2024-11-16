@@ -87,6 +87,7 @@ export interface PpaModel {
     created_at: string
     updated_at: string
     Locations?: Array<LocationModel>
+    Reviews?: Array<ReviewModel>
 }
 
 export interface LocationModel {
@@ -102,6 +103,17 @@ export interface LocationModel {
     created_at: string
     updated_at: string
     CorpMemberId: null | number
+}
+
+export interface ReviewModel {
+    id: number
+    ppa_id: number
+    // accommodation_id: null | number, will implement
+    comment: string
+    star_rating: number
+    corp_member_id: null | number
+    created_at: string
+    updated_at: string
 }
 
 export interface MediaType {
