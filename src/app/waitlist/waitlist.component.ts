@@ -40,6 +40,7 @@ export class WaitlistComponent implements OnInit {
     comment: [''],
   });
 
+  // TODO: this will be repeated in multiple places, how can we make it in only one place.
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
