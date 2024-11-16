@@ -229,10 +229,10 @@ export class FeedComponent implements OnInit {
 
     feedViewControl = new FormControl<'sale' | 'accommodation'>('sale')
 
-    protected get currentViewing(): 'sale items' | 'accommodations' {
+    protected get currentViewing(): 'Sale items' | 'Accommodations' {
         return this.feedViewControl.value === 'sale'
-            ? 'sale items'
-            : 'accommodations'
+            ? 'Sale items'
+            : 'Accommodations'
     }
 
     onSwipeRight(event: any): void {}
