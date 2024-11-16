@@ -36,53 +36,223 @@
         </mat-toolbar-row>
     </mat-toolbar>
 
-    <section class="flex search-bar-section">
-        <mat-form-field class="form-field-full-width">
-            <mat-label>Search items for sale</mat-label>
-            <input
-                [formControl]="searchInput"
-                matInput
-                placeholder="St. Mary's School"
-                autocomplete="off"
-            />
-            <button
-                type="button"
-                *ngIf="searchInput.value"
-                matSuffix
-                mat-icon-button
-                aria-label="Clear search text"
-                (click)="clearSearchInput()"
-            >
-                <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
+    <section class="flex justify-center mt-2.5" search-bar-section>
+        <form
+            [formGroup]="searchForm"
+            class="w-full px-4 md:px-0 max-w-3xl flex flex-col md:flex-row md:gap-2.5"
+        >
+            <mat-form-field class="flex-auto">
+                <mat-label>Search names, location, or keywords</mat-label>
+                <input
+                    formControlName="searchText"
+                    matInput
+                    placeholder="St. Mary's School"
+                    autocomplete="off"
+                    spellcheck="true"
+                />
+                <button
+                    type="button"
+                    *ngIf="searchForm?.get(['searchText'])?.value"
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear search text"
+                    (click)="clearSearchInput()"
+                >
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
 
-        <!-- Don't need button click. -->
-        <!-- <button type="button" mat-icon-button color="secondary" aria-label="Search button">
-            <mat-icon>search</mat-icon>
-        </button> -->
+            <mat-form-field class="flex-1" appearance="fill">
+                <mat-label>Serving state</mat-label>
+                <input
+                    type="text"
+                    placeholder="Delta"
+                    aria-label="Serving state"
+                    matInput
+                    formControlName="serving_state"
+                    [matAutocomplete]="auto"
+                />
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option value="All states">All states</mat-option>
+                    <mat-divider></mat-divider>
+                    <mat-option
+                        *ngFor="let option of filteredOptions | async"
+                        [value]="option"
+                    >
+                        {{ option }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error
+                    *ngIf="searchForm?.get(['state'])?.hasError('required')"
+                >
+                    State is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Don't need button click. -->
+            <!-- <button type="button" mat-icon-button color="secondary" aria-label="Search button">
+                <mat-icon>search</mat-icon>
+            </button> -->
+        </form>
     </section>
 
-    <section>
-        <ng-container *ngIf="isFetchingResults; else doneLoading">
-            <div class="centered">
-                <mat-spinner diameter="55" color="warn"></mat-spinner>
-            </div>
-        </ng-container>
-        <ng-template #doneLoading>
-            <div
-                class="results-list"
-                *ngIf="results.length > 0; else noResults"
-            >
-                <app-feed-content
-                    *ngFor="let result of results"
-                    [post]="result"
+    <section search-result-section>
+        <!-- loader is absolutely positioned, middle of search result section -->
+        <div *ngIf="isFetchingResults" class="absolute left-1/2 top-1/2 z-10">
+            <mat-spinner diameter="55" color="warn"></mat-spinner>
+        </div>
+
+        <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+            <mat-tab aria-label="Items for sale">
+                <ng-template mat-tab-label>
+                    <span
+                        *ngIf="
+                            !callerService.isSmallScreen() ||
+                            selectedTabIndex === 0
+                        "
+                        >Sales</span
+                    >
+                    <mat-icon
+                        class="ml-0.5"
+                        fontIcon="sell"
+                        aria-label="Sell icon"
+                    ></mat-icon>
+                </ng-template>
+
+                <div
+                    results-list
+                    sales-results
+                    class="results-list"
+                    *ngIf="results.sales.length > 0; else noResults"
                 >
-                </app-feed-content>
-            </div>
-            <ng-template #noResults>
-                <p class="no-results">No results... yet.</p>
-            </ng-template>
-        </ng-template>
+                    <app-feed-content
+                        *ngFor="let result of results.sales"
+                        [post]="result"
+                    >
+                    </app-feed-content>
+                </div>
+                <ng-template #noResults>
+                    <!-- <p class="no-results">No results... yet.</p> -->
+                </ng-template>
+            </mat-tab>
+
+            <mat-tab *ngIf="false" aria-label="Accommodations for rent">
+                <ng-template mat-tab-label>
+                    <!-- When we launch, update the selectedIndex check -->
+                    <span
+                        *ngIf="
+                            !callerService.isSmallScreen() ||
+                            selectedTabIndex === 1
+                        "
+                        >Accommodation</span
+                    >
+                    <mat-icon
+                        class="ml-0.5"
+                        fontIcon="apartment"
+                        aria-label="apartment icon"
+                    ></mat-icon>
+                </ng-template>
+
+                <div results-list accommodation-results>
+                    <p class="text-center p-5">Coming soon</p>
+                </div>
+            </mat-tab>
+
+            <mat-tab aria-label="Corp members">
+                <ng-template mat-tab-label>
+                    <span
+                        *ngIf="
+                            !callerService.isSmallScreen() ||
+                            selectedTabIndex === 1
+                        "
+                        >Corp members</span
+                    >
+                    <mat-icon
+                        class="ml-0.5"
+                        fontIcon="groups"
+                        aria-label="people icon"
+                    ></mat-icon>
+                </ng-template>
+
+                <div
+                    results-list
+                    corp-members-results
+                    class="flex flex-wrap justify-evenly items-center gap-5 p-5 overflow-auto"
+                >
+                    <mat-card
+                        *ngFor="let corp_member of results.corp_members"
+                        class="max-w-80"
+                    >
+                        <mat-card-header>
+                            <img
+                                mat-card-avatar
+                                title="PfP"
+                                src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+                                class="example-header-image"
+                            />
+                            <mat-card-title>{{
+                                corp_member?.nickname || corp_member?.first_name
+                            }}</mat-card-title>
+                            <mat-card-subtitle
+                                >Joined
+                                {{ corp_member?._age }}</mat-card-subtitle
+                            >
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>
+                                {{ corp_member.bio }}
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-tab>
+
+            <mat-tab aria-label="PPAs">
+                <ng-template mat-tab-label>
+                    <span
+                        *ngIf="
+                            !callerService.isSmallScreen() ||
+                            selectedTabIndex === 2
+                        "
+                        >PPAs</span
+                    >
+                    <mat-icon
+                        class="ml-0.5"
+                        fontIcon="home_work"
+                        aria-label="PPAs icon"
+                    ></mat-icon>
+                </ng-template>
+
+                <div
+                    results-list
+                    ppas-results
+                    class="flex flex-wrap justify-evenly items-center gap-5 p-5 overflow-auto"
+                >
+                    <mat-card *ngFor="let ppa of results.ppas" class="max-w-80">
+                        <mat-card-header class="mb-2">
+                            <mat-card-title>
+                                {{ ppa.name }}
+                            </mat-card-title>
+                            <mat-card-subtitle>
+                                {{ ppa.type_of_ppa }}
+                                &middot;
+                                <span>
+                                    {{ ppa.Locations?.length }} location{{ppa.Locations?.length > 1 ? 's' : ''}}
+                                </span>
+                                &middot;
+                                <span> {{ ppa.Reviews?.length }} review{{ppa.Reviews?.length > 1 ? 's' : ''}}</span>
+                            </mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-actions align="end">
+                            <button type="button" mat-button (click)="leaveReview(ppa)">
+                                Leave review
+                            </button>
+                            <button type="button" mat-button color="primary">More</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
     </section>
 </div>
