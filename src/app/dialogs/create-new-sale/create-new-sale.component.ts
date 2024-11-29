@@ -35,9 +35,12 @@ export class CreateNewSaleComponent implements OnInit, AfterViewInit {
 
     saleImagesPreview: Array<ImagePreview> = []
 
+    /**
+     * TODO: add validation to all input types
+     */
     saleFormGroup: FormGroup = new FormGroup({
-        price: new FormControl('', [Validators.required, Validators.min(1)]), // TODO: min should be 1
-        minimum_price: new FormControl(''),
+        price: new FormControl('', [Validators.required, Validators.min(1), Validators.pattern(/\d+/)]), // TODO: min should be 1
+        minimum_price: new FormControl('', [Validators.pattern(/\d+/)]),
         is_item_negotiable: new FormControl(false),
         text: new FormControl(''),
         item_name: new FormControl('', [
