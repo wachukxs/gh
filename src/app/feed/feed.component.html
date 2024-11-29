@@ -132,10 +132,13 @@
 
     <!-- Add Content Here -->
 
-    <div class="new-scroller">
+    <div *ngIf="feedData?.length; else noFeed" class="new-scroller">
       <app-feed-content *ngFor="let feed of feedData" [post]="feed">
       </app-feed-content>
     </div>
+    <ng-template #noFeed>
+      <p class="text-center pt-[300px]">No post yet.</p>
+    </ng-template>
 
     <!-- <cdk-virtual-scroll-viewport itemSize="625" class="scroller" orientation="vertical">
 
