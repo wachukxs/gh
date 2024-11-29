@@ -3,8 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { CallerService } from '../services/caller.service'
 import { MatDialog } from '@angular/material/dialog'
 import { HttpResponse, HttpStatusCode } from '@angular/common/http'
-import { debounceTime, filter, map, startWith } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators'
+import { Observable, of } from 'rxjs'
 import { LeaveReviewComponent } from '../dialogs/leave-review/leave-review.component'
 import { PpaModel } from '../ngrx-store/app.state'
 
@@ -14,17 +14,18 @@ import { PpaModel } from '../ngrx-store/app.state'
     styleUrls: ['./search-page.component.css'],
 })
 export class SearchPageComponent implements OnInit {
-    results: {
-        sales: Array<any>,
-        corp_members: Array<any>,
-        accommodations: Array<any>
-        ppas: Array<any>
-    } = {
+    initialResults = {
         sales: [],
         corp_members: [],
         ppas: [],
         accommodations: []
     }
+    results: {
+        sales: Array<any>,
+        corp_members: Array<any>,
+        accommodations: Array<any>
+        ppas: Array<any>
+    } = this.initialResults
 
     /* The currently selected tab index of search results */
     selectedTabIndex = 0
@@ -54,35 +55,39 @@ export class SearchPageComponent implements OnInit {
             },
         })
 
-        this.searchForm.get('searchText')?.valueChanges.subscribe((value: string) => {
-            // call our api with debounce
-            console.log('searching...', value)
-
-            this.callerService.search({ searchText: value }).pipe(
-                filter((v) => !!v),
-                debounceTime(500)
-            ).subscribe({
-                next: (res: HttpResponse<any>) => {
-                    console.log('done searching', res)
-                    if (res.status === HttpStatusCode.Ok) {
-                        this.results = res.body?.data
-                    }
-                },
-                error: (err) => {
-                    console.log('ERR searching', err)
-                },
+        this.searchForm?.valueChanges
+        .pipe(
+            debounceTime(500), // Wait 300ms after the user stops typing
+            filter((value) => value?.searchText || value?.state),
+            distinctUntilChanged(), // Only emit if the current value is different than the last
+            switchMap((value) => {
+                console.log('searching...', value)
+                
+                return this.callerService.search(value)
+                
             })
+        )
+        .subscribe({
+            next: (res: HttpResponse<any>) => {
+                console.log('done searching', res)
+                if (res.status === HttpStatusCode.Ok) {
+                    this.results = res.body
+                }
+            },
+            error: (err) => {
+                console.log('ERR searching', err)
+            },
         })
 
-        this.filteredOptions = this.searchForm.get('state')?.valueChanges.pipe(
+        this.filteredOptions = this.searchForm?.get('state')?.valueChanges.pipe(
             startWith(''),
             map(value => this._filter(value || '')),
         );
     }
 
     searchForm: FormGroup = new FormGroup({
-        searchText: new FormControl(''),
-        state: new FormControl('All states'),
+        searchText: new FormControl('', []),
+        state: new FormControl('', []),
     });
 
     private _filter(value: string): string[] {
@@ -92,7 +97,7 @@ export class SearchPageComponent implements OnInit {
     }
 
     clearSearchInput() {
-        this.searchForm.get('searchText')?.setValue('')
+        this.searchForm?.get('searchText')?.setValue('')
     }
 
     menuState = ''

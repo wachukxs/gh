@@ -69,11 +69,11 @@
                     placeholder="Delta"
                     aria-label="Serving state"
                     matInput
-                    formControlName="serving_state"
+                    formControlName="state"
                     [matAutocomplete]="auto"
                 />
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                    <mat-option value="All states">All states</mat-option>
+                    <mat-option value="">All states</mat-option>
                     <mat-divider></mat-divider>
                     <mat-option
                         *ngFor="let option of filteredOptions | async"
@@ -123,10 +123,10 @@
                     results-list
                     sales-results
                     class="results-list"
-                    *ngIf="results.sales.length > 0; else noResults"
+                    *ngIf="results?.sales && results?.sales?.length; else noResults"
                 >
                     <app-feed-content
-                        *ngFor="let result of results.sales"
+                        *ngFor="let result of results?.sales"
                         [post]="result"
                     >
                     </app-feed-content>
@@ -180,8 +180,8 @@
                     class="flex flex-wrap justify-evenly items-center gap-5 p-5 overflow-auto"
                 >
                     <mat-card
-                        *ngFor="let corp_member of results.corp_members"
-                        class="max-w-80"
+                        *ngFor="let corp_member of results?.corp_members"
+                        class="min-w-[300px]"
                     >
                         <mat-card-header>
                             <img
@@ -228,7 +228,7 @@
                     ppas-results
                     class="flex flex-wrap justify-evenly items-center gap-5 p-5 overflow-auto"
                 >
-                    <mat-card *ngFor="let ppa of results.ppas" class="max-w-80">
+                    <mat-card *ngFor="let ppa of results?.ppas" class="min-w-[300px]">
                         <mat-card-header class="mb-2">
                             <mat-card-title>
                                 {{ ppa.name }}
