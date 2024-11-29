@@ -230,6 +230,6 @@ const testData = [{}, {}, {}, {}].fill(
 
 export const initialState: AppState = {
     corper: initialCorpMemberState,
-    feed: testData ?? [],
+    feed: [], // testData ?? []
     messages: new Map(),
 }
