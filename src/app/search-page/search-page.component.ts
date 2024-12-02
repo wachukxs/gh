@@ -58,11 +58,12 @@ export class SearchPageComponent implements OnInit {
         this.searchForm?.valueChanges
         .pipe(
             debounceTime(500), // Wait 300ms after the user stops typing
-            filter((value) => value?.searchText || value?.state),
+            // filter((value) => value?.searchText || value?.state),
             distinctUntilChanged(), // Only emit if the current value is different than the last
-            switchMap((value) => {
+            switchMap((value) => { // Cancels the previous API call if a new value is emitted.
                 console.log('searching...', value)
                 
+                // TODO: if there's no searchText, return 20 most recent/most searched items?
                 return this.callerService.search(value)
                 
             })
@@ -75,6 +76,9 @@ export class SearchPageComponent implements OnInit {
                 }
             },
             error: (err) => {
+                /**
+                 * BUG: after a server error, subsequent searches don't work
+                 */
                 console.log('ERR searching', err)
             },
         })

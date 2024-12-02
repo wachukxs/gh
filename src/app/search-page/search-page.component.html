@@ -116,6 +116,8 @@
                         class="ml-0.5"
                         fontIcon="sell"
                         aria-label="Sell icon"
+                        [matBadge]="results?.sales?.length"
+                        matBadgeOverlap="false"
                     ></mat-icon>
                 </ng-template>
 
@@ -150,6 +152,8 @@
                         class="ml-0.5"
                         fontIcon="apartment"
                         aria-label="apartment icon"
+                        [matBadge]="results?.accommodations?.length"
+                        matBadgeOverlap="false"
                     ></mat-icon>
                 </ng-template>
 
@@ -171,6 +175,8 @@
                         class="ml-0.5"
                         fontIcon="groups"
                         aria-label="people icon"
+                        [matBadge]="results?.corp_members?.length"
+                        matBadgeOverlap="false"
                     ></mat-icon>
                 </ng-template>
 
@@ -181,7 +187,7 @@
                 >
                     <mat-card
                         *ngFor="let corp_member of results?.corp_members"
-                        class="min-w-[300px]"
+                        class="max-w-[300px]"
                     >
                         <mat-card-header>
                             <img
@@ -220,6 +226,8 @@
                         class="ml-0.5"
                         fontIcon="home_work"
                         aria-label="PPAs icon"
+                        [matBadge]="results?.ppas?.length"
+                        matBadgeOverlap="false"
                     ></mat-icon>
                 </ng-template>
 
@@ -228,19 +236,17 @@
                     ppas-results
                     class="flex flex-wrap justify-evenly items-center gap-5 p-5 overflow-auto"
                 >
-                    <mat-card *ngFor="let ppa of results?.ppas" class="min-w-[300px]">
+                    <mat-card *ngFor="let ppa of results?.ppas" class="max-w-[300px]">
                         <mat-card-header class="mb-2">
                             <mat-card-title>
                                 {{ ppa.name }}
                             </mat-card-title>
                             <mat-card-subtitle>
                                 {{ ppa.type_of_ppa }}
-                                &middot;
-                                <span>
-                                    {{ ppa.Locations?.length }} location{{ppa.Locations?.length > 1 ? 's' : ''}}
+                                <span *ngIf="ppa.Locations?.length">
+                                    &middot; {{ ppa.Locations?.length }} location{{ppa.Locations?.length > 1 ? 's' : ''}}
                                 </span>
-                                &middot;
-                                <span> {{ ppa.Reviews?.length }} review{{ppa.Reviews?.length > 1 ? 's' : ''}}</span>
+                                <span *ngIf="ppa.Reviews?.length">&middot; {{ ppa.Reviews?.length }} review{{ppa.Reviews?.length > 1 ? 's' : ''}}</span>
                             </mat-card-subtitle>
                         </mat-card-header>
                         <mat-divider></mat-divider>
