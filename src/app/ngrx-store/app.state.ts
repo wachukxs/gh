@@ -110,7 +110,7 @@ export interface ReviewModel {
     ppa_id: number
     // accommodation_id: null | number, will implement
     comment: string
-    star_rating: number
+    star_rating: number | null
     corp_member_id: null | number
     created_at: string
     updated_at: string

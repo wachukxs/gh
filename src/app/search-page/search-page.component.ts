@@ -7,6 +7,7 @@ import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap }
 import { Observable, of } from 'rxjs'
 import { LeaveReviewComponent } from '../dialogs/leave-review/leave-review.component'
 import { PpaModel } from '../ngrx-store/app.state'
+import { MoreViewSearchComponent } from '../dialogs/more-view-search/more-view-search.component'
 
 @Component({
     selector: 'app-search-page',
@@ -43,7 +44,7 @@ export class SearchPageComponent implements OnInit {
         this.isFetchingResults = true
         this.callerService.getAllItems().subscribe({
             next: (res: HttpResponse<any>) => {
-                console.log('items data', res)
+                // console.log('items data', res)
                 if (res.status === HttpStatusCode.Ok) {
                     this.results = res.body
                 } // TODO: need else block?
@@ -159,5 +160,28 @@ export class SearchPageComponent implements OnInit {
                 console.log(`exit confirmation Dialog error:`, err)
             },
         )
+    }
+
+    openMorePpaDetails(ppa: PpaModel | any) {
+        try {
+            const dialogRef = this.dialog.open(MoreViewSearchComponent, {
+                maxWidth: '100vw',
+                maxHeight: '100vh',
+                height: '100%',
+                width: '100%',
+                data: {
+                    ppa
+                },
+                ariaLabel: 'Dialog to show more details about a PPA',
+                role: 'dialog',
+            })
+
+            /* record that this house was seen, probably record how long it was seen. tell the agent who posted it? */
+            dialogRef.afterClosed().subscribe((result) => {
+                console.log('The view more dialog was closed', result)
+            })
+        } catch (error) {
+            console.log('err opening dialog to view more ppa details', error)
+        }
     }
 }

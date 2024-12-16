@@ -4,7 +4,7 @@
         <section>
             <mat-card-subtitle>
                 <!-- or [dateTime]="..." -->
-                <time [attr.datetime]="sale.created_at" >{{sale._age}}</time>, by {{ salePosterDisplayName }}</mat-card-subtitle>
+                <time [attr.datetime]="sale.created_at" >{{sale._age}}</time>{{ salePosterDisplayName }}</mat-card-subtitle>
             <mat-card-title>{{sale.item_name}}</mat-card-title>
         </section>
         <section>
@@ -54,7 +54,7 @@
                 <!-- TODO: skip if the current user posted this item -->
                 <button type="button" (click)="chatWithSalePoster()" mat-menu-item [disabled]="false">
                     <mat-icon>chat</mat-icon>
-                    <span>Chat {{salePosterDisplayName}}</span>
+                    <span>Chat {{salePosterChatName}}</span>
                 </button>
 
                 <!-- TODO: uncomment this when we're ready for this feature. -->

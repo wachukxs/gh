@@ -60,6 +60,11 @@ export class FeedSaleContentComponent implements AfterContentInit, AfterViewChec
     }
 
     get salePosterDisplayName(): string {
+        const _name = this.sale.CorpMember?.nickname ?? this.sale.CorpMember?.first_name
+        return _name ? ', by ' + _name : ''
+    }
+
+    get salePosterChatName(): string {
         return this.sale.CorpMember?.nickname ?? this.sale.CorpMember?.first_name ?? "seller"
     }
 
