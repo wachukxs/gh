@@ -104,6 +104,9 @@ export class SearchPageComponent implements OnInit {
     clearSearchInput() {
         this.searchForm?.get('searchText')?.setValue('')
     }
+    clearStateInput() {
+        this.searchForm?.get('state')?.setValue('')
+    }
 
     menuState = ''
 

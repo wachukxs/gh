@@ -72,6 +72,16 @@
                     formControlName="state"
                     [matAutocomplete]="auto"
                 />
+                <button
+                    type="button"
+                    *ngIf="searchForm?.get(['state'])?.value"
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear search text"
+                    (click)="clearStateInput()"
+                >
+                    <mat-icon>close</mat-icon>
+                </button>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                     <mat-option value="">All states</mat-option>
                     <mat-divider></mat-divider>
